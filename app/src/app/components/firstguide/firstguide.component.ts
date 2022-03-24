@@ -1,6 +1,6 @@
-import { keyframes } from '@angular/animations';
-import { Component, OnInit } from '@angular/core';
-import { FormBuilder,FormControl,Validators  } from '@angular/forms';
+import { keyframes } from '@angular/animations'
+import { Component, OnInit } from '@angular/core'
+import { FormBuilder,FormControl,Validators  } from '@angular/forms'
 
 @Component({
   selector: 'firstguide',
@@ -9,6 +9,7 @@ import { FormBuilder,FormControl,Validators  } from '@angular/forms';
 })
 export class FirstguideComponent implements OnInit {
   public presentDesc: string
+  public masterNumber: string
   private descArray:Array<string>
   private exceptionDescArray:Array<string>
   private timeout: any
@@ -22,22 +23,26 @@ export class FirstguideComponent implements OnInit {
   constructor(private formBuilder: FormBuilder) { 
     this.descIndex = -1;
     this.descArray = [
-      "안녕? 난 너에게 경제적으로 도움을 주고 싶은 OO(이)야",
+      "안녕? 난 너 용돈벌이 도와주려는 BR(가칭)이야",
       "전화 번호만 알려줄래?",
       "안녕 #1#, 반갑다",
       "아직 개발자가 날 개발 중이야 우리 곧 만나자!"
     ]
     this.exceptionDescArray = [
-      "안녕, 근데 개발자가 아직 널 모르네.. 개발자랑 일단 친해지고 다시 만나자!",
+      "안녕, 근데 개발자가 아직 널 모르네.. 걔랑 일단 친해지고 다시 만나자!",
+      "그거 니 핸드폰 번호 아니잖아 말 안듣는 친구네, 잘가!",
+      "주인님 빨리 개발합시다"
     ]
+    this.masterNumber = "1053690469"
     this.registeredNumber = {
-      "1053690469": "승현",
       "1047965159": "상혁",
       "1072795036": "태웅",
       "1073737185": "정환",
       "1021709851": "지환",
       "1026232011": "진수",
       "1092471544": "은비",
+      "1052618561": "아부지",
+      "1030731999": "엄마",
       // "1051218283": "수연",
       // "1094122794": "보영",
     }
@@ -63,26 +68,34 @@ export class FirstguideComponent implements OnInit {
     if(this.descIndex === 1) {clearInterval(this.interval); this.interval = undefined}
     
     } else if(index > 3){
-      console.log("setAutoGuide called index > 3:: " + index);
+      console.log("setAutoGuide called index > 3:: " + index)
       clearInterval(this.interval)
       clearTimeout(this.timeout)
     }
   }
 
   onSubmit(value: any): void {
-    console.warn('input::: ' + JSON.stringify(this.numform.value));
+    console.warn('input::: ' + JSON.stringify(this.numform.value))
     this.checkFriends(value)
   }
 
   private checkFriends(value: any) {
-    console.log("checkFriends called :: " + value.number);
+    let flag = false;
+    console.log("checkFriends called :: " + value.number)
 
     for (let key in this.registeredNumber) {
       if(key === String(value.number)) {
-        console.log("MATCH!! :: " + this.registeredNumber[key]);
+        console.log("MATCH!! :: " + this.registeredNumber[key])
+        flag = true
         this.descArray[2] = this.descArray[2].replace('#1#', this.registeredNumber[key])
         this.setAutoGuide(this.descIndex+1)
       }
+  }
+  if(!flag) {
+    this.descIndex = 5
+    if(String(value.number) === this.masterNumber) {this.presentDesc = this.exceptionDescArray[2]; return}
+    if(String(value.number).length <= 9 || String(value.number).length > 10 || (String(value.number)[0] !== '0' && String(value.number)[0] !== '1')) this.presentDesc = this.exceptionDescArray[1]
+    else this.presentDesc = this.exceptionDescArray[0]
   }
   }
 }
