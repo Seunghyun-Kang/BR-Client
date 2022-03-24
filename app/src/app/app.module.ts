@@ -7,17 +7,22 @@ import { HeaderComponent } from './components/header/header.component';
 
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { IntroComponent } from './components/intro/intro.component';
+import { FirstguideComponent } from './components/firstguide/firstguide.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
     AppComponent,
     HeaderComponent,
-    IntroComponent
+    IntroComponent,
+    FirstguideComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     MatToolbarModule,
+    FormsModule,
+    ReactiveFormsModule
   ],
   providers: [HTMLCanvasElement],
   bootstrap: [AppComponent]
