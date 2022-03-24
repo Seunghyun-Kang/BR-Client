@@ -1,0 +1,23 @@
+.guide_container {
+    position: fixed;
+    left: 50%;
+    top:50%;
+    transform: translate(-50%, 0);
+    z-index: 100;
+    .desc{
+        color: blanchedalmond;
+        font-family: poorstory;
+        font-size: 20px;
+        word-break: break-all;
+        text-align: -webkit-center;
+    }
+
+    .form {
+        
+    display: inline-flex;
+.submit-button {
+    
+    min-width: 45px;
+}
+    }
+}
