@@ -23,7 +23,7 @@ export class FirstguideComponent implements OnInit {
   constructor(private formBuilder: FormBuilder) { 
     this.descIndex = -1;
     this.descArray = [
-      "안녕? 난 너 용돈벌이 도와주려는 BR(가칭)이야",
+      "안녕? 난 너 용돈벌이 도와주려는 OO 이야",
       "전화 번호만 알려줄래?",
       "안녕 #1#, 반갑다",
       "아직 개발자가 날 개발 중이야 우리 곧 만나자!"
