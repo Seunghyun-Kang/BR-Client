@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-intro',
@@ -25,18 +25,18 @@ export class IntroComponent implements OnInit {
     let starfield: StarField = new StarField(howManyStars, this.canvas);
     starfield.startRenderLoop();
     
-    this.UIToggleButton.addEventListener('click', (e: any) => {
-      starfield.showMouseControls = !starfield.showMouseControls;
+    // this.UIToggleButton.addEventListener('click', (e: any) => {
+    //   starfield.showMouseControls = !starfield.showMouseControls;
   
-      if (starfield.showMouseControls) {
-        starfield.mouseControlAlpha = 0.3;
-        this.UIToggleButton.classList.remove('off');
-      } else {
-        this.UIToggleButton.classList.add('off');
-      }
+    //   if (starfield.showMouseControls) {
+    //     starfield.mouseControlAlpha = 0.3;
+    //     this.UIToggleButton.classList.remove('off');
+    //   } else {
+    //     this.UIToggleButton.classList.add('off');
+    //   }
       
-      e.preventDefault();
-    }, true);
+    //   e.preventDefault();
+    // }, true);
   }
 }
   /*
@@ -201,8 +201,8 @@ class Star {
     * uncomment the snippet below to make 'em wiggle
     */
       
-    // let movementFuzz = Math.sin(deltaTime) * randRange(-50, 50);
-    // this.y -= movementFuzz;
+    let movementFuzz = Math.sin(deltaTime) * randRange(-50, 50);
+    this.y -= movementFuzz;
 
     // move forward, obvi
     this.z -= (defaultSpeed * zSpeed * deltaTime);
@@ -484,8 +484,9 @@ class StarField {
   
   setCanvasSize() {
     // fit canvas to parent
-    // this.canvas.width = this.canvas.offsetWidth;
-    // this.canvas.height = this.canvas.offsetHeight;
+
+    this.canvas.width = this.canvas.offsetWidth;
+    this.canvas.height = this.canvas.offsetHeight;
 
     let width: number = this.canvas.offsetWidth,
         height: number = this.canvas.offsetHeight,
