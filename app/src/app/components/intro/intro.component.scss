@@ -1,0 +1,59 @@
+html, body {
+    width: 100%;
+    height: 100%;
+    overflow-x: hidden;
+    background: black;
+    user-select: none;
+  }
+  
+  #canvas {
+    position: inherit;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    background: rgb(5, 0, 20);
+    user-select: none;
+  }
+  
+  // #mouse-control-control {
+  //   position: fixed;
+  //   left: 50px;
+  //   bottom: 50px;
+  //   background: transparent;
+  //   color: rgba(255, 255, 255, 0.6);
+  //   padding: 5px 10px;
+  //   border: solid 2px;
+  //   border-radius: 6px;
+  //   outline: none;
+  //   opacity: 1;
+  //   transition: transform 0.1s cubic-bezier(0.09,0.95,0.14,1.25), opacity 0.1s cubic-bezier(0.09,0.95,0.14,1.25);
+    
+  //   &:before {
+  //     content: attr(data-on);
+  //   }
+    
+  //   &.off {
+  //     opacity: 0.3;
+  //     transform: translate(-2px, 2px);
+  //     &:before {
+  //       content: attr(data-off);
+  //     }
+  //   }
+    
+  //   &:hover {
+  //     color: rgba(225, 205, 255, 0.6);
+  //   }
+  // }
+  
+  
+  //   button {
+  //     font-size: 1em;
+  //     @media only screen 
+  //     and (min-device-width : 375px) 
+  //     and (max-device-width : 812px) {
+  //       font-size: 2em;
+  //     }
+  // }
+  
+  
