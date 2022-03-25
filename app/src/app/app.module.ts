@@ -3,19 +3,21 @@ import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { HeaderComponent } from './components/header/header.component';
+import { HeaderComponent } from './modules/header/header.component';
 
 import { MatToolbarModule } from '@angular/material/toolbar';
-import { IntroComponent } from './components/intro/intro.component';
-import { FirstguideComponent } from './components/firstguide/firstguide.component';
+import { IntroComponent } from './modules/intro/intro.component';
+import { FirstguideComponent } from './modules/firstguide/firstguide.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { DashboardComponent } from './components/dashboard/dashboard.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     HeaderComponent,
     IntroComponent,
-    FirstguideComponent
+    FirstguideComponent,
+    DashboardComponent
   ],
   imports: [
     BrowserModule,
