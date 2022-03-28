@@ -14,6 +14,11 @@ import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { StockdetailComponent } from './components/stockdetail/stockdetail.component';
 import { HttpClientModule } from '@angular/common/http';
 
+import * as PlotlyJS from 'plotly.js-dist-min';
+import { PlotlyModule } from 'angular-plotly.js';
+
+PlotlyModule.plotlyjs = PlotlyJS;
+
 const appRoutes: Routes = [
   { path: 'dashboard', component: DashboardComponent },
   { path: 'stockdetail', component: StockdetailComponent },
@@ -40,6 +45,7 @@ const appRoutes: Routes = [
     FormsModule,
     ReactiveFormsModule,
     HttpClientModule,
+    PlotlyModule
   ],
   providers: [HTMLCanvasElement],
   bootstrap: [AppComponent]

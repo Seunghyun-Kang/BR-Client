@@ -1,1 +1,10 @@
-<p>stockdetail works!</p>
+
+<div style="height: 100%;">
+    <plotly-plot 
+    [data]="chartSettings.data" 
+    [layout]="chartSettings.layout" 
+    [config]="chartSettings.config" 
+    #chart 
+    [useResizeHandler]="true" 
+    [style]="{position: 'fix', width: '100%', height: '100%'}"></plotly-plot>
+</div>
