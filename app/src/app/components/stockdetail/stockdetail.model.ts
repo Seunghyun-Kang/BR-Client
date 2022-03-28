@@ -9,9 +9,9 @@ export class TradeViewSettings {
       {
         x: [] as any,
         close: [] as any,
-        decreasing: { line: { color: "#ef5350" } },
+        decreasing: { line: { color: "#26a69a" } },
         high: [] as any,
-        increasing: { line: { color: "#26a69a" } },
+        increasing: { line: { color: "#ef5350" } },
         line: { color: "rgba(31,119,180,1)" },
         low: [] as any,
         open: [] as any,

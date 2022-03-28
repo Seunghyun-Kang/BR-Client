@@ -54,7 +54,7 @@ export class StockdetailComponent implements OnInit {
     this.requestService.getPrices(this.code) 
     .subscribe({
         next: (v) => {
-          this.rawData = Object(v.body)
+          this.rawData = JSON.parse(Object(v.body))
           this.setChartView(this.rawData)
         },
         error: (e) => console.log("ERROR OCCURED :: " + JSON.stringify(e))
