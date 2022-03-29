@@ -1,9 +1,10 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { RequestService } from 'src/app/services/request.service';
-
+import { Location } from '@angular/common';
 import { PlotlyModule } from "angular-plotly.js";
 import { TradeViewSettings } from './stockdetail.model';
+import { PagestatusService } from 'src/app/services/pagestatus.service';
 
 export interface priceData {
   code: string,
@@ -29,20 +30,24 @@ export class StockdetailComponent implements OnInit {
   public code: string
   public companyName: string
   public rawData: priceData[]
+  public getData: boolean = false
   public chartSettings = TradeViewSettings.settings;
   MILLISEC = 2629800000
   volumeColors = [] as any;
 
   constructor(
     private requestService: RequestService,
-    private route: ActivatedRoute) { 
+    private statusService: PagestatusService,
+    private route: ActivatedRoute,
+    private location: Location,
+    private router:Router) { 
       this.route.queryParams.subscribe(params => {
           this.code = params['code'],
           this.companyName = params['companyName']
       });
 
-      console.log('StockdetailComponent Constructor, code is ::' + this.code);
-  }
+      this.statusService.setStatus("loading-forward") 
+    }
 
   ngOnInit(): void {
     // this.requestService.getCompanyName(this.code) 
@@ -55,12 +60,17 @@ export class StockdetailComponent implements OnInit {
     .subscribe({
         next: (v) => {
           this.rawData = JSON.parse(Object(v.body))
+          
+          setTimeout(() => {
+          this.statusService.setStatus("normal")
           this.setChartView(this.rawData)
+          this.getData = true
+          }, 1000);
         },
         error: (e) => console.log("ERROR OCCURED :: " + JSON.stringify(e))
       });
   }
-
+  
   setChartView(payload: priceData[]) {
     let startDate = new Date(payload[0].date).getTime()
     let endDate = new Date(payload[payload.length-1].date).getTime()

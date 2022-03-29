@@ -1,0 +1,17 @@
+::ng-deep .js-plotly-plot .plotly .main-svg {
+    background: transparent !important;
+}
+.dashboard {
+    display: flex;
+    flex-direction: column;
+
+    .actionbar {
+        background-color: black;
+        flex: 1;
+        z-index: 2;
+    }
+    .chart-container {
+        flex: 2; 
+        z-index: 1;
+    }
+}

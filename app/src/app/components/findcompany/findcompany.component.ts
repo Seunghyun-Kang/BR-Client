@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { DataService } from 'src/app/services/data.service';
 import { PagestatusService } from 'src/app/services/pagestatus.service';
 import { RequestService } from 'src/app/services/request.service';
@@ -21,19 +22,21 @@ export class FindcompanyComponent implements OnInit {
   public getData: boolean = false
   public status = "loading-forward";
 
-  constructor(private service: PagestatusService,
+  constructor(private statusService: PagestatusService,
     private requestService: RequestService,
-    private data: DataService,) {
-      this.service.setStatus("loading-forward") }
+    private dataService: DataService,
+    private router:Router) {
+      this.statusService.setStatus("loading-forward") }
 
   ngOnInit(): void {
     this.requestService.getAllCompanies() 
     .subscribe({
         next: (v) => {
           this.rawData = Object(v.body)
+          this.dataService.setCompanyData(this.rawData)
           console.log(this.rawData)
           setTimeout(() => {
-            this.service.setStatus("normal") 
+            this.statusService.setStatus("normal") 
             this.getData = true
           }, 1000);
         },
@@ -42,6 +45,16 @@ export class FindcompanyComponent implements OnInit {
   }
 
   onSelectedOption(event: any) {
+    console.log(event[0])
+
+    this.rawData.forEach(element => {
+      if(element.company === event[0]){
+        console.log("match company!!!")
+        this.router.navigate(['stockdetail'], { queryParams: { 
+          code: element.code
+         }})
+      }
+    });
     
   }
 
