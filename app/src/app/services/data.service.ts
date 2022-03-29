@@ -1,23 +1,24 @@
 import { Injectable } from '@angular/core';
+import { companyData } from '../components/findcompany/findcompany.component';
 
 @Injectable({
   providedIn: 'root'
 })
 export class DataService {
-  public companyData: Array<any> = []
+  public companyData: Array<companyData> = []
   public pricesData = new Map<any, any>();
   constructor() { 
     console.log("Data service generated");
   }
 
-  setCompanyData(data: any) {
+  setCompanyData(data: companyData[]) {
       console.log("SET COMPANY DATA");
-      this.companyData.push(data)
+      this.companyData = data
   }
 
-  getCompanyData(): any {
+  getCompanyData(): companyData[] {
     console.log("GET COMPANY DATA");
-    console.log( this.companyData);
+    console.log(this.companyData);
    
     return this.companyData
 }
