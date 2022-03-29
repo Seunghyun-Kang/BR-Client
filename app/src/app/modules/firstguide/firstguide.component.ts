@@ -93,12 +93,12 @@ export class FirstguideComponent implements OnInit {
         this.descArray[2] = this.descArray[2].replace('#1#', this.registeredNumber[key])
         this.setAutoGuide(this.descIndex+1)
 
-        this.router.navigate(['loading-forward'])
+        this.router.navigate(['findcompany'])
       }
   }
   if(!flag) {
     this.descIndex = 5
-    if(String(value.number) === this.masterNumber) {this.presentDesc = this.exceptionDescArray[2]; this.router.navigate(['loading-forward'])}
+    if(String(value.number) === this.masterNumber) {this.presentDesc = this.exceptionDescArray[2]; this.router.navigate(['findcompany'])}
     if(String(value.number).length <= 9 || String(value.number).length > 10 || (String(value.number)[0] !== '0' && String(value.number)[0] !== '1')) this.presentDesc = this.exceptionDescArray[1]
     else this.presentDesc = this.exceptionDescArray[0]
   }
