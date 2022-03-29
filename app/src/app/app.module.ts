@@ -16,13 +16,17 @@ import { HttpClientModule } from '@angular/common/http';
 
 import * as PlotlyJS from 'plotly.js-dist-min';
 import { PlotlyModule } from 'angular-plotly.js';
-import { LoadingComponent } from './components/loading/loading.component';
+import { FindcompanyComponent } from './components/findcompany/findcompany.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import {MatAutocompleteModule} from '@angular/material/autocomplete';
+import {MatChipsModule} from '@angular/material/chips';
+import {MatFormFieldModule} from '@angular/material/form-field';
 
 PlotlyModule.plotlyjs = PlotlyJS;
 
 const appRoutes: Routes = [
   { path: 'dashboard', component: DashboardComponent },
-  { path: 'loading-forward', component: LoadingComponent },
+  { path: 'findcompany', component: FindcompanyComponent },
   { path: 'stockdetail', component: StockdetailComponent },
   {path : '', redirectTo : '/dashboard',  pathMatch : 'full'}
 ]
@@ -35,10 +39,14 @@ const appRoutes: Routes = [
     FirstguideComponent,
     DashboardComponent,
     StockdetailComponent,
-    LoadingComponent
+    FindcompanyComponent
   ],
   imports: [
     BrowserModule,
+    BrowserAnimationsModule,
+    MatAutocompleteModule,
+    MatChipsModule, 
+    MatFormFieldModule,
     RouterModule.forRoot(
       appRoutes,
       {enableTracing:false, useHash: true}
