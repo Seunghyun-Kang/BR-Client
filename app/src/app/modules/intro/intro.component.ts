@@ -1,6 +1,5 @@
-import { Component, Input, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
-
+import { Component, Input, OnDestroy, OnInit } from '@angular/core';
+import { PagestatusService } from 'src/app/services/pagestatus.service';
 
 let screenId = ""
 
@@ -10,13 +9,14 @@ let screenId = ""
   styleUrls: ['./intro.component.scss']
 })
 
-export class IntroComponent implements OnInit {
+export class IntroComponent implements OnInit, OnDestroy {
   @Input() screenId: any;
   
   public canvas: HTMLCanvasElement;
   public UIToggleButton: HTMLElement;
-  
-  constructor(private route: ActivatedRoute) {  
+  private starfield: StarField
+
+  constructor(private service: PagestatusService) {  
   }
 
   ngOnInit(): void {
@@ -29,22 +29,20 @@ export class IntroComponent implements OnInit {
   ngAfterViewInit(): void {
     var howManyStars: number = 1000;
     if (IS_MOBILE) howManyStars = 500;
-    
-    let starfield: StarField = new StarField(howManyStars, this.canvas);
-    starfield.startRenderLoop();
-    
-    // this.UIToggleButton.addEventListener('click', (e: any) => {
-    //   starfield.showMouseControls = !starfield.showMouseControls;
-  
-    //   if (starfield.showMouseControls) {
-    //     starfield.mouseControlAlpha = 0.3;
-    //     this.UIToggleButton.classList.remove('off');
-    //   } else {
-    //     this.UIToggleButton.classList.add('off');
-    //   }
-      
-    //   e.preventDefault();
-    // }, true);
+
+    this.service.getStatus().subscribe((value) => {
+      console.log("WEB STATUS CHANGED ::" + value);
+      console.log(this.starfield);
+      screenId = value;
+      this.starfield = new StarField(howManyStars, this.canvas);
+    this.starfield.startRenderLoop();
+    });
+  }
+
+  ngOnDestroy() {
+    console.log("destroy :: " + screenId);
+    this.canvas.removeEventListener('resize', this.starfield.handleResize)
+    this.canvas.removeEventListener('beforeunload', this.starfield.rePopulateStarField)
   }
 }
   /*
@@ -332,7 +330,6 @@ const getPointerInput = (callback: Function, element: HTMLElement , delay: numbe
     // and instead it'll run the latest animation frame
     animFrame = window.requestAnimationFrame(() => {
       let x, y;
-
       // handle mobile first, otherwise desktop/laptop
       if (event.touches) {
         [x, y] = [event.touches[0].clientX, event.touches[0].clientY];
@@ -398,7 +395,7 @@ class StarField {
   private mouseMoving;
   private mouseMoved;
   public mouseControlAlpha;
-  public showMouseControls;
+  public showMouseControls: boolean;
   private pauseAnimation;
   private screen: any;
   private container: any;
@@ -447,14 +444,7 @@ class StarField {
       }
     };
     
-    switch(screenId) {
-      case 'dashboard':
-        getPointerInput(handlePointer, canvas);
-        break;
-      case 'loading-forward':
-        this.zSpeed = 15;
-        this.mouseY = -(canvas.offsetHeight);
-    }
+    
     
     // getPointerInput doesn't control the animation, just passes pointer data to the callback
     // = pointer detector
@@ -463,13 +453,13 @@ class StarField {
     this.mouseMoving = false;
 
     this.mouseControlAlpha = 0.1;
-    this.showMouseControls = true;
     
     this.pauseAnimation = false;
     
     // just the initial render, doesn't start the loop
-    this.render();
-    
+    //this.render();
+    this.applySettings(canvas, handlePointer)
+
     window.addEventListener('resize', () => this.handleResize(), true);
     // helps when you navigate away from the page for a while, prevents stars grouping up into one big wall
     // #fuckthewall lol
@@ -506,6 +496,9 @@ class StarField {
     this.canvas.width = this.canvas.offsetWidth;
     this.canvas.height = this.canvas.offsetHeight;
 
+    console.log(this.canvas.width);
+    console.log(this.canvas.height);
+
     let width: number = this.canvas.offsetWidth,
         height: number = this.canvas.offsetHeight,
         size: number = Math.max(width, height),
@@ -538,7 +531,6 @@ class StarField {
   
   clearCanvas() {
     let [size, depth] = this.container;
-    
     if(this.context !== null) this.context.clearRect(-size/2, -size/2, size, size);
   }
 
@@ -582,24 +574,44 @@ class StarField {
     if(context !== null) context.stroke();
   }
   
+  applySettings(canvas: any, handlePointer: any) {
+    switch(screenId) {
+      case 'dashboard':
+        getPointerInput(handlePointer, canvas);
+        this.showMouseControls = true;
+        break;
+      case 'loading-forward':
+        this.zSpeed = 15;
+        this.mouseY = -(canvas.offsetHeight);
+        this.showMouseControls = false;
+        break;
+      default:
+        this.showMouseControls = false;
+        break;
+    }
+    this.render()
+  }
+
   render() {
+    // console.log("!!!!!render");
     if (this.showMouseControls) {
       if (!this.mouseMoved || this.mouseMoving) {
         // when mouse is moving, make controls visible instantly
         this.mouseControlAlpha = 0.3;
-        if(screenId === 'dashboard') this.drawMouseControl();
+        this.drawMouseControl();
       } else {
         // when mouse stops moving, start fading out the opacity slowly
         // TODO: make it actually time based so it fades out over the period you pass it
         // just kinda hacked in a rough approximation by feel on my machine lol
         // good enough for now
         this.mouseControlAlpha -= (0.25 * this.deltaTime) / this.UIFadeDelay;
-        if(screenId === 'dashboard') this.drawMouseControl();
+        this.drawMouseControl();
       }
     }
     
     // update and draw all the stars
     for (let i=0; i<this.stars.length; i++) {
+      // console.log("!!!!!update and draw all the stars " + this.pauseAnimation);
       if (!this.pauseAnimation) {
         this.stars[i].update(this.deltaTime, this.container, this.xSpeed, this.zSpeed);
       }
@@ -608,6 +620,7 @@ class StarField {
   }
   
   rePopOnResizeStop() {
+    
     if (this.isResizing && !this.wasResizing) {
       // console.log('started');
     }

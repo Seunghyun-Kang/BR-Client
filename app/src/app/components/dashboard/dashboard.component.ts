@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { PagestatusService } from 'src/app/services/pagestatus.service';
 
 @Component({
   selector: 'dashboard',
@@ -7,7 +8,9 @@ import { Component, OnInit } from '@angular/core';
 })
 export class DashboardComponent implements OnInit {
   public screenId = "dashboard"
-  constructor() { }
+  constructor(private service: PagestatusService) { 
+    this.service.setStatus("dashboard")
+  }
 
   ngOnInit(): void {
   }
