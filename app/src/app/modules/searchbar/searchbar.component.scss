@@ -1,0 +1,31 @@
+// ::ng-deep .mat-form-field-wrapper {
+//     background-color:lightslategrey;    /* replace this color with your accent color hex code */
+// }
+
+::ng-deep .mat-form-field-appearance-legacy .mat-form-field-label {
+    color:white;
+}
+
+::ng-deep .mat-form-field-appearance-legacy .mat-form-field-underline {
+    background-color: white;
+}
+
+::ng-deep .mat-form-field.mat-focused .mat-form-field-ripple {
+    background-color: skyblue;
+}
+::ng-deep .mat-form-field.mat-focused .mat-form-field-label {
+    color: skyblue;
+}
+
+::ng-deep .mat-input-element {
+    caret-color: skyblue;
+}
+
+::ng-deep .mat-chip-list-wrapper input.mat-input-element {
+    color:white;
+}
+
+.desc{
+    font-family: poorstory;
+    word-break: break-all;
+}
