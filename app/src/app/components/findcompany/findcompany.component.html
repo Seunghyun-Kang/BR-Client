@@ -16,4 +16,13 @@
 fsdfdfsf
         </div>
     </div>  -->
+    <div style="margin:auto; width: 70%; margin-top: 320px;" *ngIf="getData">
+        <app-search-bar (onSelectedOption)="onSelectedOption($event)"></app-search-bar>
+      </div>
+      <!-- <h2 style="text-align:center">Data</h2>
+      <div *ngFor="let posts of rawData" class="group">
+        <p><b>Item :</b>{{posts.code}}</p>
+        <p><b>Title :</b> {{posts.company}}</p>
+        <p><b>Body: </b>{{posts.last_update}}</p>
+      </div> -->
     </div>

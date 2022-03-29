@@ -18,6 +18,7 @@ export interface companyData {
 export class FindcompanyComponent implements OnInit {
   public screenId = "FindCompany"
   public rawData: companyData[]
+  public getData: boolean = false
   public status = "loading-forward";
 
   constructor(private service: PagestatusService,
@@ -33,10 +34,15 @@ export class FindcompanyComponent implements OnInit {
           console.log(this.rawData)
           setTimeout(() => {
             this.service.setStatus("normal") 
+            this.getData = true
           }, 1000);
         },
         error: (e) => console.log("ERROR OCCURED :: " + JSON.stringify(e))
       });
+  }
+
+  onSelectedOption(event: any) {
+    
   }
 
 }
