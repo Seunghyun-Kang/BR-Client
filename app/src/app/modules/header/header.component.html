@@ -1,3 +1,4 @@
 <mat-toolbar style="background: black;">
-    <span class="application-title">BR</span>
+    <span *ngIf="status === 'dashboard'" class="application-title">BR</span>
+    <img  class="back-navigation" *ngIf="status !== 'dashboard'" src="../../../assets/iamge/angle-left-solid.svg" alt="뒤로가기" (click)="onPressBack()">
 </mat-toolbar>
