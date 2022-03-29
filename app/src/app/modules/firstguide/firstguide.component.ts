@@ -15,6 +15,7 @@ export class FirstguideComponent implements OnInit {
   private exceptionDescArray:Array<string>
   private timeout: any
   private interval: any
+  private isAcceptAccount: boolean = false
   public descIndex: number
   public numform = this.formBuilder.group({
     number: new FormControl('', Validators.required),
@@ -28,8 +29,8 @@ export class FirstguideComponent implements OnInit {
     this.descArray = [
       "안녕? 난 너 용돈벌이 도와주려는 OO 이야",
       "전화 번호만 알려줄래?",
-      "안녕 #1#, 반갑다",
-      "아직 개발자가 날 개발 중이야 우리 곧 만나자!"
+      "올 #1#, 또 와줘서 고맙다",
+      "다음거 좀 보여줄게"
     ]
     this.exceptionDescArray = [
       "안녕, 근데 개발자가 아직 널 모르네.. 걔랑 일단 친해지고 다시 만나자!",
@@ -64,14 +65,15 @@ export class FirstguideComponent implements OnInit {
       }, 4000)
     }
 
-    if(index <= 3 && index !== 1){
+    if(index < 3 && index !== 1){
     this.descIndex = this.descIndex + 1
     this.presentDesc = this.descArray[this.descIndex]
     
     if(this.descIndex === 1) {clearInterval(this.interval); this.interval = undefined}
     
-    } else if(index > 3){
+    } else if(index >= 3){
       console.log("setAutoGuide called index > 3:: " + index)
+      if(this.isAcceptAccount) this.router.navigate(['findcompany'])
       clearInterval(this.interval)
       clearTimeout(this.timeout)
     }
@@ -89,14 +91,12 @@ export class FirstguideComponent implements OnInit {
     for (let key in this.registeredNumber) {
       if(key === String(value.number)) {
         console.log("MATCH!! :: " + this.registeredNumber[key])
-        flag = true
         this.descArray[2] = this.descArray[2].replace('#1#', this.registeredNumber[key])
         this.setAutoGuide(this.descIndex+1)
-
-        this.router.navigate(['findcompany'])
+        this.isAcceptAccount = true
       }
   }
-  if(!flag) {
+  if(!this.isAcceptAccount) {
     this.descIndex = 5
     if(String(value.number) === this.masterNumber) {this.presentDesc = this.exceptionDescArray[2]; this.router.navigate(['findcompany'])}
     if(String(value.number).length <= 9 || String(value.number).length > 10 || (String(value.number)[0] !== '0' && String(value.number)[0] !== '1')) this.presentDesc = this.exceptionDescArray[1]
