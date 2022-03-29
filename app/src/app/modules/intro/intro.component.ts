@@ -1,7 +1,7 @@
 import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { PagestatusService } from 'src/app/services/pagestatus.service';
 
-let screenId = ""
+let screenId = "dashboard"
 
 @Component({
   selector: 'app-intro',
@@ -9,9 +9,7 @@ let screenId = ""
   styleUrls: ['./intro.component.scss']
 })
 
-export class IntroComponent implements OnInit, OnDestroy {
-  @Input() screenId: any;
-  
+export class IntroComponent implements OnInit, OnDestroy {  
   public canvas: HTMLCanvasElement;
   public UIToggleButton: HTMLElement;
   private starfield: StarField
@@ -20,8 +18,6 @@ export class IntroComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    console.log("SCREEN IS :: " + this.screenId)
-    screenId = this.screenId
     this.canvas= document.getElementById("canvas") as HTMLCanvasElement;
     this.UIToggleButton = document.getElementById("mouse-control-control") as HTMLElement;
   }
@@ -32,7 +28,6 @@ export class IntroComponent implements OnInit, OnDestroy {
 
     this.service.getStatus().subscribe((value) => {
       console.log("WEB STATUS CHANGED ::" + value);
-      console.log(this.starfield);
       screenId = value;
       this.starfield = new StarField(howManyStars, this.canvas);
     this.starfield.startRenderLoop();
@@ -492,12 +487,8 @@ class StarField {
   
   setCanvasSize() {
     // fit canvas to parent
-
     this.canvas.width = this.canvas.offsetWidth;
     this.canvas.height = this.canvas.offsetHeight;
-
-    console.log(this.canvas.width);
-    console.log(this.canvas.height);
 
     let width: number = this.canvas.offsetWidth,
         height: number = this.canvas.offsetHeight,
