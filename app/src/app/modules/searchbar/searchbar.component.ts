@@ -14,7 +14,7 @@ export class SearchBarComponent implements OnInit {
 
     myControl = new FormControl();
     filteredOptions: Observable<string[]>;
-    allData: Array<string> = [];
+    allData: string[] = [];
     filterCompany: Observable<string[]>;
     select: Array<string> = []
     autoCompleteList: any[]
@@ -27,8 +27,8 @@ export class SearchBarComponent implements OnInit {
     ) { }
 
     ngOnInit() {
-        let data = this.dataService.getCompanyData()
-        data[0].forEach((element: companyData) => {
+        let data: companyData[] = this.dataService.getCompanyData()
+        data.forEach((element: companyData) => {
             this.allData.push(element.company)
         });
         

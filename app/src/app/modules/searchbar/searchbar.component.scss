@@ -27,11 +27,14 @@
 
 ::ng-deep .mat-option-text {
     color:skyblue;
+    font-family: poorstory;
 }
 ::ng-deep .mat-autocomplete-panel.mat-autocomplete-visible {
     background: transparent;
 }
-
+::ng-deep .mat-autocomplete-panel .mat-option.mat-selected:not(.mat-active):not(:hover):not(.mat-option-disabled) {
+    background: transparent;
+}
 .desc{
     font-family: poorstory;
     word-break: break-all;
