@@ -4,7 +4,7 @@ import { Injectable } from '@angular/core';
   providedIn: 'root'
 })
 export class DataService {
-  
+  searchOption: Array<any> = []
   public companyData: Array<any> = []
   public pricesData = new Map<any, any>();
   constructor() { 

@@ -21,6 +21,9 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {MatAutocompleteModule} from '@angular/material/autocomplete';
 import {MatChipsModule} from '@angular/material/chips';
 import {MatFormFieldModule} from '@angular/material/form-field';
+import {MatInputModule} from '@angular/material/input'
+import {MatIconModule} from '@angular/material/icon';
+import { SearchBarComponent } from './modules/searchbar/searchbar.component';
 
 PlotlyModule.plotlyjs = PlotlyJS;
 
@@ -39,7 +42,8 @@ const appRoutes: Routes = [
     FirstguideComponent,
     DashboardComponent,
     StockdetailComponent,
-    FindcompanyComponent
+    FindcompanyComponent,
+    SearchBarComponent
   ],
   imports: [
     BrowserModule,
@@ -52,6 +56,8 @@ const appRoutes: Routes = [
       {enableTracing:false, useHash: true}
     ),
     AppRoutingModule,
+    MatIconModule,
+    MatInputModule,
     MatToolbarModule,
     FormsModule,
     ReactiveFormsModule,
