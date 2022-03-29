@@ -2,9 +2,9 @@
 <form class="example-form" >
     <mat-form-field class="example-full-width" style="width: 100%">
       <mat-chip-list #chipList>
-        <mat-chip style="margin-top:0.4em;" *ngFor="let option of  this.dataService.searchOption" (removed)="removeOption(option)">
+        <mat-chip style="margin-top:0.4em;" *ngFor="let option of select" (removed)="removeOption(option)">
     
-          <span>{{option.title}}</span>
+          <span>{{option}}</span>
           
           <mat-icon matChipRemove>cancel</mat-icon>
         </mat-chip>
@@ -12,7 +12,7 @@
           [matAutocomplete]="auto" [matChipInputFor]="chipList">
         <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFn">
           <mat-option *ngFor="let option of autoCompleteList" [value]="option" (onSelectionChange)="filterPostList($event)">
-            {{option.title}}
+            {{option}}
           </mat-option>
         </mat-autocomplete>
       </mat-chip-list>

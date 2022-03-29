@@ -25,6 +25,13 @@
     color:white;
 }
 
+::ng-deep .mat-option-text {
+    color:skyblue;
+}
+::ng-deep .mat-autocomplete-panel.mat-autocomplete-visible {
+    background: transparent;
+}
+
 .desc{
     font-family: poorstory;
     word-break: break-all;
