@@ -1,4 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+
+
+let screenId = ""
 
 @Component({
   selector: 'app-intro',
@@ -7,13 +11,17 @@ import { Component, OnInit } from '@angular/core';
 })
 
 export class IntroComponent implements OnInit {
+  @Input() screenId: any;
+  
   public canvas: HTMLCanvasElement;
   public UIToggleButton: HTMLElement;
   
-  constructor() {  
+  constructor(private route: ActivatedRoute) {  
   }
 
   ngOnInit(): void {
+    console.log("SCREEN IS :: " + this.screenId)
+    screenId = this.screenId
     this.canvas= document.getElementById("canvas") as HTMLCanvasElement;
     this.UIToggleButton = document.getElementById("mouse-control-control") as HTMLElement;
   }
@@ -438,8 +446,18 @@ class StarField {
         this.zSpeed /= 2;
       }
     };
+    
+    switch(screenId) {
+      case 'dashboard':
+        getPointerInput(handlePointer, canvas);
+        break;
+      case 'loading-forward':
+        this.zSpeed = 15;
+        this.mouseY = -(canvas.offsetHeight);
+    }
+    
     // getPointerInput doesn't control the animation, just passes pointer data to the callback
-    getPointerInput(handlePointer, canvas);
+    // = pointer detector
     
     this.mouseMoved = false;
     this.mouseMoving = false;
@@ -531,7 +549,6 @@ class StarField {
     let ellipseW = 50, ellipseH = 21;
     
     ellipseH *= mapRange(this.mouseY, -height/2 + ellipseY, height/2 + ellipseY, 0.8, 1.2);
-    
     let pointIsInEllipse = isInEllipse(this.mouseX, this.mouseY, ellipseX, ellipseY, ellipseW, ellipseH);
     
     if (pointIsInEllipse) {
@@ -570,14 +587,14 @@ class StarField {
       if (!this.mouseMoved || this.mouseMoving) {
         // when mouse is moving, make controls visible instantly
         this.mouseControlAlpha = 0.3;
-        this.drawMouseControl();
+        if(screenId === 'dashboard') this.drawMouseControl();
       } else {
         // when mouse stops moving, start fading out the opacity slowly
         // TODO: make it actually time based so it fades out over the period you pass it
         // just kinda hacked in a rough approximation by feel on my machine lol
         // good enough for now
         this.mouseControlAlpha -= (0.25 * this.deltaTime) / this.UIFadeDelay;
-        this.drawMouseControl();
+        if(screenId === 'dashboard') this.drawMouseControl();
       }
     }
     
