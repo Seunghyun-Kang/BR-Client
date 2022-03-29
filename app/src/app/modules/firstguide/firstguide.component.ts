@@ -1,6 +1,7 @@
 import { keyframes } from '@angular/animations'
 import { Component, OnInit } from '@angular/core'
 import { FormBuilder,FormControl,Validators  } from '@angular/forms'
+import { Router, RouterModule } from '@angular/router'
 
 @Component({
   selector: 'firstguide',
@@ -20,7 +21,9 @@ export class FirstguideComponent implements OnInit {
   });
   private registeredNumber: any;
 
-  constructor(private formBuilder: FormBuilder) { 
+  constructor(
+    private formBuilder: FormBuilder,
+    private router:Router) { 
     this.descIndex = -1;
     this.descArray = [
       "안녕? 난 너 용돈벌이 도와주려는 OO 이야",
@@ -89,11 +92,13 @@ export class FirstguideComponent implements OnInit {
         flag = true
         this.descArray[2] = this.descArray[2].replace('#1#', this.registeredNumber[key])
         this.setAutoGuide(this.descIndex+1)
+
+        this.router.navigate(['loading-forward'])
       }
   }
   if(!flag) {
     this.descIndex = 5
-    if(String(value.number) === this.masterNumber) {this.presentDesc = this.exceptionDescArray[2]; return}
+    if(String(value.number) === this.masterNumber) {this.presentDesc = this.exceptionDescArray[2]; this.router.navigate(['loading-forward'])}
     if(String(value.number).length <= 9 || String(value.number).length > 10 || (String(value.number)[0] !== '0' && String(value.number)[0] !== '1')) this.presentDesc = this.exceptionDescArray[1]
     else this.presentDesc = this.exceptionDescArray[0]
   }
