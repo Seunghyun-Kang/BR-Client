@@ -16,11 +16,13 @@ import { HttpClientModule } from '@angular/common/http';
 
 import * as PlotlyJS from 'plotly.js-dist-min';
 import { PlotlyModule } from 'angular-plotly.js';
+import { LoadingComponent } from './components/loading/loading.component';
 
 PlotlyModule.plotlyjs = PlotlyJS;
 
 const appRoutes: Routes = [
   { path: 'dashboard', component: DashboardComponent },
+  { path: 'loading-forward', component: LoadingComponent },
   { path: 'stockdetail', component: StockdetailComponent },
   {path : '', redirectTo : '/dashboard',  pathMatch : 'full'}
 ]
@@ -32,7 +34,8 @@ const appRoutes: Routes = [
     IntroComponent,
     FirstguideComponent,
     DashboardComponent,
-    StockdetailComponent
+    StockdetailComponent,
+    LoadingComponent
   ],
   imports: [
     BrowserModule,
