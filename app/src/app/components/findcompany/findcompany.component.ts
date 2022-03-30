@@ -22,11 +22,11 @@ export class FindcompanyComponent implements OnInit {
   public guideIndex = -1
   public getData: boolean = false
   public status = "loading-forward";
+  private codesForOpt: any = []
   public target: string = ""
   public presentGuide: string[]
   public OptGuideist = [
-    "데이터는 다 만들었는데 아직 UI 못 만듬ㅠ",
-    "일단은 주식 하나만 선택해서 차트만 보구가ㅎ"
+    "5개 회사 선택하면 각각 몇%로 투자해야하는지 알려줄게 (추후 동적으로 가능)",
   ]
   public StockGuideist = [
     "아래 창에 확인하고 싶은 회사명을 검색해봐",
@@ -77,7 +77,8 @@ export class FindcompanyComponent implements OnInit {
 
   onSelectedOption(event: any) {
     console.log(event[0])
-
+ 
+    if(this.target === 'GetStockDetails'){
     this.rawData.forEach(element => {
       if(element.company === event[0]){
         console.log("match company!!!")
@@ -86,7 +87,25 @@ export class FindcompanyComponent implements OnInit {
          }})
       }
     });
+  } else if(this.target === 'OptPortfolio') {
+    let list: any = []
+    list = event
     
+    this.rawData.forEach(element => {
+      if(element.company === list[list.length-1]){
+        
+        this.codesForOpt.push(element.code)
+        console.log("match company!!!" + this.codesForOpt)
+        if(list.length >= 5)
+        {
+          this.router.navigate(['optimalportfolio'], { queryParams: { 
+              code: this.codesForOpt
+             }})
+        }
+      }
+    });
+  }
+
   }
 
   guideIndexChanged(event: any) {

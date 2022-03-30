@@ -26,6 +26,8 @@ import {MatIconModule} from '@angular/material/icon';
 import { SearchBarComponent } from './modules/searchbar/searchbar.component';
 import { GuideComponent } from './modules/guide/guide.component';
 import { MenuComponent } from './components/menu/menu.component';
+import { OptimalportfolioComponent } from './components/optimalportfolio/optimalportfolio.component';
+import { NgApexchartsModule } from 'ng-apexcharts';
 
 PlotlyModule.plotlyjs = PlotlyJS;
 
@@ -34,6 +36,7 @@ const appRoutes: Routes = [
   { path: 'menu', component: MenuComponent },
   { path: 'findcompany', component: FindcompanyComponent },
   { path: 'stockdetail', component: StockdetailComponent },
+  { path: 'optimalportfolio', component: OptimalportfolioComponent },
   {path : '', redirectTo : '/dashboard',  pathMatch : 'full'}
 ]
 
@@ -48,7 +51,8 @@ const appRoutes: Routes = [
     FindcompanyComponent,
     SearchBarComponent,
     GuideComponent,
-    MenuComponent
+    MenuComponent,
+    OptimalportfolioComponent
   ],
   imports: [
     BrowserModule,
@@ -67,7 +71,8 @@ const appRoutes: Routes = [
     FormsModule,
     ReactiveFormsModule,
     HttpClientModule,
-    PlotlyModule
+    PlotlyModule,
+    NgApexchartsModule
   ],
   providers: [HTMLCanvasElement],
   bootstrap: [AppComponent]
