@@ -8,7 +8,8 @@
         color: blanchedalmond;
         font-family: poorstory;
         font-size: 20px;
-        word-break: break-all;
+        word-break: keep-all;
+        word-wrap: break-word;
         text-align: -webkit-center;
     }
 

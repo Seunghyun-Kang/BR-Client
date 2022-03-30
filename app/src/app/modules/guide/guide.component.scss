@@ -1,14 +1,15 @@
 .guide_container {
     position: fixed;
     left: 50%;
-    top:50%;
+    top:40%;
     transform: translate(-50%, 0);
     z-index: 100;
     .desc{
         color: blanchedalmond;
         font-family: poorstory;
         font-size: 20px;
-        word-break: break-all;
+        word-break: keep-all;
+        word-wrap: break-word;
         text-align: -webkit-center;
     }
 }
