@@ -24,11 +24,14 @@ import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatInputModule} from '@angular/material/input'
 import {MatIconModule} from '@angular/material/icon';
 import { SearchBarComponent } from './modules/searchbar/searchbar.component';
+import { GuideComponent } from './modules/guide/guide.component';
+import { MenuComponent } from './components/menu/menu.component';
 
 PlotlyModule.plotlyjs = PlotlyJS;
 
 const appRoutes: Routes = [
   { path: 'dashboard', component: DashboardComponent },
+  { path: 'menu', component: MenuComponent },
   { path: 'findcompany', component: FindcompanyComponent },
   { path: 'stockdetail', component: StockdetailComponent },
   {path : '', redirectTo : '/dashboard',  pathMatch : 'full'}
@@ -43,7 +46,9 @@ const appRoutes: Routes = [
     DashboardComponent,
     StockdetailComponent,
     FindcompanyComponent,
-    SearchBarComponent
+    SearchBarComponent,
+    GuideComponent,
+    MenuComponent
   ],
   imports: [
     BrowserModule,
