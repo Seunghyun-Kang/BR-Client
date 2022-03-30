@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { DataService } from 'src/app/services/data.service';
 import { PagestatusService } from 'src/app/services/pagestatus.service';
 import { RequestService } from 'src/app/services/request.service';
@@ -21,12 +21,32 @@ export class FindcompanyComponent implements OnInit {
   public rawData: companyData[]
   public getData: boolean = false
   public status = "loading-forward";
-
+  public target: string = ""
+  public guideist = [
+  ]
   constructor(private statusService: PagestatusService,
     private requestService: RequestService,
     private dataService: DataService,
+    private route: ActivatedRoute,
     private router:Router) {
-      this.statusService.setStatus("loading-forward") }
+      this.route.queryParams.subscribe(params => {
+        this.target = params['target']
+
+        var loadingType
+        switch(this.target){
+          case "GetStockDetails":
+            loadingType = "loading-right"
+            break;
+          case "OptPortfolio":
+            loadingType = "loading-left"
+            break;
+          default:
+            loadingType = "loading-forward"
+            break;
+        }
+        this.statusService.setStatus(loadingType)
+    });
+    }
 
   ngOnInit(): void {
     this.requestService.getAllCompanies() 

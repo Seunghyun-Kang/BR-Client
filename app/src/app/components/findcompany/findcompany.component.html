@@ -2,27 +2,11 @@
     <div class="actionbar">
         <header></header>
     </div>
-    <!-- <ng-template *ngIf=!getData> -->
-        <!-- <app-intro *ngIf=!getData [screenId]="'loading-forward'"></app-intro> -->
-    <!-- </ng-template> -->
-    <!-- <ng-template *ngIf=getData> -->
-        <!-- <app-intro *ngIf=getData [screenId]="'normal'"></app-intro> -->
-    <!-- </ng-template> -->
-    <!-- <div class="content">
-        <div class="dialog-container">
-            sdf
-        </div>
-        <div class="input-container">
-fsdfdfsf
-        </div>
-    </div>  -->
+<div class="content">
+    <app-guide [descArray]="guideist"></app-guide>
+
     <div style="margin:auto; width: 70%; margin-top: 320px;" *ngIf="getData">
         <app-search-bar (onSelectedOption)="onSelectedOption($event)"></app-search-bar>
-      </div>
-      <!-- <h2 style="text-align:center">Data</h2>
-      <div *ngFor="let posts of rawData" class="group">
-        <p><b>Item :</b>{{posts.code}}</p>
-        <p><b>Title :</b> {{posts.company}}</p>
-        <p><b>Body: </b>{{posts.last_update}}</p>
-      </div> -->
     </div>
+</div>
+</div>
