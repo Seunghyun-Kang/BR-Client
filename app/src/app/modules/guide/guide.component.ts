@@ -13,6 +13,7 @@ export class GuideComponent implements OnInit, OnDestroy {
   public descIndex = -1
   @Input() descArray: Array<string>;
   @Input() exceptionDescArray: Array<string>;
+  @Input() isGraphPage: boolean;
   @Output() indexChange = new EventEmitter();
 
   constructor() { 
