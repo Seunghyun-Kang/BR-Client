@@ -10,6 +10,7 @@ export class DashboardComponent implements OnInit {
   public screenId = "dashboard"
   constructor(private service: PagestatusService) { 
     this.service.setStatus("dashboard")
+    console.log("Version:: v2")
   }
 
   ngOnInit(): void {

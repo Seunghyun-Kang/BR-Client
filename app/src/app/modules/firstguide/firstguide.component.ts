@@ -73,7 +73,7 @@ export class FirstguideComponent implements OnInit {
     
     } else if(index >= 3){
       console.log("setAutoGuide called index > 3:: " + index)
-      if(this.isAcceptAccount) this.router.navigate(['findcompany'])
+      if(this.isAcceptAccount) this.router.navigate(['menu'])
       clearInterval(this.interval)
       clearTimeout(this.timeout)
     }
@@ -98,7 +98,7 @@ export class FirstguideComponent implements OnInit {
   }
   if(!this.isAcceptAccount) {
     this.descIndex = 5
-    if(String(value.number) === this.masterNumber) {this.presentDesc = this.exceptionDescArray[2]; this.router.navigate(['findcompany'])}
+    if(String(value.number) === this.masterNumber) {this.presentDesc = this.exceptionDescArray[2]; this.router.navigate(['menu'])}
     if(String(value.number).length <= 9 || String(value.number).length > 10 || (String(value.number)[0] !== '0' && String(value.number)[0] !== '1')) this.presentDesc = this.exceptionDescArray[1]
     else this.presentDesc = this.exceptionDescArray[0]
   }

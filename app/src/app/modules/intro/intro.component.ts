@@ -329,9 +329,6 @@ const getPointerInput = (callback: Function, element: HTMLElement, delay: number
     // and instead it'll run the latest animation frame
     animFrame = window.requestAnimationFrame(() => {
       let x, y;
-      console.log("@@@@@@@@@@@@")
-      console.log(event.touches[0].clientX)
-      console.log(event.touches[0].clientY)
 
       // handle mobile first, otherwise desktop/laptop
       if (event.touches) {
