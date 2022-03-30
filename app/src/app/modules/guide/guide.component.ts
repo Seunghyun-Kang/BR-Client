@@ -10,7 +10,7 @@ export class GuideComponent implements OnInit {
   public presentDesc: string
   private timeout: any
   private interval: any
-  public descIndex: number
+  public descIndex = -1
   @Input() descArray: Array<string>;
   @Input() exceptionDescArray: Array<string>;
   @Output() indexChange = new EventEmitter();
@@ -24,15 +24,13 @@ export class GuideComponent implements OnInit {
   }
 
   private setAutoGuide(index: number) {
-    if(this.interval === undefined){
       this.interval = setInterval(() => {
         this.presentDesc = this.descArray[++index]
         this.Changed(index)
         console.log(this.presentDesc)
 
         if(index >= this.descArray.length -1) clearInterval(this.interval)
-      }, 4000)
-    }
+      }, 3000)
   }
 
   Changed(index: number) { // You can give any function name
