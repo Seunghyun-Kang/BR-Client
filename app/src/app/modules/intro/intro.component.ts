@@ -329,6 +329,10 @@ const getPointerInput = (callback: Function, element: HTMLElement, delay: number
     // and instead it'll run the latest animation frame
     animFrame = window.requestAnimationFrame(() => {
       let x, y;
+      console.log("@@@@@@@@@@@@")
+      console.log(event.touches[0].clientX)
+      console.log(event.touches[0].clientY)
+
       // handle mobile first, otherwise desktop/laptop
       if (event.touches) {
         [x, y] = [event.touches[0].clientX, event.touches[0].clientY];
@@ -403,6 +407,8 @@ class StarField {
     this.canvas = canvas;
     // this.context = canvas.getContext('2d');
     this.context = canvas.getContext('2d');
+    console.log(this.canvas)
+    console.log(this.context)
     this.isResizing = false;
     this.wasResizing = false;
     this.containerDepth = depth;
@@ -457,7 +463,7 @@ class StarField {
 
     // just the initial render, doesn't start the loop
     //this.render();
-    this.applySettings(canvas, handlePointer)
+    this.applySettings(canvas, handlePointer, this.screen)
 
     window.addEventListener('resize', () => this.handleResize(), true);
     // helps when you navigate away from the page for a while, prevents stars grouping up into one big wall
@@ -573,7 +579,9 @@ class StarField {
     if (context !== null) context.stroke();
   }
 
-  applySettings(canvas: any, handlePointer: any) {
+  applySettings(canvas: any, handlePointer: any, screen: any) {
+    let [width, height] = this.screen;
+
     switch (screenId) {
       case 'dashboard':
         getPointerInput(handlePointer, canvas);
@@ -582,6 +590,20 @@ class StarField {
       case 'loading-forward':
         this.zSpeed = 15;
         this.mouseY = -(canvas.offsetHeight);
+        this.showMouseControls = false;
+        break;
+      case 'loading-right':
+        this.mouseX = 148;
+        this.mouseY = -172;
+        this.zSpeed = 2.9132829511976428;
+        this.xSpeed = 8.589743589743591;
+        this.showMouseControls = false;
+        break;
+      case 'loading-left':
+        this.mouseX = -156;
+        this.mouseY = -172;
+        this.zSpeed = 2.8151658767772512;
+        this.xSpeed = -9;
         this.showMouseControls = false;
         break;
       default:
