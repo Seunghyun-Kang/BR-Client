@@ -1,0 +1,18 @@
+<div class=dashboard>
+    <div class="actionbar">
+        <header></header>
+    </div>
+<div class="content">
+    <app-guide [descArray]="guideist" (indexChange)="guideIndexChanged($event)"></app-guide>
+    
+    <div class="button-container">
+        <div class="card" *ngIf="guideIndex >= 1" (click)="onPressOptPortfolio()">
+            포트폴리오 최적화
+        </div>
+    
+        <div class="card" *ngIf="guideIndex >= 2" (click)="onPressGetStock()">
+            주식 차트
+        </div>
+    </div>
+</div>
+</div>
