@@ -54,13 +54,8 @@ export class RequestService {
     );
   }
 
-  getOptPortfolio(codes: string[]) {
-    var array = ""
-    codes.forEach((element, index) => {
-      array += element
-      if(index < codes.length-1) array += ',' 
-    });
-    let payload = {codes: array}
+  getOptPortfolio(codes: string) {
+    let payload = {codes: codes}
     return this.http.get(this.REST_SERVER_URL + 'optimalportfolio/', { observe: 'response', headers: this.headers, params: payload })
     .pipe(
       catchError(this.handleError)
