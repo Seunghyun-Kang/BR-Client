@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output, OnDestroy } from '@angular/core';
 import { Router } from '@angular/router';
 
 @Component({
@@ -6,7 +6,7 @@ import { Router } from '@angular/router';
   templateUrl: './guide.component.html',
   styleUrls: ['./guide.component.scss']
 })
-export class GuideComponent implements OnInit {
+export class GuideComponent implements OnInit, OnDestroy {
   public presentDesc: string
   private timeout: any
   private interval: any
@@ -23,6 +23,10 @@ export class GuideComponent implements OnInit {
         this.setAutoGuide(this.descIndex)
   }
 
+  ngOnDestroy(): void {
+    clearInterval(this.interval)
+  }
+
   private setAutoGuide(index: number) {
       this.interval = setInterval(() => {
         this.presentDesc = this.descArray[++index]
@@ -37,3 +41,4 @@ export class GuideComponent implements OnInit {
     this.indexChange.emit(index);
 }
 }
+

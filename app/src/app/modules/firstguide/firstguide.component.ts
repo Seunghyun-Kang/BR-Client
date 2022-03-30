@@ -1,14 +1,13 @@
-import { keyframes } from '@angular/animations'
-import { Component, OnInit } from '@angular/core'
+import { Component, OnDestroy, OnInit } from '@angular/core'
 import { FormBuilder,FormControl,Validators  } from '@angular/forms'
-import { Router, RouterModule } from '@angular/router'
+import { Router } from '@angular/router'
 
 @Component({
   selector: 'firstguide',
   templateUrl: './firstguide.component.html',
   styleUrls: ['./firstguide.component.scss']
 })
-export class FirstguideComponent implements OnInit {
+export class FirstguideComponent implements OnInit, OnDestroy {
   public presentDesc: string
   public masterNumber: string
   private descArray:Array<string>
@@ -47,8 +46,9 @@ export class FirstguideComponent implements OnInit {
       "1092471544": "은비",
       "1052618561": "아부지",
       "1030731999": "엄마",
-      // "1051218283": "수연",
-      // "1094122794": "보영",
+      // "1047929440": "수지씨",
+      "1051218283": "수연",
+      "1094122794": "보영",
     }
   }
 
@@ -79,6 +79,9 @@ export class FirstguideComponent implements OnInit {
     }
   }
 
+  ngOnDestroy(): void {
+    clearInterval(this.interval)
+  }
   onSubmit(value: any): void {
     console.warn('input::: ' + JSON.stringify(this.numform.value))
     this.checkFriends(value)

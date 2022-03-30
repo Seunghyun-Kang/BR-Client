@@ -28,6 +28,8 @@ export class IntroComponent implements OnInit, OnDestroy {
 
     this.service.getStatus().subscribe((value) => {
       console.log("WEB STATUS CHANGED ::" + value);
+      if(screenId === 'dashboard' && value === "normal") return
+      
       screenId = value;
       if (this.starfield !== undefined) {
         this.starfield.destroy();
@@ -404,8 +406,6 @@ class StarField {
     this.canvas = canvas;
     // this.context = canvas.getContext('2d');
     this.context = canvas.getContext('2d');
-    console.log(this.canvas)
-    console.log(this.context)
     this.isResizing = false;
     this.wasResizing = false;
     this.containerDepth = depth;
@@ -577,8 +577,6 @@ class StarField {
   }
 
   applySettings(canvas: any, handlePointer: any, screen: any) {
-    let [width, height] = this.screen;
-
     switch (screenId) {
       case 'dashboard':
         getPointerInput(handlePointer, canvas);
