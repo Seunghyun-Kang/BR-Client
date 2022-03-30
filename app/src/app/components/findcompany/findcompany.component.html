@@ -3,9 +3,10 @@
         <header></header>
     </div>
 <div class="content">
-    <app-guide [descArray]="guideist"></app-guide>
+    <app-guide [descArray]="presentGuide" (indexChange)="guideIndexChanged($event)"></app-guide>
+    
 
-    <div style="margin:auto; width: 70%; margin-top: 320px;" *ngIf="getData">
+    <div class="searchbar-container" *ngIf="getData && guideIndex >= 0">
         <app-search-bar (onSelectedOption)="onSelectedOption($event)"></app-search-bar>
     </div>
 </div>

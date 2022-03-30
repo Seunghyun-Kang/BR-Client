@@ -19,11 +19,20 @@ export interface companyData {
 export class FindcompanyComponent implements OnInit {
   public screenId = "FindCompany"
   public rawData: companyData[]
+  public guideIndex = -1
   public getData: boolean = false
   public status = "loading-forward";
   public target: string = ""
-  public guideist = [
+  public presentGuide: string[]
+  public OptGuideist = [
+    "데이터는 다 만들었는데 아직 UI 못 만듬ㅠ",
+    "일단은 주식 하나만 선택해서 차트만 보구가ㅎ"
   ]
+  public StockGuideist = [
+    "아래 창에 확인하고 싶은 회사명을 검색해봐",
+    "추후 해당 주식의 매매 타이밍을 계산해서 나온 결과를 보여줄게"
+  ]
+
   constructor(private statusService: PagestatusService,
     private requestService: RequestService,
     private dataService: DataService,
@@ -36,9 +45,11 @@ export class FindcompanyComponent implements OnInit {
         switch(this.target){
           case "GetStockDetails":
             loadingType = "loading-right"
+            this.presentGuide = this.StockGuideist
             break;
           case "OptPortfolio":
             loadingType = "loading-left"
+            this.presentGuide = this.OptGuideist
             break;
           default:
             loadingType = "loading-forward"
@@ -76,6 +87,10 @@ export class FindcompanyComponent implements OnInit {
       }
     });
     
+  }
+
+  guideIndexChanged(event: any) {
+    this.guideIndex = event
   }
 
 }
