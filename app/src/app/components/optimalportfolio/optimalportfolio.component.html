@@ -1,0 +1,19 @@
+<div class=dashboard>
+  <div class="actionbar">
+      <header></header>
+  </div>
+<div class="content">
+  <app-guide *ngIf="getData" [descArray]="presentGuide" [isGraphPage]="true" (indexChange)="guideIndexChanged($event)"></app-guide>
+  
+
+  <div id="chart" *ngIf="getData">
+    <apx-chart
+      [series]="chartOptions.series"
+      [chart]="chartOptions.chart"
+      [xaxis]="chartOptions.xaxis"
+      [yaxis]="chartOptions.yaxis"
+    ></apx-chart>
+  </div>
+</div>
+</div>
+  
