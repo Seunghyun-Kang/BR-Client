@@ -14,8 +14,9 @@
             position: relative;
             display: flex;
             flex-direction: row;
-            justify-content: space-around;
+            justify-content: space-between;
             margin-top: 55vh;
+            padding: 0 15%;
         }
 
     }
@@ -29,8 +30,8 @@
       
   .card {
     background: #020024;
-    width: 10vh;
-    height: 10vh;
+    width: 12vh;
+    height: 12vh;
     padding: 3px;
     position: relative;
     border-radius: 50%;
