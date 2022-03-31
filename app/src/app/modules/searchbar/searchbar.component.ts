@@ -52,7 +52,7 @@ export class SearchBarComponent implements OnInit {
         if (val === '' || val === null) {
             return [];
         }
-        return val ? this.allData.filter((s: any) => s.indexOf(val) !== -1) : this.allData;
+        return val ? this.allData.filter((s: any) => s.toLowerCase().indexOf(val.toLowerCase()) !== -1) : this.allData;
     }
 
     // after you clicked an autosuggest option, this function will show the field you want to show in input

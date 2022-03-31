@@ -3,7 +3,7 @@
       <header></header>
   </div>
 <div class="content">
-  <app-guide *ngIf="getData" [descArray]="presentGuide" [isGraphPage]="true" (indexChange)="guideIndexChanged($event)"></app-guide>
+  <app-guide *ngIf="getData" [descArray]="presentGuide" [position]="'middle'" (indexChange)="guideIndexChanged($event)"></app-guide>
   
 
   <div id="chart" *ngIf="getData">

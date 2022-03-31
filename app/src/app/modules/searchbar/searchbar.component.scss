@@ -25,6 +25,11 @@
     color:white;
 }
 
+::ng-deep .mat-chip-list-wrapper .mat-standard-chip {
+    background-color: skyblue;
+    font-family: poorstory;
+    color: #020024;
+}
 ::ng-deep .mat-option-text {
     color:skyblue;
     font-family: poorstory;

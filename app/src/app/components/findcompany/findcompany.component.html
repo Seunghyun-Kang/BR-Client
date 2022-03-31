@@ -3,7 +3,7 @@
         <header></header>
     </div>
 <div class="content">
-    <app-guide [descArray]="presentGuide" (indexChange)="guideIndexChanged($event)"></app-guide>
+    <app-guide [descArray]="presentGuide" [position]="'upper'" (indexChange)="guideIndexChanged($event)"></app-guide>
     
 
     <div class="searchbar-container" *ngIf="getData && guideIndex >= 0">
