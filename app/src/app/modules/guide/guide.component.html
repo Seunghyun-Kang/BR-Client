@@ -1,3 +1,3 @@
-<div class="guide_container" [ngStyle]="{'top': isGraphPage ? '60vh':''}">
+<div class="guide_container" [ngStyle]="{'top': position === 'upper' ? '20vh': position === 'lower' ? '70vh':''}">
     <p class="desc">{{presentDesc}}</p>
 </div>
