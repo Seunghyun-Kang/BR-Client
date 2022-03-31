@@ -26,29 +26,28 @@ export class FirstguideComponent implements OnInit, OnDestroy {
     private router:Router) { 
     this.descIndex = -1;
     this.descArray = [
-      "안녕? 난 너 용돈벌이 도와주려는 OO 이야",
+      "안녕, 이건 내가 아는 사람만 들어올 수 있어",
       "전화 번호만 알려줄래?",
-      "올 #1#, 또 와줘서 고맙다",
+      "#1#, 또 와줘서 고맙다",
       "다음거 좀 보여줄게"
     ]
     this.exceptionDescArray = [
-      "안녕, 근데 개발자가 아직 널 모르네.. 걔랑 일단 친해지고 다시 만나자!",
-      "그거 니 핸드폰 번호 아니잖아 말 안듣는 친구네, 잘가!",
-      "주인님 빨리 개발합시다"
+      "내가 아직 널 모르네.. 일단 친해지고 다시 만나자!",
+      "핸드폰 번호가 아닌 것 같아, 잘가!"
     ]
-    this.masterNumber = "1053690469"
+    this.masterNumber = "01053690469"
     this.registeredNumber = {
-      "1047965159": "상혁",
-      "1072795036": "태웅",
-      "1073737185": "정환",
-      "1021709851": "지환",
-      "1026232011": "진수",
-      "1092471544": "은비",
-      "1052618561": "아부지",
-      "1030731999": "엄마",
-      // "1047929440": "수지씨",
-      "1051218283": "수연",
-      "1094122794": "보영",
+      "01047965159": "상혁",
+      "01072795036": "태웅",
+      "01073737185": "정환",
+      "01021709851": "지환",
+      "01026232011": "진수",
+      "01092471544": "은비",
+      "01052618561": "아부지",
+      "01030731999": "엄마",
+      "01047929440": "수지",
+      "01051218283": "수연",
+      "01094122794": "보영",
     }
   }
 
@@ -102,7 +101,7 @@ export class FirstguideComponent implements OnInit, OnDestroy {
   if(!this.isAcceptAccount) {
     this.descIndex = 5
     if(String(value.number) === this.masterNumber) {this.presentDesc = this.exceptionDescArray[2]; this.router.navigate(['menu'])}
-    if(String(value.number).length <= 9 || String(value.number).length > 10 || (String(value.number)[0] !== '0' && String(value.number)[0] !== '1')) this.presentDesc = this.exceptionDescArray[1]
+    if(String(value.number).length <= 10 || String(value.number).length > 11 || (String(value.number)[0] !== '0' && String(value.number)[0] !== '1')) this.presentDesc = this.exceptionDescArray[1]
     else this.presentDesc = this.exceptionDescArray[0]
   }
   }
