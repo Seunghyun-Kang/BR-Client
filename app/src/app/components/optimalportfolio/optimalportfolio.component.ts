@@ -35,6 +35,8 @@ export class OptimalportfolioComponent implements OnInit {
   public codes:string[]
   public companylist: any
   public rawData: any
+  public maxSharpFull: any
+  public minRiskFull: any
   public maxSharp: any
   public minRisk: any
   public getData: boolean = false
@@ -81,18 +83,26 @@ export class OptimalportfolioComponent implements OnInit {
     this.rawData.forEach((element: any, index: number) => {
       let formatted = [Number((element.Risk*100).toFixed(2)), Number((element.Returns*100).toFixed(2))]
 
-      if(element.Sharpe > maxS) {this.maxSharp = formatted; maxS = element.Sharpe;}
-      if(element.Risk < minR) {this.minRisk = formatted; minR = element.Risk;}
+      if(element.Sharpe > maxS) {
+        this.maxSharp = formatted
+        maxS = element.Sharpe
+        this.maxSharpFull = element
+      }
+      if(element.Risk < minR) {
+        this.minRisk = formatted
+        minR = element.Risk
+        this.minRiskFull = element
+      }
       if(index%20 === 0 && formatted[0] < 100) charData.push(formatted)
     });
   
 
-  console.log(this.maxSharp)
-  console.log(this.minRisk)
-  
+  console.log(this.maxSharpFull)
+  console.log(this.minRiskFull)
   this.codes.forEach((element, index:any) => {
-     this.result1 += this.dataService.getCompanyNamebyCode(element)+ '종목' + (this.maxSharp.element*100).toFixed(0) + '% '
-     this.result2 += this.dataService.getCompanyNamebyCode(element)+ '종목' + (this.minRisk.element*100).toFixed(0) + '% '
+    let info = this.dataService.getCompanyNamebyCode(element)
+     this.result1 += info + ' ' + (this.maxSharpFull[element] * 100).toFixed(0) + '%'
+     this.result2 += info + ' ' + (this.minRiskFull[element] * 100).toFixed(0) + '%'
      
      if(index < this.codes.length-1) {this.result2 += ', '; this.result1 += ', '}
      

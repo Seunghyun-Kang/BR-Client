@@ -22,7 +22,9 @@ export class DataService {
    
     return this.companyData
 }
-  getCompanyNamebyCode(company: string){
-    return this.companyData.find(item => item.code === company)
-  }
+  getCompanyNamebyCode(company: string): string{
+    let selected: any
+    selected = this.companyData.find(item => item.code === company)
+    return selected.company
+}
 }
