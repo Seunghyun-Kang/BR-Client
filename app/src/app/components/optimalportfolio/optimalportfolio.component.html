@@ -3,16 +3,18 @@
       <header></header>
   </div>
 <div class="content">
-  <app-guide *ngIf="getData" [descArray]="presentGuide" [position]="'middle'" (indexChange)="guideIndexChanged($event)"></app-guide>
-  
-
-  <div id="chart" *ngIf="getData">
+    <div id="chart" *ngIf="getData">
     <apx-chart
       [series]="chartOptions.series"
       [chart]="chartOptions.chart"
       [xaxis]="chartOptions.xaxis"
       [yaxis]="chartOptions.yaxis"
     ></apx-chart>
+  </div>
+
+  <div class="result" [innerText]="result1">
+  <div class="result" [innerText]="result2">
+
   </div>
 </div>
 </div>

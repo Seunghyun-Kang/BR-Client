@@ -12,6 +12,11 @@ import { DataService } from 'src/app/services/data.service';
 import { PagestatusService } from 'src/app/services/pagestatus.service';
 import { RequestService } from 'src/app/services/request.service';
 
+export type ChartElem = {
+  name: string,
+  data: any[]
+};
+
 export type ChartOptions = {
   series: ApexAxisChartSeries;
   chart: ApexChart;
@@ -27,13 +32,15 @@ export type ChartOptions = {
 export class OptimalportfolioComponent implements OnInit {
 
   @ViewChild("chart") chart: ChartComponent;
-  public codes:string
+  public codes:string[]
+  public companylist: any
   public rawData: any
+  public maxSharp: any
+  public minRisk: any
   public getData: boolean = false
+  public result1:string = "최적 포트폴리오는 "
+  public result2:string = "최저 리스크 포트폴리오는 "
   public chartOptions: Partial<ChartOptions> | any;
-  public presentGuide = [
-    "데이터 파싱 로직이 아직이야ㅎ",
-  ]
 
   constructor(private statusService: PagestatusService,
     private requestService: RequestService,
@@ -43,59 +50,123 @@ export class OptimalportfolioComponent implements OnInit {
         this.codes = params['code']
         this.statusService.setStatus('loading-forward')
     });
+    this.companylist = this.dataService.getCompanyData()
   }
   
   ngOnInit(): void {
+    console.log(this.codes)
     this.requestService.getOptPortfolio(this.codes) 
     .subscribe({
         next: (v) => {
-          this.rawData = Object(v.body)
+          this.rawData = JSON.parse(Object(v.body))
           console.log(this.rawData)
           setTimeout(() => {
             this.statusService.setStatus("normal") 
             this.getData = true
+            this.initChartData()
           }, 1000);
         },
         error: (e) => console.log("ERROR OCCURED :: " + JSON.stringify(e))
       });
-
-    this.chartOptions = {
-      series: [{
-        name: "삼성전자",
-        data: [
-        [16.4, 5.4], [21.7, 2], [25.4, 3], [19, 2], [10.9, 1], [13.6, 3.2], [10.9, 7.4], [10.9, 0], [10.9, 8.2], [16.4, 0], [16.4, 1.8], [13.6, 0.3], [13.6, 0], [29.9, 0], [27.1, 2.3], [16.4, 0], [13.6, 3.7], [10.9, 5.2], [16.4, 6.5], [10.9, 0], [24.5, 7.1], [10.9, 0], [8.1, 4.7], [19, 0], [21.7, 1.8], [27.1, 0], [24.5, 0], [27.1, 0], [29.9, 1.5], [27.1, 0.8], [22.1, 2]]
-      },{
-        name: "셀트리온",
-        data: [
-        [36.4, 13.4], [1.7, 11], [5.4, 8], [9, 17], [1.9, 4], [3.6, 12.2], [1.9, 14.4], [1.9, 9], [1.9, 13.2], [1.4, 7], [6.4, 8.8], [3.6, 4.3], [1.6, 10], [9.9, 2], [7.1, 15], [1.4, 0], [3.6, 13.7], [1.9, 15.2], [6.4, 16.5], [0.9, 10], [4.5, 17.1], [10.9, 10], [0.1, 14.7], [9, 10], [12.7, 11.8], [2.1, 10], [2.5, 10], [27.1, 10], [2.9, 11.5], [7.1, 10.8], [2.1, 12]]
-      },{
-        name: "현대자동차",
-        data: [
-        [21.7, 3], [23.6, 3.5], [24.6, 3], [29.9, 3], [21.7, 20], [23, 2], [10.9, 3], [28, 4], [27.1, 0.3], [16.4, 4], [13.6, 0], [19, 5], [22.4, 3], [24.5, 3], [32.6, 3], [27.1, 4], [29.6, 6], [31.6, 8], [21.6, 5], [20.9, 4], [22.4, 0], [32.6, 10.3], [29.7, 20.8], [24.5, 0.8], [21.4, 0], [21.7, 6.9], [28.6, 7.7], [15.4, 0], [18.1, 0], [33.4, 0], [16.4, 0]]
-      }],
-      chart: {
-        height: 350,
-        type: 'scatter',
-        zoom: {
-          enabled: true,
-          type: 'xy'
-        }
-      },
-      xaxis: {
-        tickAmount: 10,
-        labels: {
-          formatter: function(val: any) {
-            return parseFloat(val).toFixed(1)
-          }
-        }
-      },
-      yaxis: {
-        tickAmount: 7
-      }
-    };
   }
 
   guideIndexChanged(event: any) {
 
+  }
+
+  initChartData() {
+    let charData: any[] = []
+    var maxS = 0;
+    var minR = 100;
+    this.rawData.forEach((element: any, index: number) => {
+      let formatted = [Number((element.Risk*100).toFixed(2)), Number((element.Returns*100).toFixed(2))]
+
+      if(element.Sharpe > maxS) {this.maxSharp = formatted; maxS = element.Sharpe;}
+      if(element.Risk < minR) {this.minRisk = formatted; minR = element.Risk;}
+      if(index%20 === 0 && formatted[0] < 100) charData.push(formatted)
+    });
+  
+
+  console.log(this.maxSharp)
+  console.log(this.minRisk)
+  
+  this.codes.forEach((element, index:any) => {
+     this.result1 += this.dataService.getCompanyNamebyCode(element)+ '종목' + (this.maxSharp.element*100).toFixed(0) + '% '
+     this.result2 += this.dataService.getCompanyNamebyCode(element)+ '종목' + (this.minRisk.element*100).toFixed(0) + '% '
+     
+     if(index < this.codes.length-1) {this.result2 += ', '; this.result1 += ', '}
+     
+  });
+
+  this.chartOptions = {
+    
+    chart: {
+      height: 400,
+      type: 'scatter',
+      animations: {
+        enabled: false,
+      dynamicAnimation: {
+          enabled: false
+      }
+      }
+    },
+    xaxis: {
+      type: "numeric",
+      min: this.minRisk[0] - 5,
+      max: 100,
+      labels: {
+        formatter: function(val: any) {
+          return String(val.toFixed(0)) + '%'
+        }
+      },
+      title: {
+        text: "리스크",
+        rotate: -90,
+        offsetX: 0,
+        offsetY: 0,
+        style: {
+            color: undefined,
+            fontSize: '12px',
+            fontFamily: 'poorstory',
+            fontWeight: 600,
+            cssClass: 'apexcharts-yaxis-title',
+        },
+    }
+    },
+    yaxis: {
+      type: "numeric",
+      min: -30,
+      max: 70,
+      tickAmount: 10,
+      labels: {
+        formatter: function(val: any) {
+          return String(val) + '%'
+        }
+      },
+      title: {
+        text: "이윤",
+        rotate: -90,
+        offsetX: 0,
+        offsetY: 0,
+        style: {
+            color: undefined,
+            fontSize: '12px',
+            fontFamily: 'poorstory',
+            fontWeight: 600,
+            cssClass: 'apexcharts-yaxis-title',
+        },
+    }
+    },
+    series: [{
+      name: "임의의 비율의 포트폴리오",
+      data:charData
+    },{
+      name: "최적 포트폴리오",
+      data: [this.maxSharp]
+    },{
+      name: "최저 리스크 포트폴리오",
+      data: [this.minRisk]
+    }],
+  };
   }
 }
