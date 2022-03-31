@@ -24,8 +24,7 @@ export class IntroComponent implements OnInit, OnDestroy {
 
   ngAfterViewInit(): void {
     var howManyStars: number = 1000;
-    if (IS_MOBILE) howManyStars = 500;
-
+    if(IS_MOBILE)howManyStars = 500;
     this.service.getStatus().subscribe((value) => {
       console.log("WEB STATUS CHANGED ::" + value);
       if(screenId === 'dashboard' && value === "normal") return
@@ -121,7 +120,7 @@ const IS_HIGH_RES = window.matchMedia(`
 
 const IS_MOBILE = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
 
-const IS_HIGH_RES_AND_MOBILE = (IS_HIGH_RES.matches && IS_MOBILE);
+const IS_HIGH_RES_AND_MOBILE = (IS_HIGH_RES.matches);
 
 class Star {
   private FORWARD_SPEED;
@@ -140,7 +139,7 @@ class Star {
 
     this.FORWARD_SPEED = 500;
     this.SIDEWAYS_SPEED = 100;
-    if (IS_HIGH_RES_AND_MOBILE) {
+    if (IS_HIGH_RES_AND_MOBILE || IS_MOBILE) {
       this.FORWARD_SPEED *= 2;
       this.SIDEWAYS_SPEED *= 2;
     }
@@ -264,8 +263,8 @@ class Star {
     let px = mapRange(this.px / this.pz, 0, 1, 0, width);
     let py = mapRange(this.py / this.pz, 0, 1, 0, height);
 
-    const maxRadius = (IS_HIGH_RES.matches && IS_MOBILE) ? 4 : 2;
-
+    var maxRadius = (IS_HIGH_RES.matches) ? 4 : 2;
+    if(IS_MOBILE){maxRadius = 2}
     let radius = Math.min(Math.abs(mapRange(this.z, 0, depth, maxRadius, 0.01)), maxRadius);
 
     // star point
