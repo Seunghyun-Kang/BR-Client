@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
 import { PagestatusService } from 'src/app/services/pagestatus.service';
 
 @Component({
@@ -8,9 +8,10 @@ import { PagestatusService } from 'src/app/services/pagestatus.service';
 })
 export class DashboardComponent implements OnInit {
   public screenId = "dashboard"
-  constructor(private service: PagestatusService) { 
+  constructor(private service: PagestatusService,
+    @Inject("Version") public appVersion: string,) { 
     this.service.setStatus("dashboard")
-    console.log("Version:: v3")
+    console.log("Version:: " + appVersion)
   }
 
   ngOnInit(): void {
