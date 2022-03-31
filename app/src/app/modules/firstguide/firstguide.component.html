@@ -1,7 +1,7 @@
 <div class="guide_container">
     <p class="desc">{{presentDesc}}</p>
     <form class="form" *ngIf="descIndex === 1" [formGroup]="numform" (ngSubmit)="onSubmit(numform.value)">
-        <input style="border-radius: 9rem;" type="number" formControlName="number" required>
+        <input style="border-radius: 9rem;" type="text" pattern="\d*" formControlName="number" required>
         <button style="min-width: 45px; border-radius: 9rem;" type="submit" class="btn btn-default" [disabled]="!numform.valid">확인</button>
     </form>
 </div>
