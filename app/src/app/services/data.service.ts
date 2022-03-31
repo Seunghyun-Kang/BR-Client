@@ -22,4 +22,7 @@ export class DataService {
    
     return this.companyData
 }
+  getCompanyNamebyCode(company: string){
+    return this.companyData.find(item => item.code === company)
+  }
 }
