@@ -26,7 +26,7 @@ export class FirstguideComponent implements OnInit, OnDestroy {
     private router:Router) { 
     this.descIndex = -1;
     this.descArray = [
-      "안녕, 이건 내가 아는 사람만 들어올 수 있어",
+      "안녕, 우리 주식 똑똑하게 해볼래?",
       "전화 번호만 알려줄래?",
       "#1#, 또 와줘서 고맙다",
       "다음거 좀 보여줄게"

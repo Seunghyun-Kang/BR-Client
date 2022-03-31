@@ -19,7 +19,7 @@ import { catchError, retry } from 'rxjs/operators';
 
 export class RequestService {
 
-  REST_SERVER_URL = 'http://3.36.108.253:8080/'
+  REST_SERVER_URL = 'http://52.78.240.74:8080/'
   private headers: HttpHeaders
 
   constructor(private http: HttpClient) {
@@ -54,8 +54,13 @@ export class RequestService {
     );
   }
 
-  getOptPortfolio(codes: string) {
-    let payload = {codes: codes}
+  getOptPortfolio(codes: string[]) {
+    let params = ""
+    codes.forEach((element: any, index: number) => {
+      params += element
+      if(index < codes.length-1) params += ','
+    });
+    let payload = {codes: params}
     return this.http.get(this.REST_SERVER_URL + 'optimalportfolio/', { observe: 'response', headers: this.headers, params: payload })
     .pipe(
       catchError(this.handleError)

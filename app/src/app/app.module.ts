@@ -74,7 +74,11 @@ const appRoutes: Routes = [
     PlotlyModule,
     NgApexchartsModule
   ],
-  providers: [HTMLCanvasElement],
+  providers: [HTMLCanvasElement,
+    {
+      provide: "Version",
+      useValue: 'BR V5',
+    },],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
