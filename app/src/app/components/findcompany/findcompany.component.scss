@@ -10,15 +10,25 @@
     .content {
         z-index: 1;
         height: 100%;
-
-        .dialog-container {
-            position: relative;
-            color: white;
-        }
-
+       
         .searchbar-container {
-            margin:auto; width: 70%; 
+            margin:auto; 
+            width: 100vw;
             margin-top: 10vh;
+            display: flex;
+            
+    justify-content: center;
+        .button {
+            width: 23px;
+            align-self: center;
+            margin-left: 10px;
+            position: relative;
+            }
+
         }
     }
+}
+
+::ng-deep .mat-form-field-wrapper{
+    width: 50vw;
 }

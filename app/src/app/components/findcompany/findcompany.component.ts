@@ -22,14 +22,15 @@ export class FindcompanyComponent implements OnInit {
   public guideIndex = -1
   public getData: boolean = false
   public status = "loading-forward";
-  private codesForOpt: any = []
+  public codesForOpt: any = []
   public target: string = ""
+  private isTapButton: boolean = false
   public presentGuide: string[]
   public OptGuideist = [
-    "5개 회사 선택하면 각각 몇%로 투자해야하는지 알려줄게 (추후 동적으로 가능)",
+    "회사들을 선택하면 각각 몇%로 투자해야하는지 알려줄게 (최소 2개)",
   ]
   public StockGuideist = [
-    "아래 창에 확인하고 싶은 회사명을 검색해봐",
+    "확인하고 싶은 회사명을 검색해봐",
     "추후 해당 주식의 매매 타이밍을 계산해서 나온 결과를 보여줄게"
   ]
 
@@ -95,7 +96,7 @@ export class FindcompanyComponent implements OnInit {
         if(element.company === item){
           codelist.push(element.code)
           console.log("match company!!!" + codelist)
-          if(codelist.length >= 5)
+          if((codelist.length >= 10 && !this.isTapButton) || (codelist.length > 1 && this.isTapButton))
           {
             this.router.navigate(['optimalportfolio'], { queryParams: { 
                 code: codelist
@@ -112,4 +113,9 @@ export class FindcompanyComponent implements OnInit {
     this.guideIndex = event
   }
 
+  onTapClick() {
+    this.isTapButton = true
+    if(this.codesForOpt.length > 1) this.onSelectedOption(this.codesForOpt)
+    this.isTapButton = false
+  }
 }
