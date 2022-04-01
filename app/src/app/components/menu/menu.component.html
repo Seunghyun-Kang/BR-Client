@@ -3,8 +3,7 @@
         <header></header>
     </div>
 <div class="content">
-    <app-guide [descArray]="guideist" (indexChange)="guideIndexChanged($event)"></app-guide>
-    
+    <app-guide [descArray]="guideist" [position]="'middle'" (indexChange)="guideIndexChanged($event)"></app-guide>
     <div class="button-container">
         <div class="card" *ngIf="guideIndex >= 1" (click)="onPressOptPortfolio()">
             <div style="display:table;">
