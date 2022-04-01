@@ -76,7 +76,7 @@ export class FindcompanyComponent implements OnInit {
   }
 
   onSelectedOption(event: any) {
-    console.log(event[0])
+    console.log(event)
  
     if(this.target === 'GetStockDetails'){
     this.rawData.forEach(element => {
@@ -88,21 +88,21 @@ export class FindcompanyComponent implements OnInit {
       }
     });
   } else if(this.target === 'OptPortfolio') {
-    let list: any = []
-    list = event
-    
+    let codelist: any = []
+    this.codesForOpt = event
     this.rawData.forEach(element => {
-      if(element.company === list[list.length-1]){
-        
-        this.codesForOpt.push(element.code)
-        console.log("match company!!!" + this.codesForOpt)
-        if(list.length >= 5)
-        {
-          this.router.navigate(['optimalportfolio'], { queryParams: { 
-              code: this.codesForOpt
-             }})
+      this.codesForOpt.forEach((item: any) => {
+        if(element.company === item){
+          codelist.push(element.code)
+          console.log("match company!!!" + codelist)
+          if(codelist.length >= 5)
+          {
+            this.router.navigate(['optimalportfolio'], { queryParams: { 
+                code: codelist
+               }})
+          }
         }
-      }
+      });
     });
   }
 
