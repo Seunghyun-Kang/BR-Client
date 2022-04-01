@@ -17,14 +17,22 @@
         z-index: 1;
         height: 100%;
 
-        .result {
-        color: blanchedalmond;
+        .result1 {
+        color: rgba(0, 227, 150, 0.85);
         font-family: poorstory;
         font-size: 16px;
         word-break: keep-all;
         word-wrap: break-word;
         text-align: -webkit-center;
         }
+        .result2 {
+          color: rgba(254, 176, 25, 0.85);
+          font-family: poorstory;
+          font-size: 16px;
+          word-break: keep-all;
+          word-wrap: break-word;
+          text-align: -webkit-center;
+          }
     }
 }
 

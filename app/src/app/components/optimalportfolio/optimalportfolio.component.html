@@ -12,10 +12,15 @@
     ></apx-chart>
   </div>
 
-  <div *ngIf="getData" class="result" style="
+  
+  <div *ngIf="getData" class="result1" style="
   margin-top: 15vh;" [innerText]="result1"></div>
+  <div *ngIf="getData" class="result1" style="
+  color: white;" [innerText]="result1_portion"></div>
   <div *ngIf="getData" style="
-  margin-top: 1vh;" class="result" [innerText]="result2"></div>
+  margin-top: 3vh;" class="result2" [innerText]="result2"></div>
+  <div *ngIf="getData" style="
+  color: white;" class="result2" [innerText]="result2_portion"></div>
   
 </div>
 </div>

@@ -1,4 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
+import { throwToolbarMixedModesError } from '@angular/material/toolbar';
 import { ActivatedRoute } from '@angular/router';
 
 import {
@@ -38,10 +39,15 @@ export class OptimalportfolioComponent implements OnInit {
   public maxSharpFull: any
   public minRiskFull: any
   public maxSharp: any
+  public maxProfit: any
+  public minProfit: any
   public minRisk: any
+  public maxRisk: any
   public getData: boolean = false
-  public result1:string = "최적 포트폴리오는 "
-  public result2:string = "최저 리스크 포트폴리오는 "
+  public result1:string = "최적 포트폴리오: "
+  public result2:string = "최저 리스크 포트폴리오: "
+  public result1_portion: string = ""
+  public result2_portion: string = ""
   public chartOptions: Partial<ChartOptions> | any;
 
   constructor(private statusService: PagestatusService,
@@ -79,10 +85,12 @@ export class OptimalportfolioComponent implements OnInit {
   initChartData() {
     let charData: any[] = []
     var maxS = 0;
+    var maxP = 0;
+    var maxR = 0;
+    var minP = 100;
     var minR = 100;
     this.rawData.forEach((element: any, index: number) => {
       let formatted = [Number((element.Risk*100).toFixed(2)), Number((element.Returns*100).toFixed(2))]
-
       if(element.Sharpe > maxS) {
         this.maxSharp = formatted
         maxS = element.Sharpe
@@ -93,18 +101,36 @@ export class OptimalportfolioComponent implements OnInit {
         minR = element.Risk
         this.minRiskFull = element
       }
-      if(index%20 === 0 && formatted[0] < 100) charData.push(formatted)
+      if(element.Risk > maxR) {
+        this.maxRisk = formatted
+        maxR = element.Risk
+      }
+      if(formatted[1] < minP) {
+        minP = formatted[1]
+        this.minProfit = formatted
+      }
+      if(formatted[1] > maxP) {
+        maxP = formatted[1]
+        this.maxProfit = formatted
+      }
+      if(index%10 === 0 && formatted[0] < 100) charData.push(formatted)
     });
   
 
   console.log(this.maxSharpFull)
-  console.log(this.minRiskFull)
+  this.result1 += '리스크: ' + this.maxSharp[0] + '%, 이윤: ' + this.maxSharp[1] + '%'
+  console.log(this.minRisk)
+  this.result2 += '리스크: ' + this.minRisk[0] + '%, 이윤: ' + this.minRisk[1]  + '%'
+  console.log(this.maxRisk)
+  console.log(this.minProfit)
+  console.log(this.maxProfit)
+
   this.codes.forEach((element, index:any) => {
     let info = this.dataService.getCompanyNamebyCode(element)
-     this.result1 += info + ' ' + (this.maxSharpFull[element] * 100).toFixed(0) + '%'
-     this.result2 += info + ' ' + (this.minRiskFull[element] * 100).toFixed(0) + '%'
+     this.result1_portion += info + ' ' + (this.maxSharpFull[element] * 100).toFixed(0) + '%'
+     this.result2_portion += info + ' ' + (this.minRiskFull[element] * 100).toFixed(0) + '%'
      
-     if(index < this.codes.length-1) {this.result2 += ', '; this.result1 += ', '}
+     if(index < this.codes.length-1) {this.result2_portion += ', '; this.result1_portion += ', '}
      
   });
 
@@ -123,7 +149,7 @@ export class OptimalportfolioComponent implements OnInit {
     xaxis: {
       type: "numeric",
       min: this.minRisk[0] - 5,
-      max: 100,
+      max: this.maxRisk[0] + 5,
       labels: {
         formatter: function(val: any) {
           return String(val.toFixed(0)) + '%'
@@ -135,7 +161,7 @@ export class OptimalportfolioComponent implements OnInit {
         offsetX: 0,
         offsetY: 0,
         style: {
-            color: undefined,
+            color: 'white',
             fontSize: '12px',
             fontFamily: 'poorstory',
             fontWeight: 600,
@@ -145,12 +171,12 @@ export class OptimalportfolioComponent implements OnInit {
     },
     yaxis: {
       type: "numeric",
-      min: -30,
-      max: 70,
+      min: this.minProfit[1] - 5,
+      max: this.maxProfit[1] + 5,
       tickAmount: 10,
       labels: {
         formatter: function(val: any) {
-          return String(val) + '%'
+          return String(val.toFixed(0)) + '%'
         }
       },
       title: {
@@ -159,7 +185,7 @@ export class OptimalportfolioComponent implements OnInit {
         offsetX: 0,
         offsetY: 0,
         style: {
-            color: undefined,
+            color: 'white',
             fontSize: '12px',
             fontFamily: 'poorstory',
             fontWeight: 600,
