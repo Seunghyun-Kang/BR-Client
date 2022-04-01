@@ -138,6 +138,7 @@ export class OptimalportfolioComponent implements OnInit {
     
     chart: {
       height: 400,
+      width: '90%', 
       type: 'scatter',
       animations: {
         enabled: false,
@@ -153,7 +154,14 @@ export class OptimalportfolioComponent implements OnInit {
       labels: {
         formatter: function(val: any) {
           return String(val.toFixed(0)) + '%'
-        }
+        },
+        style: {
+          
+          colors: ['#FFFFFF'],
+          fontSize: '12px',
+          fontFamily: 'poorstory',
+          cssClass: 'apexcharts-yaxis-title',
+      }
       },
       title: {
         text: "리스크",
@@ -161,7 +169,7 @@ export class OptimalportfolioComponent implements OnInit {
         offsetX: 0,
         offsetY: 0,
         style: {
-            color: 'white',
+            color: '#FFFFFF',
             fontSize: '12px',
             fontFamily: 'poorstory',
             fontWeight: 600,
@@ -177,7 +185,13 @@ export class OptimalportfolioComponent implements OnInit {
       labels: {
         formatter: function(val: any) {
           return String(val.toFixed(0)) + '%'
-        }
+        },
+        style: {
+          colors: ['#FFFFFF'],
+          fontSize: '12px',
+          fontFamily: 'poorstory',
+          cssClass: 'apexcharts-yaxis-title',
+      }
       },
       title: {
         text: "이윤",
@@ -185,7 +199,7 @@ export class OptimalportfolioComponent implements OnInit {
         offsetX: 0,
         offsetY: 0,
         style: {
-            color: 'white',
+            color: '#FFFFFF',
             fontSize: '12px',
             fontFamily: 'poorstory',
             fontWeight: 600,
