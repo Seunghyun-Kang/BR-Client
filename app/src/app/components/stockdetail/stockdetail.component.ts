@@ -94,6 +94,9 @@ export class StockdetailComponent implements OnInit {
       this.chartSettings.data[0].high.push(element.high);
       this.chartSettings.data[0].low.push(element.low);
       this.chartSettings.data[0].open.push(element.open);
+
+      this.chartSettings.data[1].x.push(element.date);
+      this.chartSettings.data[1].y.push(element.close);
      
       volume.push(element.volume / 4000);
 
