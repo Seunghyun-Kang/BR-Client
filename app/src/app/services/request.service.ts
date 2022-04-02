@@ -67,6 +67,13 @@ export class RequestService {
     );
   }
 
+  getBollingerInfo(code: string) {
+    return this.http.get(this.REST_SERVER_URL + 'bollinger/' + code + '/', { observe: 'response', headers: this.headers})
+    .pipe(
+      catchError(this.handleError)
+    );
+  }
+
   private handleError(error: HttpErrorResponse) {
     if (error.status === 0) {
       console.error('An error occurred:', error.error);

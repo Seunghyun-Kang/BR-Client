@@ -2,11 +2,21 @@
 <div class="actionbar">
     <header></header>
 </div>
-<div *ngIf="getData" class="chart-container" style="height: 100%;">
+<div *ngIf="getData" class="chart-container">
     <plotly-plot 
     [data]="chartSettings.data" 
     [layout]="chartSettings.layout" 
     [config]="chartSettings.config" 
+    #chart 
+    [useResizeHandler]="true" 
+    [style]="{position: 'relative'}"></plotly-plot>
+</div>
+
+<div *ngIf="getData" class="chart-container" style="height: 100%;">
+    <plotly-plot 
+    [data]="chartSettings2.data" 
+    [layout]="chartSettings2.layout" 
+    [config]="chartSettings2.config" 
     #chart 
     [useResizeHandler]="true" 
     [style]="{position: 'relative'}"></plotly-plot>

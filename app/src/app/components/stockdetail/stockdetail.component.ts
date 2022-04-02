@@ -3,7 +3,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { RequestService } from 'src/app/services/request.service';
 import { Location } from '@angular/common';
 import { PlotlyModule } from "angular-plotly.js";
-import { TradeViewSettings } from './stockdetail.model';
+import { TradeViewSettings, TradeViewSettings2 } from './stockdetail.model';
 import { PagestatusService } from 'src/app/services/pagestatus.service';
 
 export interface priceData {
@@ -17,6 +17,17 @@ export interface priceData {
   volume: number
 }
 
+export interface bollingerData {
+  code: string,
+  date: string,
+  ma20: number,
+  stddev: number,
+  upper: number,
+  lower: number,
+  pb: number,
+  bandwidth: number,
+  mfi10: number
+}
 @Component({
   selector: 'app-stockdetail',
   templateUrl: './stockdetail.component.html',
@@ -30,8 +41,12 @@ export class StockdetailComponent implements OnInit {
   public code: string
   public companyName: string
   public rawData: priceData[]
+  public rawDataBollinger: bollingerData[]
+
   public getData: boolean = false
+  public getBollingerData: boolean = false
   public chartSettings = TradeViewSettings.settings;
+  public chartSettings2 = TradeViewSettings2.settings;
   MILLISEC = 2629800000
   volumeColors = [] as any;
 
@@ -50,12 +65,6 @@ export class StockdetailComponent implements OnInit {
     }
 
   ngOnInit(): void {
-    // this.requestService.getCompanyName(this.code) 
-    // .subscribe({
-    //     next: (v) => console.log("RESONSE FROM SERVER :: " + JSON.stringify(v)),
-    //     error: (e) => console.log("ERROR OCCURED :: " + JSON.stringify(e))
-    //   });
-
     this.requestService.getPrices(this.code) 
     .subscribe({
         next: (v) => {
@@ -69,6 +78,17 @@ export class StockdetailComponent implements OnInit {
         },
         error: (e) => console.log("ERROR OCCURED :: " + JSON.stringify(e))
       });
+
+      this.requestService.getBollingerInfo(this.code) 
+      .subscribe({
+          next: (v) => {
+            this.rawDataBollinger = Object(v.body)
+            this.getBollingerData = true
+            console.log(this.rawDataBollinger)
+            this.setBollingerchart(this.rawDataBollinger)
+          },
+          error: (e) => console.log("ERROR OCCURED :: " + JSON.stringify(e))
+        });
   }
   
   setChartView(payload: priceData[]) {
@@ -78,10 +98,8 @@ export class StockdetailComponent implements OnInit {
     this.chartSettings.layout.xaxis.range = [defaultstartDate, endDate];
     this.chartSettings.layout.xaxis.rangeslider.range = [startDate, endDate];
 
-    let array = this.rawData.slice(payload.length-31, payload.length-1)
-    let maxY = Math.max.apply(Math, array.map(function(o) { return o.high; }))
-    let minY = Math.min.apply(Math, array.map(function(o) { return o.low; }))
-    this.chartSettings.layout.yaxis.range = [minY, maxY];
+    this.chartSettings2.layout.xaxis.range = [defaultstartDate, endDate];
+    this.chartSettings2.layout.xaxis.rangeslider.range = [startDate, endDate];
    
     let volume = [];
     this.volumeColors = [];
@@ -109,6 +127,34 @@ export class StockdetailComponent implements OnInit {
     });
 
     console.log(this.chartSettings.data[0]);
+  }
+
+  setBollingerchart(payload: bollingerData[]) {
+    payload.forEach(element => {
+      this.chartSettings.data[2].x.push(element.date);
+      this.chartSettings.data[2].y.push(element.upper);
+
+      this.chartSettings.data[3].x.push(element.date);
+      this.chartSettings.data[3].y.push(element.lower);
+
+      this.chartSettings.data[4].x.push(element.date);
+      this.chartSettings.data[4].y.push(element.ma20);
+
+      this.chartSettings2.data[0].x.push(element.date);
+      this.chartSettings2.data[0].y.push(element.pb * 100);
+
+      this.chartSettings2.data[1].x.push(element.date);
+      this.chartSettings2.data[1].y.push(element.mfi10);
+
+    let array = payload.slice(payload.length-31, payload.length-1)
+    let maxY = Math.max.apply(Math, array.map(function(o) { return o.upper; }))
+    let minY = Math.min.apply(Math, array.map(function(o) { return o.lower; }))
+    this.chartSettings.layout.yaxis.range = [minY, maxY];
+
+    let maxY2 = Math.max.apply(Math, array.map(function(o) { return Math.max(o.pb, o.mfi10)+10; }))
+    let minY2 = Math.min.apply(Math, array.map(function(o) { return Math.min(o.pb, o.mfi10)-10; }))
+    this.chartSettings2.layout.yaxis.range = [minY2, maxY2];
+    });
   }
 
   public onClick(data: any) {
