@@ -12,9 +12,9 @@ export class MenuComponent implements OnInit {
   public status = "loading-forward";
   public guideIndex: number = -1;
   public guideist = [
-    "아직까지는 두개의 기능밖에 없어",
+    "아직까지는 두 개의 기능밖에 없어",
     "첫번째는 너가 선택한 주식들의 최적화 포트폴리오가 어떤 비율인지 계산해주는거야",
-    "두번째는 특정 주식의 차트를 보여주는거야 (추후 매매 알고리즘 추가 예정)",
+    "두번째는 특정 종목 차트와 매매 알고리즘을 보여주는거야",
     "선택하면 더 자세히 설명해줄게"
   ]
   constructor(private statusService: PagestatusService,

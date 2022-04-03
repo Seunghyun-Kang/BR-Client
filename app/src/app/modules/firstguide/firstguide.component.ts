@@ -26,10 +26,9 @@ export class FirstguideComponent implements OnInit, OnDestroy {
     private router:Router) { 
     this.descIndex = -1;
     this.descArray = [
-      "안녕, 우리 주식 똑똑하게 해볼래?",
-      "전화 번호만 알려줄래?",
-      "#1#, 또 와줘서 고맙다",
-      "다음거 좀 보여줄게"
+      "안녕, 우리 주식 똑똑하게 해보자",
+      "전화 번호 알려줘",
+      "#1#, 반가워",
     ]
     this.exceptionDescArray = [
       "내가 아직 널 모르네.. 일단 친해지고 다시 만나자!",
@@ -70,7 +69,7 @@ export class FirstguideComponent implements OnInit, OnDestroy {
     
     if(this.descIndex === 1) {clearInterval(this.interval); this.interval = undefined}
     
-    } else if(index >= 3){
+    } else if(index >= 2){
       console.log("setAutoGuide called index > 3:: " + index)
       if(this.isAcceptAccount) this.router.navigate(['menu'])
       clearInterval(this.interval)
