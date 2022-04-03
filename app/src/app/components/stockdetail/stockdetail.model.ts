@@ -13,7 +13,7 @@ export class TradeViewSettings {
         traceorder: 'normal',
         font: {
           family: 'poorstory',
-          size: 11,
+          size: 9,
           color: 'white'
         },
         bgcolor: '020922',
@@ -25,7 +25,7 @@ export class TradeViewSettings {
         height: '300',
     
       margin: {
-        r: 50,
+        r: 45,
         t: 40,
         b: 40,
         l: 70
