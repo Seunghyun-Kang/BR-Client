@@ -1,6 +1,6 @@
 <div class=dashboard>
     <div class="actionbar">
-        <header></header>
+        <header [title]="'종목 검색'"></header>
     </div>
 <div class="content">
     <app-guide [descArray]="presentGuide" [position]="'upper'" (indexChange)="guideIndexChanged($event)"></app-guide>

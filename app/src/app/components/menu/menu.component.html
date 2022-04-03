@@ -1,6 +1,6 @@
 <div class=dashboard>
     <div class="actionbar">
-        <header></header>
+        <header [title]="'대쉬보드'"></header>
     </div>
 <div class="content">
     <app-guide [descArray]="guideist" [position]="'middle'" (indexChange)="guideIndexChanged($event)"></app-guide>
