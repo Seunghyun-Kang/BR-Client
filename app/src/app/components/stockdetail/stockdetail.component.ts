@@ -4,6 +4,7 @@ import { RequestService } from 'src/app/services/request.service';
 import { PlotlyModule } from "angular-plotly.js";
 import { TradeViewSettings } from './stockdetail.model';
 import { PagestatusService } from 'src/app/services/pagestatus.service';
+import { DataService } from 'src/app/services/data.service';
 
 export interface priceData {
   code: string,
@@ -69,10 +70,11 @@ export class StockdetailComponent implements OnInit {
   constructor(
     private requestService: RequestService,
     private statusService: PagestatusService,
+    private dataService: DataService,
     private route: ActivatedRoute) { 
       this.route.queryParams.subscribe((params:any) => {
-          this.code = params['code'],
-          this.companyName = params['companyName']
+          this.code = params['code']
+          this.companyName = this.dataService.getCompanyNamebyCode(this.code)
       });
       this.statusService.setStatus("loading-forward") 
     }
@@ -208,7 +210,8 @@ export class StockdetailComponent implements OnInit {
       type: 'scatter',
       xaxis: "x",
       yaxis: "y",
-      name: "%b"
+      name: "%b",
+      showlegend: true
     }
     this.MFI10Graph = {
       x: [],
@@ -229,7 +232,8 @@ export class StockdetailComponent implements OnInit {
       type: 'bar',
       xaxis: "x",
       yaxis: "y",
-      name: "21일 일중 강도"
+      name: "21일 일중 강도",
+      showlegend: true
     }
       
       this.rawDataBollinger.forEach(element => {
@@ -281,6 +285,10 @@ export class StockdetailComponent implements OnInit {
     this.isDefault = false
     this.isBollingerTrendReverse = false
 
+    this.firstChart.data = []
+    this.firstChart.data.push(this.stockGraph)
+    this.firstChart.data.push(this.closeGraph)
+    
     this.secondChart.data = []
     this.secondChart.data.push(this.closeGraph)
     this.secondChart.data.push(this.bollingerLowerGraph)
