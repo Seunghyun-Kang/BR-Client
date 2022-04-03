@@ -70,11 +70,10 @@ export class StockdetailComponent implements OnInit {
   constructor(
     private requestService: RequestService,
     private statusService: PagestatusService,
-    private dataService: DataService,
     private route: ActivatedRoute) { 
       this.route.queryParams.subscribe((params:any) => {
           this.code = params['code']
-          this.companyName = this.dataService.getCompanyNamebyCode(this.code)
+          this.companyName = params['companyName']
       });
       this.statusService.setStatus("loading-forward") 
     }

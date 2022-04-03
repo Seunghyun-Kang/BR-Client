@@ -84,7 +84,8 @@ export class FindcompanyComponent implements OnInit {
       if(element.company === event[0]){
         console.log("match company!!!")
         this.router.navigate(['stockdetail'], { queryParams: { 
-          code: element.code
+          code: element.code,
+          companyName: this.dataService.getCompanyNamebyCode(element.code)
          }})
       }
     });
