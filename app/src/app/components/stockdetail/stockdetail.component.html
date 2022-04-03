@@ -4,9 +4,9 @@
 </div>
 <div *ngIf="getData" class="chart-container">
     <plotly-plot 
-    [data]="chartSettings.data" 
-    [layout]="chartSettings.layout" 
-    [config]="chartSettings.config" 
+    [data]="firstChart.data" 
+    [layout]="firstChart.layout" 
+    [config]="firstChart.config" 
     #chart 
     [useResizeHandler]="true" 
     [style]="{position: 'relative'}"></plotly-plot>
@@ -14,9 +14,9 @@
 
 <div *ngIf="getData" class="chart-container" style="height: 100%;">
     <plotly-plot 
-    [data]="chartSettings2.data" 
-    [layout]="chartSettings2.layout" 
-    [config]="chartSettings2.config" 
+    [data]="secondChart.data" 
+    [layout]="secondChart.layout" 
+    [config]="secondChart.config" 
     #chart 
     [useResizeHandler]="true" 
     [style]="{position: 'relative'}"></plotly-plot>
