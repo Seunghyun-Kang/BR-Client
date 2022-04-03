@@ -22,13 +22,13 @@ export class TradeViewSettings {
       paper_bgcolor: "#131722",
     //   autosize: true,
         // width: '100%',
-        height: '33%',
+        height: '300',
     
       margin: {
-        r: 30,
+        r: 50,
         t: 40,
         b: 40,
-        l: 50
+        l: 70
       },
     dragmode: "pan",
       xaxis: {
