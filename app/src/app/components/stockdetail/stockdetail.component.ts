@@ -25,7 +25,8 @@ export interface bollingerData {
   lower: number,
   pb: number,
   bandwidth: number,
-  mfi10: number
+  mfi10: number,
+  iip21: number
 }
 @Component({
   selector: 'app-stockdetail',
@@ -40,8 +41,11 @@ export class StockdetailComponent implements OnInit {
   >;
   public code: string = ""
   public companyName: string = ""
+  
+  public isDefault: boolean = true
   public isBollingerTrendFollowing: boolean = false
   public isBollingerTrendReverse: boolean = false
+
   public rawStockData: priceData[] = []
   public rawDataBollinger: bollingerData[] = []
 
@@ -154,16 +158,7 @@ export class StockdetailComponent implements OnInit {
         this.closeGraph.x.push(element.date);
         this.closeGraph.y.push(element.close);
       });
-
-      this.firstChart.data.push(this.stockGraph)
-      this.firstChart.data.push(this.closeGraph)
-
-      let array = this.rawStockData.slice(this.rawStockData.length-31, this.rawStockData.length-1)
-      let maxY = Math.max.apply(Math, array.map(function(o) { return o.high; }))
-      let minY = Math.min.apply(Math, array.map(function(o) { return o.low; }))
-      this.firstChart.layout.yaxis.range = [minY, maxY];
-
-      this.firstChart.layout.yaxis.title = "가격"
+      this.tapDefault()
   }
 
   initBollingerGraph() {
@@ -209,7 +204,7 @@ export class StockdetailComponent implements OnInit {
     this.PBGraph = {
       x: [],
       y: [],
-      line: { color: "rgba(87, 255, 125, 1)"  },
+      line: { color: "rgba(122, 226, 175, 1)"  },
       type: 'scatter',
       xaxis: "x",
       yaxis: "y",
@@ -228,8 +223,10 @@ export class StockdetailComponent implements OnInit {
     this.IIP21Graph = {
       x: [],
       y: [],
-      line: { color: "rgba(148, 77, 233, 1)" },
-      type: 'scatter',
+      marker: {
+        color: 'rgba(239, 32, 100, 1)'
+      },
+      type: 'bar',
       xaxis: "x",
       yaxis: "y",
       name: "21일 일중 강도"
@@ -255,8 +252,91 @@ export class StockdetailComponent implements OnInit {
         this.MFI10Graph.y.push(element.mfi10);
 
         this.IIP21Graph.x.push(new Date(element.date).getTime());
-        // this.IIP21Graph.y.push(element.);
+        this.IIP21Graph.y.push(element.iip21);
       });
+  }
+
+  tapDefault() {
+    console.log("Tap default button")
+    this.isDefault = true
+    this.isBollingerTrendFollowing = false
+    this.isBollingerTrendReverse = false
+
+    this.firstChart.data = []
+    this.firstChart.data.push(this.stockGraph)
+    this.firstChart.data.push(this.closeGraph)
+
+    let array = this.rawStockData.slice(this.rawStockData.length-31, this.rawStockData.length-1)
+    let maxY = Math.max.apply(Math, array.map(function(o) { return o.high; }))
+    let minY = Math.min.apply(Math, array.map(function(o) { return o.low; }))
+    this.firstChart.layout.yaxis.range = [minY, maxY];
+
+    this.firstChart.layout.yaxis.title = "가격"
+  }
+
+  tapBolingerTrend() {
+    console.log("Tap BolingerTrend button")
+
+    this.isBollingerTrendFollowing = true
+    this.isDefault = false
+    this.isBollingerTrendReverse = false
+
+    this.secondChart.data = []
+    this.secondChart.data.push(this.closeGraph)
+    this.secondChart.data.push(this.bollingerLowerGraph)
+    this.secondChart.data.push(this.bollingerUpperGraph)
+    this.secondChart.data.push(this.M20Graph)
+
+    this.thirdChart.data = []
+    this.thirdChart.data.push(this.PB100Graph)
+    this.thirdChart.data.push(this.MFI10Graph)
+    this.thirdChart.layout.yaxis.title = ""
+
+    let array = this.rawDataBollinger.slice(this.rawDataBollinger.length-31, this.rawDataBollinger.length-1)
+    let maxY = Math.max.apply(Math, array.map(function(o) { return o.upper; }))
+    let minY = Math.min.apply(Math, array.map(function(o) { return o.lower; }))
+    this.secondChart.layout.yaxis.range = [minY, maxY];
+
+    let maxY2 = Math.max.apply(Math, array.map(function(o) { return Math.max(o.pb*100, o.mfi10); }))
+    let minY2 = Math.min.apply(Math, array.map(function(o) { return Math.min(o.pb*100, o.mfi10); }))
+    this.thirdChart.layout.yaxis.range = [minY2, maxY2];
+  }
+
+  tapBollingerReverse() {
+    console.log("Tap BolingerReverse button")
+    
+    this.isBollingerTrendFollowing = false
+    this.isDefault = false
+    this.isBollingerTrendReverse = true
+
+    this.firstChart.data = []
+    this.firstChart.data.push(this.stockGraph)
+    this.firstChart.data.push(this.bollingerLowerGraph)
+    this.firstChart.data.push(this.bollingerUpperGraph)
+    this.firstChart.data.push(this.closeGraph)
+    this.firstChart.data.push(this.M20Graph)
+
+    this.secondChart.data = []
+    this.secondChart.data.push(this.PBGraph)
+    this.secondChart.layout.yaxis.title = ""
+
+    this.thirdChart.data = []
+    this.thirdChart.data.push(this.IIP21Graph)
+    this.thirdChart.layout.yaxis.title = ""
+
+    
+    let array = this.rawDataBollinger.slice(this.rawDataBollinger.length-31, this.rawDataBollinger.length-1)
+    let maxY = Math.max.apply(Math, array.map(function(o) { return o.upper; }))
+    let minY = Math.min.apply(Math, array.map(function(o) { return o.lower; }))
+    this.firstChart.layout.yaxis.range = [minY, maxY];
+
+    let maxY2 = Math.max.apply(Math, array.map(function(o) { return o.pb; }))
+    let minY2 = Math.min.apply(Math, array.map(function(o) { return o.pb; }))
+    this.secondChart.layout.yaxis.range = [minY2, maxY2];
+
+    let maxY3 = Math.max.apply(Math, array.map(function(o) { return o.iip21; }))
+    let minY3 = Math.min.apply(Math, array.map(function(o) { return o.iip21; }))
+    this.thirdChart.layout.yaxis.range = [minY3, maxY3];
   }
 
   public onClick(data: any) {
