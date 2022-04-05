@@ -33,7 +33,6 @@ export class TradeViewSettings {
     dragmode: "pan",
       xaxis: {
         autorange: false,
-        title: "날짜",
         rangeselector: {
           xanchor: "left",
           font: { size: 8 },

@@ -3,33 +3,39 @@
     <header [title] = "companyName"></header>
 </div>
 <div *ngIf="getData" class="chart-container">
-    <plotly-plot 
-    [data]="firstChart.data" 
-    [layout]="firstChart.layout" 
-    [config]="firstChart.config" 
-    #chart 
-    [useResizeHandler]="true" 
-    [style]="{position: 'relative'}"></plotly-plot>
+    <plotly-plot
+    [data]=firstChart.data 
+    [layout]=firstChart.layout 
+    [config]=firstChart.config
+    [updateOnlyWithRevision] = true
+    [revision] = revision
+    [useResizeHandler]=true 
+    [style]="{position: 'relative'}"
+    (relayout)="relayoutfirstchart($event)"></plotly-plot>
 </div>
 
 <div *ngIf="getData && (isBollingerTrendFollowing || isBollingerTrendReverse)" class="chart-container" style="height: 100%;">
-    <plotly-plot 
+    <plotly-plot
     [data]="secondChart.data" 
     [layout]="secondChart.layout" 
     [config]="secondChart.config" 
-    #chart 
+    [updateOnlyWithRevision] = "true"
+    [revision] = "revision"
     [useResizeHandler]="true" 
-    [style]="{position: 'relative'}"></plotly-plot>
+    [style]="{position: 'relative'}"
+    (relayout)="relayoutsecondchart($event)"></plotly-plot>
 </div>
 
 <div *ngIf="getData && (isBollingerTrendFollowing || isBollingerTrendReverse)" class="chart-container" style="height: 100%;">
-    <plotly-plot 
+    <plotly-plot
     [data]="thirdChart.data" 
     [layout]="thirdChart.layout" 
     [config]="thirdChart.config" 
-    #chart 
+    [updateOnlyWithRevision] = "true"
     [useResizeHandler]="true" 
-    [style]="{position: 'relative'}"></plotly-plot>
+    [style]="{position: 'relative'}"
+    [revision] = "revision"
+    (relayout)="relayoutthirdchart($event)"></plotly-plot>
 </div>
 
 <div class="box_for_menu"></div>

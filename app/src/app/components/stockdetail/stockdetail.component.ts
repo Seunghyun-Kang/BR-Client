@@ -1,10 +1,9 @@
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { ChangeDetectionStrategy, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { RequestService } from 'src/app/services/request.service';
-import { PlotlyModule } from "angular-plotly.js";
+import { PlotlyModule, PlotlyService } from "angular-plotly.js";
 import { TradeViewSettings } from './stockdetail.model';
 import { PagestatusService } from 'src/app/services/pagestatus.service';
-import { DataService } from 'src/app/services/data.service';
 
 export interface priceData {
   code: string,
@@ -83,16 +82,23 @@ export class StockdetailComponent implements OnInit {
   public firstChart = new TradeViewSettings().settings;
   public secondChart = new TradeViewSettings().settings;
   public thirdChart = new TradeViewSettings().settings;
+  public revision = 1
+
+  private rangeFirstY = [1,1]
+  private rangeSecondY = [1,1]
+  private rangeThirdY = [1,1]
 
   constructor(
     private requestService: RequestService,
     private statusService: PagestatusService,
-    private route: ActivatedRoute) { 
+    private route: ActivatedRoute,
+    public plotlyService: PlotlyService) { 
       this.route.queryParams.subscribe((params:any) => {
           this.code = params['code']
           this.companyName = params['companyName']
       });
       this.statusService.setStatus("loading-forward") 
+      const Plotly = plotlyService.getPlotly();
     }
 
   ngOnInit(): void {
@@ -102,13 +108,11 @@ export class StockdetailComponent implements OnInit {
           this.rawStockData = JSON.parse(Object(v.body))
           console.log(this.rawStockData)
           
-          setTimeout(() => {
           this.statusService.setStatus("normal")
           this.getData = true
 
           this.initCommonGraphSettings()
           this.initDefaultGraph()
-          }, 1000);
 
           this.requestService.getBollingerTrendSignal(this.code) 
           .subscribe({
@@ -141,10 +145,53 @@ export class StockdetailComponent implements OnInit {
           },
           error: (e: any) => console.log("ERROR OCCURED :: " + JSON.stringify(e))
         });
+
+  }
+
+  relayoutfirstchart(event: any) {
+    if(!(this.isBollingerTrendFollowing || this.isBollingerTrendReverse)) return
+
+    let startdate = new Date(event['xaxis.range[0]']).getTime()
+    let enddate = new Date(event['xaxis.range[1]']).getTime()
+    
+    // let rate0 = event['yaxis.range[0]']/ this.rangeFirstY[0]
+    // let rate1 = event['yaxis.range[1]']/ this.rangeFirstY[1]
+
+    // console.log(rate0)
+    // console.log(rate1)
+
+    // this.firstChart.layout.xaxis.range = [startdate, enddate];
+    this.secondChart.layout.xaxis.range = [startdate, enddate];
+    // this.secondChart.layout.yaxis.range = [this.rangeSecondY[0] * rate0, this.rangeSecondY[1] * rate1];
+    this.thirdChart.layout.xaxis.range = [startdate, enddate];
+    // this.thirdChart.layout.yaxis.range = [this.rangeThirdY[0] * rate0, this.rangeThirdY[1] * rate1];
+    this.revision++
+  }
+
+  relayoutsecondchart(event: any) {
+    let startdate = new Date(event['xaxis.range[0]']).getTime()
+    let enddate = new Date(event['xaxis.range[1]']).getTime()
+    
+    this.firstChart.layout.xaxis.range = [startdate, enddate];
+    // this.secondChart.layout.xaxis.range = [startdate, enddate];
+    this.thirdChart.layout.xaxis.range = [startdate, enddate];
+    this.revision++
+  }  
+
+  relayoutthirdchart(event: any) {
+    let startdate = new Date(event['xaxis.range[0]']).getTime()
+    let enddate = new Date(event['xaxis.range[1]']).getTime()
+    
+    this.firstChart.layout.xaxis.range = [startdate, enddate];
+    this.secondChart.layout.xaxis.range = [startdate, enddate];
+    // this.thirdChart.layout.xaxis.range = [startdate, enddate];
+    this.revision++
+  }
+
+  ngAfterViewInit() { 
   }
 
   initCommonGraphSettings() {
-    console.log(this.rawStockData[this.rawStockData.length-1].date)
     let startDate = new Date(this.rawStockData[0].date).getTime()
     let endDate = new Date(this.rawStockData[this.rawStockData.length-1].date).getTime()
     let defaultstartDate = new Date(this.rawStockData[this.rawStockData.length-31].date).getTime()
@@ -166,7 +213,6 @@ export class StockdetailComponent implements OnInit {
       decreasing: { line: { color: "#4E7FEE" } },
       high: [],
       increasing: { line: { color: "#EE4B28" } },
-      // line: { color: "rgba(31,119,180,1)" },
       low: [],
       open: [],
       type: "candlestick",
@@ -195,7 +241,7 @@ export class StockdetailComponent implements OnInit {
         this.closeGraph.x.push(element.date);
         this.closeGraph.y.push(element.close);
       });
-      this.tapDefault()
+        this.tapDefault()
   }
 
   initBollingerGraph() {
@@ -363,14 +409,14 @@ export class StockdetailComponent implements OnInit {
 
         if(element.type === 'buy'){
         this.buyTrendMarker.x.push(new Date(element.date).getTime())
-        this.buyTrendLine.push(this.createLineElem(new Date(element.date).getTime(), 'red'))
+        this.buyTrendLine.push(this.createLineElem(new Date(element.date).getTime(), '#EE4B28'))
         
         this.rawStockData.forEach(item => {
           if(date === Number(item.date)) this.buyTrendMarker.y.push(item.close)
         });
         } else if(element.type === 'sell') {
         this.sellTrendMarker.x.push(new Date(element.date).getTime())
-        this.sellTrendLine.push(this.createLineElem(new Date(element.date).getTime(), 'blue'))
+        this.sellTrendLine.push(this.createLineElem(new Date(element.date).getTime(), '#4E7FEE'))
         
         this.rawStockData.forEach(item => {
           if(date === Number(item.date)) this.sellTrendMarker.y.push(item.close)
@@ -383,14 +429,14 @@ export class StockdetailComponent implements OnInit {
 
         if(element.type === 'buy'){
         this.buyReverseMarker.x.push(new Date(element.date).getTime())
-        this.buyReverseLine.push(this.createLineElem(new Date(element.date).getTime(), 'red'))
+        this.buyReverseLine.push(this.createLineElem(new Date(element.date).getTime(), '#EE4B28'))
         
         this.rawStockData.forEach(item => {
           if(date === Number(item.date)) this.buyReverseMarker.y.push(item.close)
         });
         } else if(element.type === 'sell'){
         this.sellReverseMarker.x.push(new Date(element.date).getTime())
-        this.sellReverseLine.push(this.createLineElem(new Date(element.date).getTime(), 'blue'))
+        this.sellReverseLine.push(this.createLineElem(new Date(element.date).getTime(), '#4E7FEE'))
         
         this.rawStockData.forEach(item => {
           if(date === Number(item.date)) this.sellReverseMarker.y.push(item.close)
@@ -408,7 +454,7 @@ export class StockdetailComponent implements OnInit {
       type: "line",
       line: {
         color: color,
-        width: 3
+        width: 2
       }
     }
 
@@ -421,23 +467,32 @@ export class StockdetailComponent implements OnInit {
  }  
  
  tapDefault() {
-    console.log("Tap default button")
-    this.isDefault = true
-    this.isBollingerTrendFollowing = false
-    this.isBollingerTrendReverse = false
-
+    console.log("Tap default button ::  " + this.revision)
+    
+    this.stockGraph.showlegend = true
     this.firstChart.data = []
     this.firstChart.data.push(this.stockGraph)
     this.firstChart.data.push(this.closeGraph)
     
+    this.isDefault = true
+    this.isBollingerTrendFollowing = false
+    this.isBollingerTrendReverse = false
+
+    
     this.firstChart.layout.shapes = []
     this.secondChart.layout.shapes = []
     this.thirdChart.layout.shapes = []
-
+    console.log(this.firstChart)
+    
     let array = this.rawStockData.slice(this.rawStockData.length-31, this.rawStockData.length-1)
     let maxY = Math.max.apply(Math, array.map(function(o) { return o.high; }))
     let minY = Math.min.apply(Math, array.map(function(o) { return o.low; }))
     this.firstChart.layout.yaxis.range = [minY, maxY];
+    
+    this.rangeFirstY = [minY, maxY]
+
+    this.revision++
+    console.log("Tap default button2 ::  " + this.revision)
   }
 
   tapBolingerTrend() {
@@ -446,6 +501,7 @@ export class StockdetailComponent implements OnInit {
     this.isBollingerTrendFollowing = true
     this.isDefault = false
     this.isBollingerTrendReverse = false
+    this.stockGraph.showlegend = true
 
     this.firstChart.data = []
     this.firstChart.data.push(this.stockGraph)
@@ -483,10 +539,14 @@ export class StockdetailComponent implements OnInit {
     let maxY = Math.max.apply(Math, array.map(function(o) { return o.upper; }))
     let minY = Math.min.apply(Math, array.map(function(o) { return o.lower; }))
     this.secondChart.layout.yaxis.range = [minY, maxY];
+    this.rangeSecondY = [minY, maxY]
 
     let maxY2 = Math.max.apply(Math, array.map(function(o) { return Math.max(o.pb*100, o.mfi10); }))
     let minY2 = Math.min.apply(Math, array.map(function(o) { return Math.min(o.pb*100, o.mfi10); }))
     this.thirdChart.layout.yaxis.range = [minY2, maxY2];
+    this.rangeThirdY = [minY2, maxY2]
+
+    this.revision++
   }
 
   tapBollingerReverse() {
@@ -504,6 +564,9 @@ export class StockdetailComponent implements OnInit {
     this.firstChart.data.push(this.M20Graph)
     this.firstChart.data.push(this.buyReverseMarker)
     this.firstChart.data.push(this.sellReverseMarker)
+    this.stockGraph.showlegend = false
+    this.buyReverseMarker.showlegend = false
+    this.sellReverseMarker.showlegend = false
 
     this.secondChart.data = []
     this.secondChart.data.push(this.PBGraph)
@@ -535,14 +598,20 @@ export class StockdetailComponent implements OnInit {
     let maxY = Math.max.apply(Math, array.map(function(o) { return o.upper; }))
     let minY = Math.min.apply(Math, array.map(function(o) { return o.lower; }))
     this.firstChart.layout.yaxis.range = [minY, maxY];
+    this.rangeFirstY = [minY, maxY]
 
     let maxY2 = Math.max.apply(Math, array.map(function(o) { return o.pb; }))
     let minY2 = Math.min.apply(Math, array.map(function(o) { return o.pb; }))
     this.secondChart.layout.yaxis.range = [minY2, maxY2];
+    this.rangeSecondY = [minY2, maxY2]
 
     let maxY3 = Math.max.apply(Math, array.map(function(o) { return o.iip21; }))
     let minY3 = Math.min.apply(Math, array.map(function(o) { return o.iip21; }))
     this.thirdChart.layout.yaxis.range = [minY3, maxY3];
+    this.rangeThirdY = [minY3, maxY3]
+
+    this.revision++
+
   }
 
   public onClick(data: any) {
