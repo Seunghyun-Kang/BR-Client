@@ -30,8 +30,7 @@ export class FindcompanyComponent implements OnInit {
     "회사들을 선택하면 각각 몇%로 투자해야하는지 알려줄게 (최소 2개)",
   ]
   public StockGuideist = [
-    "확인하고 싶은 회사명을 검색해봐",
-    "추후 해당 주식의 매매 타이밍을 계산해서 나온 결과를 보여줄게"
+    "확인하고 싶은 회사명을 검색하면 매매 타이밍을 계산해줄게"
   ]
 
   constructor(private statusService: PagestatusService,

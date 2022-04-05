@@ -17,6 +17,12 @@ export interface priceData {
   volume: number
 }
 
+export interface signalData {
+  code: string,
+  date: string,
+  type: string
+}
+
 export interface bollingerData {
   code: string,
   date: string,
@@ -49,6 +55,8 @@ export class StockdetailComponent implements OnInit {
 
   public rawStockData: priceData[] = []
   public rawDataBollinger: bollingerData[] = []
+  public rawDataBollingerTrendSignal: signalData[] = []
+  public rawDataBollingerReverseSignal: signalData[] = []
 
   private stockGraph: any = {} 
   private closeGraph:any = {}
@@ -59,10 +67,19 @@ export class StockdetailComponent implements OnInit {
   private PB100Graph:any = {}
   private MFI10Graph:any = {}
   private IIP21Graph:any = {}
+  private buyTrendMarker: any = {}
+  private sellTrendMarker: any = {}
+  private buyReverseMarker: any = {}
+  private sellReverseMarker: any = {}
+  private buyTrendLine= [] as any
+  private sellTrendLine= [] as any
+  private buyReverseLine= [] as any
+  private sellReverseLine= [] as any
   public graphList = [] as any
 
   public getData: boolean = false
   public getBollingerData: boolean = false
+  public getBollingerSignalData: boolean = false
   public firstChart = new TradeViewSettings().settings;
   public secondChart = new TradeViewSettings().settings;
   public thirdChart = new TradeViewSettings().settings;
@@ -83,6 +100,7 @@ export class StockdetailComponent implements OnInit {
     .subscribe({
         next: (v: any) => {
           this.rawStockData = JSON.parse(Object(v.body))
+          console.log(this.rawStockData)
           
           setTimeout(() => {
           this.statusService.setStatus("normal")
@@ -91,6 +109,24 @@ export class StockdetailComponent implements OnInit {
           this.initCommonGraphSettings()
           this.initDefaultGraph()
           }, 1000);
+
+          this.requestService.getBollingerTrendSignal(this.code) 
+          .subscribe({
+              next: (v: any) => {
+                this.rawDataBollingerTrendSignal = Object(v.body)   
+
+                this.requestService.getBollingerReverseSignal(this.code) 
+                .subscribe({
+                    next: (v: any) => {
+                      this.rawDataBollingerReverseSignal = Object(v.body)
+                      this.getBollingerSignalData = true
+                      this.initBollingerSignalGraph()
+                    },
+                    error: (e: any) => console.log("ERROR OCCURED :: " + JSON.stringify(e))
+                  });
+              },
+              error: (e: any) => console.log("ERROR OCCURED :: " + JSON.stringify(e))
+            });
         },
         error: (e: any) => console.log("ERROR OCCURED :: " + JSON.stringify(e))
       });
@@ -259,7 +295,132 @@ export class StockdetailComponent implements OnInit {
       });
   }
 
-  tapDefault() {
+  initBollingerSignalGraph() {
+    this.buyTrendMarker = {
+      x: [],
+      y: [],
+      type: "scatter",
+      mode: 'markers',
+      xaxis: "x",
+      yaxis: "y",
+      marker: {
+        color: 'red',
+        size: 10
+      }, showlegend: true
+      ,
+      name: "추세 추종 매수 포인트"
+    }
+
+    this.sellTrendMarker = {
+      x: [],
+      y: [],
+      type: "scatter",
+      xaxis: "x",
+      yaxis: "y",
+      mode: 'markers',
+      marker: {
+        color: 'blue',
+        size: 10
+      },
+      showlegend: true
+    ,
+      name: "추세 추종 매도 포인트"
+    }
+
+    this.buyReverseMarker = {
+      x: [],
+      y: [],
+      type: "scatter",
+      mode: 'markers',
+      xaxis: "x",
+      yaxis: "y",
+      marker: {
+        color: 'red',
+        size: 10
+      }, showlegend: true
+      ,
+      name: "반전매매 매수 포인트"
+    }
+
+    this.sellReverseMarker = {
+      x: [],
+      y: [],
+      type: "scatter",
+      xaxis: "x",
+      yaxis: "y",
+      mode: 'markers',
+      marker: {
+        color: 'blue',
+        size: 10
+      },
+      showlegend: true
+    ,
+      name: "반전매매 추종 매도 포인트"
+    }
+      
+      this.rawDataBollingerTrendSignal.forEach(element => {
+        var date: number = Number(new Date(element.date).getTime())
+
+        if(element.type === 'buy'){
+        this.buyTrendMarker.x.push(new Date(element.date).getTime())
+        this.buyTrendLine.push(this.createLineElem(new Date(element.date).getTime(), 'red'))
+        
+        this.rawStockData.forEach(item => {
+          if(date === Number(item.date)) this.buyTrendMarker.y.push(item.close)
+        });
+        } else if(element.type === 'sell') {
+        this.sellTrendMarker.x.push(new Date(element.date).getTime())
+        this.sellTrendLine.push(this.createLineElem(new Date(element.date).getTime(), 'blue'))
+        
+        this.rawStockData.forEach(item => {
+          if(date === Number(item.date)) this.sellTrendMarker.y.push(item.close)
+        });
+        }
+      });
+
+      this.rawDataBollingerReverseSignal.forEach(element => {
+        var date: number = Number(new Date(element.date).getTime())
+
+        if(element.type === 'buy'){
+        this.buyReverseMarker.x.push(new Date(element.date).getTime())
+        this.buyReverseLine.push(this.createLineElem(new Date(element.date).getTime(), 'red'))
+        
+        this.rawStockData.forEach(item => {
+          if(date === Number(item.date)) this.buyReverseMarker.y.push(item.close)
+        });
+        } else if(element.type === 'sell'){
+        this.sellReverseMarker.x.push(new Date(element.date).getTime())
+        this.sellReverseLine.push(this.createLineElem(new Date(element.date).getTime(), 'blue'))
+        
+        this.rawStockData.forEach(item => {
+          if(date === Number(item.date)) this.sellReverseMarker.y.push(item.close)
+        });
+        }
+      });
+  }
+
+  createLineElem(x: any, color: string): any{
+    var line = {
+      x0: 0,
+      y0:-10000000,
+      x1: 0,
+      y1: 10000000,
+      type: "line",
+      line: {
+        color: color,
+        width: 3
+      }
+    }
+
+    line.x0 = x
+    line.x1 = x
+
+    line.line.color = color
+
+    return line
+ }  
+ 
+ tapDefault() {
     console.log("Tap default button")
     this.isDefault = true
     this.isBollingerTrendFollowing = false
@@ -274,7 +435,6 @@ export class StockdetailComponent implements OnInit {
     let minY = Math.min.apply(Math, array.map(function(o) { return o.low; }))
     this.firstChart.layout.yaxis.range = [minY, maxY];
 
-    this.firstChart.layout.yaxis.title = "가격"
   }
 
   tapBolingerTrend() {
@@ -287,6 +447,8 @@ export class StockdetailComponent implements OnInit {
     this.firstChart.data = []
     this.firstChart.data.push(this.stockGraph)
     this.firstChart.data.push(this.closeGraph)
+    this.firstChart.data.push(this.buyTrendMarker)
+    this.firstChart.data.push(this.sellTrendMarker)
     
     this.secondChart.data = []
     this.secondChart.data.push(this.closeGraph)
@@ -298,6 +460,18 @@ export class StockdetailComponent implements OnInit {
     this.thirdChart.data.push(this.PB100Graph)
     this.thirdChart.data.push(this.MFI10Graph)
     this.thirdChart.layout.yaxis.title = ""
+
+    this.secondChart.layout.shapes = []
+    this.thirdChart.layout.shapes = []
+    this.buyTrendLine.forEach((element: any) => {
+      this.secondChart.layout.shapes.push(element)
+      this.thirdChart.layout.shapes.push(element)
+    });
+    this.sellTrendLine.forEach((element: any) => {
+      this.secondChart.layout.shapes.push(element)
+      this.thirdChart.layout.shapes.push(element)
+    });
+
 
     let array = this.rawDataBollinger.slice(this.rawDataBollinger.length-31, this.rawDataBollinger.length-1)
     let maxY = Math.max.apply(Math, array.map(function(o) { return o.upper; }))
@@ -322,6 +496,8 @@ export class StockdetailComponent implements OnInit {
     this.firstChart.data.push(this.bollingerUpperGraph)
     this.firstChart.data.push(this.closeGraph)
     this.firstChart.data.push(this.M20Graph)
+    this.firstChart.data.push(this.buyReverseMarker)
+    this.firstChart.data.push(this.sellReverseMarker)
 
     this.secondChart.data = []
     this.secondChart.data.push(this.PBGraph)
@@ -329,7 +505,20 @@ export class StockdetailComponent implements OnInit {
 
     this.thirdChart.data = []
     this.thirdChart.data.push(this.IIP21Graph)
+    this.thirdChart.layout.shapes = this.buyReverseLine
+    this.thirdChart.layout.shapes = this.sellReverseLine
     this.thirdChart.layout.yaxis.title = ""
+
+    this.secondChart.layout.shapes = []
+    this.thirdChart.layout.shapes = []
+    this.buyReverseLine.forEach((element: any) => {
+      this.secondChart.layout.shapes.push(element)
+      this.thirdChart.layout.shapes.push(element)
+    });
+    this.sellReverseLine.forEach((element: any) => {
+      this.secondChart.layout.shapes.push(element)
+      this.thirdChart.layout.shapes.push(element)
+    });
 
     
     let array = this.rawDataBollinger.slice(this.rawDataBollinger.length-31, this.rawDataBollinger.length-1)

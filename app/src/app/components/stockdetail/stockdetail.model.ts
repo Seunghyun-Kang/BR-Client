@@ -79,7 +79,8 @@ export class TradeViewSettings {
         title:"가격"
       },
       annotations: [
-      ]
+      ],
+      shapes: [] as any
     }
   };
 }

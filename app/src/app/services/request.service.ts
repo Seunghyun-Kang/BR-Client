@@ -74,6 +74,20 @@ export class RequestService {
     );
   }
 
+  
+  getBollingerTrendSignal(code: string) {
+    return this.http.get(this.REST_SERVER_URL + 'bollinger_trend/' + code + '/', { observe: 'response', headers: this.headers })
+    .pipe(
+      catchError(this.handleError)
+    );
+  }
+
+  getBollingerReverseSignal(code: string) {
+    return this.http.get(this.REST_SERVER_URL + 'bollinger_reverse/' + code + '/', { observe: 'response', headers: this.headers })
+    .pipe(
+      catchError(this.handleError)
+    );
+  }
   private handleError(error: HttpErrorResponse) {
     if (error.status === 0) {
       console.error('An error occurred:', error.error);
