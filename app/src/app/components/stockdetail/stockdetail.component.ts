@@ -166,7 +166,7 @@ export class StockdetailComponent implements OnInit {
       decreasing: { line: { color: "#4E7FEE" } },
       high: [],
       increasing: { line: { color: "#EE4B28" } },
-      line: { color: "rgba(31,119,180,1)" },
+      // line: { color: "rgba(31,119,180,1)" },
       low: [],
       open: [],
       type: "candlestick",
@@ -178,7 +178,7 @@ export class StockdetailComponent implements OnInit {
     this.closeGraph = {
       x: [],
       y: [],
-      line: { color: "#55DC67" },
+      line: { color: "white" },
       type: 'scatter',
       xaxis: "x",
       yaxis: "y",
@@ -232,7 +232,7 @@ export class StockdetailComponent implements OnInit {
     this.PB100Graph = {
       x: [],
       y: [],
-      line: { color: "rgba(87, 255, 125, 1)" },
+      line: { color: "white" },
       type: 'scatter',
       xaxis: "x",
       yaxis: "y",
@@ -241,7 +241,7 @@ export class StockdetailComponent implements OnInit {
     this.PBGraph = {
       x: [],
       y: [],
-      line: { color: "rgba(122, 226, 175, 1)"  },
+      line: { color: "white"  },
       type: 'scatter',
       xaxis: "x",
       yaxis: "y",
@@ -262,7 +262,7 @@ export class StockdetailComponent implements OnInit {
       x: [],
       y: [],
       marker: {
-        color: 'rgba(239, 32, 100, 1)'
+        color: 'white'
       },
       type: 'bar',
       xaxis: "x",
@@ -304,7 +304,7 @@ export class StockdetailComponent implements OnInit {
       xaxis: "x",
       yaxis: "y",
       marker: {
-        color: 'red',
+        color: '#EE4B28',
         size: 10
       }, showlegend: true
       ,
@@ -319,7 +319,7 @@ export class StockdetailComponent implements OnInit {
       yaxis: "y",
       mode: 'markers',
       marker: {
-        color: 'blue',
+        color: '#4E7FEE',
         size: 10
       },
       showlegend: true
@@ -335,7 +335,7 @@ export class StockdetailComponent implements OnInit {
       xaxis: "x",
       yaxis: "y",
       marker: {
-        color: 'red',
+        color: '#EE4B28',
         size: 10
       }, showlegend: true
       ,
@@ -350,7 +350,7 @@ export class StockdetailComponent implements OnInit {
       yaxis: "y",
       mode: 'markers',
       marker: {
-        color: 'blue',
+        color: '#4E7FEE',
         size: 10
       },
       showlegend: true
@@ -429,12 +429,15 @@ export class StockdetailComponent implements OnInit {
     this.firstChart.data = []
     this.firstChart.data.push(this.stockGraph)
     this.firstChart.data.push(this.closeGraph)
+    
+    this.firstChart.layout.shapes = []
+    this.secondChart.layout.shapes = []
+    this.thirdChart.layout.shapes = []
 
     let array = this.rawStockData.slice(this.rawStockData.length-31, this.rawStockData.length-1)
     let maxY = Math.max.apply(Math, array.map(function(o) { return o.high; }))
     let minY = Math.min.apply(Math, array.map(function(o) { return o.low; }))
     this.firstChart.layout.yaxis.range = [minY, maxY];
-
   }
 
   tapBolingerTrend() {
@@ -461,13 +464,16 @@ export class StockdetailComponent implements OnInit {
     this.thirdChart.data.push(this.MFI10Graph)
     this.thirdChart.layout.yaxis.title = ""
 
+    this.firstChart.layout.shapes = []
     this.secondChart.layout.shapes = []
     this.thirdChart.layout.shapes = []
     this.buyTrendLine.forEach((element: any) => {
+      this.firstChart.layout.shapes.push(element)
       this.secondChart.layout.shapes.push(element)
       this.thirdChart.layout.shapes.push(element)
     });
     this.sellTrendLine.forEach((element: any) => {
+      this.firstChart.layout.shapes.push(element)
       this.secondChart.layout.shapes.push(element)
       this.thirdChart.layout.shapes.push(element)
     });
@@ -509,13 +515,17 @@ export class StockdetailComponent implements OnInit {
     this.thirdChart.layout.shapes = this.sellReverseLine
     this.thirdChart.layout.yaxis.title = ""
 
+    
+    this.firstChart.layout.shapes = []
     this.secondChart.layout.shapes = []
     this.thirdChart.layout.shapes = []
     this.buyReverseLine.forEach((element: any) => {
+      this.firstChart.layout.shapes.push(element)
       this.secondChart.layout.shapes.push(element)
       this.thirdChart.layout.shapes.push(element)
     });
     this.sellReverseLine.forEach((element: any) => {
+      this.firstChart.layout.shapes.push(element)
       this.secondChart.layout.shapes.push(element)
       this.thirdChart.layout.shapes.push(element)
     });

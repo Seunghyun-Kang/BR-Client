@@ -159,7 +159,7 @@ export class OptimalportfolioComponent implements OnInit {
           
           colors: ['#FFFFFF'],
           fontSize: '12px',
-          fontFamily: 'poorstory',
+          fontFamily: 'hyundai-card',
           cssClass: 'apexcharts-yaxis-title',
       }
       },
@@ -171,7 +171,7 @@ export class OptimalportfolioComponent implements OnInit {
         style: {
             color: '#FFFFFF',
             fontSize: '12px',
-            fontFamily: 'poorstory',
+            fontFamily: 'hyundai-card',
             fontWeight: 600,
             cssClass: 'apexcharts-yaxis-title',
         },
@@ -189,19 +189,19 @@ export class OptimalportfolioComponent implements OnInit {
         style: {
           colors: ['#FFFFFF'],
           fontSize: '12px',
-          fontFamily: 'poorstory',
+          fontFamily: 'hyundai-card',
           cssClass: 'apexcharts-yaxis-title',
       }
       },
       title: {
-        text: "이윤",
+        text: "이익",
         rotate: -90,
         offsetX: 0,
         offsetY: 0,
         style: {
             color: '#FFFFFF',
             fontSize: '12px',
-            fontFamily: 'poorstory',
+            fontFamily: 'hyundai-card',
             fontWeight: 600,
             cssClass: 'apexcharts-yaxis-title',
         },

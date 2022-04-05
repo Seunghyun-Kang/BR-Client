@@ -12,7 +12,7 @@ export class TradeViewSettings {
         y: 1,
         traceorder: 'normal',
         font: {
-          family: 'poorstory',
+          family: 'hyundai-card',
           size: 9,
           color: 'white'
         },
@@ -48,12 +48,12 @@ export class TradeViewSettings {
         linecolor: "#787878",
         gridcolor: "#363c4e",
         titlefont: {
-          family: "poorstory",
+          family: "hyundai-card",
           size: 14,
           color: "#cccdcd"
         },
         tickfont: {
-          family: "poorstory",
+          family: "hyundai-card",
           size: 12,
           color: "#cccdcd"
         }
@@ -67,12 +67,12 @@ export class TradeViewSettings {
         linecolor: "#787878",
         gridcolor: "#363c4e",
         titlefont: {
-          family: "poorstory",
+          family: "hyundai-card",
           size: 14,
           color: "#cccdcd"
         },
         tickfont: {
-          family: "poorstory",
+          family: "hyundai-card",
           size: 12,
           color: "#cccdcd"
         },
