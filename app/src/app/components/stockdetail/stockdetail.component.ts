@@ -471,7 +471,7 @@ export class StockdetailComponent implements OnInit {
     this.firstChart.data = []
     this.firstChart.data.push(this.stockGraph)
     this.firstChart.data.push(this.closeGraph)
-    
+
     this.isDefault = true
     this.isBollingerTrendFollowing = false
     this.isBollingerTrendReverse = false
@@ -490,6 +490,7 @@ export class StockdetailComponent implements OnInit {
     this.rangeFirstY = [minY, maxY]
 
     this.revision++
+    this.firstChart.layout.height = '450'
     console.log("Tap default button2 ::  " + this.revision)
   }
 
@@ -506,6 +507,7 @@ export class StockdetailComponent implements OnInit {
     this.firstChart.data.push(this.closeGraph)
     this.firstChart.data.push(this.buyTrendMarker)
     this.firstChart.data.push(this.sellTrendMarker)
+    this.firstChart.layout.height = '300'
     
     this.secondChart.data = []
     this.secondChart.data.push(this.closeGraph)
@@ -562,6 +564,8 @@ export class StockdetailComponent implements OnInit {
     this.firstChart.data.push(this.M20Graph)
     this.firstChart.data.push(this.buyReverseMarker)
     this.firstChart.data.push(this.sellReverseMarker)
+    this.firstChart.layout.height = '300'
+
     this.stockGraph.showlegend = false
     this.buyReverseMarker.showlegend = false
     this.sellReverseMarker.showlegend = false

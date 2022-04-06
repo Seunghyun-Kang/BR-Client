@@ -40,6 +40,11 @@
 ::ng-deep .mat-autocomplete-panel .mat-option.mat-selected:not(.mat-active):not(:hover):not(.mat-option-disabled) {
     background: transparent;
 }
+::ng-deep .mat-form-field-appearance-legacy .mat-form-field-infix {
+    font-size: 13px;
+    font-family: hyundai-card;
+}
+
 .desc{
     font-family: hyundai-card;
     word-break: break-all;

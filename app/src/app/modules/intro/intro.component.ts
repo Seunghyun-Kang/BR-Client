@@ -264,7 +264,7 @@ class Star {
     let py = mapRange(this.py / this.pz, 0, 1, 0, height);
 
     var maxRadius = (IS_HIGH_RES.matches) ? 4 : 2;
-    if(IS_MOBILE){maxRadius = 2.5}
+    if(IS_MOBILE){maxRadius = 2}
     let radius = Math.min(Math.abs(mapRange(this.z, 0, depth, maxRadius, 0.01)), maxRadius);
 
     // star point

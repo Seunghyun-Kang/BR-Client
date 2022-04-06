@@ -1,5 +1,5 @@
-import { Component, OnDestroy, OnInit } from '@angular/core'
-import { FormBuilder,FormControl,Validators  } from '@angular/forms'
+import { Component, Input, OnDestroy, OnInit } from '@angular/core'
+import { FormBuilder, FormControl, Validators } from '@angular/forms'
 import { Router } from '@angular/router'
 
 @Component({
@@ -10,8 +10,8 @@ import { Router } from '@angular/router'
 export class FirstguideComponent implements OnInit, OnDestroy {
   public presentDesc: string
   public masterNumber: string
-  private descArray:Array<string>
-  private exceptionDescArray:Array<string>
+  private descArray: Array<string>
+  private exceptionDescArray: Array<string>
   private timeout: any
   private interval: any
   private isAcceptAccount: boolean = false
@@ -23,55 +23,59 @@ export class FirstguideComponent implements OnInit, OnDestroy {
 
   constructor(
     private formBuilder: FormBuilder,
-    private router:Router) { 
+    private router: Router) {
     this.descIndex = -1;
     this.descArray = [
       "안녕, 우리 주식 똑똑하게 해보자",
-      "전화 번호 알려줘",
       "#1#, 반가워",
     ]
     this.exceptionDescArray = [
       "내가 아직 널 모르네.. 일단 친해지고 다시 만나자!",
       "핸드폰 번호가 아닌 것 같아, 잘가!"
     ]
-    this.masterNumber = "01053690469"
+    this.masterNumber = "1053690469"
     this.registeredNumber = {
-      "01047965159": "상혁",
-      "01072795036": "태웅",
-      "01073737185": "정환",
-      "01021709851": "지환",
-      "01026232011": "진수",
-      "01092471544": "은비",
-      "01052618561": "아부지",
-      "01030731999": "엄마",
-      "01047929440": "수지",
-      "01051218283": "수연",
-      "01094122794": "보영",
+      "1047965159": "상혁",
+      "1072795036": "태웅",
+      "1073737185": "정환",
+      "1021709851": "지환",
+      "1026232011": "진수",
+      "1092471544": "은비",
+      "1052618561": "아부지",
+      "1030731999": "엄마",
+      "1047929440": "수지",
+      "1051218283": "수연",
+      "1094122794": "보영",
     }
   }
 
   ngOnInit(): void {
     this.timeout = setTimeout(() => {
-        this.setAutoGuide(this.descIndex)
-  }, 5000)
+      this.setAutoGuide(this.descIndex)
+    }, 5000)
   }
 
   private setAutoGuide(index: number) {
-    if(this.interval === undefined){
+    console.log("setAutoGuide called index :: " + index)
+    if (this.interval === undefined) {
       this.interval = setInterval(() => {
         this.setAutoGuide(this.descIndex)
       }, 4000)
     }
 
-    if(index < 3 && index !== 1){
-    this.descIndex = this.descIndex + 1
-    this.presentDesc = this.descArray[this.descIndex]
-    
-    if(this.descIndex === 1) {clearInterval(this.interval); this.interval = undefined}
-    
-    } else if(index >= 2){
-      console.log("setAutoGuide called index > 3:: " + index)
-      if(this.isAcceptAccount) this.router.navigate(['menu'])
+    if (index < 2 && index !== 0) {
+      this.descIndex = this.descIndex + 1
+      if (this.descIndex <= 1) this.presentDesc = this.descArray[this.descIndex]
+      if (index === 1) {
+        if (this.isAcceptAccount) {
+          setTimeout(() => {
+            clearInterval(this.interval)
+            clearTimeout(this.timeout)
+            this.router.navigate(['menu'])
+          }, 2000);
+        }
+      }
+    } else if(index > 3) {
       clearInterval(this.interval)
       clearTimeout(this.timeout)
     }
@@ -80,28 +84,33 @@ export class FirstguideComponent implements OnInit, OnDestroy {
   ngOnDestroy(): void {
     clearInterval(this.interval)
   }
-  onSubmit(value: any): void {
-    console.warn('input::: ' + JSON.stringify(this.numform.value))
-    this.checkFriends(value)
+
+  onChange(event: any): void {
+    if(event.length >= 11)
+    this.checkFriends(event.substr(1,))
+  }
+  
+  onSelectedOption(event: any) {
+    this.checkFriends(event)
   }
 
   private checkFriends(value: any) {
     let flag = false;
-    console.log("checkFriends called :: " + value.number)
+    console.log("checkFriends called :: " + value)
 
     for (let key in this.registeredNumber) {
-      if(key === String(value.number)) {
-        console.log("MATCH!! :: " + this.registeredNumber[key])
-        this.descArray[2] = this.descArray[2].replace('#1#', this.registeredNumber[key])
-        this.setAutoGuide(this.descIndex+1)
+      if (key === String(value)) {
+        console.log("MATCH!! :: " + this.registeredNumber[key] + " index: " + this.descIndex)
+        this.descArray[this.descIndex + 1] = this.descArray[this.descIndex + 1].replace('#1#', this.registeredNumber[key])
+        this.setAutoGuide(this.descIndex + 1)
         this.isAcceptAccount = true
       }
-  }
-  if(!this.isAcceptAccount) {
-    this.descIndex = 5
-    if(String(value.number) === this.masterNumber) {this.presentDesc = this.exceptionDescArray[2]; this.router.navigate(['menu'])}
-    if(String(value.number).length <= 10 || String(value.number).length > 11 || (String(value.number)[0] !== '0' && String(value.number)[0] !== '1')) this.presentDesc = this.exceptionDescArray[1]
-    else this.presentDesc = this.exceptionDescArray[0]
-  }
+    }
+    if (!this.isAcceptAccount) {
+      this.descIndex = 5
+      if (String(value) === this.masterNumber) { this.presentDesc = this.exceptionDescArray[2]; this.router.navigate(['menu']) }
+      if (String(value).length <= 9 || String(value).length > 10 || (String(value)[0] !== '0' && String(value)[0] !== '1')) this.presentDesc = this.exceptionDescArray[1]
+      else this.presentDesc = this.exceptionDescArray[0]
+    }
   }
 }
