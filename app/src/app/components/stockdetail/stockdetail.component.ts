@@ -215,16 +215,19 @@ export class StockdetailComponent implements OnInit {
     let startdate = new Date(parseStart).getTime()
     let enddate = new Date(parseEnd).getTime()
 
-    this.firstChart.layout.xaxis.range = [startdate, enddate];
+    if(this.isBollingerTrendFollowing){
     this.secondChart.layout.xaxis.range = [startdate, enddate];
     this.thirdChart.layout.xaxis.range = [startdate, enddate];
     this.forthChart.layout.xaxis.range = [startdate, enddate];
+    } else if(this.isBollingerTrendReverse) {
     this.fifthChart.layout.xaxis.range = [startdate, enddate];
     this.sixthChart.layout.xaxis.range = [startdate, enddate];
     this.seventhChart.layout.xaxis.range = [startdate, enddate];
+    } else if(this.isTripleScreen){
     this.eighthChart.layout.xaxis.range = [startdate, enddate];
     this.ninthChart.layout.xaxis.range = [startdate, enddate];
     this.tenthChart.layout.xaxis.range = [startdate, enddate];
+    }
     this.revision++
   }
 
