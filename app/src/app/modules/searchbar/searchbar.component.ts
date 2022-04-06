@@ -68,8 +68,10 @@ export class SearchBarComponent implements OnInit {
             posts = event
 
         console.log(posts)
-        this.select.push(posts)
-        this.onSelectedOption.emit(this.select)
+        if(this.select.indexOf(posts) === -1 && this.autoCompleteList.indexOf(posts) != -1){ 
+            this.select.push(posts)
+            this.onSelectedOption.emit(this.select)
+        }
         this.focusOnPlaceInput();
         this.list = []
     }
