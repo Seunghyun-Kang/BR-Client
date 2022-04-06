@@ -19,6 +19,7 @@ export interface companyData {
 export class FindcompanyComponent implements OnInit {
   public screenId = "FindCompany"
   public rawData: companyData[]
+  public companyNameList:any[] = []
   public guideIndex = -1
   public getData: boolean = false
   public status = "loading-forward";
@@ -66,10 +67,15 @@ export class FindcompanyComponent implements OnInit {
           this.rawData = Object(v.body)
           this.dataService.setCompanyData(this.rawData)
           console.log(this.rawData)
+
           setTimeout(() => {
             this.statusService.setStatus("normal") 
             this.getData = true
           }, 1000);
+
+          this.rawData.forEach(element => {
+            this.companyNameList.push(element.company)
+          });
         },
         error: (e) => console.log("ERROR OCCURED :: " + JSON.stringify(e))
       });
@@ -94,8 +100,11 @@ export class FindcompanyComponent implements OnInit {
     this.rawData.forEach(element => {
       this.codesForOpt.forEach((item: any) => {
         if(element.company === item){
-          codelist.push(element.code)
-          console.log("match company!!!" + codelist)
+          console.log(codelist.indexOf(element.code))
+          if(codelist.indexOf(element.code) === -1) {
+            codelist.push(element.code)
+            console.log("match company!!!" + codelist)
+          }
           if((codelist.length >= 10 && !this.isTapButton) || (codelist.length > 1 && this.isTapButton))
           {
             this.router.navigate(['optimalportfolio'], { queryParams: { 
@@ -106,7 +115,6 @@ export class FindcompanyComponent implements OnInit {
       });
     });
   }
-
   }
 
   guideIndexChanged(event: any) {

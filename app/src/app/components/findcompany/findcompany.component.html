@@ -3,11 +3,11 @@
         <header [title]="'종목 검색'"></header>
     </div>
 <div class="content">
-    <app-guide [descArray]="presentGuide" [position]="'upper'" (indexChange)="guideIndexChanged($event)"></app-guide>
+    <app-guide style="position: fixed;" [descArray]="presentGuide" [position]="'upper'" (indexChange)="guideIndexChanged($event)"></app-guide>
     
 
     <div class="searchbar-container" *ngIf="getData && guideIndex >= 0">
-        <app-search-bar (onSelectedOption)="onSelectedOption($event)"></app-search-bar>
+        <app-search-bar (onSelectedOption)="onSelectedOption($event)" [autoCompleteList]="companyNameList" [placeholder]="'어떤 회사?'"></app-search-bar>
         <div class="button">
             <img class="check" [ngStyle]="{'filter': codesForOpt.length >1 ? 'brightness(0) saturate(100%) invert(76%) sepia(33%) saturate(524%) hue-rotate(163deg) brightness(98%) contrast(87%)' : 'invert(64%) sepia(3%) saturate(16%) hue-rotate(25deg) brightness(96%) contrast(85%)'}" src="../../../assets/iamge/circle-check-solid.svg" alt="확인" (click)="onTapClick()">
         </div>
