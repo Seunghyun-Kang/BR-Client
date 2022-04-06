@@ -10,7 +10,7 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { IntroComponent } from './modules/intro/intro.component';
 import { FirstguideComponent } from './modules/firstguide/firstguide.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { DashboardComponent } from './components/dashboard/dashboard.component';
+import { HomeComponent } from './components/home/home.component';
 import { StockdetailComponent } from './components/stockdetail/stockdetail.component';
 import { HttpClientModule } from '@angular/common/http';
 
@@ -25,19 +25,19 @@ import { MatInputModule } from '@angular/material/input'
 import { MatIconModule } from '@angular/material/icon';
 import { SearchBarComponent } from './modules/searchbar/searchbar.component';
 import { GuideComponent } from './modules/guide/guide.component';
-import { MenuComponent } from './components/menu/menu.component';
+import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { OptimalportfolioComponent } from './components/optimalportfolio/optimalportfolio.component';
 import { NgApexchartsModule } from 'ng-apexcharts';
 
 PlotlyModule.plotlyjs = PlotlyJS;
 
 const appRoutes: Routes = [
+  { path: 'home', component: HomeComponent },
   { path: 'dashboard', component: DashboardComponent },
-  { path: 'menu', component: MenuComponent },
   { path: 'findcompany', component: FindcompanyComponent },
   { path: 'stockdetail', component: StockdetailComponent },
   { path: 'optimalportfolio', component: OptimalportfolioComponent },
-  { path: '', redirectTo: '/dashboard', pathMatch: 'full' }
+  { path: '', redirectTo: '/home', pathMatch: 'full' }
 ]
 
 @NgModule({
@@ -46,12 +46,12 @@ const appRoutes: Routes = [
     HeaderComponent,
     IntroComponent,
     FirstguideComponent,
-    DashboardComponent,
+    HomeComponent,
     StockdetailComponent,
     FindcompanyComponent,
     SearchBarComponent,
     GuideComponent,
-    MenuComponent,
+    DashboardComponent,
     OptimalportfolioComponent
   ],
   imports: [
