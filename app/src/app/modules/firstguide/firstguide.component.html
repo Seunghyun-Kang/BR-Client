@@ -2,6 +2,6 @@
     <p class="desc">{{presentDesc}}</p>
 
     <div class="searchbar-container" *ngIf="descIndex === 0">
-        <app-search-bar (onSelectedOption)="onSelectedOption($event)" [placeholder]="'핸드폰 번호?'" [inputType]="'number'"></app-search-bar>
+        <app-search-bar (onSelectedOption)="onSelectedOption($event)" [patternType]="'\d*'" [placeholder]="'핸드폰 번호?'" [inputType]="'text'"></app-search-bar>
     </div>
 </div>
