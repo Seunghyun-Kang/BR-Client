@@ -22,7 +22,7 @@ export class TradeViewSettings {
       paper_bgcolor: "#131722",
       //   autosize: true,
       // width: '100%',
-      height: '300',
+      height: '450',
 
       margin: {
         r: 40,

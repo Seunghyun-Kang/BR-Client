@@ -201,13 +201,11 @@ export class StockdetailComponent implements OnInit {
         },
         error: (e: any) => console.log("ERROR OCCURED :: " + JSON.stringify(e))
       });
-
-   
-
-    
   }
 
   relayoutChart(event: any) {
+    if(this.isDefault) return
+
     if(event['xaxis.range[0]'] == undefined) return 
     if(event['xaxis.range[1]'] == undefined) return 
 
@@ -662,6 +660,50 @@ export class StockdetailComponent implements OnInit {
       this.FASTKGraph.x.push(new Date(element.date).getTime());
       this.FASTKGraph.y.push(element.fast_k);
     });
+
+
+    this.eighthChart.data.push(this.stockGraph)
+    this.eighthChart.data.push(this.EMA130Graph)
+
+    let stockarray = this.rawStockData.slice(this.rawStockData.length - 31, this.rawStockData.length - 1)
+    let maxstockY = Math.max.apply(Math, stockarray.map(function (o) { return o.high; }))
+    let minstockY = Math.min.apply(Math, stockarray.map(function (o) { return o.low; }))
+
+     let array = this.rawDataTripleScreen.slice(this.rawDataTripleScreen.length - 31, this.rawDataTripleScreen.length - 1)
+    let maxY = Math.max.apply(Math, array.map(function (o) { return o.ema130; }))
+    let minY = Math.min.apply(Math, array.map(function (o) { return o.ema130; }))
+
+    
+    let realMin = Math.min(minY, minstockY)
+    let realMax = Math.max(maxY, maxstockY)
+
+    this.eighthChart.layout.yaxis.range = [realMin, realMax];
+
+    this.ninthChart.data.push(this.MACDGraph)
+    this.ninthChart.data.push(this.MACDHistGraph)
+    this.ninthChart.data.push(this.MACDSignalGraph)
+    let maxY2 = Math.max.apply(Math, array.map(function (o) { return Math.max(Math.max(o.macd, o.macdhist), o._signal) }))
+    let minY2 = Math.min.apply(Math, array.map(function (o) { return Math.max(Math.min(o.macd, o.macdhist), o._signal) }))
+    this.ninthChart.layout.yaxis.range = [minY2, maxY2];
+
+    this.tenthChart.data.push(this.FASTKGraph)
+    this.tenthChart.data.push(this.SLOWDGraph)
+    let maxY3 = Math.max.apply(Math, array.map(function (o) { return Math.max(o.fast_k, o.slow_d) }))
+    let minY3 = Math.min.apply(Math, array.map(function (o) { return Math.min(o.fast_k, o.slow_d) }))
+    this.tenthChart.layout.yaxis.range = [minY3, maxY3];
+
+    this.buyTripleScreenLine.forEach((element: any) => {
+      this.eighthChart.layout.shapes.push(element)
+      this.ninthChart.layout.shapes.push(element)
+      this.tenthChart.layout.shapes.push(element)
+    });
+
+    this.sellTripleScreenLine.forEach((element: any) => {
+      this.eighthChart.layout.shapes.push(element)
+      this.ninthChart.layout.shapes.push(element)
+      this.tenthChart.layout.shapes.push(element)
+    });
+
   }
 
   initTripleScreenSignalGraph() {
@@ -740,31 +782,11 @@ export class StockdetailComponent implements OnInit {
 
   tapDefault() {
     console.log("Tap default button ::  " + this.revision)
-
-    // this.stockGraph.showlegend = true
-    // this.firstChart.data = []
-    // this.firstChart.data.push(this.stockGraph)
-    // this.firstChart.data.push(this.closeGraph)
-
+   
     this.isDefault = true
     this.isBollingerTrendFollowing = false
     this.isBollingerTrendReverse = false
     this.isTripleScreen = false
-
-    // this.firstChart.layout.shapes = []
-    // this.secondChart.layout.shapes = []
-    // this.thirdChart.layout.shapes = []
-
-    // this.secondChart.data = []
-    // this.thirdChart.data = []
-
-    // let array = this.rawStockData.slice(this.rawStockData.length - 31, this.rawStockData.length - 1)
-    // let maxY = Math.max.apply(Math, array.map(function (o) { return o.high; }))
-    // let minY = Math.min.apply(Math, array.map(function (o) { return o.low; }))
-    // this.firstChart.layout.yaxis.range = [minY, maxY];
-
-    // this.rangeFirstY = [minY, maxY]
-
     this.revision++
   }
 
@@ -775,56 +797,6 @@ export class StockdetailComponent implements OnInit {
     this.isDefault = false
     this.isBollingerTrendReverse = false
     this.isTripleScreen = false
-
-    // this.firstChart.data = []
-    // this.firstChart.data.push(this.stockGraph)
-    // this.firstChart.data.push(this.closeGraph)
-    // this.firstChart.data.push(this.buyTrendMarker)
-    // this.firstChart.data.push(this.sellTrendMarker)
-
-    // this.secondChart.data = []
-    // this.secondChart.data.push(this.closeGraph)
-    // this.secondChart.data.push(this.bollingerLowerGraph)
-    // this.secondChart.data.push(this.bollingerUpperGraph)
-    // this.secondChart.data.push(this.M20Graph)
-
-    // this.thirdChart.data = []
-    // this.thirdChart.data.push(this.PB100Graph)
-    // this.thirdChart.data.push(this.MFI10Graph)
-    // this.thirdChart.layout.yaxis.title = ""
-
-    // this.firstChart.layout.shapes = []
-    // this.secondChart.layout.shapes = []
-    // this.thirdChart.layout.shapes = []
-
-    // this.buyTrendLine.forEach((element: any) => {
-    //   this.firstChart.layout.shapes.push(element)
-    //   this.secondChart.layout.shapes.push(element)
-    //   this.thirdChart.layout.shapes.push(element)
-    // });
-
-    // this.sellTrendLine.forEach((element: any) => {
-    //   this.firstChart.layout.shapes.push(element)
-    //   this.secondChart.layout.shapes.push(element)
-    //   this.thirdChart.layout.shapes.push(element)
-    // });
-  
-    // let array1 = this.rawStockData.slice(this.rawStockData.length - 31, this.rawStockData.length - 1)
-    // let maxY1 = Math.max.apply(Math, array1.map(function (o) { return o.high; }))
-    // let minY1 = Math.min.apply(Math, array1.map(function (o) { return o.low; }))
-    // this.firstChart.layout.yaxis.range = [minY1, maxY1];
-
-    // let array = this.rawDataBollinger.slice(this.rawDataBollinger.length - 31, this.rawDataBollinger.length - 1)
-    // let maxY = Math.max.apply(Math, array.map(function (o) { return o.upper; }))
-    // let minY = Math.min.apply(Math, array.map(function (o) { return o.lower; }))
-    // this.secondChart.layout.yaxis.range = [minY, maxY];
-    // this.rangeSecondY = [minY, maxY]
-
-    // let maxY2 = Math.max.apply(Math, array.map(function (o) { return Math.max(o.pb * 100, o.mfi10); }))
-    // let minY2 = Math.min.apply(Math, array.map(function (o) { return Math.min(o.pb * 100, o.mfi10); }))
-    // this.thirdChart.layout.yaxis.range = [minY2, maxY2];
-    // this.rangeThirdY = [minY2, maxY2]
-
     this.revision++
   }
 
@@ -835,176 +807,16 @@ export class StockdetailComponent implements OnInit {
     this.isDefault = false
     this.isBollingerTrendReverse = true
     this.isTripleScreen = false
-
-    // this.firstChart.data = []
-    // this.firstChart.data.push(this.stockGraph)
-    // this.firstChart.data.push(this.bollingerLowerGraph)
-    // this.firstChart.data.push(this.bollingerUpperGraph)
-    // this.firstChart.data.push(this.closeGraph)
-    // this.firstChart.data.push(this.M20Graph)
-    // this.firstChart.data.push(this.buyReverseMarker)
-    // this.firstChart.data.push(this.sellReverseMarker)
-
-    // this.stockGraph.showlegend = false
-    // this.buyReverseMarker.showlegend = false
-    // this.sellReverseMarker.showlegend = false
-
-    // this.secondChart.data = []
-    // this.secondChart.data.push(this.PBGraph)
-    // this.secondChart.layout.yaxis.title = ""
-
-    // this.thirdChart.data = []
-    // this.thirdChart.data.push(this.IIP21Graph)
-    // this.thirdChart.layout.yaxis.title = ""
-
-
-    // this.firstChart.layout.shapes = []
-    // this.secondChart.layout.shapes = []
-    // this.thirdChart.layout.shapes = []
-    // this.buyReverseLine.forEach((element: any) => {
-    //   this.firstChart.layout.shapes.push(element)
-    //   this.secondChart.layout.shapes.push(element)
-    //   this.thirdChart.layout.shapes.push(element)
-    // });
-    // this.sellReverseLine.forEach((element: any) => {
-    //   this.firstChart.layout.shapes.push(element)
-    //   this.secondChart.layout.shapes.push(element)
-    //   this.thirdChart.layout.shapes.push(element)
-    // });
-
-
-    // let array = this.rawDataBollinger.slice(this.rawDataBollinger.length - 31, this.rawDataBollinger.length - 1)
-    // let maxY = Math.max.apply(Math, array.map(function (o) { return o.upper; }))
-    // let minY = Math.min.apply(Math, array.map(function (o) { return o.lower; }))
-    // this.firstChart.layout.yaxis.range = [minY, maxY];
-    // this.rangeFirstY = [minY, maxY]
-
-    // let maxY2 = Math.max.apply(Math, array.map(function (o) { return o.pb; }))
-    // let minY2 = Math.min.apply(Math, array.map(function (o) { return o.pb; }))
-    // this.secondChart.layout.yaxis.range = [minY2, maxY2];
-    // this.rangeSecondY = [minY2, maxY2]
-
-    // let maxY3 = Math.max.apply(Math, array.map(function (o) { return o.iip21; }))
-    // let minY3 = Math.min.apply(Math, array.map(function (o) { return o.iip21; }))
-    // this.thirdChart.layout.yaxis.range = [minY3, maxY3];
-    // this.rangeThirdY = [minY3, maxY3]
-
     this.revision++
-
   }
 
   tapTripleScreen() {
     console.log("Tap TripleScreen button")
 
-    this.eighthChart.data.push(this.stockGraph)
-    this.eighthChart.data.push(this.EMA130Graph)
-
-    let stockarray = this.rawStockData.slice(this.rawStockData.length - 31, this.rawStockData.length - 1)
-    let maxstockY = Math.max.apply(Math, stockarray.map(function (o) { return o.high; }))
-    let minstockY = Math.min.apply(Math, stockarray.map(function (o) { return o.low; }))
-
-     let array = this.rawDataTripleScreen.slice(this.rawDataTripleScreen.length - 31, this.rawDataTripleScreen.length - 1)
-    let maxY = Math.max.apply(Math, array.map(function (o) { return o.ema130; }))
-    let minY = Math.min.apply(Math, array.map(function (o) { return o.ema130; }))
-
-    
-    let realMin = Math.min(minY, minstockY)
-    let realMax = Math.max(maxY, maxstockY)
-
-    this.eighthChart.layout.yaxis.range = [realMin, realMax];
-
-    this.ninthChart.data.push(this.MACDGraph)
-    this.ninthChart.data.push(this.MACDHistGraph)
-    this.ninthChart.data.push(this.MACDSignalGraph)
-    let maxY2 = Math.max.apply(Math, array.map(function (o) { return Math.max(Math.max(o.macd, o.macdhist), o._signal) }))
-    let minY2 = Math.min.apply(Math, array.map(function (o) { return Math.max(Math.min(o.macd, o.macdhist), o._signal) }))
-    this.ninthChart.layout.yaxis.range = [minY2, maxY2];
-
-    this.tenthChart.data.push(this.FASTKGraph)
-    this.tenthChart.data.push(this.SLOWDGraph)
-    let maxY3 = Math.max.apply(Math, array.map(function (o) { return Math.max(o.fast_k, o.slow_d) }))
-    let minY3 = Math.min.apply(Math, array.map(function (o) { return Math.min(o.fast_k, o.slow_d) }))
-    this.tenthChart.layout.yaxis.range = [minY3, maxY3];
-
-    this.buyTripleScreenLine.forEach((element: any) => {
-      this.eighthChart.layout.shapes.push(element)
-      this.ninthChart.layout.shapes.push(element)
-      this.tenthChart.layout.shapes.push(element)
-    });
-
-    this.sellTripleScreenLine.forEach((element: any) => {
-      this.eighthChart.layout.shapes.push(element)
-      this.ninthChart.layout.shapes.push(element)
-      this.tenthChart.layout.shapes.push(element)
-    });
-
     this.isBollingerTrendFollowing = false
     this.isDefault = false
     this.isBollingerTrendReverse = false
     this.isTripleScreen = true
-
-    // this.firstChart.data = []
-    // this.firstChart.data.push(this.stockGraph)
-    // this.firstChart.data.push(this.EMA130Graph)
-    // this.firstChart.data.push(this.buyTripleScreenMarker)
-    // this.firstChart.data.push(this.sellTripleScreenMarker)
-
-    // this.stockGraph.showlegend = false
-    // this.buyReverseMarker.showlegend = false
-    // this.sellReverseMarker.showlegend = false
-
-    // this.secondChart.data = []
-    // this.secondChart.data.push(this.MACDSignalGraph)
-    // this.secondChart.data.push(this.MACDGraph)
-    // this.secondChart.data.push(this.MACDHistGraph)
-    // this.secondChart.layout.yaxis.title = ""
-
-    // this.thirdChart.data = []
-    // this.thirdChart.data.push(this.SLOWDGraph)
-    // this.thirdChart.data.push(this.FASTKGraph)
-    // this.thirdChart.layout.yaxis.title = ""
-
-    // this.firstChart.layout.shapes = []
-    // this.secondChart.layout.shapes = []
-    // this.thirdChart.layout.shapes = []
-
-    // this.buyTripleScreenLine.forEach((element: any) => {
-    //   this.firstChart.layout.shapes.push(element)
-    //   this.secondChart.layout.shapes.push(element)
-    //   this.thirdChart.layout.shapes.push(element)
-    // });
-
-    // this.sellTripleScreenLine.forEach((element: any) => {
-    //   this.firstChart.layout.shapes.push(element)
-    //   this.secondChart.layout.shapes.push(element)
-    //   this.thirdChart.layout.shapes.push(element)
-    // });
-
-
-    // let array = this.rawDataTripleScreen.slice(this.rawDataTripleScreen.length - 31, this.rawDataTripleScreen.length - 1)
-    // let maxY = Math.max.apply(Math, array.map(function (o) { return o.ema130; }))
-    // let minY = Math.min.apply(Math, array.map(function (o) { return o.ema130; }))
-
-    // let stockarray = this.rawStockData.slice(this.rawStockData.length - 31, this.rawStockData.length - 1)
-    // let maxstockY = Math.max.apply(Math, stockarray.map(function (o) { return o.high; }))
-    // let minstockY = Math.min.apply(Math, stockarray.map(function (o) { return o.low; }))
-
-    // let realMin = Math.min(minY, minstockY)
-    // let realMax = Math.max(maxY, maxstockY)
-
-    // this.firstChart.layout.yaxis.range = [realMin, realMax];
-    // this.rangeFirstY = [realMin, realMax]
-
-    // let maxY2 = Math.max.apply(Math, array.map(function (o) { return Math.max(Math.max(o.macd, o.macdhist), o._signal) }))
-    // let minY2 = Math.min.apply(Math, array.map(function (o) { return Math.max(Math.min(o.macd, o.macdhist), o._signal) }))
-    // this.secondChart.layout.yaxis.range = [minY2, maxY2];
-    // this.rangeSecondY = [minY2, maxY2]
-
-    // let maxY3 = Math.max.apply(Math, array.map(function (o) { return Math.max(o.fast_k, o.slow_d) }))
-    // let minY3 = Math.min.apply(Math, array.map(function (o) { return Math.min(o.fast_k, o.slow_d) }))
-    // this.thirdChart.layout.yaxis.range = [minY3, maxY3];
-    // this.rangeThirdY = [minY3, maxY3]
-
     this.revision++
   }
 
