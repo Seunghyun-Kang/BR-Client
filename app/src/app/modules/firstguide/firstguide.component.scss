@@ -5,7 +5,7 @@
     transform: translate(-50%, 0);
     z-index: 100;
     .desc{
-        color: blanchedalmond;
+        color: white;
         font-family: hyundai-card;
         font-size: 16px;
         word-break: keep-all;
@@ -13,12 +13,18 @@
         text-align: -webkit-center;
     }
 
-    .form {
+    .searchbar-container {
+        margin:auto; 
+        width: 100vw;
+        display: flex;
         
-    display: inline-flex;
-.submit-button {
-    
-    min-width: 45px;
-}
+justify-content: center;
+    .button {
+        width: 23px;
+        align-self: center;
+        margin-left: 10px;
+        position: relative;
+        }
+
     }
 }
