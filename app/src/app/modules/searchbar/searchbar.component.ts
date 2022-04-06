@@ -1,9 +1,7 @@
-import { Component, OnInit, ViewChild, ElementRef, EventEmitter, Output } from '@angular/core';
+import { HttpEventType } from '@angular/common/http';
+import { Component, OnInit, ViewChild, ElementRef, EventEmitter, Output, Input } from '@angular/core';
 import { FormControl } from '@angular/forms';
-import {map, startWith} from 'rxjs/operators'; 
-import {Observable} from 'rxjs';
 import { DataService } from 'src/app/services/data.service';
-import { companyData } from 'src/app/components/findcompany/findcompany.component';
 
 @Component({
     selector: 'app-search-bar',
@@ -12,12 +10,14 @@ import { companyData } from 'src/app/components/findcompany/findcompany.componen
 })
 export class SearchBarComponent implements OnInit {
 
+    @Input() autoCompleteList: any[] =[]
+    @Input() placeholder: string = ""
+    @Input() inputType: string = "text"
+
     myControl = new FormControl();
-    filteredOptions: Observable<string[]>;
-    allData: string[] = [];
-    filterCompany: Observable<string[]>;
     select: Array<string> = []
-    autoCompleteList: any[]
+    public list: any[] = []
+    public inputList: any
 
     @ViewChild('autocompleteInput') autocompleteInput: ElementRef;
     @Output() onSelectedOption = new EventEmitter();
@@ -27,20 +27,17 @@ export class SearchBarComponent implements OnInit {
     ) { }
 
     ngOnInit() {
-        let data: companyData[] = this.dataService.getCompanyData()
-        data.forEach((element: companyData) => {
-            this.allData.push(element.company)
-        });
-        
         // when user types something in input, the value changes will come through this
         this.myControl.valueChanges.subscribe(userInput => {
             this.autoCompleteExpenseList(userInput);
         })
+        this.list = this.autoCompleteList
       }
     
     private autoCompleteExpenseList(input: any) {
         let categoryList = this.filterCategoryList(input)
-        this.autoCompleteList = categoryList;
+        this.list = categoryList;
+        this.inputList = input
     }
 
     // this is where filtering the data happens according to you typed value
@@ -52,7 +49,7 @@ export class SearchBarComponent implements OnInit {
         if (val === '' || val === null) {
             return [];
         }
-        return val ? this.allData.filter((s: any) => s.toLowerCase().indexOf(val.toLowerCase()) !== -1) : this.allData;
+        return val ? this.autoCompleteList.filter((s: any) => s.toLowerCase().indexOf(val.toLowerCase()) !== -1) : this.autoCompleteList;
     }
 
     // after you clicked an autosuggest option, this function will show the field you want to show in input
@@ -61,11 +58,17 @@ export class SearchBarComponent implements OnInit {
     }
 
     filterPostList(event: any) {
-        var posts = event.source.value;
+        var posts: any
+        if(event.source !== undefined && event.source.value !== undefined) 
+            posts = event.source.value;
+        else
+            posts = event
+
         console.log(posts)
         this.select.push(posts)
         this.onSelectedOption.emit(this.select)
         this.focusOnPlaceInput();
+        this.list = []
     }
 
     removeOption(option: any) {

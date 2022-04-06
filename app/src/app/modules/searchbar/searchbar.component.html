@@ -8,10 +8,10 @@
           
           <mat-icon matChipRemove>cancel</mat-icon>
         </mat-chip>
-        <input class="desc" #autocompleteInput type="text" placeholder="어떤 회사?" aria-label="Number" matInput [formControl]="myControl"
-          [matAutocomplete]="auto" [matChipInputFor]="chipList">
-        <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFn">
-          <mat-option *ngFor="let option of autoCompleteList" [value]="option" (onSelectionChange)="filterPostList($event)">
+        <input class="desc" #autocompleteInput [type]="inputType" [placeholder]="placeholder" matInput [formControl]="myControl"
+          [matAutocomplete]="auto" [matChipInputFor]="chipList" (keyup.enter)="filterPostList(inputList)">
+          <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFn">
+          <mat-option *ngFor="let option of list" [value]="option" (onSelectionChange)="filterPostList($event)">
             {{option}}
           </mat-option>
         </mat-autocomplete>
