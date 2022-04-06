@@ -12,7 +12,7 @@ export class SearchBarComponent implements OnInit {
 
     @Input() autoCompleteList: any[] =[]
     @Input() placeholder: string = ""
-    @Input() inputType: string = "text"
+    @Input() inputType: string = ""
     @Input() patternType: string = ""
 
     myControl = new FormControl();
@@ -33,6 +33,8 @@ export class SearchBarComponent implements OnInit {
         this.myControl.valueChanges.subscribe(userInput => {
             this.autoCompleteExpenseList(userInput);
         })
+        console.log(this.patternType)
+        this.patternType = '\d*'
       }
     
     private autoCompleteExpenseList(input: any) {
