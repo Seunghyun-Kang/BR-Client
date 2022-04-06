@@ -197,6 +197,9 @@ export class StockdetailComponent implements OnInit {
   }
 
   relayoutfirstchart(event: any) {
+    if(event['xaxis.range[0]'] == undefined) return 
+    if(event['xaxis.range[1]'] == undefined) return 
+
     let parseStart = event['xaxis.range[0]'].replace('-', '/').replace('-', '/').substr(0, 19)
     let parseEnd = event['xaxis.range[1]'].replace('-', '/').replace('-', '/').substr(0, 19)
 
@@ -209,6 +212,9 @@ export class StockdetailComponent implements OnInit {
   }
 
   relayoutsecondchart(event: any) {
+    if(event['xaxis.range[0]'] == undefined) return 
+    if(event['xaxis.range[1]'] == undefined) return 
+
     let parseStart = event['xaxis.range[0]'].replace('-', '/').replace('-', '/').substr(0, 19)
     let parseEnd = event['xaxis.range[1]'].replace('-', '/').replace('-', '/').substr(0, 19)
 
@@ -221,6 +227,9 @@ export class StockdetailComponent implements OnInit {
   }
 
   relayoutthirdchart(event: any) {
+    if(event['xaxis.range[0]'] == undefined) return 
+    if(event['xaxis.range[1]'] == undefined) return 
+
     let parseStart = event['xaxis.range[0]'].replace('-', '/').replace('-', '/').substr(0, 19)
     let parseEnd = event['xaxis.range[1]'].replace('-', '/').replace('-', '/').substr(0, 19)
 
