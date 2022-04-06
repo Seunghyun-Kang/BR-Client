@@ -10,7 +10,7 @@ import { DataService } from 'src/app/services/data.service';
 })
 export class SearchBarComponent implements OnInit {
 
-    @Input() autoCompleteList: any[] =[]
+    @Input() autoCompleteList: any[] = []
     @Input() placeholder: string = ""
     @Input() inputType: string = ""
 
@@ -27,16 +27,16 @@ export class SearchBarComponent implements OnInit {
     constructor(
         public dataService: DataService
     ) {
-     }
+    }
 
     ngOnInit() {
         // when user types something in input, the value changes will come through this
-        this.myControl.valueChanges.subscribe(userInput => {
+        this.myControl.valueChanges.subscribe((userInput: any) => {
             this.autoCompleteExpenseList(userInput);
             this.onChange.emit(userInput)
         })
-      }
-    
+    }
+
     private autoCompleteExpenseList(input: any) {
         let categoryList = this.filterCategoryList(input)
         this.list = categoryList;
@@ -62,13 +62,13 @@ export class SearchBarComponent implements OnInit {
 
     filterPostList(event: any) {
         var posts: any
-        if(event.source !== undefined && event.source.value !== undefined) 
+        if (event.source !== undefined && event.source.value !== undefined)
             posts = event.source.value;
         else
             posts = event
 
         console.log(posts)
-        if(this.select.indexOf(posts) === -1 && this.autoCompleteList.indexOf(posts) != -1){ 
+        if (this.select.indexOf(posts) === -1 && this.autoCompleteList.indexOf(posts) != -1) {
             this.select.push(posts)
             this.onSelectedOption.emit(this.select)
         }
@@ -81,7 +81,7 @@ export class SearchBarComponent implements OnInit {
 
         let index = this.select.indexOf(option);
         if (index >= 0)
-        this.select.splice(index, 1);
+            this.select.splice(index, 1);
         this.focusOnPlaceInput();
 
         this.onSelectedOption.emit(this.select)

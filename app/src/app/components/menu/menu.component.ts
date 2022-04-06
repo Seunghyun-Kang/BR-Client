@@ -17,15 +17,16 @@ export class MenuComponent implements OnInit {
     "선택해봐"
   ]
   constructor(private statusService: PagestatusService,
-    private router:Router) {
-      this.statusService.setStatus("loading-forward") }
+    private router: Router) {
+    this.statusService.setStatus("loading-forward")
+  }
 
   ngOnInit(): void {
-          setTimeout(() => {
-            this.statusService.setStatus("normal") 
-            this.getData = true
-          }, 1000);
-          console.log(this.guideIndex)
+    setTimeout(() => {
+      this.statusService.setStatus("normal")
+      this.getData = true
+    }, 1000);
+    console.log(this.guideIndex)
   }
 
   guideIndexChanged(event: any) {
@@ -34,14 +35,18 @@ export class MenuComponent implements OnInit {
   }
 
   onPressGetStock() {
-    this.router.navigate(['findcompany'], { queryParams: { 
-      target: 'GetStockDetails'
-     }})
+    this.router.navigate(['findcompany'], {
+      queryParams: {
+        target: 'GetStockDetails'
+      }
+    })
   }
 
   onPressOptPortfolio() {
-    this.router.navigate(['findcompany'], { queryParams: { 
-      target: 'OptPortfolio'
-     }})
+    this.router.navigate(['findcompany'], {
+      queryParams: {
+        target: 'OptPortfolio'
+      }
+    })
   }
 }

@@ -8,7 +8,7 @@ import { Router } from '@angular/router'
   styleUrls: ['./firstguide.component.scss']
 })
 export class FirstguideComponent implements OnInit, OnDestroy {
-  public presentDesc: string
+  public presentDesc: string = ""
   public masterNumber: string
   private descArray: Array<string>
   private exceptionDescArray: Array<string>
@@ -75,7 +75,7 @@ export class FirstguideComponent implements OnInit, OnDestroy {
           }, 2000);
         }
       }
-    } else if(index > 3) {
+    } else if (index > 3) {
       clearInterval(this.interval)
       clearTimeout(this.timeout)
     }
@@ -86,10 +86,10 @@ export class FirstguideComponent implements OnInit, OnDestroy {
   }
 
   onChange(event: any): void {
-    if(event.length >= 11)
-    this.checkFriends(event.substr(1,))
+    if (event.length >= 11)
+      this.checkFriends(event.substr(1))
   }
-  
+
   onSelectedOption(event: any) {
     this.checkFriends(event)
   }

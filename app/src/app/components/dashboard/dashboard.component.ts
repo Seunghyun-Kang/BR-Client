@@ -9,7 +9,7 @@ import { PagestatusService } from 'src/app/services/pagestatus.service';
 export class DashboardComponent implements OnInit {
   public screenId = "dashboard"
   constructor(private service: PagestatusService,
-    @Inject("Version") public appVersion: string,) { 
+    @Inject("Version") public appVersion: string, ) {
     this.service.setStatus("dashboard")
     console.log("Version:: " + appVersion)
   }

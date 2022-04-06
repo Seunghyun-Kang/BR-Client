@@ -7,24 +7,24 @@ import { companyData } from '../components/findcompany/findcompany.component';
 export class DataService {
   public companyData: Array<companyData> = []
   public pricesData = new Map<any, any>();
-  constructor() { 
+  constructor() {
     console.log("Data service generated");
   }
 
   setCompanyData(data: companyData[]) {
-      console.log("SET COMPANY DATA");
-      this.companyData = data
+    console.log("SET COMPANY DATA");
+    this.companyData = data
   }
 
   getCompanyData(): companyData[] {
     console.log("GET COMPANY DATA");
     console.log(this.companyData);
-   
+
     return this.companyData
-}
-  getCompanyNamebyCode(company: string): string{
+  }
+  getCompanyNamebyCode(company: string): string {
     let selected: any
     selected = this.companyData.find(item => item.code === company)
     return selected.company
-}
+  }
 }

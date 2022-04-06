@@ -24,11 +24,11 @@ export class IntroComponent implements OnInit, OnDestroy {
 
   ngAfterViewInit(): void {
     var howManyStars: number = 1000;
-    if(IS_MOBILE)howManyStars = 500;
+    if (IS_MOBILE) howManyStars = 500;
     this.service.getStatus().subscribe((value) => {
       console.log("WEB STATUS CHANGED ::" + value);
-      if(screenId === 'dashboard' && value === "normal") return
-      
+      if (screenId === 'dashboard' && value === "normal") return
+
       screenId = value;
       if (this.starfield !== undefined) {
         this.starfield.destroy();
@@ -264,7 +264,7 @@ class Star {
     let py = mapRange(this.py / this.pz, 0, 1, 0, height);
 
     var maxRadius = (IS_HIGH_RES.matches) ? 4 : 2;
-    if(IS_MOBILE){maxRadius = 2}
+    if (IS_MOBILE) { maxRadius = 2 }
     let radius = Math.min(Math.abs(mapRange(this.z, 0, depth, maxRadius, 0.01)), maxRadius);
 
     // star point
@@ -628,7 +628,7 @@ class StarField {
     for (let i = 0; i < this.stars.length; i++) {
       // console.log("!!!!!update and draw all the stars " + this.pauseAnimation);
       if (!this.pauseAnimation && this.stars[i] !== undefined) {
-      this.stars[i].update(this.deltaTime, this.container, this.xSpeed, this.zSpeed);
+        this.stars[i].update(this.deltaTime, this.container, this.xSpeed, this.zSpeed);
       }
       if (this.stars[i] !== undefined) this.stars[i].draw(this.context, this.container, this.screen, this.mouseX, this.mouseY);
     }

@@ -18,11 +18,11 @@ import * as PlotlyJS from 'plotly.js-dist-min';
 import { PlotlyModule } from 'angular-plotly.js';
 import { FindcompanyComponent } from './components/findcompany/findcompany.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import {MatAutocompleteModule} from '@angular/material/autocomplete';
-import {MatChipsModule} from '@angular/material/chips';
-import {MatFormFieldModule} from '@angular/material/form-field';
-import {MatInputModule} from '@angular/material/input'
-import {MatIconModule} from '@angular/material/icon';
+import { MatAutocompleteModule } from '@angular/material/autocomplete';
+import { MatChipsModule } from '@angular/material/chips';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input'
+import { MatIconModule } from '@angular/material/icon';
 import { SearchBarComponent } from './modules/searchbar/searchbar.component';
 import { GuideComponent } from './modules/guide/guide.component';
 import { MenuComponent } from './components/menu/menu.component';
@@ -37,7 +37,7 @@ const appRoutes: Routes = [
   { path: 'findcompany', component: FindcompanyComponent },
   { path: 'stockdetail', component: StockdetailComponent },
   { path: 'optimalportfolio', component: OptimalportfolioComponent },
-  {path : '', redirectTo : '/dashboard',  pathMatch : 'full'}
+  { path: '', redirectTo: '/dashboard', pathMatch: 'full' }
 ]
 
 @NgModule({
@@ -58,11 +58,11 @@ const appRoutes: Routes = [
     BrowserModule,
     BrowserAnimationsModule,
     MatAutocompleteModule,
-    MatChipsModule, 
+    MatChipsModule,
     MatFormFieldModule,
     RouterModule.forRoot(
       appRoutes,
-      {enableTracing:false, useHash: true}
+      { enableTracing: false, useHash: true }
     ),
     AppRoutingModule,
     MatIconModule,

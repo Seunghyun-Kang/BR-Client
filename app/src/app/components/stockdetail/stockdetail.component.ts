@@ -177,7 +177,7 @@ export class StockdetailComponent implements OnInit {
     this.requestService.getTripleScreenInfo(this.code)
       .subscribe({
         next: (v: any) => {
-          this.rawDataTripleScreen= Object(v.body)
+          this.rawDataTripleScreen = Object(v.body)
           this.getTripleScreenData = true
 
           this.initTripleScreenGraph()
@@ -488,7 +488,7 @@ export class StockdetailComponent implements OnInit {
       }
     });
   }
-  
+
   initTripleScreenGraph() {
     this.EMA130Graph = {
       x: [],
@@ -841,11 +841,11 @@ export class StockdetailComponent implements OnInit {
     let array = this.rawDataTripleScreen.slice(this.rawDataTripleScreen.length - 31, this.rawDataTripleScreen.length - 1)
     let maxY = Math.max.apply(Math, array.map(function (o) { return o.ema130; }))
     let minY = Math.min.apply(Math, array.map(function (o) { return o.ema130; }))
-    
+
     let stockarray = this.rawStockData.slice(this.rawStockData.length - 31, this.rawStockData.length - 1)
     let maxstockY = Math.max.apply(Math, stockarray.map(function (o) { return o.high; }))
     let minstockY = Math.min.apply(Math, stockarray.map(function (o) { return o.low; }))
-    
+
     let realMin = Math.min(minY, minstockY)
     let realMax = Math.max(maxY, maxstockY)
 
