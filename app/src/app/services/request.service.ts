@@ -88,6 +88,21 @@ export class RequestService {
       catchError(this.handleError)
     );
   }
+
+  getTripleScreenInfo(code: string) {
+    return this.http.get(this.REST_SERVER_URL + 'triplescreen/' + code + '/', { observe: 'response', headers: this.headers})
+    .pipe(
+      catchError(this.handleError)
+    );
+  }
+
+  getTripleScreenSignal(code: string) {
+    return this.http.get(this.REST_SERVER_URL + 'triplescreen_triple/' + code + '/', { observe: 'response', headers: this.headers })
+    .pipe(
+      catchError(this.handleError)
+    );
+  }
+
   private handleError(error: HttpErrorResponse) {
     if (error.status === 0) {
       console.error('An error occurred:', error.error);
