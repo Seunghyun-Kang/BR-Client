@@ -723,6 +723,11 @@ export class StockdetailComponent implements OnInit {
       this.secondChart.layout.shapes.push(element)
       this.thirdChart.layout.shapes.push(element)
     });
+  
+    let array1 = this.rawStockData.slice(this.rawStockData.length - 31, this.rawStockData.length - 1)
+    let maxY1 = Math.max.apply(Math, array1.map(function (o) { return o.high; }))
+    let minY1 = Math.min.apply(Math, array1.map(function (o) { return o.low; }))
+    this.firstChart.layout.yaxis.range = [minY1, maxY1];
 
     let array = this.rawDataBollinger.slice(this.rawDataBollinger.length - 31, this.rawDataBollinger.length - 1)
     let maxY = Math.max.apply(Math, array.map(function (o) { return o.upper; }))
