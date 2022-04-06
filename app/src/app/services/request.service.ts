@@ -97,7 +97,7 @@ export class RequestService {
   }
 
   getTripleScreenSignal(code: string) {
-    return this.http.get(this.REST_SERVER_URL + 'triplescreen_triple/' + code + '/', { observe: 'response', headers: this.headers })
+    return this.http.get(this.REST_SERVER_URL + 'triplescreen_signal/' + code + '/', { observe: 'response', headers: this.headers })
     .pipe(
       catchError(this.handleError)
     );
