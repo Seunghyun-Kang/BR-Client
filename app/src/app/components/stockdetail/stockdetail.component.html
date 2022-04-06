@@ -14,7 +14,7 @@
     (relayout)="relayoutfirstchart($event)"></plotly-plot>
 </div>
 
-<div *ngIf="getData && (isBollingerTrendFollowing || isBollingerTrendReverse)" class="chart-container" style="height: 100%;">
+<div *ngIf="getData && (isBollingerTrendFollowing || isBollingerTrendReverse || isTripleScreen)" class="chart-container" style="height: 100%;">
     <plotly-plot
     [data]="secondChart.data" 
     [layout]="secondChart.layout" 
@@ -26,7 +26,7 @@
     (relayout)="relayoutsecondchart($event)"></plotly-plot>
 </div>
 
-<div *ngIf="getData && (isBollingerTrendFollowing || isBollingerTrendReverse)" class="chart-container" style="height: 100%;">
+<div *ngIf="getData && (isBollingerTrendFollowing || isBollingerTrendReverse || isTripleScreen)" class="chart-container" style="height: 100%;">
     <plotly-plot
     [data]="thirdChart.data" 
     [layout]="thirdChart.layout" 
@@ -63,6 +63,14 @@
             vertical-align:middle;width: 4vh;
         height: 4vh;
         font-size: 1vh;" >볼린저 반전 매매</span>
+ </div>
+    </div>
+
+    <div class="card" (click)="tapTripleScreen()">
+        <div style="display:table;"> <span  style="display:table-cell;
+            vertical-align:middle;width: 4vh;
+        height: 4vh;
+        font-size: 1vh;" >삼중창 매매</span>
  </div>
     </div>
 </div>
