@@ -18,20 +18,22 @@ export class SearchBarComponent implements OnInit {
     select: Array<string> = []
     public list: any[] = []
     public inputList: any
+    public patternType: any
 
     @ViewChild('autocompleteInput') autocompleteInput: ElementRef;
     @Output() onSelectedOption = new EventEmitter();
 
     constructor(
         public dataService: DataService
-    ) { }
+    ) {
+     }
 
     ngOnInit() {
         // when user types something in input, the value changes will come through this
         this.myControl.valueChanges.subscribe(userInput => {
             this.autoCompleteExpenseList(userInput);
         })
-        this.list = this.autoCompleteList
+        if(this.inputType === 'number') this.patternType = '\d*'
       }
     
     private autoCompleteExpenseList(input: any) {

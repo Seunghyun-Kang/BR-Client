@@ -3,7 +3,8 @@
         <header [title]="'종목 검색'"></header>
     </div>
 <div class="content">
-    <app-guide style="position: fixed;" [descArray]="presentGuide" [position]="'upper'" (indexChange)="guideIndexChanged($event)"></app-guide>
+    <app-guide style="position: fixed;
+    width: 100%;" [descArray]="presentGuide" [position]="'upper'" (indexChange)="guideIndexChanged($event)"></app-guide>
     
 
     <div class="searchbar-container" *ngIf="getData && guideIndex >= 0">
