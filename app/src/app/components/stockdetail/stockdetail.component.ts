@@ -151,40 +151,38 @@ export class StockdetailComponent implements OnInit {
   relayoutfirstchart(event: any) {
     if(!(this.isBollingerTrendFollowing || this.isBollingerTrendReverse)) return
 
-    let startdate = new Date(event['xaxis.range[0]']).getTime()
-    let enddate = new Date(event['xaxis.range[1]']).getTime()
+    let parseStart = event['xaxis.range[0]'].replace('-', '/').replace('-', '/').substr(0,19)
+    let parseEnd = event['xaxis.range[1]'].replace('-', '/').replace('-', '/').substr(0,19)
+
+    let startdate = new Date(parseStart).getTime()
+    let enddate = new Date(parseEnd).getTime()
     
-    // let rate0 = event['yaxis.range[0]']/ this.rangeFirstY[0]
-    // let rate1 = event['yaxis.range[1]']/ this.rangeFirstY[1]
-
-    // console.log(rate0)
-    // console.log(rate1)
-
-    // this.firstChart.layout.xaxis.range = [startdate, enddate];
     this.secondChart.layout.xaxis.range = [startdate, enddate];
-    // this.secondChart.layout.yaxis.range = [this.rangeSecondY[0] * rate0, this.rangeSecondY[1] * rate1];
     this.thirdChart.layout.xaxis.range = [startdate, enddate];
-    // this.thirdChart.layout.yaxis.range = [this.rangeThirdY[0] * rate0, this.rangeThirdY[1] * rate1];
     this.revision++
   }
 
   relayoutsecondchart(event: any) {
-    let startdate = new Date(event['xaxis.range[0]']).getTime()
-    let enddate = new Date(event['xaxis.range[1]']).getTime()
-    
+    let parseStart = event['xaxis.range[0]'].replace('-', '/').replace('-', '/').substr(0,19)
+    let parseEnd = event['xaxis.range[1]'].replace('-', '/').replace('-', '/').substr(0,19)
+
+    let startdate = new Date(parseStart).getTime()
+    let enddate = new Date(parseEnd).getTime()
+
     this.firstChart.layout.xaxis.range = [startdate, enddate];
-    // this.secondChart.layout.xaxis.range = [startdate, enddate];
     this.thirdChart.layout.xaxis.range = [startdate, enddate];
     this.revision++
   }  
 
   relayoutthirdchart(event: any) {
-    let startdate = new Date(event['xaxis.range[0]']).getTime()
-    let enddate = new Date(event['xaxis.range[1]']).getTime()
+    let parseStart = event['xaxis.range[0]'].replace('-', '/').replace('-', '/').substr(0,19)
+    let parseEnd = event['xaxis.range[1]'].replace('-', '/').replace('-', '/').substr(0,19)
+
+    let startdate = new Date(parseStart).getTime()
+    let enddate = new Date(parseEnd).getTime()
     
     this.firstChart.layout.xaxis.range = [startdate, enddate];
     this.secondChart.layout.xaxis.range = [startdate, enddate];
-    // this.thirdChart.layout.xaxis.range = [startdate, enddate];
     this.revision++
   }
 
