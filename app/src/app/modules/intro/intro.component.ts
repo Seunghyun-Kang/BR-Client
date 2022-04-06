@@ -24,7 +24,7 @@ export class IntroComponent implements OnInit, OnDestroy {
 
   ngAfterViewInit(): void {
     var howManyStars: number = 1000;
-    if (IS_MOBILE) howManyStars = 500;
+    if (IS_MOBILE) return
     this.service.getStatus().subscribe((value) => {
       console.log("WEB STATUS CHANGED ::" + value);
       if (screenId === 'dashboard' && value === "normal") return
@@ -37,10 +37,13 @@ export class IntroComponent implements OnInit, OnDestroy {
       this.starfield = new StarField(howManyStars, this.canvas);
       this.starfield.startRenderLoop();
     });
+
+    
   }
 
   ngOnDestroy() {
     console.log("destroy :: " + screenId);
+    if (IS_MOBILE) return
     this.canvas.removeEventListener('resize', this.starfield.handleResize)
     this.canvas.removeEventListener('beforeunload', this.starfield.rePopulateStarField)
   }

@@ -2,11 +2,13 @@ import { Component, Input, OnDestroy, OnInit } from '@angular/core'
 import { FormBuilder, FormControl, Validators } from '@angular/forms'
 import { Router } from '@angular/router'
 
+const IS_MOBILE = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
 @Component({
   selector: 'firstguide',
   templateUrl: './firstguide.component.html',
   styleUrls: ['./firstguide.component.scss']
 })
+
 export class FirstguideComponent implements OnInit, OnDestroy {
   public presentDesc: string = ""
   public masterNumber: string
@@ -24,7 +26,7 @@ export class FirstguideComponent implements OnInit, OnDestroy {
   constructor(
     private formBuilder: FormBuilder,
     private router: Router) {
-    this.descIndex = -1;
+    this.descIndex = IS_MOBILE ? 0 : -1 ;
     this.descArray = [
       "안녕, 우리 주식 똑똑하게 해보자",
       "#1#, 반가워",
@@ -47,6 +49,8 @@ export class FirstguideComponent implements OnInit, OnDestroy {
       "1051218283": "수연",
       "1094122794": "보영",
     }
+
+    this.presentDesc = IS_MOBILE ? this.descArray[0] : ""
   }
 
   ngOnInit(): void {

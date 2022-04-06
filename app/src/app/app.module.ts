@@ -6,6 +6,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HeaderComponent } from './modules/header/header.component';
 
+import { CommonModule } from '@angular/common';  
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { IntroComponent } from './modules/intro/intro.component';
 import { FirstguideComponent } from './modules/firstguide/firstguide.component';
@@ -28,6 +29,7 @@ import { GuideComponent } from './modules/guide/guide.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { OptimalportfolioComponent } from './components/optimalportfolio/optimalportfolio.component';
 import { NgApexchartsModule } from 'ng-apexcharts';
+import { DeviceDetectorService } from 'ngx-device-detector';
 
 PlotlyModule.plotlyjs = PlotlyJS;
 
@@ -72,7 +74,8 @@ const appRoutes: Routes = [
     ReactiveFormsModule,
     HttpClientModule,
     PlotlyModule,
-    NgApexchartsModule
+    NgApexchartsModule,
+    CommonModule,
   ],
   providers: [HTMLCanvasElement,
     {
@@ -81,4 +84,5 @@ const appRoutes: Routes = [
     },],
   bootstrap: [AppComponent]
 })
+
 export class AppModule { }

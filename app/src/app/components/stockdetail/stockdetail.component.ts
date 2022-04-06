@@ -669,7 +669,9 @@ export class StockdetailComponent implements OnInit {
     this.firstChart.layout.shapes = []
     this.secondChart.layout.shapes = []
     this.thirdChart.layout.shapes = []
-    console.log(this.firstChart)
+
+    this.secondChart.data = []
+    this.thirdChart.data = []
 
     let array = this.rawStockData.slice(this.rawStockData.length - 31, this.rawStockData.length - 1)
     let maxY = Math.max.apply(Math, array.map(function (o) { return o.high; }))
@@ -679,7 +681,6 @@ export class StockdetailComponent implements OnInit {
     this.rangeFirstY = [minY, maxY]
 
     this.revision++
-    console.log("Tap default button2 ::  " + this.revision)
   }
 
   tapBolingerTrend() {
@@ -688,9 +689,7 @@ export class StockdetailComponent implements OnInit {
     this.isBollingerTrendFollowing = true
     this.isDefault = false
     this.isBollingerTrendReverse = false
-    this.stockGraph.showlegend = true
     this.isTripleScreen = false
-
 
     this.firstChart.data = []
     this.firstChart.data.push(this.stockGraph)
@@ -712,17 +711,18 @@ export class StockdetailComponent implements OnInit {
     this.firstChart.layout.shapes = []
     this.secondChart.layout.shapes = []
     this.thirdChart.layout.shapes = []
+
     this.buyTrendLine.forEach((element: any) => {
       this.firstChart.layout.shapes.push(element)
       this.secondChart.layout.shapes.push(element)
       this.thirdChart.layout.shapes.push(element)
     });
+
     this.sellTrendLine.forEach((element: any) => {
       this.firstChart.layout.shapes.push(element)
       this.secondChart.layout.shapes.push(element)
       this.thirdChart.layout.shapes.push(element)
     });
-
 
     let array = this.rawDataBollinger.slice(this.rawDataBollinger.length - 31, this.rawDataBollinger.length - 1)
     let maxY = Math.max.apply(Math, array.map(function (o) { return o.upper; }))
@@ -835,11 +835,13 @@ export class StockdetailComponent implements OnInit {
     this.firstChart.layout.shapes = []
     this.secondChart.layout.shapes = []
     this.thirdChart.layout.shapes = []
+
     this.buyTripleScreenLine.forEach((element: any) => {
       this.firstChart.layout.shapes.push(element)
       this.secondChart.layout.shapes.push(element)
       this.thirdChart.layout.shapes.push(element)
     });
+
     this.sellTripleScreenLine.forEach((element: any) => {
       this.firstChart.layout.shapes.push(element)
       this.secondChart.layout.shapes.push(element)
@@ -872,7 +874,6 @@ export class StockdetailComponent implements OnInit {
     this.rangeThirdY = [minY3, maxY3]
 
     this.revision++
-
   }
 
   public onClick(data: any) {

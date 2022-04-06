@@ -24,6 +24,7 @@
     "apexcharts": "^3.34.0",
     "moment": "^2.29.1",
     "ng-apexcharts": "^1.7.1",
+    "ngx-device-detector": "^3.0.0",
     "plotly.js-dist-min": "^2.11.1",
     "rxjs": "~7.5.0",
     "tslib": "^2.3.0",
