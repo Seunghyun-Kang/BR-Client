@@ -8,14 +8,14 @@
             (relayout)="relayoutfirstchart($event)"></plotly-plot>
     </div>
 
-    <div *ngIf="getData && (isBollingerTrendFollowing || isBollingerTrendReverse || isTripleScreen)"
+    <div *ngIf="getData && (isBollingerTrendFollowing || isBollingerTrendReverse)"
         class="chart-container">
         <plotly-plot [data]="secondChart.data" [layout]="secondChart.layout" [config]="secondChart.config"
             [updateOnlyWithRevision]="true" [revision]="revision" [useResizeHandler]="true"
             [style]="{position: 'relative'}" (relayout)="relayoutsecondchart($event)"></plotly-plot>
     </div>
 
-    <div *ngIf="getData && (isBollingerTrendFollowing || isBollingerTrendReverse || isTripleScreen)"
+    <div *ngIf="getData && (isBollingerTrendFollowing || isBollingerTrendReverse)"
         class="chart-container">
         <plotly-plot [data]="thirdChart.data" [layout]="thirdChart.layout" [config]="thirdChart.config"
             [updateOnlyWithRevision]="true" [useResizeHandler]="true" [style]="{position: 'relative'}"

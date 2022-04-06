@@ -180,14 +180,14 @@ export class StockdetailComponent implements OnInit {
           this.rawDataTripleScreen = Object(v.body)
           this.getTripleScreenData = true
 
-          this.initTripleScreenGraph()
+          // this.initTripleScreenGraph()
 
           this.requestService.getTripleScreenSignal(this.code)
             .subscribe({
               next: (v: any) => {
                 this.rawDataTripleScreenSignal = Object(v.body)
 
-                this.initTripleScreenSignalGraph()
+                // this.initTripleScreenSignalGraph()
               },
               error: (e: any) => console.log("ERROR OCCURED :: " + JSON.stringify(e))
             });
