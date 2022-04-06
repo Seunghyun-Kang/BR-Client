@@ -118,7 +118,10 @@ export class StockdetailComponent implements OnInit {
   public ninthChart = new TradeViewSettings().settings;
   public tenthChart = new TradeViewSettings().settings;
 
-  public revision = 1
+  public revision1 = 1
+  public revision2 = 1
+  public revision3 = 1
+  public revision4 = 1
 
   private rangeFirstY = [1, 1]
   private rangeSecondY = [1, 1]
@@ -219,16 +222,19 @@ export class StockdetailComponent implements OnInit {
     this.secondChart.layout.xaxis.range = [startdate, enddate];
     this.thirdChart.layout.xaxis.range = [startdate, enddate];
     this.forthChart.layout.xaxis.range = [startdate, enddate];
+    this.revision2++
     } else if(this.isBollingerTrendReverse) {
     this.fifthChart.layout.xaxis.range = [startdate, enddate];
     this.sixthChart.layout.xaxis.range = [startdate, enddate];
     this.seventhChart.layout.xaxis.range = [startdate, enddate];
+    this.revision3++
     } else if(this.isTripleScreen){
     this.eighthChart.layout.xaxis.range = [startdate, enddate];
     this.ninthChart.layout.xaxis.range = [startdate, enddate];
     this.tenthChart.layout.xaxis.range = [startdate, enddate];
+    this.revision4++
     }
-    this.revision++
+    
   }
 
   ngAfterViewInit() {
@@ -784,13 +790,13 @@ export class StockdetailComponent implements OnInit {
   }
 
   tapDefault() {
-    console.log("Tap default button ::  " + this.revision)
+    console.log("Tap default button ::  ")
    
     this.isDefault = true
     this.isBollingerTrendFollowing = false
     this.isBollingerTrendReverse = false
     this.isTripleScreen = false
-    this.revision++
+    this.revision1++
   }
 
   tapBolingerTrend() {
@@ -800,7 +806,7 @@ export class StockdetailComponent implements OnInit {
     this.isDefault = false
     this.isBollingerTrendReverse = false
     this.isTripleScreen = false
-    this.revision++
+    this.revision2++
   }
 
   tapBollingerReverse() {
@@ -810,7 +816,7 @@ export class StockdetailComponent implements OnInit {
     this.isDefault = false
     this.isBollingerTrendReverse = true
     this.isTripleScreen = false
-    this.revision++
+    this.revision3++
   }
 
   tapTripleScreen() {
@@ -820,7 +826,7 @@ export class StockdetailComponent implements OnInit {
     this.isDefault = false
     this.isBollingerTrendReverse = false
     this.isTripleScreen = true
-    this.revision++
+    this.revision4++
   }
 
   public onClick(data: any) {
