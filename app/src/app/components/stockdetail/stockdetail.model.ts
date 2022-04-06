@@ -25,10 +25,10 @@ export class TradeViewSettings {
         height: '300',
     
       margin: {
-        r: 45,
+        r: 40,
         t: 40,
         b: 40,
-        l: 70
+        l: 60
       },
     dragmode: "pan",
       xaxis: {
