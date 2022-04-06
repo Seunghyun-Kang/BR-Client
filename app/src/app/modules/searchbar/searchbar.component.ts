@@ -13,7 +13,6 @@ export class SearchBarComponent implements OnInit {
     @Input() autoCompleteList: any[] =[]
     @Input() placeholder: string = ""
     @Input() inputType: string = ""
-    @Input() patternType: string = ""
 
     myControl = new FormControl();
     select: Array<string> = []
@@ -22,6 +21,8 @@ export class SearchBarComponent implements OnInit {
 
     @ViewChild('autocompleteInput') autocompleteInput: ElementRef;
     @Output() onSelectedOption = new EventEmitter();
+    @Output() onChange = new EventEmitter();
+
 
     constructor(
         public dataService: DataService
@@ -32,9 +33,8 @@ export class SearchBarComponent implements OnInit {
         // when user types something in input, the value changes will come through this
         this.myControl.valueChanges.subscribe(userInput => {
             this.autoCompleteExpenseList(userInput);
+            this.onChange.emit(userInput)
         })
-        console.log(this.patternType)
-        this.patternType = '\d*'
       }
     
     private autoCompleteExpenseList(input: any) {

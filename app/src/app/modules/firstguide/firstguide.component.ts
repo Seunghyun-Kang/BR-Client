@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit } from '@angular/core'
+import { Component, Input, OnDestroy, OnInit } from '@angular/core'
 import { FormBuilder, FormControl, Validators } from '@angular/forms'
 import { Router } from '@angular/router'
 
@@ -85,10 +85,11 @@ export class FirstguideComponent implements OnInit, OnDestroy {
     clearInterval(this.interval)
   }
 
-  onSubmit(value: any): void {
-    console.warn('input::: ' + JSON.stringify(this.numform.value))
-    this.checkFriends(value)
+  onChange(event: any): void {
+    if(event.length >= 11)
+    this.checkFriends(event.substr(1,))
   }
+  
   onSelectedOption(event: any) {
     this.checkFriends(event)
   }
