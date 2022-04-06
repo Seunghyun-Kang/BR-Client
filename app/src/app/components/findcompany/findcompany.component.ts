@@ -18,7 +18,7 @@ export interface companyData {
 
 export class FindcompanyComponent implements OnInit {
   public screenId = "FindCompany"
-  public rawData: companyData[]
+  public rawData: companyData[] = []
   public companyNameList:any[] = []
   public guideIndex = -1
   public getData: boolean = false
@@ -26,7 +26,7 @@ export class FindcompanyComponent implements OnInit {
   public codesForOpt: any = []
   public target: string = ""
   private isTapButton: boolean = false
-  public presentGuide: string[]
+  public presentGuide: string[] =[]
   public OptGuideist = [
     "회사들을 선택하면 각각 몇%로 투자해야하는지 알려줄게 (최소 2개)",
   ]
@@ -39,31 +39,27 @@ export class FindcompanyComponent implements OnInit {
     private dataService: DataService,
     private route: ActivatedRoute,
     private router:Router) {
-      this.route.queryParams.subscribe(params => {
+      this.route.queryParams.subscribe((params: any) => {
         this.target = params['target']
 
-        var loadingType
         switch(this.target){
           case "GetStockDetails":
-            loadingType = "loading-right"
             this.presentGuide = this.StockGuideist
             break;
           case "OptPortfolio":
-            loadingType = "loading-left"
             this.presentGuide = this.OptGuideist
             break;
           default:
-            loadingType = "loading-forward"
             break;
         }
-        this.statusService.setStatus(loadingType)
+        this.statusService.setStatus("loading-forward")
     });
     }
 
   ngOnInit(): void {
     this.requestService.getAllCompanies() 
     .subscribe({
-        next: (v) => {
+        next: (v: any) => {
           this.rawData = Object(v.body)
           this.dataService.setCompanyData(this.rawData)
           console.log(this.rawData)
@@ -77,7 +73,7 @@ export class FindcompanyComponent implements OnInit {
             this.companyNameList.push(element.company)
           });
         },
-        error: (e) => console.log("ERROR OCCURED :: " + JSON.stringify(e))
+        error: (e: any) => console.log("ERROR OCCURED :: " + JSON.stringify(e))
       });
   }
 
