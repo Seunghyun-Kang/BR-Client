@@ -4,8 +4,7 @@
     </div>
     <div *ngIf="getData && (isDefault)" class="chart-container">
         <plotly-plot [data]="firstChart.data" [layout]="firstChart.layout" [config]="firstChart.config"
-            [updateOnlyWithRevision]="true" [revision]="revision1" [useResizeHandler]="true"
-            [style]="{position: 'relative'}" (relayout)="relayoutChart($event)"></plotly-plot>
+            [useResizeHandler]="true"></plotly-plot>
     </div>
 
     <div *ngIf="getData && (isBollingerTrendFollowing)" class="chart-container">
