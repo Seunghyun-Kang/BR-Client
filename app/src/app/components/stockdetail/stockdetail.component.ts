@@ -141,6 +141,8 @@ export class StockdetailComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    console.log("ngOnInit called!")
+
     this.requestService.getPrices(this.code)
       .subscribe({
         next: (v: any) => {
@@ -208,7 +210,7 @@ export class StockdetailComponent implements OnInit {
 
   relayoutChart(event: any) {
     if(this.isDefault) return
-
+    console.log("relayoutChart called!")
     if(event['xaxis.range[0]'] == undefined) return 
     if(event['xaxis.range[1]'] == undefined) return 
 
@@ -234,13 +236,16 @@ export class StockdetailComponent implements OnInit {
     this.tenthChart.layout.xaxis.range = [startdate, enddate];
     this.revision4++
     }
-    
   }
 
   ngAfterViewInit() {
+
+    console.log("ngAfterViewInit called!")
   }
 
   initCommonGraphSettings() {
+    console.log("initCommonGraphSettings called!")
+
     let startDate = new Date(this.rawStockData[0].date).getTime()
     let endDate = new Date(this.rawStockData[this.rawStockData.length - 1].date).getTime()
     let defaultstartDate = new Date(this.rawStockData[this.rawStockData.length - 31].date).getTime()
@@ -278,6 +283,8 @@ export class StockdetailComponent implements OnInit {
   }
 
   initDefaultGraph() {
+    console.log("initDefaultGraph called!")
+
     this.stockGraph = {
       x: [],
       close: [],
@@ -313,17 +320,12 @@ export class StockdetailComponent implements OnInit {
       this.closeGraph.y.push(element.close);
     });
 
-    //graph drawing
-    this.firstChart.data.push(this.stockGraph)
-    this.firstChart.data.push(this.closeGraph)
-    let array = this.rawStockData.slice(this.rawStockData.length - 31, this.rawStockData.length - 1)
-    let maxY = Math.max.apply(Math, array.map(function (o) { return o.high; }))
-    let minY = Math.min.apply(Math, array.map(function (o) { return o.low; }))
-    this.firstChart.layout.yaxis.range = [minY, maxY];
     this.tapDefault()
   }
 
   initBollingerGraph() {
+    console.log("initBollingerGraph called!")
+
     this.M20Graph = {
       x: [],
       y: [],
@@ -463,6 +465,8 @@ export class StockdetailComponent implements OnInit {
   }
 
   initBollingerSignalGraph() {
+    console.log("initBollingerSignalGraph called!")
+
     this.buyTrendMarker = {
       x: [],
       y: [],
@@ -591,6 +595,8 @@ export class StockdetailComponent implements OnInit {
   }
 
   initTripleScreenGraph() {
+    console.log("initBollingerSignalGraph called!")
+
     this.EMA130Graph = {
       x: [],
       y: [],
@@ -716,6 +722,8 @@ export class StockdetailComponent implements OnInit {
   }
 
   initTripleScreenSignalGraph() {
+    console.log("initTripleScreenSignalGraph called!")
+
     this.buyTripleScreenMarker = {
       x: [],
       y: [],
@@ -769,6 +777,8 @@ export class StockdetailComponent implements OnInit {
   }
 
   createLineElem(x: any, color: string): any {
+    console.log("createLineElem called!")
+
     var line = {
       x0: 0,
       y0: -10000000,
@@ -790,12 +800,27 @@ export class StockdetailComponent implements OnInit {
   }
 
   tapDefault() {
-    console.log("Tap default button ::  ")
+    console.log("Tap default button")
    
     this.isDefault = true
     this.isBollingerTrendFollowing = false
     this.isBollingerTrendReverse = false
     this.isTripleScreen = false
+
+    this.firstChart.data = []
+    //graph drawing
+    this.firstChart.data.push(this.stockGraph)
+    this.firstChart.data.push(this.closeGraph)
+    
+    let endDate = new Date(this.rawStockData[this.rawStockData.length - 1].date).getTime()
+    let defaultstartDate = new Date(this.rawStockData[this.rawStockData.length - 31].date).getTime()
+    this.firstChart.layout.xaxis.range = [defaultstartDate, endDate];
+
+    let array = this.rawStockData.slice(this.rawStockData.length - 31, this.rawStockData.length - 1)
+    let maxY = Math.max.apply(Math, array.map(function (o) { return o.high; }))
+    let minY = Math.min.apply(Math, array.map(function (o) { return o.low; }))
+    this.firstChart.layout.yaxis.range = [minY, maxY];
+
     this.revision1++
   }
 
@@ -827,9 +852,5 @@ export class StockdetailComponent implements OnInit {
     this.isBollingerTrendReverse = false
     this.isTripleScreen = true
     this.revision4++
-  }
-
-  public onClick(data: any) {
-    debugger;
   }
 }
