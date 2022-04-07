@@ -28,6 +28,9 @@ import { GuideComponent } from './modules/guide/guide.component';
 import { MenuComponent } from './components/menu/menu.component';
 import { OptimalportfolioComponent } from './components/optimalportfolio/optimalportfolio.component';
 import { NgApexchartsModule } from 'ng-apexcharts';
+import { StockdstailBollingertrendComponent } from './components/stockdstail-bollingertrend/stockdstail-bollingertrend.component';
+import { StockdstailBollingerreverseComponent } from './components/stockdstail-bollingerreverse/stockdstail-bollingerreverse.component';
+import { StockdstailTriplescreenComponent } from './components/stockdstail-triplescreen/stockdstail-triplescreen.component';
 
 PlotlyModule.plotlyjs = PlotlyJS;
 
@@ -52,7 +55,10 @@ const appRoutes: Routes = [
     SearchBarComponent,
     GuideComponent,
     MenuComponent,
-    OptimalportfolioComponent
+    OptimalportfolioComponent,
+    StockdstailBollingertrendComponent,
+    StockdstailBollingerreverseComponent,
+    StockdstailTriplescreenComponent
   ],
   imports: [
     BrowserModule,
