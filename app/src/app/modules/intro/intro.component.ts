@@ -23,8 +23,8 @@ export class IntroComponent implements OnInit, OnDestroy {
   }
 
   ngAfterViewInit(): void {
-    var howManyStars: number = 1000;
-    if (IS_MOBILE) return
+    var howManyStars: number = IS_MOBILE ? 400 : 1000;
+    // if (IS_MOBILE) return
     this.service.getStatus().subscribe((value) => {
       console.log("WEB STATUS CHANGED ::" + value);
       if (screenId === 'dashboard' && value === "normal") return
@@ -266,8 +266,8 @@ class Star {
     let px = mapRange(this.px / this.pz, 0, 1, 0, width);
     let py = mapRange(this.py / this.pz, 0, 1, 0, height);
 
-    var maxRadius = (IS_HIGH_RES.matches) ? 4 : 2;
-    if (IS_MOBILE) { maxRadius = 2 }
+    var maxRadius = (IS_HIGH_RES.matches) ? 3 : 1.5;
+    if (IS_MOBILE) { maxRadius = 1.5 }
     let radius = Math.min(Math.abs(mapRange(this.z, 0, depth, maxRadius, 0.01)), maxRadius);
 
     // star point
