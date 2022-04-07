@@ -8,7 +8,7 @@
             [style]="{position: 'relative'}"></plotly-plot> -->
     </div>
 
-    <!-- <div *ngIf="getData && (isBollingerTrendFollowing)" class="chart-container">
+    <div *ngIf="getData && (isBollingerTrendFollowing)" class="chart-container">
         <plotly-plot [data]="secondChart.data" [layout]="secondChart.layout" [config]="secondChart.config"
             [updateOnlyWithRevision]="true" [revision]="revision2" [useResizeHandler]="true"
             [style]="{position: 'relative'}" (relayout)="relayoutChart($event)"></plotly-plot>
@@ -53,7 +53,7 @@
         <plotly-plot [data]="tenthChart.data" [layout]="tenthChart.layout" [config]="tenthChart.config"
             [updateOnlyWithRevision]="true" [useResizeHandler]="true" [style]="{position: 'relative'}"
             [revision]="revision4" (relayout)="relayoutChart($event)"></plotly-plot>
-    </div> -->
+    </div>
     <div class="box_for_menu"></div>
 </div>
 
