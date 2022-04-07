@@ -10,7 +10,7 @@ import { PagestatusService } from 'src/app/services/pagestatus.service';
 export class HeaderComponent implements OnInit {
 
   @Input() title: string = ""
-  public status: string;
+  public status: string = ""
   constructor(private location: Location, private service: PagestatusService) { }
 
   ngOnInit(): void {

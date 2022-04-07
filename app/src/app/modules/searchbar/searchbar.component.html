@@ -1,22 +1,22 @@
+<form class="example-form">
+  <mat-form-field class="example-full-width" style="width: 100%">
+    <mat-chip-list #chipList>
+      <mat-chip style="margin-top:0.4rem;" *ngFor="let option of select" (removed)="removeOption(option)">
 
-<form class="example-form" >
-    <mat-form-field class="example-full-width" style="width: 100%">
-      <mat-chip-list #chipList>
-        <mat-chip style="margin-top:0.4rem;" *ngFor="let option of select" (removed)="removeOption(option)">
-    
-          <span>{{option}}</span>
-          
-          <mat-icon matChipRemove>cancel</mat-icon>
-        </mat-chip>
-        <input class="desc" #autocompleteInput [type]="inputType" [placeholder]="placeholder" matInput [formControl]="myControl"
-          [matAutocomplete]="auto" [matChipInputFor]="chipList" (keyup.enter)="filterPostList(inputList)">
-          <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFn">
-          <mat-option *ngFor="let option of list" [value]="option" (onSelectionChange)="filterPostList($event)">
-            {{option}}
-          </mat-option>
-        </mat-autocomplete>
-      </mat-chip-list>
-    
-    </mat-form-field>
-    
-    </form>
+        <span>{{option}}</span>
+
+        <mat-icon matChipRemove>cancel</mat-icon>
+      </mat-chip>
+      <input class="desc" #autocompleteInput [type]="inputType" [placeholder]="placeholder" matInput
+        [formControl]="myControl" [matAutocomplete]="auto" [matChipInputFor]="chipList"
+        (keyup.enter)="filterPostList(inputList)">
+      <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFn">
+        <mat-option *ngFor="let option of list" [value]="option" (onSelectionChange)="filterPostList($event)">
+          {{option}}
+        </mat-option>
+      </mat-autocomplete>
+    </mat-chip-list>
+
+  </mat-form-field>
+
+</form>

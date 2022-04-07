@@ -23,12 +23,12 @@ export class IntroComponent implements OnInit, OnDestroy {
   }
 
   ngAfterViewInit(): void {
-    var howManyStars: number = 1000;
-    if(IS_MOBILE)howManyStars = 500;
+    var howManyStars: number = IS_MOBILE ? 400 : 1000;
+    // if (IS_MOBILE) return
     this.service.getStatus().subscribe((value) => {
       console.log("WEB STATUS CHANGED ::" + value);
-      if(screenId === 'dashboard' && value === "normal") return
-      
+      if (screenId === 'dashboard' && value === "normal") return
+
       screenId = value;
       if (this.starfield !== undefined) {
         this.starfield.destroy();
@@ -37,10 +37,13 @@ export class IntroComponent implements OnInit, OnDestroy {
       this.starfield = new StarField(howManyStars, this.canvas);
       this.starfield.startRenderLoop();
     });
+
+    
   }
 
   ngOnDestroy() {
     console.log("destroy :: " + screenId);
+    if (IS_MOBILE) return
     this.canvas.removeEventListener('resize', this.starfield.handleResize)
     this.canvas.removeEventListener('beforeunload', this.starfield.rePopulateStarField)
   }
@@ -263,8 +266,8 @@ class Star {
     let px = mapRange(this.px / this.pz, 0, 1, 0, width);
     let py = mapRange(this.py / this.pz, 0, 1, 0, height);
 
-    var maxRadius = (IS_HIGH_RES.matches) ? 4 : 2;
-    if(IS_MOBILE){maxRadius = 2}
+    var maxRadius = (IS_HIGH_RES.matches) ? 3 : 1.5;
+    if (IS_MOBILE) { maxRadius = 1.5 }
     let radius = Math.min(Math.abs(mapRange(this.z, 0, depth, maxRadius, 0.01)), maxRadius);
 
     // star point
@@ -628,7 +631,7 @@ class StarField {
     for (let i = 0; i < this.stars.length; i++) {
       // console.log("!!!!!update and draw all the stars " + this.pauseAnimation);
       if (!this.pauseAnimation && this.stars[i] !== undefined) {
-      this.stars[i].update(this.deltaTime, this.container, this.xSpeed, this.zSpeed);
+        this.stars[i].update(this.deltaTime, this.container, this.xSpeed, this.zSpeed);
       }
       if (this.stars[i] !== undefined) this.stars[i].draw(this.context, this.container, this.screen, this.mouseX, this.mouseY);
     }

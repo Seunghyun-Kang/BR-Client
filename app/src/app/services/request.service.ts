@@ -24,70 +24,86 @@ export class RequestService {
 
   constructor(private http: HttpClient) {
     this.headers = new HttpHeaders(
-      {'Content-Type': 'application/json',
-      'Access-Control-Allow-Origin': '*',
-      'Access-Control-Allow-Headers': 'Origin, X-Requested-With, Content-Type, Accept',
-      'Access-Control-Allow-Methods': 'GET'
-    }
+      {
+        'Content-Type': 'application/json',
+        'Access-Control-Allow-Origin': '*',
+        'Access-Control-Allow-Headers': 'Origin, X-Requested-With, Content-Type, Accept',
+        'Access-Control-Allow-Methods': 'GET'
+      }
     );
     // this.headers = this.headers.set('Content-Type', 'application/json; charset=utf-8');
-   }
+  }
 
   getPrices(code: string) {
     return this.http.get(this.REST_SERVER_URL + 'prices/' + code + '/', { observe: 'response', headers: this.headers })
-    .pipe(
-      catchError(this.handleError)
-    );
+      .pipe(
+        catchError(this.handleError)
+      );
   }
 
   getAllCompanies() {
     return this.http.get(this.REST_SERVER_URL + 'companylist/', { observe: 'response', headers: this.headers })
-    .pipe(
-      catchError(this.handleError)
-    );
+      .pipe(
+        catchError(this.handleError)
+      );
   }
 
   getCompanyName(code: string) {
     return this.http.get(this.REST_SERVER_URL + 'company/' + code + '/', { observe: 'response', headers: this.headers })
-    .pipe(
-      catchError(this.handleError)
-    );
+      .pipe(
+        catchError(this.handleError)
+      );
   }
 
   getOptPortfolio(codes: string[]) {
     let params = ""
     codes.forEach((element: any, index: number) => {
       params += element
-      if(index < codes.length-1) params += ','
+      if (index < codes.length - 1) params += ','
     });
-    let payload = {codes: params}
+    let payload = { codes: params }
     return this.http.get(this.REST_SERVER_URL + 'optimalportfolio/', { observe: 'response', headers: this.headers, params: payload })
-    .pipe(
-      catchError(this.handleError)
-    );
+      .pipe(
+        catchError(this.handleError)
+      );
   }
 
   getBollingerInfo(code: string) {
-    return this.http.get(this.REST_SERVER_URL + 'bollinger/' + code + '/', { observe: 'response', headers: this.headers})
-    .pipe(
-      catchError(this.handleError)
-    );
+    return this.http.get(this.REST_SERVER_URL + 'bollinger/' + code + '/', { observe: 'response', headers: this.headers })
+      .pipe(
+        catchError(this.handleError)
+      );
   }
 
-  
+
   getBollingerTrendSignal(code: string) {
     return this.http.get(this.REST_SERVER_URL + 'bollinger_trend/' + code + '/', { observe: 'response', headers: this.headers })
-    .pipe(
-      catchError(this.handleError)
-    );
+      .pipe(
+        catchError(this.handleError)
+      );
   }
 
   getBollingerReverseSignal(code: string) {
     return this.http.get(this.REST_SERVER_URL + 'bollinger_reverse/' + code + '/', { observe: 'response', headers: this.headers })
-    .pipe(
-      catchError(this.handleError)
-    );
+      .pipe(
+        catchError(this.handleError)
+      );
   }
+
+  getTripleScreenInfo(code: string) {
+    return this.http.get(this.REST_SERVER_URL + 'triplescreen/' + code + '/', { observe: 'response', headers: this.headers })
+      .pipe(
+        catchError(this.handleError)
+      );
+  }
+
+  getTripleScreenSignal(code: string) {
+    return this.http.get(this.REST_SERVER_URL + 'triplescreen_signal/' + code + '/', { observe: 'response', headers: this.headers })
+      .pipe(
+        catchError(this.handleError)
+      );
+  }
+
   private handleError(error: HttpErrorResponse) {
     if (error.status === 0) {
       console.error('An error occurred:', error.error);

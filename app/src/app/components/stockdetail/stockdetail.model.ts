@@ -1,5 +1,5 @@
 export class TradeViewSettings {
-    public settings = {
+  public settings = {
     config: {
       scrollZoom: true,
       responsive: true,
@@ -7,7 +7,7 @@ export class TradeViewSettings {
     },
     data: [] as any,
     layout: {
-      legend:{
+      legend: {
         x: 0,
         y: 1,
         traceorder: 'normal',
@@ -20,17 +20,17 @@ export class TradeViewSettings {
       },
       plot_bgcolor: "#131722",
       paper_bgcolor: "#131722",
-    //   autosize: true,
-        // width: '100%',
-        height: '300',
-    
+      //   autosize: true,
+      // width: '100%',
+      height: '450',
+
       margin: {
         r: 40,
         t: 40,
         b: 40,
         l: 60
       },
-    dragmode: "pan",
+      dragmode: "pan",
       xaxis: {
         autorange: false,
         rangeselector: {
@@ -40,7 +40,7 @@ export class TradeViewSettings {
         range: [] as any,
         rangeslider: {
           visible: false,
-          range: [] as any 
+          range: [] as any
         },
         type: "date",
         tickcolor: "#787878",
@@ -56,9 +56,9 @@ export class TradeViewSettings {
           size: 12,
           color: "#cccdcd"
         }
-          },
+      },
       yaxis: {
-          floor: 0,
+        floor: 0,
         autorange: false,
         range: [] as any,
         type: "linear",
@@ -75,7 +75,7 @@ export class TradeViewSettings {
           size: 12,
           color: "#cccdcd"
         },
-        title:"가격"
+        title: "가격"
       },
       annotations: [
       ],
