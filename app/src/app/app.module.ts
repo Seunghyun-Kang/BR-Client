@@ -29,7 +29,7 @@ import { GuideComponent } from './modules/guide/guide.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { OptimalportfolioComponent } from './components/optimalportfolio/optimalportfolio.component';
 import { NgApexchartsModule } from 'ng-apexcharts';
-import { StockdstailBollingertrendComponent } from './components/stockdstail-bollingertrend/stockdstail-bollingertrend.component';
+import { StockdstailBollingertrendComponent } from './components/stockdetail-bollingertrend/stockdetail-bollingertrend.component';
 import { StockdstailBollingerreverseComponent } from './components/stockdstail-bollingerreverse/stockdstail-bollingerreverse.component';
 import { StockdstailTriplescreenComponent } from './components/stockdstail-triplescreen/stockdstail-triplescreen.component';
 import { DeviceDetectorService } from 'ngx-device-detector';
@@ -41,6 +41,9 @@ const appRoutes: Routes = [
   { path: 'dashboard', component: DashboardComponent },
   { path: 'findcompany', component: FindcompanyComponent },
   { path: 'stockdetail', component: StockdetailComponent },
+  { path: 'stockdetail-triplescreen', component: StockdstailTriplescreenComponent },
+  { path: 'stockdetail-bollingertrend', component: StockdstailBollingertrendComponent },
+  { path: 'stockdetail-bollingerreverse', component: StockdstailBollingerreverseComponent },
   { path: 'optimalportfolio', component: OptimalportfolioComponent },
   { path: '', redirectTo: '/home', pathMatch: 'full' }
 ]
@@ -88,7 +91,7 @@ const appRoutes: Routes = [
   providers: [HTMLCanvasElement,
     {
       provide: "Version",
-      useValue: 'BR V10',
+      useValue: 'BR V11',
     },],
   bootstrap: [AppComponent]
 })

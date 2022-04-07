@@ -1,1 +1,59 @@
-<p>stockdstail-triplescreen works!</p>
+<div class=dashboard>
+    <div class="actionbar">
+        <header [title]="companyName"></header>
+    </div>
+
+    <div *ngIf="getData" class="chart-container">
+        <plotly-plot [data]="firstChart.data" [layout]="firstChart.layout" [config]="firstChart.config"
+            [updateOnlyWithRevision]="true" [revision]="revision" [useResizeHandler]="true"
+            [style]="{position: 'relative'}" (relayout)="relayoutChart($event)"></plotly-plot>
+    </div>
+
+    <div *ngIf="getData" class="chart-container">
+        <plotly-plot [data]="secondChart.data" [layout]="secondChart.layout" [config]="secondChart.config"
+            [updateOnlyWithRevision]="true" [useResizeHandler]="true" [style]="{position: 'relative'}"
+            [revision]="revision" (relayout)="relayoutChart($event)"></plotly-plot>
+    </div>
+    
+    <div *ngIf="getData" class="chart-container">
+        <plotly-plot [data]="thirdChart.data" [layout]="thirdChart.layout" [config]="thirdChart.config"
+            [updateOnlyWithRevision]="true" [useResizeHandler]="true" [style]="{position: 'relative'}"
+            [revision]="revision" (relayout)="relayoutChart($event)"></plotly-plot>
+    </div>
+    
+    <div class="box_for_menu"></div>
+</div>
+
+<div class="chartmenu">
+    <div class="card" (click)="tapDefault()">
+        <div style="display:table;"> <span style="display:table-cell;
+            vertical-align:middle;width: 4vh;
+        height: 4vh;
+        font-size: 1vh;">기본</span>
+        </div>
+    </div>
+
+    <div class="card" (click)="tapBolingerTrend()">
+        <div style="display:table;"> <span style="display:table-cell;
+            vertical-align:middle;width: 4vh;
+        height: 4vh;
+        font-size: 1vh;">볼린저 추세 추종 매매</span>
+        </div>
+    </div>
+
+    <div class="card" (click)="tapBollingerReverse()">
+        <div style="display:table;"> <span style="display:table-cell;
+            vertical-align:middle;width: 4vh;
+        height: 4vh;
+        font-size: 1vh;">볼린저 반전 매매</span>
+        </div>
+    </div>
+
+    <div class="card" (click)="tapTripleScreen()">
+        <div style="display:table;"> <span style="display:table-cell;
+            vertical-align:middle;width: 4vh;
+        height: 4vh;
+        font-size: 1vh;">삼중창 매매</span>
+        </div>
+    </div>
+</div>

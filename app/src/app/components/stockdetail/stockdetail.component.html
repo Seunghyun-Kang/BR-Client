@@ -2,60 +2,18 @@
     <div class="actionbar">
         <header [title]="companyName"></header>
     </div>
-    <div *ngIf="getData && (isDefault)" class="chart-container">
-    </div>
-
-    <div *ngIf="getData && (isBollingerTrendFollowing)" class="chart-container">
-        <plotly-plot [data]="secondChart.data" [layout]="secondChart.layout" [config]="secondChart.config"
-            [updateOnlyWithRevision]="true" [revision]="revision2" [useResizeHandler]="true"
-            [style]="{position: 'relative'}" (relayout)="relayoutChart($event)"></plotly-plot>
-    </div>
-
-    <div *ngIf="getData && (isBollingerTrendFollowing)" class="chart-container">
-        <plotly-plot [data]="thirdChart.data" [layout]="thirdChart.layout" [config]="thirdChart.config"
-            [updateOnlyWithRevision]="true" [useResizeHandler]="true" [style]="{position: 'relative'}"
-            [revision]="revision2" (relayout)="relayoutChart($event)"></plotly-plot>
-    </div>
-    <div *ngIf="getData && (isBollingerTrendFollowing)" class="chart-container">
-        <plotly-plot [data]="forthChart.data" [layout]="forthChart.layout" [config]="forthChart.config"
-            [updateOnlyWithRevision]="true" [useResizeHandler]="true" [style]="{position: 'relative'}"
-            [revision]="revision2" (relayout)="relayoutChart($event)"></plotly-plot>
-    </div>
-    <div *ngIf="getData && (isBollingerTrendReverse)" class="chart-container">
-        <plotly-plot [data]="fifthChart.data" [layout]="fifthChart.layout" [config]="fifthChart.config"
-            [updateOnlyWithRevision]="true" [useResizeHandler]="true" [style]="{position: 'relative'}"
-            [revision]="revision3" (relayout)="relayoutChart($event)"></plotly-plot>
-    </div>
-    <div *ngIf="getData && (isBollingerTrendReverse)" class="chart-container">
-        <plotly-plot [data]="sixthChart.data" [layout]="sixthChart.layout" [config]="sixthChart.config"
-            [updateOnlyWithRevision]="true" [useResizeHandler]="true" [style]="{position: 'relative'}"
-            [revision]="revision3" (relayout)="relayoutChart($event)"></plotly-plot>
-    </div>
-    <div *ngIf="getData && (isBollingerTrendReverse)" class="chart-container">
-        <plotly-plot [data]="seventhChart.data" [layout]="seventhChart.layout" [config]="seventhChart.config"
-            [updateOnlyWithRevision]="true" [useResizeHandler]="true" [style]="{position: 'relative'}"
-            [revision]="revision3" (relayout)="relayoutChart($event)"></plotly-plot>
-    </div>
-    <div *ngIf="getData && (isTripleScreen)" class="chart-container">
-        <plotly-plot [data]="eighthChart.data" [layout]="eighthChart.layout" [config]="eighthChart.config"
-            [updateOnlyWithRevision]="true" [useResizeHandler]="true" [style]="{position: 'relative'}"
-            [revision]="revision4" (relayout)="relayoutChart($event)"></plotly-plot>
-    </div>
-    <div *ngIf="getData && (isTripleScreen)" class="chart-container">
-        <plotly-plot [data]="ninthChart.data" [layout]="ninthChart.layout" [config]="ninthChart.config"
-            [updateOnlyWithRevision]="true" [useResizeHandler]="true" [style]="{position: 'relative'}"
-            [revision]="revision4" (relayout)="relayoutChart($event)"></plotly-plot>
-    </div>
-    <div *ngIf="getData && (isTripleScreen)" class="chart-container">
-        <plotly-plot [data]="tenthChart.data" [layout]="tenthChart.layout" [config]="tenthChart.config"
-            [updateOnlyWithRevision]="true" [useResizeHandler]="true" [style]="{position: 'relative'}"
-            [revision]="revision4" (relayout)="relayoutChart($event)"></plotly-plot>
-    </div>
+    
+        <div *ngIf="getData" class="chart-container">
+            <plotly-plot [data]="firstChart.data" [layout]="firstChart.layout" [config]="firstChart.config"
+                [updateOnlyWithRevision]="true" [revision]="revision" [useResizeHandler]="true"
+                [style]="{position: 'relative'}"></plotly-plot>
+        </div>
+        
     <div class="box_for_menu"></div>
 </div>
 
 <div class="chartmenu">
-    <div class="card" (click)="tapDefault()">
+    <div class="card">
         <div style="display:table;"> <span style="display:table-cell;
             vertical-align:middle;width: 4vh;
         height: 4vh;

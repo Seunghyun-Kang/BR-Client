@@ -83,3 +83,45 @@ export class TradeViewSettings {
     }
   };
 }
+
+export interface priceData {
+  code: string,
+  date: string,
+  open: number,
+  high: number,
+  low: number,
+  close: number,
+  diff: number,
+  volume: number
+}
+
+export interface signalData {
+  code: string,
+  date: string,
+  type: string
+}
+
+export interface bollingerData {
+  code: string,
+  date: string,
+  ma20: number,
+  stddev: number,
+  upper: number,
+  lower: number,
+  pb: number,
+  bandwidth: number,
+  mfi10: number,
+  iip21: number
+}
+
+export interface tripleScreenData {
+  code: string,
+  date: string,
+  ema130: number,
+  ema60: number,
+  macd: number,
+  _signal: number,
+  macdhist: number,
+  fast_k: number,
+  slow_d: number
+}
