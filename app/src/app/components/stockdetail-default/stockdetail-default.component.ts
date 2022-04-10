@@ -110,7 +110,7 @@ export class StockdetailDefaultComponent implements OnInit, OnDestroy {
             break
           case "sell":
             percent = ((element.close - lastInfo.lastPrice) / lastInfo.lastPrice)* 100
-            this.reverseStatus = "$lastdate $lastprice원 매도($percent) 후 매수 신호 대기중..".replace("$lastdate", lastInfo.lastDate).replace("$lastprice", String(lastInfo.lastPrice)).replace("$percent", String(percent.toFixed(2)))
+            this.reverseStatus = "$lastdate $lastprice원 매도($percent% 손익) 후 매수 신호 대기중..".replace("$lastdate", lastInfo.lastDate).replace("$lastprice", String(lastInfo.lastPrice)).replace("$percent", String(percent.toFixed(2)))
             break
         }
         lastInfo.lastDate = element.date
@@ -134,7 +134,7 @@ export class StockdetailDefaultComponent implements OnInit, OnDestroy {
             break
           case "sell":
             percent = ((element.close - lastInfo.lastPrice) / lastInfo.lastPrice)* 100
-            this.trendStatus = "$lastdate $lastprice원 매도($percent) 후 매수 신호 대기중..".replace("$lastdate", lastInfo.lastDate).replace("$lastprice", String(lastInfo.lastPrice)).replace("$percent", String(percent.toFixed(2)))
+            this.trendStatus = "$lastdate $lastprice원 매도($percent% 손익) 후 매수 신호 대기중..".replace("$lastdate", lastInfo.lastDate).replace("$lastprice", String(lastInfo.lastPrice)).replace("$percent", String(percent.toFixed(2)))
             break
         }
         lastInfo.lastDate = element.date
@@ -158,7 +158,7 @@ export class StockdetailDefaultComponent implements OnInit, OnDestroy {
             break
           case "sell":
             percent = ((element.close - lastInfo.lastPrice) / lastInfo.lastPrice)* 100
-            this.tripleScreenStatus = "$lastdate $lastprice원 매도($percent) 후 매수 신호 대기중..".replace("$lastdate", element.date).replace("$lastprice", String(lastInfo.lastPrice)).replace("$percent", String(percent.toFixed(2)))
+            this.tripleScreenStatus = "$lastdate $lastprice원 매도($percent% 손익) 후 매수 신호 대기중..".replace("$lastdate", element.date).replace("$lastprice", String(lastInfo.lastPrice)).replace("$percent", String(percent.toFixed(2)))
             break
         }
         lastInfo.lastDate = String(element.date)
