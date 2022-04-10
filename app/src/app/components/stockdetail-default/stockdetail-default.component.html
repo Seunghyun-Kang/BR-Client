@@ -1,0 +1,7 @@
+<div class=dashboard>
+        <div *ngIf="getData" class="chart-container">
+            <plotly-plot [data]="firstChart.data" [layout]="firstChart.layout" [config]="firstChart.config"
+                [updateOnlyWithRevision]="true" [revision]="revision" [useResizeHandler]="true"
+                [style]="{position: 'relative'}"></plotly-plot>
+        </div>
+</div>

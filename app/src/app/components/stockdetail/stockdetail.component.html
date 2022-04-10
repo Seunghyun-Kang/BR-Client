@@ -3,12 +3,12 @@
         <header [title]="companyName"></header>
     </div>
     
-        <div *ngIf="getData && isDefault" class="chart-container">
+        <!-- <div *ngIf="getData && isDefault" class="chart-container">
             <plotly-plot [data]="firstChart.data" [layout]="firstChart.layout" [config]="firstChart.config"
                 [updateOnlyWithRevision]="true" [revision]="revision" [useResizeHandler]="true"
                 [style]="{position: 'relative'}"></plotly-plot>
-        </div>
-        
+        </div> -->
+        <app-stockdetail-default *ngIf="getData && isDefault"></app-stockdetail-default>
         <app-stockdetail-bollingertrend *ngIf="isBollingerTrendFollowing"></app-stockdetail-bollingertrend>
         <app-stockdstail-bollingerreverse *ngIf="isBollingerTrendReverse"></app-stockdstail-bollingerreverse>
         <app-stockdstail-triplescreen *ngIf="isTripleScreen"></app-stockdstail-triplescreen>
