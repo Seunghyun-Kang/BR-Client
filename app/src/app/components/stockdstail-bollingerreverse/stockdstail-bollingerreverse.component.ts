@@ -317,19 +317,23 @@ export class StockdstailBollingerreverseComponent implements OnInit, OnDestroy {
       name: "추세 추종 매도 포인트"
     }
 
-    this.rawDataBollingerReverseSignal.forEach(element => {
+    this.rawDataBollingerReverseSignal.forEach((element, index) => {
       var date: number = Number(new Date(element.date).getTime())
+      var isValid: boolean = false
 
+      if(index > 0 && this.rawDataBollingerReverseSignal[index-1].type !== element.type) {
+        isValid = true
+      }
       if (element.type === 'buy') {
         this.buyMarker.x.push(new Date(element.date).getTime())
-        this.buyLine.push(this.createLineElem(new Date(element.date).getTime(), '#EE4B28'))
+        if(isValid) this.buyLine.push(this.createLineElem(new Date(element.date).getTime(), '#EE4B28'))
 
         this.rawStockData.forEach(item => {
           if (date === Number(item.date)) this.buyMarker.y.push(item.close)
         });
       } else if (element.type === 'sell') {
         this.sellMarker.x.push(new Date(element.date).getTime())
-        this.sellLine.push(this.createLineElem(new Date(element.date).getTime(), '#4E7FEE'))
+        if(isValid) this.sellLine.push(this.createLineElem(new Date(element.date).getTime(), '#4E7FEE'))
 
         this.rawStockData.forEach(item => {
           if (date === Number(item.date)) this.sellMarker.y.push(item.close)
