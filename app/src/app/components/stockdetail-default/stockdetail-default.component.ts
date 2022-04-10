@@ -1,9 +1,7 @@
-import { ChangeDetectionStrategy, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
-import { RequestService } from 'src/app/services/request.service';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 import { PlotlyModule, PlotlyService } from "angular-plotly.js";
 import { bollingerData, priceData, signalData, TradeViewSettings, tripleScreenData } from '../stockdetail/stockdetail.model';
-import { PagestatusService } from 'src/app/services/pagestatus.service';
 import { DataService } from 'src/app/services/data.service';
 
 @Component({
@@ -20,16 +18,9 @@ export class StockdetailDefaultComponent implements OnInit {
   public code: string = ""
   public companyName: string = ""
 
-  public isDefault: boolean = true
-  public isBollingerTrendFollowing: boolean = false
-  public isBollingerTrendReverse: boolean = false
-  public isTripleScreen: boolean = false
-
   public rawStockData: priceData[] = []
-  public rawDataBollinger: bollingerData[] = []
   public rawDataBollingerTrendSignal: signalData[] = []
   public rawDataBollingerReverseSignal: signalData[] = []
-  public rawDataTripleScreen: tripleScreenData[] = []
   public rawDataTripleScreenSignal: signalData[] = []
 
   private stockGraph: any = {}
@@ -38,25 +29,18 @@ export class StockdetailDefaultComponent implements OnInit {
   public graphList = [] as any
 
   public getData: boolean = false
-  public getBollingerData: boolean = false
-  public getBollingerSignalData: boolean = false
-  public getTripleScreenData: boolean = false
 
   public firstChart = new TradeViewSettings().settings;
   public revision = 1
 
   constructor(
-    private requestService: RequestService,
-    private statusService: PagestatusService,
     private dataService: DataService,
     private route: ActivatedRoute,
-    private router: Router,
     public plotlyService: PlotlyService) {
     this.route.queryParams.subscribe((params: any) => {
       this.code = params['code']
       this.companyName = params['companyName']
     });
-    this.statusService.setStatus("loading-forward")
     const Plotly = plotlyService.getPlotly();
   }
 
@@ -69,6 +53,8 @@ export class StockdetailDefaultComponent implements OnInit {
     this.rawDataTripleScreenSignal = this.dataService.getTripleScreenSignalData(this.code)
 
     this.getData = true
+    this.initCommonGraphSettings()
+    this.initDefaultGraph()
   }
 
   ngAfterViewInit() {
@@ -80,7 +66,7 @@ export class StockdetailDefaultComponent implements OnInit {
 
     let startDate = new Date(this.rawStockData[0].date).getTime()
     let endDate = new Date(this.rawStockData[this.rawStockData.length - 1].date).getTime()
-    let defaultstartDate = new Date(this.rawStockData[this.rawStockData.length - 31].date).getTime()
+    let defaultstartDate = new Date(this.rawStockData[this.rawStockData.length - 60].date).getTime()
 
     this.firstChart.layout.xaxis.range = [defaultstartDate, endDate];
     this.firstChart.layout.xaxis.rangeslider.range = [startDate, endDate];
@@ -132,6 +118,7 @@ export class StockdetailDefaultComponent implements OnInit {
     let endDate = new Date(this.rawStockData[this.rawStockData.length - 1].date).getTime()
     let defaultstartDate = new Date(this.rawStockData[this.rawStockData.length - 31].date).getTime()
     this.firstChart.layout.xaxis.range = [defaultstartDate, endDate];
+    this.firstChart.layout.height = '500'
 
     let array = this.rawStockData.slice(this.rawStockData.length - 31, this.rawStockData.length - 1)
     let maxY = Math.max.apply(Math, array.map(function (o) { return o.high; }))
