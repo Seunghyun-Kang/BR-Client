@@ -3,6 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { PlotlyModule, PlotlyService } from "angular-plotly.js";
 import { priceData, signalData, TradeViewSettings } from '../stockdetail/stockdetail.model';
 import { DataService } from 'src/app/services/data.service';
+const IS_MOBILE = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
 
 @Component({
   selector: 'app-stockdetail-default',
@@ -115,7 +116,7 @@ export class StockdetailDefaultComponent implements OnInit, OnDestroy {
 
     this.firstChart.data = []
     //graph drawing
-    this.firstChart.data.push(this.stockGraph)
+    if(!IS_MOBILE) this.firstChart.data.push(this.stockGraph)
     this.firstChart.data.push(this.closeGraph)
 
     let endDate = new Date(this.rawStockData[this.rawStockData.length - 1].date).getTime()
