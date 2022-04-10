@@ -93,7 +93,7 @@ const appRoutes: Routes = [
   providers: [HTMLCanvasElement,
     {
       provide: "Version",
-      useValue: 'BR V11',
+      useValue: 'BR V12',
     },],
   bootstrap: [AppComponent]
 })
