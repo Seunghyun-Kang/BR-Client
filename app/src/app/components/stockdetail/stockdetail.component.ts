@@ -1,5 +1,5 @@
-import { ChangeDetectionStrategy, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 import { RequestService } from 'src/app/services/request.service';
 import { PlotlyModule, PlotlyService } from "angular-plotly.js";
 import { bollingerData, priceData, signalData, TradeViewSettings, tripleScreenData } from './stockdetail.model';
@@ -35,8 +35,6 @@ export class StockdetailComponent implements OnInit {
   private stockGraph: any = {}
   private closeGraph: any = {}
 
-  public graphList = [] as any
-
   public getData: boolean = false
 
   public firstChart = new TradeViewSettings().settings;
@@ -47,7 +45,6 @@ export class StockdetailComponent implements OnInit {
     private statusService: PagestatusService,
     private dataService: DataService,
     private route: ActivatedRoute,
-    private router: Router,
     public plotlyService: PlotlyService) {
     this.route.queryParams.subscribe((params: any) => {
       this.code = params['code']
@@ -67,7 +64,6 @@ export class StockdetailComponent implements OnInit {
           console.log(this.rawStockData)
 
           this.statusService.setStatus("normal")
-          this.isDefault = true
 
           this.initCommonGraphSettings()
           this.initDefaultGraph()          
@@ -90,6 +86,8 @@ export class StockdetailComponent implements OnInit {
                     next: (v: any) => {
                       this.rawDataBollingerTrendSignal = Object(v.body)
                       this.dataService.setBollingerTrendSignalData(this.code, this.rawDataBollingerTrendSignal)
+
+          this.isDefault = true
                     },
                     error: (e: any) => console.log("ERROR OCCURED :: " + JSON.stringify(e))
                   });

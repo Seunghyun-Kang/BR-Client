@@ -18,6 +18,36 @@
         width: 100vw;
         height: 70px;
     }
+
+    .signal-guide-container {
+      margin-top: 20px;
+      z-index: 90;
+
+      .header {
+        color: white;
+        font-family: hyundai-card;
+        font-size: 12px;
+        z-index: 90;
+        margin: 15px;
+      }
+  
+      .signal-container {
+        width: 100vw;
+        display: flex;
+        flex-direction: row;
+        z-index: 90;
+
+        justify-content: center;
+
+        .signal-item {
+          color: white;
+          font-family: hyundai-card;
+          font-size: 12px;
+          margin: 2px;
+        }
+      }
+    }
+    
 }
 
 .chartmenu {

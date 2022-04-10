@@ -98,7 +98,8 @@ export interface priceData {
 export interface signalData {
   code: string,
   date: string,
-  type: string
+  type: string,
+  price: number
 }
 
 export interface bollingerData {

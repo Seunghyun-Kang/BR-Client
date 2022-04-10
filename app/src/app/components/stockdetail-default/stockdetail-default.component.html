@@ -1,7 +1,29 @@
 <div class=dashboard>
-        <div *ngIf="getData" class="chart-container">
-            <plotly-plot [data]="firstChart.data" [layout]="firstChart.layout" [config]="firstChart.config"
-                [updateOnlyWithRevision]="true" [revision]="revision" [useResizeHandler]="true"
-                [style]="{position: 'relative'}"></plotly-plot>
+    <div *ngIf="getData" class="chart-container">
+        <plotly-plot [data]="firstChart.data" [layout]="firstChart.layout" [config]="firstChart.config"
+            [updateOnlyWithRevision]="true" [revision]="revision" [useResizeHandler]="true"
+            [style]="{position: 'relative'}"></plotly-plot>
+    </div>
+
+    <div class="signal-guide-container">
+        <p class="header">볼린저 추세추종 알고리즘</p>
+    <div class="signal-container" #bollingerTrend>
+        <div class="signal-item">
+            {{trendStatus}}
         </div>
+    </div>
+    <p class="header">볼린저 반전매매 알고리즘</p>
+    <div class="signal-container" #bollingerReverse>
+        <div class="signal-item">
+            {{reverseStatus}}
+        </div>
+    </div>
+    <p class="header">삼중창 알고리즘</p>
+    <div class="signal-container" #tripleScreen>
+        <div class="signal-item">
+            {{tripleScreenStatus}}
+        </div>
+    </div>
+    </div>
+    
 </div>

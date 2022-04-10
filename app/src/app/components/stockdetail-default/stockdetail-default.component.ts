@@ -5,6 +5,11 @@ import { priceData, signalData, TradeViewSettings } from '../stockdetail/stockde
 import { DataService } from 'src/app/services/data.service';
 const IS_MOBILE = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
 
+export interface signalStatus {
+  lastDate : string
+  lastPrice: number
+}
+
 @Component({
   selector: 'app-stockdetail-default',
   templateUrl: './stockdetail-default.component.html',
@@ -35,6 +40,10 @@ export class StockdetailDefaultComponent implements OnInit, OnDestroy {
 
   public firstChart = new TradeViewSettings().settings;
   public revision = 1
+  
+  public trendStatus: string = ""
+  public reverseStatus: string = ""
+  public tripleScreenStatus: string = ""
 
   constructor(
     private dataService: DataService,
@@ -82,21 +91,78 @@ export class StockdetailDefaultComponent implements OnInit, OnDestroy {
   }
 
   initSignalsData(){
+    let percent: number
+    var lastInfo: signalStatus = {
+      lastDate: "1999-01-01",
+      lastPrice: 0
+    }
+
     this.rawDataBollingerReverseSignal.forEach((element, index) => {
+    
       if(index > 0 && this.rawDataBollingerReverseSignal[index-1].type !== element.type) {
         this.validBollingerReverseSignal.push(element)
+
+        switch(element.type) {
+          case "buy":
+            percent = element.price / lastInfo.lastPrice * 100
+            this.reverseStatus = "$lastdate $lastprice원 매수($percent) 후 매도 신호 대기중..".replace("$lastdate", lastInfo.lastDate).replace("$lastprice", String(lastInfo.lastPrice)).replace("$percent", String(percent))
+            break
+          case "sell":
+            percent = element.price / lastInfo.lastPrice * 100
+            this.reverseStatus = "$lastdate $lastprice원 매도($percent) 후 매수 신호 대기중..".replace("$lastdate", lastInfo.lastDate).replace("$lastprice", String(lastInfo.lastPrice)).replace("$percent", String(percent))
+            break
+        }
+        lastInfo.lastDate = element.date
+        lastInfo.lastPrice = element.price
       }
     });
+    var lastInfo: signalStatus = {
+      lastDate: "1999-01-01",
+      lastPrice: 0
+    }
 
     this.rawDataBollingerTrendSignal.forEach((element, index) => {
+     
       if(index > 0 && this.rawDataBollingerTrendSignal[index-1].type !== element.type) {
         this.validBollingerTrendSignal.push(element)
+
+        switch(element.type) {
+          case "buy":
+            percent = element.price / lastInfo.lastPrice * 100
+            this.trendStatus = "$lastdate $lastprice원 매수($percent) 후 매도 신호 대기중..".replace("$lastdate", lastInfo.lastDate).replace("$lastprice", String(lastInfo.lastPrice)).replace("$percent", String(percent))
+            break
+          case "sell":
+            percent = element.price / lastInfo.lastPrice * 100
+            this.trendStatus = "$lastdate $lastprice원 매도($percent) 후 매수 신호 대기중..".replace("$lastdate", lastInfo.lastDate).replace("$lastprice", String(lastInfo.lastPrice)).replace("$percent", String(percent))
+            break
+        }
+        lastInfo.lastDate = element.date
+        lastInfo.lastPrice = element.price
       }
     });
 
-    this.rawDataTripleScreenSignal.forEach((element, index) => {
+    var lastInfo: signalStatus = {
+      lastDate: "",
+      lastPrice: 0
+    }
+
+    this.rawDataTripleScreenSignal.forEach((element, index) => { 
       if(index > 0 && this.rawDataTripleScreenSignal[index-1].type !== element.type) {
         this.validTripleScreenSignal.push(element)
+        
+        console.log(lastInfo)
+        switch(element.type) {
+          case "buy":
+            percent = element.price / lastInfo.lastPrice * 100
+            this.tripleScreenStatus = "$lastdate $lastprice원 매수($percent) 후 매도 신호 대기중..".replace("$lastdate", element.date).replace("$lastprice", String(lastInfo.lastPrice)).replace("$percent", String(percent))
+            break
+          case "sell":
+            percent = element.price / lastInfo.lastPrice * 100
+            this.tripleScreenStatus = "$lastdate $lastprice원 매도($percent) 후 매수 신호 대기중..".replace("$lastdate", element.date).replace("$lastprice", String(lastInfo.lastPrice)).replace("$percent", String(percent))
+            break
+        }
+        lastInfo.lastDate = String(element.date)
+        lastInfo.lastPrice = element.price
       }
     });
   }
