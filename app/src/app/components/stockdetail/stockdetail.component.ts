@@ -38,9 +38,6 @@ export class StockdetailComponent implements OnInit {
   public graphList = [] as any
 
   public getData: boolean = false
-  public getBollingerData: boolean = false
-  public getBollingerSignalData: boolean = false
-  public getTripleScreenData: boolean = false
 
   public firstChart = new TradeViewSettings().settings;
   public revision = 1
@@ -80,14 +77,12 @@ export class StockdetailComponent implements OnInit {
           .subscribe({
             next: (v: any) => {
               this.rawDataBollinger = Object(v.body)
-              this.getBollingerData = true
               this.dataService.setBollingerData(this.code, this.rawDataBollinger)
     
               this.requestService.getBollingerReverseSignal(this.code)
               .subscribe({
                 next: (v: any) => {
                   this.rawDataBollingerReverseSignal = Object(v.body)
-                  this.getBollingerSignalData = true
                   this.dataService.setBollingerReverseSignalData(this.code, this.rawDataBollingerReverseSignal)
                   
                   this.requestService.getBollingerTrendSignal(this.code)
@@ -115,7 +110,6 @@ export class StockdetailComponent implements OnInit {
               .subscribe({
                 next: (v: any) => {
                   this.rawDataTripleScreen = Object(v.body)
-                  this.getTripleScreenData = true
                   this.dataService.setTripleScreenData(this.code, this.rawDataTripleScreen)
                 },
                 error: (e: any) => console.log("ERROR OCCURED :: " + JSON.stringify(e))
