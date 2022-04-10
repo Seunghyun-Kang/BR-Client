@@ -289,6 +289,7 @@ export class StockdstailBollingertrendComponent implements OnInit, OnDestroy {
     let maxY3 = Math.max.apply(Math, array2.map(function (o) { return Math.max(o.mfi10, o.pb * 100) }))
     let minY3 = Math.min.apply(Math, array2.map(function (o) { return Math.min(o.mfi10, o.pb * 100)  }))
     this.thirdChart.layout.yaxis.range = [minY3, maxY3];
+    this.thirdChart.layout.yaxis.title = ""
   }
 
   initBollingerSignalGraph() {
@@ -385,39 +386,5 @@ export class StockdstailBollingertrendComponent implements OnInit, OnDestroy {
     line.line.color = color
 
     return line
-  }
-
-  tapDefault() {
-    console.log("Tap default button")
-    this.router.navigate(['stockdetail'], {
-      queryParams: {
-        code: this.code,
-        companyName: this.companyName
-      }
-    })
-  }
-
-  tapBolingerTrend() {
-    console.log("Tap BolingerTrend button")
-  }
-
-  tapBollingerReverse() {
-    console.log("Tap BolingerReverse button")
-    this.router.navigate(['stockdetail-bollingerreverse'], {
-      queryParams: {
-        code: this.code,
-        companyName: this.companyName
-      }
-    })
-  }
-
-  tapTripleScreen() {
-    console.log("Tap TripleScreen button")
-    this.router.navigate(['stockdetail-triplescreen'], {
-      queryParams: {
-        code: this.code,
-        companyName: this.companyName
-      }
-    })
   }
 }

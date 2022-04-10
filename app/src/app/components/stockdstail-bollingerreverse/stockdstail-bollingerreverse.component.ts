@@ -276,11 +276,13 @@ export class StockdstailBollingerreverseComponent implements OnInit, OnDestroy {
     let maxY6 = Math.max.apply(Math, array.map(function (o) { return o.pb; }))
     let minY6 = Math.min.apply(Math, array.map(function (o) { return o.pb; }))
     this.secondChart.layout.yaxis.range = [minY6, maxY6];
+    this.secondChart.layout.yaxis.title = ""
 
     this.thirdChart.data.push(this.IIP21Graph)
     let maxY7 = Math.max.apply(Math, array.map(function (o) { return o.iip21; }))
     let minY7 = Math.min.apply(Math, array.map(function (o)  { return o.iip21; }))
     this.thirdChart.layout.yaxis.range = [minY7, maxY7];
+    this.thirdChart.layout.yaxis.title = ""
   }
 
   initBollingerSignalGraph() {
@@ -376,38 +378,4 @@ export class StockdstailBollingerreverseComponent implements OnInit, OnDestroy {
     return line
   }
 
-  tapDefault() {
-    console.log("Tap default button")
-    this.router.navigate(['stockdetail'], {
-      queryParams: {
-        code: this.code,
-        companyName: this.companyName
-      }
-    })
-  }
-
-  tapBolingerTrend() {
-    console.log("Tap BolingerTrend button")
-    this.router.navigate(['stockdetail-bollingertrend'], {
-      queryParams: {
-        code: this.code,
-        companyName: this.companyName
-      }
-    })
-  }
-
-  tapBollingerReverse() {
-    console.log("Tap BolingerReverse button")
-    
-  }
-
-  tapTripleScreen() {
-    console.log("Tap TripleScreen button")
-    this.router.navigate(['stockdetail-triplescreen'], {
-      queryParams: {
-        code: this.code,
-        companyName: this.companyName
-      }
-    })
-  }
 }

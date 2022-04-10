@@ -24,6 +24,10 @@ export class StockdetailDefaultComponent implements OnInit, OnDestroy {
   public rawDataBollingerReverseSignal: signalData[] = []
   public rawDataTripleScreenSignal: signalData[] = []
 
+  public validBollingerTrendSignal: signalData[] = []
+  public validBollingerReverseSignal: signalData[] = []
+  public validTripleScreenSignal: signalData[] = []
+
   private stockGraph: any = {}
   private closeGraph: any = {}
 
@@ -54,6 +58,7 @@ export class StockdetailDefaultComponent implements OnInit, OnDestroy {
     this.getData = true
     this.initCommonGraphSettings()
     this.initDefaultGraph()
+    this.initSignalsData()
   }
 
   ngAfterViewInit() {
@@ -76,6 +81,25 @@ export class StockdetailDefaultComponent implements OnInit, OnDestroy {
     this.firstChart.layout.xaxis.rangeslider.range = [startDate, endDate];
   }
 
+  initSignalsData(){
+    this.rawDataBollingerReverseSignal.forEach((element, index) => {
+      if(index > 0 && this.rawDataBollingerReverseSignal[index-1].type !== element.type) {
+        this.validBollingerReverseSignal.push(element)
+      }
+    });
+
+    this.rawDataBollingerTrendSignal.forEach((element, index) => {
+      if(index > 0 && this.rawDataBollingerTrendSignal[index-1].type !== element.type) {
+        this.validBollingerTrendSignal.push(element)
+      }
+    });
+
+    this.rawDataTripleScreenSignal.forEach((element, index) => {
+      if(index > 0 && this.rawDataTripleScreenSignal[index-1].type !== element.type) {
+        this.validTripleScreenSignal.push(element)
+      }
+    });
+  }
   initDefaultGraph() {
     console.log("initDefaultGraph called!")
 
