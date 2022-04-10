@@ -202,7 +202,6 @@ export class StockdetailComponent implements OnInit {
   tapBolingerTrend() {
     console.log("Tap BolingerTrend button")
     this.isDefault = false
-    this.getData = false
     this.isBollingerTrendFollowing = true
     this.isBollingerTrendReverse = false
     this.isTripleScreen = false
