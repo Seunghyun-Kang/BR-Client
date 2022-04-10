@@ -101,6 +101,10 @@ export class StockdstailBollingertrendComponent implements OnInit, OnDestroy {
 
   ngOnDestroy() {
     console.log("Destroy bollinger trend")
+
+    this.firstChart.data = []
+    this.secondChart.data = []
+    this.thirdChart.data = []
   }
 
   initCommonGraphSettings() {

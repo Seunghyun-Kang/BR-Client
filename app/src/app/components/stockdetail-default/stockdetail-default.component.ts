@@ -1,7 +1,7 @@
 import { Component, ElementRef, OnInit, ViewChild, OnDestroy } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { PlotlyModule, PlotlyService } from "angular-plotly.js";
-import { bollingerData, priceData, signalData, TradeViewSettings, tripleScreenData } from '../stockdetail/stockdetail.model';
+import { priceData, signalData, TradeViewSettings } from '../stockdetail/stockdetail.model';
 import { DataService } from 'src/app/services/data.service';
 
 @Component({
@@ -25,8 +25,6 @@ export class StockdetailDefaultComponent implements OnInit, OnDestroy {
 
   private stockGraph: any = {}
   private closeGraph: any = {}
-
-  public graphList = [] as any
 
   public getData: boolean = false
 
@@ -63,6 +61,7 @@ export class StockdetailDefaultComponent implements OnInit, OnDestroy {
 
   ngOnDestroy() {
     console.log("ngDestroy called!")
+    this.firstChart.data = []
   }
 
   initCommonGraphSettings() {
@@ -122,7 +121,7 @@ export class StockdetailDefaultComponent implements OnInit, OnDestroy {
     let endDate = new Date(this.rawStockData[this.rawStockData.length - 1].date).getTime()
     let defaultstartDate = new Date(this.rawStockData[this.rawStockData.length - 31].date).getTime()
     this.firstChart.layout.xaxis.range = [defaultstartDate, endDate];
-    this.firstChart.layout.height = '500'
+    this.firstChart.layout.height = '450'
 
     let array = this.rawStockData.slice(this.rawStockData.length - 31, this.rawStockData.length - 1)
     let maxY = Math.max.apply(Math, array.map(function (o) { return o.high; }))

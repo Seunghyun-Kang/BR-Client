@@ -100,6 +100,10 @@ export class StockdstailBollingerreverseComponent implements OnInit, OnDestroy {
 
   ngOnDestroy() {
     console.log("Destroy bollinger reverse")
+
+    this.firstChart.data = []
+    this.secondChart.data = []
+    this.thirdChart.data = []
   }
 
   initCommonGraphSettings() {

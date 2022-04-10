@@ -20,7 +20,7 @@ export class StockdetailComponent implements OnInit {
   public code: string = ""
   public companyName: string = ""
 
-  public isDefault: boolean = true
+  public isDefault: boolean = false
   public isBollingerTrendFollowing: boolean = false
   public isBollingerTrendReverse: boolean = false
   public isTripleScreen: boolean = false
@@ -67,7 +67,7 @@ export class StockdetailComponent implements OnInit {
           console.log(this.rawStockData)
 
           this.statusService.setStatus("normal")
-          this.getData = true
+          this.isDefault = true
 
           this.initCommonGraphSettings()
           this.initDefaultGraph()          

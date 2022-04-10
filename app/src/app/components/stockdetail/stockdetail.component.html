@@ -8,21 +8,12 @@
                 [updateOnlyWithRevision]="true" [revision]="revision" [useResizeHandler]="true"
                 [style]="{position: 'relative'}"></plotly-plot>
         </div> -->
-    <ng-container *ngIf="getData && isDefault">
-        <app-stockdetail-default></app-stockdetail-default>
-    </ng-container>
-
-    <ng-container *ngIf="isBollingerTrendFollowing">
-        <app-stockdetail-bollingertrend></app-stockdetail-bollingertrend>
-    </ng-container>
-
-    <ng-container *ngIf="isBollingerTrendReverse">
-        <app-stockdstail-bollingerreverse></app-stockdstail-bollingerreverse>
-    </ng-container>
-
-    <ng-container *ngIf="isTripleScreen">
-        <app-stockdstail-triplescreen></app-stockdstail-triplescreen>
-    </ng-container>
+        <app-stockdetail-default *ngIf="isDefault"></app-stockdetail-default>
+        <app-stockdetail-bollingertrend *ngIf="isBollingerTrendFollowing"></app-stockdetail-bollingertrend>
+        <app-stockdstail-bollingerreverse *ngIf="isBollingerTrendReverse"></app-stockdstail-bollingerreverse>
+        <app-stockdstail-triplescreen *ngIf="isTripleScreen"></app-stockdstail-triplescreen>
+        
+        <div class="box_for_menu"></div>
 </div>
 
 <div class="chartmenu">

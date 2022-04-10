@@ -78,6 +78,10 @@ export class StockdstailTriplescreenComponent implements OnInit, OnDestroy {
 
   ngOnDestroy() {
     console.log("Destroy triple screen")
+
+    this.firstChart.data = []
+    this.secondChart.data = []
+    this.thirdChart.data = []
   }
 
   relayoutChart(event: any) {
