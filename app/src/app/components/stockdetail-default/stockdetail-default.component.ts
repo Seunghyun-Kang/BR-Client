@@ -64,6 +64,7 @@ export class StockdetailDefaultComponent implements OnInit, OnDestroy {
     this.rawDataBollingerTrendSignal = this.dataService.getBollingerTrendSignalData(this.code)
     this.rawDataTripleScreenSignal = this.dataService.getTripleScreenSignalData(this.code)
 
+    console.log(this.rawDataTripleScreenSignal)
     this.getData = true
     this.initCommonGraphSettings()
     this.initDefaultGraph()
@@ -92,11 +93,11 @@ export class StockdetailDefaultComponent implements OnInit, OnDestroy {
 
   initSignalsData(){
     let percent: number
+
     var lastInfo: signalStatus = {
       lastDate: "1999-01-01",
       lastPrice: 0
     }
-
     this.rawDataBollingerReverseSignal.forEach((element, index) => {
     
       if(index > 0 && this.rawDataBollingerReverseSignal[index-1].type !== element.type) {
@@ -104,23 +105,23 @@ export class StockdetailDefaultComponent implements OnInit, OnDestroy {
 
         switch(element.type) {
           case "buy":
-            percent = element.price / lastInfo.lastPrice * 100
-            this.reverseStatus = "$lastdate $lastprice원 매수($percent) 후 매도 신호 대기중..".replace("$lastdate", lastInfo.lastDate).replace("$lastprice", String(lastInfo.lastPrice)).replace("$percent", String(percent))
+            percent = ((element.close - lastInfo.lastPrice) / lastInfo.lastPrice)* 100
+            this.reverseStatus = "$lastdate $lastprice원 매수 후 매도 신호 대기중..".replace("$lastdate", lastInfo.lastDate).replace("$lastprice", String(lastInfo.lastPrice))
             break
           case "sell":
-            percent = element.price / lastInfo.lastPrice * 100
-            this.reverseStatus = "$lastdate $lastprice원 매도($percent) 후 매수 신호 대기중..".replace("$lastdate", lastInfo.lastDate).replace("$lastprice", String(lastInfo.lastPrice)).replace("$percent", String(percent))
+            percent = ((element.close - lastInfo.lastPrice) / lastInfo.lastPrice)* 100
+            this.reverseStatus = "$lastdate $lastprice원 매도($percent) 후 매수 신호 대기중..".replace("$lastdate", lastInfo.lastDate).replace("$lastprice", String(lastInfo.lastPrice)).replace("$percent", String(percent.toFixed(2)))
             break
         }
         lastInfo.lastDate = element.date
-        lastInfo.lastPrice = element.price
+        lastInfo.lastPrice = element.close
       }
     });
+
     var lastInfo: signalStatus = {
       lastDate: "1999-01-01",
       lastPrice: 0
     }
-
     this.rawDataBollingerTrendSignal.forEach((element, index) => {
      
       if(index > 0 && this.rawDataBollingerTrendSignal[index-1].type !== element.type) {
@@ -128,16 +129,16 @@ export class StockdetailDefaultComponent implements OnInit, OnDestroy {
 
         switch(element.type) {
           case "buy":
-            percent = element.price / lastInfo.lastPrice * 100
-            this.trendStatus = "$lastdate $lastprice원 매수($percent) 후 매도 신호 대기중..".replace("$lastdate", lastInfo.lastDate).replace("$lastprice", String(lastInfo.lastPrice)).replace("$percent", String(percent))
+            percent = ((element.close - lastInfo.lastPrice) / lastInfo.lastPrice)* 100
+            this.trendStatus = "$lastdate $lastprice원 매수 후 매도 신호 대기중..".replace("$lastdate", lastInfo.lastDate).replace("$lastprice", String(lastInfo.lastPrice))
             break
           case "sell":
-            percent = element.price / lastInfo.lastPrice * 100
-            this.trendStatus = "$lastdate $lastprice원 매도($percent) 후 매수 신호 대기중..".replace("$lastdate", lastInfo.lastDate).replace("$lastprice", String(lastInfo.lastPrice)).replace("$percent", String(percent))
+            percent = ((element.close - lastInfo.lastPrice) / lastInfo.lastPrice)* 100
+            this.trendStatus = "$lastdate $lastprice원 매도($percent) 후 매수 신호 대기중..".replace("$lastdate", lastInfo.lastDate).replace("$lastprice", String(lastInfo.lastPrice)).replace("$percent", String(percent.toFixed(2)))
             break
         }
         lastInfo.lastDate = element.date
-        lastInfo.lastPrice = element.price
+        lastInfo.lastPrice = element.close
       }
     });
 
@@ -145,7 +146,6 @@ export class StockdetailDefaultComponent implements OnInit, OnDestroy {
       lastDate: "",
       lastPrice: 0
     }
-
     this.rawDataTripleScreenSignal.forEach((element, index) => { 
       if(index > 0 && this.rawDataTripleScreenSignal[index-1].type !== element.type) {
         this.validTripleScreenSignal.push(element)
@@ -153,16 +153,16 @@ export class StockdetailDefaultComponent implements OnInit, OnDestroy {
         console.log(lastInfo)
         switch(element.type) {
           case "buy":
-            percent = element.price / lastInfo.lastPrice * 100
-            this.tripleScreenStatus = "$lastdate $lastprice원 매수($percent) 후 매도 신호 대기중..".replace("$lastdate", element.date).replace("$lastprice", String(lastInfo.lastPrice)).replace("$percent", String(percent))
+            percent =((element.close - lastInfo.lastPrice) / lastInfo.lastPrice)* 100
+            this.tripleScreenStatus = "$lastdate $lastprice원 매수 후 매도 신호 대기중..".replace("$lastdate", element.date).replace("$lastprice", String(lastInfo.lastPrice))
             break
           case "sell":
-            percent = element.price / lastInfo.lastPrice * 100
-            this.tripleScreenStatus = "$lastdate $lastprice원 매도($percent) 후 매수 신호 대기중..".replace("$lastdate", element.date).replace("$lastprice", String(lastInfo.lastPrice)).replace("$percent", String(percent))
+            percent = ((element.close - lastInfo.lastPrice) / lastInfo.lastPrice)* 100
+            this.tripleScreenStatus = "$lastdate $lastprice원 매도($percent) 후 매수 신호 대기중..".replace("$lastdate", element.date).replace("$lastprice", String(lastInfo.lastPrice)).replace("$percent", String(percent.toFixed(2)))
             break
         }
         lastInfo.lastDate = String(element.date)
-        lastInfo.lastPrice = element.price
+        lastInfo.lastPrice = element.close
       }
     });
   }
