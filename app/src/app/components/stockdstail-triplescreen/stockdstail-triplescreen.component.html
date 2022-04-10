@@ -1,7 +1,7 @@
 <div class=dashboard>
-    <div class="actionbar">
+    <!-- <div class="actionbar">
         <header [title]="companyName"></header>
-    </div>
+    </div> -->
 
     <div *ngIf="getData" class="chart-container">
         <plotly-plot [data]="firstChart.data" [layout]="firstChart.layout" [config]="firstChart.config"
@@ -24,7 +24,7 @@
     <div class="box_for_menu"></div>
 </div>
 
-<div class="chartmenu">
+<!-- <div class="chartmenu">
     <div class="card" (click)="tapDefault()">
         <div style="display:table;"> <span style="display:table-cell;
             vertical-align:middle;width: 4vh;
@@ -56,4 +56,4 @@
         font-size: 1vh;">삼중창 매매</span>
         </div>
     </div>
-</div>
+</div> -->

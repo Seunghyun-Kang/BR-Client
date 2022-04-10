@@ -201,32 +201,60 @@ export class StockdetailComponent implements OnInit {
 
   tapBolingerTrend() {
     console.log("Tap BolingerTrend button")
+    this.isDefault = false
     this.getData = false
-    this.router.navigate(['stockdetail-bollingertrend'], {
-      queryParams: {
-        code: this.code,
-        companyName: this.companyName
-      }
-    })
+    this.isBollingerTrendFollowing = true
+    this.isBollingerTrendReverse = false
+    this.isTripleScreen = false
+    // this.router.navigate(['stockdetail-bollingertrend'], {
+    //   queryParams: {
+    //     code: this.code,
+    //     companyName: this.companyName
+    //   }
+    // })
   }
 
   tapBollingerReverse() {
     console.log("Tap BolingerReverse button")
-    this.router.navigate(['stockdetail-bollingerreverse'], {
-      queryParams: {
-        code: this.code,
-        companyName: this.companyName
-      }
-    })
+    this.isDefault = false
+    this.isBollingerTrendFollowing = false
+    this.isBollingerTrendReverse = true
+    this.isTripleScreen = false
+    // this.router.navigate(['stockdetail-bollingerreverse'], {
+    //   queryParams: {
+    //     code: this.code,
+    //     companyName: this.companyName
+    //   }
+    // })
   }
 
   tapTripleScreen() {
     console.log("Tap TripleScreen button")
-    this.router.navigate(['stockdetail-triplescreen'], {
-      queryParams: {
-        code: this.code,
-        companyName: this.companyName
-      }
-    })
+    this.isDefault = false
+    this.isBollingerTrendFollowing = false
+    this.isBollingerTrendReverse = false
+    this.isTripleScreen = true
+    //   this.router.navigate(['stockdetail-triplescreen'], {
+  //     queryParams: {
+  //       code: this.code,
+  //       companyName: this.companyName
+  //     }
+  //   })
+  // }
+  }
+
+  tapDefault() {
+    console.log("Tap Default button")
+    this.isDefault = true
+    this.isBollingerTrendFollowing = false
+    this.isBollingerTrendReverse = false
+    this.isTripleScreen = false
+    //   this.router.navigate(['stockdetail-triplescreen'], {
+  //     queryParams: {
+  //       code: this.code,
+  //       companyName: this.companyName
+  //     }
+  //   })
+  // }
   }
 }

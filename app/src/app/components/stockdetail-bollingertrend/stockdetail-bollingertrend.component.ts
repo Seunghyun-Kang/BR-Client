@@ -1,5 +1,5 @@
 
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild, OnDestroy } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { PlotlyModule, PlotlyService } from "angular-plotly.js";
 import { TradeViewSettings, priceData, bollingerData, signalData } from '../stockdetail/stockdetail.model';
@@ -13,7 +13,7 @@ import { DataService } from 'src/app/services/data.service';
 })
 
 // const graph = new TradeViewSettings()
-export class StockdstailBollingertrendComponent implements OnInit {
+export class StockdstailBollingertrendComponent implements OnInit, OnDestroy {
   @ViewChild("chart", { static: true, read: ElementRef }) chart: ElementRef<
     PlotlyModule
   >;
@@ -97,6 +97,10 @@ export class StockdstailBollingertrendComponent implements OnInit {
 
   ngAfterViewInit() {
     console.log("ngAfterViewInit called!")
+  }
+
+  ngOnDestroy() {
+    console.log("Destroy bollinger trend")
   }
 
   initCommonGraphSettings() {
