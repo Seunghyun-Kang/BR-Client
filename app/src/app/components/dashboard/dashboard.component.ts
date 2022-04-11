@@ -32,6 +32,7 @@ export class DashboardComponent implements OnInit {
     .subscribe({
       next: (v: any) => {
         this.rawLatestSignalTrend = Object(v.body)
+        console.log(this.rawLatestSignalTrend)
         },
       error: (e: any) => console.log("ERROR OCCURED :: " + JSON.stringify(e))
     });
@@ -40,6 +41,7 @@ export class DashboardComponent implements OnInit {
     .subscribe({
       next: (v: any) => {
         this.rawLatestSignalReverse = Object(v.body)
+        console.log(this.rawLatestSignalReverse)
         },
       error: (e: any) => console.log("ERROR OCCURED :: " + JSON.stringify(e))
     });
@@ -48,6 +50,8 @@ export class DashboardComponent implements OnInit {
     .subscribe({
       next: (v: any) => {
         this.rawLatestSignalTripleScreen = Object(v.body)
+        console.log(this.rawLatestSignalTripleScreen)
+
         },
       error: (e: any) => console.log("ERROR OCCURED :: " + JSON.stringify(e))
     });
