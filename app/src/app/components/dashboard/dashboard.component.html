@@ -3,9 +3,8 @@
         <header [title]="'대쉬보드'"></header>
     </div>
     <div class="content">
-        <app-guide [descArray]="guideist" [position]="'middle'" (indexChange)="guideIndexChanged($event)"></app-guide>
         <div class="button-container">
-            <div class="card" *ngIf="guideIndex >= 0" (click)="onPressOptPortfolio()">
+            <div class="card" (click)="onPressOptPortfolio()">
                 <div style="display:table;">
                     <span style="display:table-cell;
             vertical-align:middle;width: 8.5vh;
@@ -14,7 +13,7 @@
                 </div>
             </div>
 
-            <div class="card" *ngIf="guideIndex >= 1" (click)="onPressGetStock()">
+            <div class="card" (click)="onPressGetStock()">
                 <div style="display:table;"> <span style="display:table-cell;
                 vertical-align:middle;width: 8.5vh;
             height: 8.5vh;
