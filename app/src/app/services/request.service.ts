@@ -104,6 +104,27 @@ export class RequestService {
       );
   }
 
+  getLatestBollingerTrendSignal() {
+    return this.http.get(this.REST_SERVER_URL + 'latest_signal_trend/', { observe: 'response', headers: this.headers })
+      .pipe(
+        catchError(this.handleError)
+      );
+  }
+
+  getLatestBollingerReverseSignal() {
+    return this.http.get(this.REST_SERVER_URL + 'latest_signal_reverse/', { observe: 'response', headers: this.headers })
+      .pipe(
+        catchError(this.handleError)
+      );
+  }
+
+  getLatestTripleScreenSignal() {
+    return this.http.get(this.REST_SERVER_URL + 'latest_signal_triple/', { observe: 'response', headers: this.headers })
+      .pipe(
+        catchError(this.handleError)
+      );
+  }
+
   private handleError(error: HttpErrorResponse) {
     if (error.status === 0) {
       console.error('An error occurred:', error.error);
