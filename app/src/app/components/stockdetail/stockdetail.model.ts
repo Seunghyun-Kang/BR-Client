@@ -99,7 +99,8 @@ export interface signalData {
   code: string,
   date: string,
   type: string,
-  close: number
+  close: number,
+  valid: string
 }
 
 export interface bollingerData {
