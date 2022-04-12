@@ -3,8 +3,15 @@
         <header [title]="'대쉬보드'"></header>
     </div>
     <div class="content">
+        <p class="header-title">오늘의 매수 신호</p>
+        <p class="header">볼린저 추세 추종 알고리즘</p>
+        <app-carousel *ngIf="getTrendData" [inputs] = "rawLatestSignalTrend"></app-carousel>
+        <p class="header">볼린저 반전매매 알고리즘</p>
+        <app-carousel *ngIf="getTrendData" [inputs] = "rawLatestSignalTrend"></app-carousel>
+        <p class="header">삼중창 알고리즘</p>
         <app-carousel *ngIf="getTrendData" [inputs] = "rawLatestSignalTrend"></app-carousel>
         
+
         <div class="button-container">
             <div class="card" (click)="onPressOptPortfolio()">
                 <div style="display:table;">

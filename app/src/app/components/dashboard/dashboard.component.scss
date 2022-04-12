@@ -9,8 +9,17 @@
     .content {
         z-index: 1;
 
+        .header-title {
+          color: rgb(184, 63, 63);
+          font-family: hyundai-card;
+          font-size: 18px;
+          z-index: 90;
+          margin: 15px 15px 0px 15px;
+        }
+
         .header {
           color: white;
+          text-align: center;
           font-family: hyundai-card;
           font-size: 12px;
           z-index: 90;
