@@ -36,7 +36,7 @@ import { DeviceDetectorService } from 'ngx-device-detector';
 import { StockdetailDefaultComponent } from './components/stockdetail-default/stockdetail-default.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { CarouselComponent } from './modules/carousel/carousel.component';
-import { IgxButtonModule } from 'igniteui-angular';
+import { IgxButtonModule, IgxIconModule, IgxNavigationDrawerModule } from 'igniteui-angular';
 
 PlotlyModule.plotlyjs = PlotlyJS;
 export class MyHammerConfig extends HammerGestureConfig {
@@ -97,12 +97,14 @@ const appRoutes: Routes = [
     CommonModule,
     NgbModule,
     IgxButtonModule,
-    HammerModule
+    HammerModule,
+    IgxNavigationDrawerModule,
+    IgxIconModule
   ],
   providers: [HTMLCanvasElement,
     {
       provide: "Version",
-      useValue: 'BR V12',
+      useValue: 'BR V13',
     },
     {
       provide: HAMMER_GESTURE_CONFIG,
