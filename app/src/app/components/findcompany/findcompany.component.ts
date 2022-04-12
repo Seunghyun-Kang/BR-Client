@@ -57,24 +57,15 @@ export class FindcompanyComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.requestService.getAllCompanies()
-      .subscribe({
-        next: (v: any) => {
-          this.rawData = Object(v.body)
-          this.dataService.setCompanyData(this.rawData)
-          console.log(this.rawData)
+    this.rawData = this.dataService.getCompanyData()
+    setTimeout(() => {
+      this.statusService.setStatus("normal")
+      this.getData = true
+    }, 1000);
 
-          setTimeout(() => {
-            this.statusService.setStatus("normal")
-            this.getData = true
-          }, 1000);
-
-          this.rawData.forEach(element => {
-            this.companyNameList.push(element.company)
-          });
-        },
-        error: (e: any) => console.log("ERROR OCCURED :: " + JSON.stringify(e))
-      });
+    this.rawData.forEach(element => {
+      this.companyNameList.push(element.company)
+    });
   }
 
   onSelectedOption(event: any) {
