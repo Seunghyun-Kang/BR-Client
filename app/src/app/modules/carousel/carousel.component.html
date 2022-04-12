@@ -10,8 +10,22 @@ id="carousel"
 (swiperight)="onSwipeRight($event)"
 >
     <ng-template *ngFor="let item of inputs" ngbSlide >
-        {{item.code}}
-        {{item.close}}
+        <div class="content">
+            <div class="content-name">
+                {{item[0]}}
+            </div>
+            <div class="content-price">
+                {{item[1]}}
+            </div>
+            <div class="content-info">
+                <div class="first">
+                    {{item[2]}}
+                </div>
+                <!-- <div class="second">
+                    {{item[3]}}
+                </div> -->
+            </div>
+        </div>
       </ng-template>
   </ngb-carousel
   >

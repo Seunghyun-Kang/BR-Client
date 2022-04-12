@@ -1,6 +1,6 @@
 ngb-carousel {
     max-width: 90%;
-    margin: 20px auto;
+    margin: 10px auto;
 }
 
 ngb-carousel img {
@@ -53,4 +53,36 @@ ngb-carousel {
 
 .carousel-indicators{
     z-index: 20;
+}
+
+.content {
+    color: white;
+    font-family: hyundai-card;
+    word-break: keep-all;
+    word-wrap: break-word;
+    display: block;
+
+    .content-name {
+        font-size: 15px;
+        text-align: center;
+    }
+    .content-price {
+        font-size: 12px;
+        text-align: center;
+    }
+    .content-info {
+        display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+        .first {
+            font-size: 12px;
+            text-align: center;
+
+        }
+        .second {
+            font-size: 12px;
+            text-align: center;
+
+        }
+    }
 }
