@@ -8,9 +8,12 @@
     }
     .content {
         z-index: 1;
+        padding-left: 10%;
+        padding-right: 10%;
 
         .header-title {
           color: white;
+          text-align: center;
           font-family: hyundai-card;
           font-size: 18px;
           z-index: 90;
@@ -24,17 +27,22 @@
             color: rgb(61, 87, 173);
             font-size: 20px;
           }
+
+
         }
 
         .header {
           color: white;
-          text-align: center;
           font-family: hyundai-card;
           font-size: 10px;
           z-index: 90;
           margin: 15px 15px 0px 15px;
         }
-    
+    .signals-container {
+    border-radius: 30px;
+    padding: 5px;
+    margin-top: 10px;
+    }
         .button-container {
             position: relative;
             display: flex;
@@ -45,7 +53,10 @@
         }
     }
 }
-
+:ng-deep .igx-button .igx-button--raised{
+  width: 100%;
+  display: flex;
+}
   .card {
     background: #020024;
     width: 12vh;

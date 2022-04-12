@@ -3,30 +3,24 @@
         <header [title]="'대쉬보드'"></header>
     </div>
     <div class="content">
-        <button mdbBtn type="button" gradient="blue" rounded="true" mdbWavesEffect>Blue</button>
         <p class="header-title">오늘의 <span class="red">매수</span> 신호</p>
-        <p class="header">볼린저 추세 추종 알고리즘</p>
-        <button igxButton="raised">
-            <app-carousel *ngIf="getTrendData" [inputs] = "rawLatestSignalTrend"></app-carousel>
-        </button>
-        <!-- <button mdbBtn type="button" gradient="blue" rounded="true" mdbWavesEffect>
-            <app-carousel *ngIf="getTrendData" [inputs] = "rawLatestSignalTrend"></app-carousel>
-        </button> -->
-        
-        <p class="header">볼린저 반전매매 알고리즘</p>
-        <app-carousel *ngIf="getTrendData" [inputs] = "rawLatestSignalTrend"></app-carousel>
-        <p class="header">삼중창 알고리즘</p>
-        <app-carousel *ngIf="getTrendData" [inputs] = "rawLatestSignalTrend"></app-carousel>
-        
+        <div class="signals-container" style="background-color: rgba(165,42,42,0.7);">
+            <p class="header">볼린저 추세 추종 알고리즘</p>
+            <app-carousel style="width: 100%;" *ngIf="getTrendData" [inputs]="rawLatestSignalTrend"></app-carousel>
+            <p class="header">볼린저 반전매매 알고리즘</p>
+            <app-carousel *ngIf="getTrendData" [inputs]="rawLatestSignalTrend"></app-carousel>
+            <p class="header">삼중창 알고리즘</p>
+            <app-carousel *ngIf="getTrendData" [inputs]="rawLatestSignalTrend"></app-carousel>
+        </div>
         <p class="header-title">오늘의 <span class="blue">매도</span> 신호</p>
+        <div class="signals-container"  style="background-color: rgba(100, 149, 237,0.7);">
         <p class="header">볼린저 추세 추종 알고리즘</p>
-        <app-carousel *ngIf="getTrendData" [inputs] = "rawLatestSignalTrend"></app-carousel>
+        <app-carousel *ngIf="getTrendData" [inputs]="rawLatestSignalTrend"></app-carousel>
         <p class="header">볼린저 반전매매 알고리즘</p>
-        <app-carousel *ngIf="getTrendData" [inputs] = "rawLatestSignalTrend"></app-carousel>
+        <app-carousel *ngIf="getTrendData" [inputs]="rawLatestSignalTrend"></app-carousel>
         <p class="header">삼중창 알고리즘</p>
-        <app-carousel *ngIf="getTrendData" [inputs] = "rawLatestSignalTrend"></app-carousel>
-        
-
+        <app-carousel *ngIf="getTrendData" [inputs]="rawLatestSignalTrend"></app-carousel>
+    </div>
         <div class="button-container">
             <div class="card" (click)="onPressOptPortfolio()">
                 <div style="display:table;">
