@@ -3,6 +3,8 @@
         <header [title]="'대쉬보드'"></header>
     </div>
     <div class="content">
+        <app-carousel *ngIf="getTrendData" [inputs] = "rawLatestSignalTrend"></app-carousel>
+        
         <div class="button-container">
             <div class="card" (click)="onPressOptPortfolio()">
                 <div style="display:table;">
