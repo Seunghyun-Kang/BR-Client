@@ -100,7 +100,11 @@ export interface signalData {
   date: string,
   type: string,
   close: number,
-  valid: string
+  valid: string,
+  last_buy_close: number,
+  last_buy_date: string,
+  last_sell_close: number,
+  last_sell_date: string
 }
 
 export interface bollingerData {
