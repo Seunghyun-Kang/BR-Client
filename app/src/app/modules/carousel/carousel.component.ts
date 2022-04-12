@@ -8,6 +8,7 @@ import { NgbCarousel } from '@ng-bootstrap/ng-bootstrap';
 })
 export class CarouselComponent implements OnInit {
   @Input() inputs: any[] = []
+  @Input() speed: number = 5000
   @ViewChild(NgbCarousel) carousel;
   
   constructor() {
@@ -16,10 +17,10 @@ export class CarouselComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  onSwipeRight() {
+  onSwipeRight(event: any) {
     this.carousel.prev();
   }
-  onSwipeLeft() {
+  onSwipeLeft(event: any) {
     this.carousel.next();
   }
 }

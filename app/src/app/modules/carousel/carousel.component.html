@@ -1,15 +1,15 @@
 <ngb-carousel
 [showNavigationArrows]="true" 
 [showNavigationIndicators]="false"
-[interval]="5000"
+[interval]="speed"
 [keyboard]="true"
 [pauseOnHover]="true"
 [wrap]="true"
 id="carousel"
-(swipeleft)="onSwipeLeft()"
-(swiperight)="onSwipeRight()"
+(swipeleft)="onSwipeLeft($event)"
+(swiperight)="onSwipeRight($event)"
 >
-    <ng-template *ngFor="let item of inputs"  ngbSlide>
+    <ng-template *ngFor="let item of inputs" ngbSlide >
         {{item.code}}
         {{item.close}}
       </ng-template>
