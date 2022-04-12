@@ -1,9 +1,12 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
+import { IgxNavigationDrawerComponent } from 'igniteui-angular';
 import { DataService } from 'src/app/services/data.service';
 import { PagestatusService } from 'src/app/services/pagestatus.service';
 import { RequestService } from 'src/app/services/request.service';
 import { signalData } from '../stockdetail/stockdetail.model';
+
+const IS_MOBILE = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
 
 @Component({
   selector: 'app-menu',
@@ -11,6 +14,9 @@ import { signalData } from '../stockdetail/stockdetail.model';
   styleUrls: ['./dashboard.component.scss']
 })
 export class DashboardComponent implements OnInit {
+  @ViewChild(IgxNavigationDrawerComponent, { static: true })
+  public drawer: IgxNavigationDrawerComponent;
+
   public getTrendData: boolean = false
   public getReverseData: boolean = false
   public getTripleScreenData: boolean = false
@@ -26,6 +32,31 @@ export class DashboardComponent implements OnInit {
   public sellTrend: Array<string[]> = []
   public sellReverse: Array<string[]> = []
   public sellTriple: Array<string[]> = []
+  private isOpenMenu: number = 0
+
+  public navItems = [
+    { name: 'account_circle', text: '대쉬보드', link: 'dashboard' },
+    { name: 'error', text: '종목 검색' , link: 'findcompany' },
+    { name: 'group_work', text: '최적 포트폴리오' , link: 'findcompany' }
+  ];
+
+  public selected = '';
+
+  public navigate(item) {
+    if(this.isOpenMenu == 0) return
+    if(IS_MOBILE && this.isOpenMenu == 2) return
+    
+    this.selected = item.text;
+
+    switch(item.text){
+      case '종목 검색':
+        this.onPressGetStock()
+        break;
+      case '최적 포트폴리오':
+        this.onPressOptPortfolio()
+         break;
+  }
+  }
 
   constructor(private statusService: PagestatusService,
     private router: Router,
@@ -112,15 +143,15 @@ export class DashboardComponent implements OnInit {
       case "bollinger-trend":
         data.forEach(element => {
           if (element.type === "buy") this.buyTrend.push([
-            this.dataService.getCompanyNamebyCode(element.code), 
-            "전일 종가 " + String(element.close) + "원", 
+            this.dataService.getCompanyNamebyCode(element.code),
+            "전일 종가 " + String(element.close) + "원",
             // String(element.last_sell_date),
             // " 당시 매도 가격 " + String(element.last_sell_close) + "원"
           ])
           else this.sellTrend.push([
-            this.dataService.getCompanyNamebyCode(element.code), 
-            "전일 종가 " + String(element.close) + "원", 
-            element.last_buy_close != -1 ? String(((element.last_buy_close - element.close)/element.last_buy_close * 100).toFixed(2)) + "% 수익" + "  " + "(매수가 " +String(element.last_buy_close)+"원)": "정보 없음"
+            this.dataService.getCompanyNamebyCode(element.code),
+            "전일 종가 " + String(element.close) + "원",
+            element.last_buy_close != -1 ? String(((element.last_buy_close - element.close) / element.last_buy_close * 100).toFixed(2)) + "% 수익" + "  " + "(매수가 " + String(element.last_buy_close) + "원)" : "정보 없음"
           ])
         });
         this.getTrendData = true
@@ -128,15 +159,15 @@ export class DashboardComponent implements OnInit {
       case "bollinger-reverse":
         data.forEach(element => {
           if (element.type === "buy") this.buyReverse.push([
-            this.dataService.getCompanyNamebyCode(element.code), 
-            "전일 종가 " + String(element.close) + "원", 
+            this.dataService.getCompanyNamebyCode(element.code),
+            "전일 종가 " + String(element.close) + "원",
             // String(element.last_sell_date),
             // " 당시 매도 가격 " + String(element.last_sell_close) + "원"
           ])
           else this.sellReverse.push([
-            this.dataService.getCompanyNamebyCode(element.code), 
-            "전일 종가 " + String(element.close) + "원", 
-            element.last_buy_close != -1 ? String(((element.last_buy_close - element.close)/element.last_buy_close * 100).toFixed(2)) + "% 수익"  + "  " + "(매수가 " +String(element.last_buy_close)+"원)": "정보 없음"
+            this.dataService.getCompanyNamebyCode(element.code),
+            "전일 종가 " + String(element.close) + "원",
+            element.last_buy_close != -1 ? String(((element.last_buy_close - element.close) / element.last_buy_close * 100).toFixed(2)) + "% 수익" + "  " + "(매수가 " + String(element.last_buy_close) + "원)" : "정보 없음"
           ])
         });
         this.getReverseData = true
@@ -144,15 +175,15 @@ export class DashboardComponent implements OnInit {
       case "triplescreen":
         data.forEach(element => {
           if (element.type === "buy") this.buyTriple.push([
-            this.dataService.getCompanyNamebyCode(element.code),  
-            "전일 종가 " + String(element.close) + "원", 
+            this.dataService.getCompanyNamebyCode(element.code),
+            "전일 종가 " + String(element.close) + "원",
             // String(element.last_sell_date),
             // " 당시 매도 가격 " + String(element.last_sell_close) + "원"
           ])
           else this.sellTriple.push([
-            this.dataService.getCompanyNamebyCode(element.code),  
-            "전일 종가 " + String(element.close) + "원", 
-            element.last_buy_close != -1 ? String(((element.last_buy_close - element.close)/element.last_buy_close * 100).toFixed(2)) + "% 수익"  + "  " + "(매수가 " +String(element.last_buy_close)+"원)": "정보 없음"
+            this.dataService.getCompanyNamebyCode(element.code),
+            "전일 종가 " + String(element.close) + "원",
+            element.last_buy_close != -1 ? String(((element.last_buy_close - element.close) / element.last_buy_close * 100).toFixed(2)) + "% 수익" + "  " + "(매수가 " + String(element.last_buy_close) + "원)" : "정보 없음"
           ])
         });
         this.getTripleScreenData = true
@@ -176,5 +207,18 @@ export class DashboardComponent implements OnInit {
         target: 'OptPortfolio'
       }
     })
+  }
+
+  onOpenMenu(){
+    console.log("OPEN" + this.isOpenMenu)
+    this.isOpenMenu++
+    if(this.isOpenMenu >1) return 
+    this.drawer.toggle()
+  }
+  onCloseMenu(){
+    console.log("CLOSE")
+    if(this.isOpenMenu ==0) return 
+    this.drawer.close()
+    this.isOpenMenu = 0
   }
 }

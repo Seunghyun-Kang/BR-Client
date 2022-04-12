@@ -1,3 +1,11 @@
+@import '~igniteui-angular/lib/core/styles/themes/index';
+
+$custom-theme: navdrawer-theme(
+    $background: #2d313a,
+    $item-active-background: #ecc256,
+    $item-header-text-color: #ecc256
+);
+
 .dashboard {
   display: flex;
   flex-direction: column;
@@ -6,11 +14,17 @@
   .actionbar {
     z-index: 2;
   }
-
+.main{
+  
+  display: flex;
+  height: 100%;
   .content {
     z-index: 1;
-    padding-left: 10%;
+    padding-left: 5%;
     padding-right: 10%;
+    width: 100%;
+    min-width: 300px;
+    overflow: hidden;
 
     .header-title {
       color: white;
@@ -57,6 +71,10 @@
       padding: 0 15%;
     }
   }
+}
+}
+:ng-deep aside .igx-nav-drawer__aside .igx-nav-drawer__aside--mini .igx-nav-drawer__aside--pinned {
+  background: transparent;
 }
 
 :ng-deep .igx-button .igx-button--raised {
@@ -159,4 +177,20 @@
   100% {
     transform: rotate(360deg);
   }
+}
+
+.content-wrap {
+  display: flex;
+  height: 100%;
+}
+
+:host {
+  $custom-theme: navdrawer-theme(
+    $background: transparent,
+    $item-active-background: white,
+    $item-header-text-color: white
+);
+  ::ng-deep {
+     @include navdrawer($custom-theme);
+ }
 }
