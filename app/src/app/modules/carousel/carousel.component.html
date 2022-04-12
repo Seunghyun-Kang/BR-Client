@@ -6,8 +6,8 @@
 [pauseOnHover]="true"
 [wrap]="true"
 id="carousel"
-(swipeleft)="swipe($event.type)"
-(swiperight)="swipe($event.type)"
+(swipeleft)="onSwipeLeft()"
+(swiperight)="onSwipeRight()"
 >
     <ng-template *ngFor="let item of inputs"  ngbSlide>
         {{item.code}}
