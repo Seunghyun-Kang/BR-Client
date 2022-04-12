@@ -10,7 +10,9 @@ import { signalData } from '../stockdetail/stockdetail.model';
   styleUrls: ['./dashboard.component.scss']
 })
 export class DashboardComponent implements OnInit {
-  public getData: boolean = false
+  public getTrendData: boolean = false
+  public getReverseData: boolean = false
+  public getTripleScreenData: boolean = false
   public status = "loading-forward";
   public rawLatestSignalTrend: signalData[] = []
   public rawLatestSignalReverse: signalData[] = []
@@ -25,22 +27,58 @@ export class DashboardComponent implements OnInit {
   ngOnInit(): void {
     setTimeout(() => {
       this.statusService.setStatus("normal")
-      this.getData = true
     }, 1000);
 
     this.requestService.getLatestBollingerTrendSignal()
     .subscribe({
       next: (v: any) => {
         this.rawLatestSignalTrend = Object(v.body)
+        this.getTrendData = true
         },
-      error: (e: any) => console.log("ERROR OCCURED :: " + JSON.stringify(e))
+      error: (e: any) => {this.rawLatestSignalTrend = [{code: '001780', date: '2022-04-11', type: 'sell', close: 3755, valid: 'valid'},
+      {code: '004370', date: '2022-04-11', type: 'buy', close: 319500, valid: 'valid'},
+     {code: '007210', date: '2022-04-11', type: 'sell', close: 3475, valid: 'valid'},
+     {code: '007820', date: '2022-04-11', type: 'sell', close: 6640, valid: 'valid'},
+      {code: '008250', date: '2022-04-11', type: 'sell', close: 11900, valid: 'valid'},
+     {code: '013700', date: '2022-04-11', type: 'sell', close: 2395, valid: 'valid'},
+     {code: '015890', date: '2022-04-11', type: 'buy', close: 7210, valid: 'valid'},
+     {code: '025550', date: '2022-04-11', type: 'sell', close: 6180, valid: 'valid'},
+     {code: '026150', date: '2022-04-11', type: 'sell', close: 11350, valid: 'valid'},
+     {code: '028050', date: '2022-04-11', type: 'sell', close: 24350, valid: 'valid'},
+     {code: '029780', date: '2022-04-11', type: 'buy', close: 33050, valid: 'valid'},
+     {code: '035890', date: '2022-04-11', type: 'sell', close: 1815, valid: 'valid'},
+      {code: '036010', date: '2022-04-11', type: 'buy', close: 11650, valid: 'valid'},
+      {code: '036090', date: '2022-04-11', type: 'sell', close: 1295, valid: 'valid'},
+      {code: '038010', date: '2022-04-11', type: 'sell', close: 5850, valid: 'valid'},
+     {code: '040910', date: '2022-04-11', type: 'sell', close: 10400, valid: 'valid'},
+     {code: '043340', date: '2022-04-11', type: 'buy', close: 1290, valid: 'valid'},
+     {code: '043360', date: '2022-04-11', type: 'buy', close: 3830, valid: 'valid'},
+     {code: '046210', date: '2022-04-11', type: 'buy', close: 3920, valid: 'valid'},
+      {code: '046940', date: '2022-04-11', type: 'sell', close: 5340, valid: 'valid'},
+      {code: '047560', date: '2022-04-11', type: 'sell', close: 13800, valid: 'valid'},
+      {code: '054040', date: '2022-04-11', type: 'sell', close: 4715, valid: 'valid'},
+      {code: '058110', date: '2022-04-11', type: 'sell', close: 7280, valid: 'valid'},
+      {code: '066430', date: '2022-04-11', type: 'buy', close: 3235, valid: 'valid'},
+      {code: '082210', date: '2022-04-11', type: 'buy', close: 7210, valid: 'valid'},
+     {code: '084650', date: '2022-04-11', type: 'sell', close: 9540, valid: 'valid'},
+     {code: '085670', date: '2022-04-11', type: 'buy', close: 6260, valid: 'valid'},
+     {code: '089600', date: '2022-04-11', type: 'sell', close: 28050, valid: 'valid'},
+      {code: '101170', date: '2022-04-11', type: 'sell', close: 4825, valid: 'valid'},
+     {code: '102120', date: '2022-04-11', type: 'buy', close: 13550, valid: 'valid'},
+     {code: '105330', date: '2022-04-11', type: 'sell', close: 10850, valid: 'valid'},
+     {code: '107590', date: '2022-04-11', type: 'buy', close: 147500, valid: 'valid'},
+      {code: '117730', date: '2022-04-11', type: 'sell', close: 8660, valid: 'valid'},
+      {code: '121800', date: '2022-04-11', type: 'sell', close: 16850, valid: 'valid'}
+      ]
+      this.getTrendData = true}
     });
 
     this.requestService.getLatestBollingerReverseSignal()
     .subscribe({
       next: (v: any) => {
         this.rawLatestSignalReverse = Object(v.body)
-        },
+        this.getReverseData = true
+      },
       error: (e: any) => console.log("ERROR OCCURED :: " + JSON.stringify(e))
     });
 
@@ -48,7 +86,8 @@ export class DashboardComponent implements OnInit {
     .subscribe({
       next: (v: any) => {
         this.rawLatestSignalTripleScreen = Object(v.body)
-        },
+        this.getTripleScreenData = true
+      },
       error: (e: any) => console.log("ERROR OCCURED :: " + JSON.stringify(e))
     });
   }
