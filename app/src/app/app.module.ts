@@ -36,6 +36,7 @@ import { DeviceDetectorService } from 'ngx-device-detector';
 import { StockdetailDefaultComponent } from './components/stockdetail-default/stockdetail-default.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { CarouselComponent } from './modules/carousel/carousel.component'; 
+import { IgxButtonModule } from 'igniteui-angular';
 
 PlotlyModule.plotlyjs = PlotlyJS;
 
@@ -92,7 +93,8 @@ const appRoutes: Routes = [
     PlotlyModule,
     NgApexchartsModule,
     CommonModule,
-    NgbModule
+    NgbModule,
+    IgxButtonModule
   ],
   providers: [HTMLCanvasElement,
     {
