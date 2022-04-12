@@ -3,7 +3,7 @@
         <header [title]="'대쉬보드'"></header>
     </div>
     <div class="content">
-        <p class="header-title">오늘의 매수 신호</p>
+        <p class="header-title">오늘의 <span class="red">매수</span> 신호</p>
         <p class="header">볼린저 추세 추종 알고리즘</p>
         <app-carousel *ngIf="getTrendData" [inputs] = "rawLatestSignalTrend"></app-carousel>
         <p class="header">볼린저 반전매매 알고리즘</p>
