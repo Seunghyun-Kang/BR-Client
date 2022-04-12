@@ -34,6 +34,8 @@ import { StockdstailBollingerreverseComponent } from './components/stockdstail-b
 import { StockdstailTriplescreenComponent } from './components/stockdstail-triplescreen/stockdstail-triplescreen.component';
 import { DeviceDetectorService } from 'ngx-device-detector';
 import { StockdetailDefaultComponent } from './components/stockdetail-default/stockdetail-default.component';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { CarouselComponent } from './modules/carousel/carousel.component'; 
 
 PlotlyModule.plotlyjs = PlotlyJS;
 
@@ -67,7 +69,8 @@ const appRoutes: Routes = [
     StockdstailTriplescreenComponent,
     DashboardComponent,
     OptimalportfolioComponent,
-    StockdetailDefaultComponent
+    StockdetailDefaultComponent,
+    CarouselComponent
   ],
   imports: [
     BrowserModule,
@@ -89,6 +92,7 @@ const appRoutes: Routes = [
     PlotlyModule,
     NgApexchartsModule,
     CommonModule,
+    NgbModule
   ],
   providers: [HTMLCanvasElement,
     {
