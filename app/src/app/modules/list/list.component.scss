@@ -1,0 +1,29 @@
+.title {
+    font-family: 'hyundai-card';
+    color: white;
+    text-align: center;
+    font-size: 20px;
+    margin-bottom: 9px;
+}
+
+table {
+    width: 100%;
+    font-family: 'hyundai-card';
+    color: white;
+    background-color: #2a273d !important;
+
+    th.mat-header-cell {
+        text-align: -webkit-center;
+        font-size: 10px;
+        color: white;
+    }
+    tr.mat-row, tr.mat-footer-row {
+    text-align: -webkit-center;
+    }
+    td.mat-cell {
+        font-size: 10px;
+        color: white;
+
+    }
+  }
+
