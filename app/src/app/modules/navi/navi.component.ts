@@ -104,14 +104,13 @@ export class NaviComponent implements OnInit {
     console.log(event)
     switch (event.checked) {
       case true:
-        this.statusService.setStatus("normal")
+        this.statusService.setStatus("GalaxyOn")
         this.isGalaxyOn = true
         break;
       case false:
         this.statusService.setStatus("GalaxyOff")
         this.isGalaxyOn = false
         break;
-
     }
   }
 }
