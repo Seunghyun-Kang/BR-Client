@@ -5,13 +5,35 @@
     height: 100%;
   }
   
+$custom-switch-theme: switch-theme(
+  $thumb-on-color: rgba(236, 222, 222, 0.795),
+  $track-on-color: rgb(19, 83, 143)
+);
+.switch {
+
+  position: fixed;
+  bottom: 30px;
+  left: 17px;
+}
   :host {
     $custom-theme: navdrawer-theme(
       $background: transparent,
       $item-active-background: white,
       $item-header-text-color: white
   );
+  igx-icon {
+    filter: brightness(0) invert(1);
+  }
     ::ng-deep {
        @include navdrawer($custom-theme);
+   }
+   igx-switch {
+       margin-left: 5px;
+   }
+   ::ng-deep .igx-switch__composite-thumb {
+       height: 15px;
+   }
+   ::ng-deep {
+       @include switch($custom-switch-theme);
    }
   }

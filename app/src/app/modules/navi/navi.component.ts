@@ -82,4 +82,9 @@ export class NaviComponent implements OnInit {
     this.drawer.close()
     this.isOpenMenu = 0
   }
+
+
+  onSwitchChanged(event: any) {
+    console.log(event)
+  }
 }
