@@ -38,9 +38,11 @@ export class NaviComponent implements OnInit {
 
   constructor(private router: Router,
     private statusService: PagestatusService,
-    private eRef: ElementRef) { }
+    private eRef: ElementRef,
+    ) { }
 
   ngOnInit(): void {
+    this.isGalaxyOn = this.statusService.isGalaxyOn()
   }
 
   public navigate(item) {
