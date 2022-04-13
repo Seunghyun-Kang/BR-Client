@@ -31,3 +31,14 @@
 @include core();
 @include typography($font-family: $material-typeface, $type-scale: $material-type-scale);
 @include theme($default-palette);
+
+mat-dialog-container {
+  background-color: #2a273d !important;
+  border-radius: 30px !important;
+}
+
+.igx-scrollbar {
+  --thumb-background: none;
+  --size: 0;
+  --track-background: none;
+}
