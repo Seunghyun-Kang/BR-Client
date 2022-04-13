@@ -11,9 +11,10 @@ export class AppComponent {
 
   
   constructor(private iconSerivce: IgxIconService){
-    this.iconSerivce.addSvgIcon('OptPortfolio','../assets/iamge/document-color.svg' , 'user-icons')
-    this.iconSerivce.addSvgIcon('StockDetails', '../assets/iamge/chart-color.svg', 'user-icons')
-    this.iconSerivce.addSvgIcon('Dashboard', '../assets/iamge/homepage-color.svg', 'user-icons')
-    this.iconSerivce.addSvgIcon('Rocket', '../assets/iamge/rocket-color.svg', 'user-icons')
+    this.iconSerivce.addSvgIcon('OptPortfolio','../assets/iamge/document-black.svg' , 'user-icons')
+    this.iconSerivce.addSvgIcon('StockDetails', '../assets/iamge/chart-black.svg', 'user-icons')
+    this.iconSerivce.addSvgIcon('Dashboard', '../assets/iamge/homepage-black.svg', 'user-icons')
+    this.iconSerivce.addSvgIcon('Rocket', '../assets/iamge/rocket2-black.svg', 'user-icons')
+    this.iconSerivce.addSvgIcon('Back', '../assets/iamge/back-black.svg', 'user-icons')
   }
 }
