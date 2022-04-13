@@ -13,6 +13,7 @@ export class IntroComponent implements OnInit, OnDestroy {
   public canvas: HTMLCanvasElement;
   public UIToggleButton: HTMLElement;
   private starfield: any
+  private isGalaxyOff: boolean = false
 
   constructor(private service: PagestatusService) {
   }
@@ -24,27 +25,36 @@ export class IntroComponent implements OnInit, OnDestroy {
 
   ngAfterViewInit(): void {
     var howManyStars: number = IS_MOBILE ? 400 : 1000;
-    // if (IS_MOBILE) return
+    
     this.service.getStatus().subscribe((value) => {
-
       console.log("WEB STATUS CHANGED ::" + value);
       if (screenId === 'dashboard' && value === "normal") return
 
-      if(value === "GalaxyOff"){
-        this.starfield.destroy();
-        this.starfield = undefined
-      } else {
-        screenId = value;
-        if (this.starfield !== undefined) {
+      switch (value) {
+        case "GalaxyOff":
+          this.isGalaxyOff = true
           this.starfield.destroy();
           this.starfield = undefined
-        }
-        this.starfield = new StarField(howManyStars, this.canvas);
-        this.starfield.startRenderLoop();
+          break;
+        case "GalaxyOn":
+          this.isGalaxyOff = false
+          value = "normal"
+          screenId = value;
+          this.starfield = new StarField(howManyStars, this.canvas);
+          this.starfield.startRenderLoop();
+          break;
+        default:
+          if (this.isGalaxyOff) return
+          screenId = value;
+          if (this.starfield !== undefined) {
+            this.starfield.destroy();
+            this.starfield = undefined
+          }
+          this.starfield = new StarField(howManyStars, this.canvas);
+          this.starfield.startRenderLoop();
+          break;
       }
     });
-
-    
   }
 
   ngOnDestroy() {
