@@ -6,7 +6,9 @@ import { RequestService } from 'src/app/services/request.service';
 import { signalData } from '../stockdetail/stockdetail.model';
 import { MatDialog } from '@angular/material/dialog';
 import { ListComponent } from 'src/app/modules/list/list.component';
-import { Title } from '@angular/platform-browser';
+
+const IS_MOBILE = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+
 @Component({
   selector: 'app-menu',
   templateUrl: './dashboard.component.html',
@@ -78,16 +80,25 @@ export class DashboardComponent implements OnInit {
   openDialog(type: string) {
     let dataArray: Array<string[]> = []
     let title = ""
+    let columnlist = IS_MOBILE ? ["종목", "신호가", "과거 거래가", "수익률"]:["종목",  "신호일", "신호가","과거 거래일", "과거 거래가", "수익률"]
+    
     switch (type) {
       case "buyTrend":
         this.rawLatestSignalTrend.forEach(element => {
           title = "볼린저 추세 추동 매수 신호"
           if(element.type === "buy" && element.valid === "valid"){
-            dataArray.push([
+            if(!IS_MOBILE) dataArray.push([
               this.dataService.getCompanyNamebyCode(element.code),
               element.date,
               String(element.close),
               element.last_sell_date,
+              String(element.last_sell_close),
+              "-",
+              element.code
+            ])
+            else dataArray.push([
+              this.dataService.getCompanyNamebyCode(element.code),
+              String(element.close),
               String(element.last_sell_close),
               "-",
               element.code
@@ -99,11 +110,18 @@ export class DashboardComponent implements OnInit {
         title = "볼린저 반전 매매 매수 신호"
         this.rawLatestSignalReverse.forEach(element => {
           if(element.type === "buy" && element.valid === "valid"){
-            dataArray.push([
+            if(!IS_MOBILE) dataArray.push([
               this.dataService.getCompanyNamebyCode(element.code),
               element.date,
               String(element.close),
               element.last_sell_date,
+              String(element.last_sell_close),
+              "-",
+              element.code
+            ])
+            else dataArray.push([
+              this.dataService.getCompanyNamebyCode(element.code),
+              String(element.close),
               String(element.last_sell_close),
               "-",
               element.code
@@ -116,11 +134,18 @@ export class DashboardComponent implements OnInit {
 
         this.rawLatestSignalTripleScreen.forEach(element => {
           if(element.type === "buy" && element.valid === "valid"){
-            dataArray.push([
+            if(!IS_MOBILE) dataArray.push([
               this.dataService.getCompanyNamebyCode(element.code),
               element.date,
               String(element.close),
               element.last_sell_date,
+              String(element.last_sell_close),
+              "-",
+              element.code
+            ])
+            else dataArray.push([
+              this.dataService.getCompanyNamebyCode(element.code),
+              String(element.close),
               String(element.last_sell_close),
               "-",
               element.code
@@ -133,11 +158,18 @@ export class DashboardComponent implements OnInit {
 
         this.rawLatestSignalTrend.forEach(element => {
           if(element.type === "sell" && element.valid === "valid"){
-            dataArray.push([
+            if(!IS_MOBILE) dataArray.push([
               this.dataService.getCompanyNamebyCode(element.code),
               element.date,
               String(element.close),
               element.last_buy_date,
+              String(element.last_buy_close),
+              String(((element.close - element.last_buy_close) / element.last_buy_close * 100).toFixed(2)),
+              element.code
+            ])
+            else dataArray.push([
+              this.dataService.getCompanyNamebyCode(element.code),
+              String(element.close),
               String(element.last_buy_close),
               String(((element.close - element.last_buy_close) / element.last_buy_close * 100).toFixed(2)),
               element.code
@@ -150,13 +182,20 @@ export class DashboardComponent implements OnInit {
 
         this.rawLatestSignalReverse.forEach(element => {
           if(element.type === "sell" && element.valid === "valid"){
-            dataArray.push([
+            if(!IS_MOBILE) dataArray.push([
               this.dataService.getCompanyNamebyCode(element.code),
               element.date,
               String(element.close),
               element.last_buy_date,
               String(element.last_buy_close),
-              String(((element.close - element.last_buy_close) / element.last_buy_close * 100).toFixed(2)) + '%',
+              String(((element.close - element.last_buy_close) / element.last_buy_close * 100).toFixed(2)),
+              element.code
+            ])
+            else dataArray.push([
+              this.dataService.getCompanyNamebyCode(element.code),
+              String(element.close),
+              String(element.last_buy_close),
+              String(((element.close - element.last_buy_close) / element.last_buy_close * 100).toFixed(2)),
               element.code
             ])
           }
@@ -167,13 +206,20 @@ export class DashboardComponent implements OnInit {
 
         this.rawLatestSignalTripleScreen.forEach(element => {
           if(element.type === "sell" && element.valid === "valid"){
-            dataArray.push([
+            if(!IS_MOBILE) dataArray.push([
               this.dataService.getCompanyNamebyCode(element.code),
               element.date,
               String(element.close),
               element.last_buy_date,
               String(element.last_buy_close),
-              String(((element.close - element.last_buy_close) / element.last_buy_close * 100).toFixed(2)) + '%',
+              String(((element.close - element.last_buy_close) / element.last_buy_close * 100).toFixed(2)),
+              element.code
+            ])
+            else dataArray.push([
+              this.dataService.getCompanyNamebyCode(element.code),
+              String(element.close),
+              String(element.last_buy_close),
+              String(((element.close - element.last_buy_close) / element.last_buy_close * 100).toFixed(2)),
               element.code
             ])
           }
@@ -189,7 +235,7 @@ export class DashboardComponent implements OnInit {
       height:'80vh',
       data: {
         title: title,
-        column: ["종목",  "신호일", "신호가","과거 거래일", "과거 거래가", "수익률"],
+        column: columnlist,
         data: dataArray
       },
     });
@@ -202,8 +248,6 @@ export class DashboardComponent implements OnInit {
           if (element.type === "buy") this.buyTrend.push([
             this.dataService.getCompanyNamebyCode(element.code),
             "전일 종가 " + String(element.close) + "원",
-            // String(element.last_sell_date),
-            // " 당시 매도 가격 " + String(element.last_sell_close) + "원"
           ])
           else this.sellTrend.push([
             this.dataService.getCompanyNamebyCode(element.code),
@@ -218,8 +262,6 @@ export class DashboardComponent implements OnInit {
           if (element.type === "buy") this.buyReverse.push([
             this.dataService.getCompanyNamebyCode(element.code),
             "전일 종가 " + String(element.close) + "원",
-            // String(element.last_sell_date),
-            // " 당시 매도 가격 " + String(element.last_sell_close) + "원"
           ])
           else this.sellReverse.push([
             this.dataService.getCompanyNamebyCode(element.code),
@@ -234,8 +276,6 @@ export class DashboardComponent implements OnInit {
           if (element.type === "buy") this.buyTriple.push([
             this.dataService.getCompanyNamebyCode(element.code),
             "전일 종가 " + String(element.close) + "원",
-            // String(element.last_sell_date),
-            // " 당시 매도 가격 " + String(element.last_sell_close) + "원"
           ])
           else this.sellTriple.push([
             this.dataService.getCompanyNamebyCode(element.code),
