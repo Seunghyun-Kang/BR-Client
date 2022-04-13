@@ -143,7 +143,7 @@ export class StockdstailTriplescreenComponent implements OnInit, OnDestroy {
     this.closeGraph = {
       x: [],
       y: [],
-      line: { color: "white" },
+      line: { color: "#EE4B28" },
       type: 'scatter',
       xaxis: "x",
       yaxis: "y",
@@ -245,8 +245,10 @@ export class StockdstailTriplescreenComponent implements OnInit, OnDestroy {
       this.FASTKGraph.y.push(element.fast_k);
     });
 
-
+  
     if(!IS_MOBILE) this.firstChart.data.push(this.stockGraph)
+    else this.firstChart.data.push(this.closeGraph)
+    
     this.firstChart.data.push(this.EMA130Graph)
 
     let stockarray = this.rawStockData.slice(this.rawStockData.length - 31, this.rawStockData.length - 1)
