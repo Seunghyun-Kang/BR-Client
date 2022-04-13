@@ -8,22 +8,42 @@
     <app-navi></app-navi>
 
     <div class="content">
-        <p class="header-title">오늘의 <span class="red">매수</span> 신호</p>
+        <p class="title">오늘의 <span class="red">매수</span> 신호</p>
         <div class="signals-container" style="background-color: rgba(165,42,42,0.7);">
-            <p class="header">볼린저 추세 추종 알고리즘</p>
+            
+            <div class="header">
+                <p class="header-title">볼린저 추세 추종 알고리즘</p>
+                <igx-icon (click)="TrendList.open()" fontSet="material" [name]="'List'" [family]="'user-icons'"></igx-icon>
+            </div>
             <app-carousel style="width: 100%;" *ngIf="getTrendData" [inputs]="buyTrend"></app-carousel>
-            <p class="header">볼린저 반전매매 알고리즘</p>
+            
+            <div class="header">
+                <p class="header-title">볼린저 반전매매 알고리즘</p>
+                <igx-icon (click)="ReverseList.open()" fontSet="material" [name]="'List'" [family]="'user-icons'"></igx-icon>
+            </div>
             <app-carousel *ngIf="getTrendData" [inputs]="buyReverse"></app-carousel>
-            <p class="header">삼중창 알고리즘</p>
+            <div class="header">
+                <p class="header-title">삼중창 알고리즘</p>
+                <igx-icon (click)="TripleList.open()" fontSet="material" [name]="'List'" [family]="'user-icons'"></igx-icon>
+            </div>
             <app-carousel *ngIf="getTrendData" [inputs]="buyTriple"></app-carousel>
         </div>
-        <p class="header-title">오늘의 <span class="blue">매도</span> 신호</p>
+        <p class="title">오늘의 <span class="blue">매도</span> 신호</p>
         <div class="signals-container" style="background-color: rgba(100, 149, 237,0.7);">
-            <p class="header">볼린저 추세 추종 알고리즘</p>
+            <div class="header">
+                <p class="header-title">볼린저 추세 추종 알고리즘</p>
+                <igx-icon (click)="TrendList.open()" fontSet="material" [name]="'List'" [family]="'user-icons'"></igx-icon>
+            </div>
             <app-carousel *ngIf="getTrendData" [inputs]="sellTrend"></app-carousel>
-            <p class="header">볼린저 반전매매 알고리즘</p>
+            <div class="header">
+                <p class="header-title">볼린저 반전매매 알고리즘</p>
+                <igx-icon (click)="ReverseList.open()" fontSet="material" [name]="'List'" [family]="'user-icons'"></igx-icon>
+            </div>
             <app-carousel *ngIf="getTrendData" [inputs]="sellReverse"></app-carousel>
-            <p class="header">삼중창 알고리즘</p>
+            <div class="header">
+                <p class="header-title">삼중창 알고리즘</p>
+                <igx-icon (click)="TripleList.open()" fontSet="material" [name]="'List'" [family]="'user-icons'"></igx-icon>
+            </div>
             <app-carousel *ngIf="getTrendData" [inputs]="sellTriple"></app-carousel>
         </div>
        
@@ -33,14 +53,12 @@
 </div>
 
 <igx-dialog #TrendList [closeOnOutsideSelect]="true">
-    <div igxDialogActions>
-        <button igxButton (click)="TripleList.close()">CANCEL</button>
-    </div>
+    <igx-icon (click)="TrendList.close()" fontSet="material" [name]="'Close'" [family]="'user-icons'"></igx-icon>
 </igx-dialog>
 
 <igx-dialog #ReverseList [closeOnOutsideSelect]="true">
     <div igxDialogActions>
-        <button igxButton (click)="TripleList.close()">CANCEL</button>
+        <button igxButton (click)="ReverseList.close()">CANCEL</button>
     </div>
 </igx-dialog>
 

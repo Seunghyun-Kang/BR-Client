@@ -1,3 +1,5 @@
+@import '~igniteui-angular/lib/core/styles/themes/index';
+
 .dashboard {
   display: flex;
   flex-direction: column;
@@ -18,7 +20,7 @@
     min-width: 300px;
     overflow: hidden;
 
-    .header-title {
+    .title {
       color: white;
       text-align: center;
       font-family: hyundai-card;
@@ -38,15 +40,18 @@
 
 
     }
-
-    .header {
+.header {
+  display:flex;
+  justify-content: space-between;
+  align-items: center;
+    .header-title {
       color: lemonchiffon;
       font-family: hyundai-card;
       font-size: 11px;
       z-index: 90;
       margin: 15px 15px 0px 15px;
     }
-
+  }
     .signals-container {
       border-radius: 30px;
       padding: 5px;
@@ -161,4 +166,25 @@
   100% {
     transform: rotate(360deg);
   }
+}
+
+:host {
+igx-icon {
+  filter: brightness(0) invert(1);
+    width: 15px;
+    margin: 15px 15px 0px 15px;
+}
+
+igx-dialog {
+  padding: 0px;
+
+:ng-deep .igx-dialog__window-content {
+  padding: 0px;
+
+}
+  igx-icon {
+    width: 15px;
+    margin: 15px 15px 0px 15px;
+}
+}
 }
