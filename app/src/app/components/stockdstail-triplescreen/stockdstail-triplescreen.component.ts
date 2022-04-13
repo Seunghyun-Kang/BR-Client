@@ -2,8 +2,8 @@ import { Component, ElementRef, OnInit, ViewChild, OnDestroy } from '@angular/co
 import { ActivatedRoute, Router } from '@angular/router';
 import { PlotlyModule, PlotlyService } from "angular-plotly.js";
 import { TradeViewSettings, priceData, bollingerData, signalData, tripleScreenData } from '../stockdetail/stockdetail.model';
-import { PagestatusService } from 'src/app/services/pagestatus.service';
 import { DataService } from 'src/app/services/data.service';
+const IS_MOBILE = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
 
 @Component({
   selector: 'app-stockdstail-triplescreen',
@@ -246,7 +246,7 @@ export class StockdstailTriplescreenComponent implements OnInit, OnDestroy {
     });
 
 
-    this.firstChart.data.push(this.stockGraph)
+    if(!IS_MOBILE) this.firstChart.data.push(this.stockGraph)
     this.firstChart.data.push(this.EMA130Graph)
 
     let stockarray = this.rawStockData.slice(this.rawStockData.length - 31, this.rawStockData.length - 1)

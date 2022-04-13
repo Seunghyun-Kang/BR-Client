@@ -2,8 +2,8 @@ import { Component, ElementRef, OnInit, ViewChild, OnDestroy } from '@angular/co
 import { ActivatedRoute, Router } from '@angular/router';
 import { PlotlyModule, PlotlyService } from "angular-plotly.js";
 import { TradeViewSettings, priceData, bollingerData, signalData } from '../stockdetail/stockdetail.model';
-import { PagestatusService } from 'src/app/services/pagestatus.service';
 import { DataService } from 'src/app/services/data.service';
+const IS_MOBILE = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
 
 @Component({
   selector: 'app-stockdstail-bollingerreverse',
@@ -262,7 +262,7 @@ export class StockdstailBollingerreverseComponent implements OnInit, OnDestroy {
     });
 
     //graph drawing
-    this.firstChart.data.push(this.stockGraph)
+    if(!IS_MOBILE) this.firstChart.data.push(this.stockGraph)
     this.firstChart.data.push(this.closeGraph)
     this.firstChart.data.push(this.bollingerUpperGraph)
     this.firstChart.data.push(this.bollingerLowerGraph)

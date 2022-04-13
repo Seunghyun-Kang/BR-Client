@@ -6,6 +6,8 @@ import { TradeViewSettings, priceData, bollingerData, signalData } from '../stoc
 import { PagestatusService } from 'src/app/services/pagestatus.service';
 import { DataService } from 'src/app/services/data.service';
 
+const IS_MOBILE = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+
 @Component({
   selector: 'app-stockdetail-bollingertrend',
   templateUrl: './stockdetail-bollingertrend.component.html',
@@ -264,7 +266,7 @@ export class StockdstailBollingertrendComponent implements OnInit, OnDestroy {
 
     //graph drawing
     this.firstChart.data = []
-    this.firstChart.data.push(this.stockGraph)
+    if(!IS_MOBILE) this.firstChart.data.push(this.stockGraph)
     this.firstChart.data.push(this.closeGraph)
 
     let array = this.rawStockData.slice(this.rawStockData.length - 31, this.rawStockData.length - 1)
