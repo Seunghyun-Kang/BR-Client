@@ -12,6 +12,10 @@
     .actionbar {
         z-index: 2;
     }
+    .main{
+  
+        display: flex;
+        height: 100%;
     .content {
         z-index: 1;
         height: 100%;
@@ -33,6 +37,7 @@
           text-align: -webkit-center;
           }
     }
+  }
 }
 
 ::ng-deep .guide_container {

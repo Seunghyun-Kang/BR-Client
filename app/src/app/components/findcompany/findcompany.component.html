@@ -2,6 +2,9 @@
     <div class="actionbar">
         <header [title]="'종목 검색'"></header>
     </div>
+
+    <div class="main">
+    <app-navi></app-navi>
     <div class="content">
         <app-guide style="position: fixed;
     width: 100%;" [descArray]="presentGuide" [position]="'upper'" (indexChange)="guideIndexChanged($event)">
@@ -17,5 +20,6 @@
                     src="../../../assets/iamge/circle-check-solid.svg" alt="확인" (click)="onTapClick()">
             </div>
         </div>
+    </div>
     </div>
 </div>

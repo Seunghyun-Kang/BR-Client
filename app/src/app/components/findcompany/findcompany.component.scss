@@ -6,6 +6,10 @@
     .actionbar {
         z-index: 2;
     }
+    .main{
+  
+        display: flex;
+        height: 100%;
     .content {
         z-index: 1;
         height: 100%;
@@ -26,6 +30,7 @@
 
         }
     }
+}
 }
 
 ::ng-deep .mat-form-field-wrapper{

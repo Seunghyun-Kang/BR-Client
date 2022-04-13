@@ -2,6 +2,9 @@
   <div class="actionbar">
     <header [title]="'최적 포트폴리오'"></header>
   </div>
+
+  <div class="main">
+    <app-navi></app-navi>
   <div class="content">
     <div id="chart" *ngIf="getData">
       <apx-chart [series]="chartOptions.series" [chart]="chartOptions.chart" [xaxis]="chartOptions.xaxis"
@@ -18,5 +21,6 @@
     <div *ngIf="getData" style="
   color: white;" class="result2" [innerText]="result2_portion"></div>
 
+  </div>
   </div>
 </div>

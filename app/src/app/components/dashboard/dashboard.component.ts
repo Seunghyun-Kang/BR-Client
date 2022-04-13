@@ -6,8 +6,6 @@ import { PagestatusService } from 'src/app/services/pagestatus.service';
 import { RequestService } from 'src/app/services/request.service';
 import { signalData } from '../stockdetail/stockdetail.model';
 
-const IS_MOBILE = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
-
 @Component({
   selector: 'app-menu',
   templateUrl: './dashboard.component.html',
@@ -32,31 +30,6 @@ export class DashboardComponent implements OnInit {
   public sellTrend: Array<string[]> = []
   public sellReverse: Array<string[]> = []
   public sellTriple: Array<string[]> = []
-  private isOpenMenu: number = 0
-
-  public navItems = [
-    { name: 'account_circle', text: '대쉬보드', link: 'dashboard' },
-    { name: 'error', text: '종목 검색' , link: 'findcompany' },
-    { name: 'group_work', text: '최적 포트폴리오' , link: 'findcompany' }
-  ];
-
-  public selected = '';
-
-  public navigate(item) {
-    if(this.isOpenMenu == 0) return
-    if(IS_MOBILE && this.isOpenMenu == 2) return
-    
-    this.selected = item.text;
-
-    switch(item.text){
-      case '종목 검색':
-        this.onPressGetStock()
-        break;
-      case '최적 포트폴리오':
-        this.onPressOptPortfolio()
-         break;
-  }
-  }
 
   constructor(private statusService: PagestatusService,
     private router: Router,
@@ -191,34 +164,5 @@ export class DashboardComponent implements OnInit {
       default:
         break;
     }
-  }
-
-  onPressGetStock() {
-    this.router.navigate(['findcompany'], {
-      queryParams: {
-        target: 'GetStockDetails'
-      }
-    })
-  }
-
-  onPressOptPortfolio() {
-    this.router.navigate(['findcompany'], {
-      queryParams: {
-        target: 'OptPortfolio'
-      }
-    })
-  }
-
-  onOpenMenu(){
-    console.log("OPEN" + this.isOpenMenu)
-    this.isOpenMenu++
-    if(this.isOpenMenu >1) return 
-    this.drawer.toggle()
-  }
-  onCloseMenu(){
-    console.log("CLOSE")
-    if(this.isOpenMenu ==0) return 
-    this.drawer.close()
-    this.isOpenMenu = 0
   }
 }
