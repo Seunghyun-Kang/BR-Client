@@ -32,11 +32,10 @@ import { NgApexchartsModule } from 'ng-apexcharts';
 import { StockdstailBollingertrendComponent } from './components/stockdetail-bollingertrend/stockdetail-bollingertrend.component';
 import { StockdstailBollingerreverseComponent } from './components/stockdstail-bollingerreverse/stockdstail-bollingerreverse.component';
 import { StockdstailTriplescreenComponent } from './components/stockdstail-triplescreen/stockdstail-triplescreen.component';
-import { DeviceDetectorService } from 'ngx-device-detector';
 import { StockdetailDefaultComponent } from './components/stockdetail-default/stockdetail-default.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { CarouselComponent } from './modules/carousel/carousel.component';
-import { IgxButtonModule, IgxIconModule, IgxNavigationDrawerModule } from 'igniteui-angular';
+import { IgxButtonModule, IgxIconModule, IgxNavigationDrawerModule, IgxSwitchModule } from 'igniteui-angular';
 import { NaviComponent } from './modules/navi/navi.component';
 
 PlotlyModule.plotlyjs = PlotlyJS;
@@ -101,7 +100,8 @@ const appRoutes: Routes = [
     IgxButtonModule,
     HammerModule,
     IgxNavigationDrawerModule,
-    IgxIconModule
+    IgxIconModule,
+    IgxSwitchModule
   ],
   providers: [HTMLCanvasElement,
     {
