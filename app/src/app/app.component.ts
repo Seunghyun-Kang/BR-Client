@@ -16,5 +16,6 @@ export class AppComponent {
     this.iconSerivce.addSvgIcon('Dashboard', '../assets/iamge/homepage-black.svg', 'user-icons')
     this.iconSerivce.addSvgIcon('Rocket', '../assets/iamge/rocket2-black.svg', 'user-icons')
     this.iconSerivce.addSvgIcon('Back', '../assets/iamge/back-black.svg', 'user-icons')
+    this.iconSerivce.addSvgIcon('List', '../assets/iamge/list-black.svg', 'user-icons')
   }
 }

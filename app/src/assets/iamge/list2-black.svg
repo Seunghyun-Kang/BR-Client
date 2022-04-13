@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" width="256" height="256" viewBox="0 0 256 256" xml:space="preserve">
+<desc>Created with Fabric.js 1.7.22</desc>
+<defs>
+</defs>
+<g transform="translate(128 128) scale(0.72 0.72)" style="">
+	<g style="stroke: none; stroke-width: 0; stroke-dasharray: none; stroke-linecap: butt; stroke-linejoin: miter; stroke-miterlimit: 10; fill: none; fill-rule: nonzero; opacity: 1;" transform="translate(-175.05 -175.05000000000004) scale(3.89 3.89)" >
+	<path d="M 76.704 90 H 13.296 C 5.964 90 0 84.035 0 76.704 V 13.296 C 0 5.964 5.964 0 13.296 0 h 63.408 C 84.035 0 90 5.964 90 13.296 v 63.408 C 90 84.035 84.035 90 76.704 90 z M 13.296 6 C 9.273 6 6 9.273 6 13.296 v 63.408 C 6 80.728 9.273 84 13.296 84 h 63.408 C 80.728 84 84 80.728 84 76.704 V 13.296 C 84 9.273 80.728 6 76.704 6 H 13.296 z" style="stroke: none; stroke-width: 1; stroke-dasharray: none; stroke-linecap: butt; stroke-linejoin: miter; stroke-miterlimit: 10; fill: rgb(0,0,0); fill-rule: nonzero; opacity: 1;" transform=" matrix(1 0 0 1 0 0) " stroke-linecap="round" />
+	<path d="M 70.086 27.955 H 19.914 c -1.657 0 -3 -1.343 -3 -3 s 1.343 -3 3 -3 h 50.172 c 1.657 0 3 1.343 3 3 S 71.743 27.955 70.086 27.955 z" style="stroke: none; stroke-width: 1; stroke-dasharray: none; stroke-linecap: butt; stroke-linejoin: miter; stroke-miterlimit: 10; fill: rgb(0,0,0); fill-rule: nonzero; opacity: 1;" transform=" matrix(1 0 0 1 0 0) " stroke-linecap="round" />
+	<path d="M 70.086 48 H 19.914 c -1.657 0 -3 -1.343 -3 -3 c 0 -1.657 1.343 -3 3 -3 h 50.172 c 1.657 0 3 1.343 3 3 C 73.086 46.657 71.743 48 70.086 48 z" style="stroke: none; stroke-width: 1; stroke-dasharray: none; stroke-linecap: butt; stroke-linejoin: miter; stroke-miterlimit: 10; fill: rgb(0,0,0); fill-rule: nonzero; opacity: 1;" transform=" matrix(1 0 0 1 0 0) " stroke-linecap="round" />
+	<path d="M 70.086 68.046 H 19.914 c -1.657 0 -3 -1.343 -3 -3 s 1.343 -3 3 -3 h 50.172 c 1.657 0 3 1.343 3 3 S 71.743 68.046 70.086 68.046 z" style="stroke: none; stroke-width: 1; stroke-dasharray: none; stroke-linecap: butt; stroke-linejoin: miter; stroke-miterlimit: 10; fill: rgb(0,0,0); fill-rule: nonzero; opacity: 1;" transform=" matrix(1 0 0 1 0 0) " stroke-linecap="round" />
+</g>
+</g>
+</svg>
