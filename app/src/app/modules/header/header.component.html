@@ -1,7 +1,6 @@
 <mat-toolbar style="background: transparent;height:6vh;justify-content: space-between;">
-    <span *ngIf="status === 'dashboard'" class="application-title">BR</span>
-    <img class="back-navigation" *ngIf="status !== 'dashboard'" src="../../../assets/iamge/angle-left-solid.svg"
-        alt="뒤로가기" (click)="onPressBack()">
-
+    <igx-icon *ngIf="status !== 'dashboard'" (click)="onPressBack()" fontSet="material" [style.color]="'white'"
+        [name]="'Back'" [family]="'user-icons'"></igx-icon>
     <span class="title">{{title}}</span>>
+   
 </mat-toolbar>

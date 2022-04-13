@@ -22,4 +22,5 @@ export class HeaderComponent implements OnInit {
   onPressBack() {
     this.location.back();
   }
+
 }
