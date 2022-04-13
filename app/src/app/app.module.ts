@@ -35,8 +35,12 @@ import { StockdstailTriplescreenComponent } from './components/stockdstail-tripl
 import { StockdetailDefaultComponent } from './components/stockdetail-default/stockdetail-default.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { CarouselComponent } from './modules/carousel/carousel.component';
-import { IgxButtonModule, IgxIconModule, IgxNavigationDrawerModule, IgxSwitchModule, IgxDialogModule } from 'igniteui-angular';
+import { IgxButtonModule, IgxIconModule, IgxNavigationDrawerModule, IgxSwitchModule } from 'igniteui-angular';
 import { NaviComponent } from './modules/navi/navi.component';
+import { ListComponent } from './modules/list/list.component';
+import { MatDialogModule } from '@angular/material/dialog';
+import { MatTableModule } from '@angular/material/table' 
+import {MatButtonModule} from '@angular/material/button';
 
 PlotlyModule.plotlyjs = PlotlyJS;
 export class MyHammerConfig extends HammerGestureConfig {
@@ -77,7 +81,8 @@ const appRoutes: Routes = [
     OptimalportfolioComponent,
     StockdetailDefaultComponent,
     CarouselComponent,
-    NaviComponent
+    NaviComponent,
+    ListComponent
   ],
   imports: [
     BrowserModule,
@@ -102,7 +107,9 @@ const appRoutes: Routes = [
     IgxNavigationDrawerModule,
     IgxIconModule,
     IgxSwitchModule,
-    IgxDialogModule
+    MatDialogModule,
+    MatTableModule,
+    MatButtonModule
   ],
   providers: [HTMLCanvasElement,
     {
