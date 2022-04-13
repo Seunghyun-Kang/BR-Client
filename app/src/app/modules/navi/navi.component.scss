@@ -1,0 +1,17 @@
+@import '~igniteui-angular/lib/core/styles/themes/index';
+
+  .content-wrap {
+    display: flex;
+    height: 100%;
+  }
+  
+  :host {
+    $custom-theme: navdrawer-theme(
+      $background: transparent,
+      $item-active-background: white,
+      $item-header-text-color: white
+  );
+    ::ng-deep {
+       @include navdrawer($custom-theme);
+   }
+  }

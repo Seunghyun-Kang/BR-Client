@@ -37,6 +37,7 @@ import { StockdetailDefaultComponent } from './components/stockdetail-default/st
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { CarouselComponent } from './modules/carousel/carousel.component';
 import { IgxButtonModule, IgxIconModule, IgxNavigationDrawerModule } from 'igniteui-angular';
+import { NaviComponent } from './modules/navi/navi.component';
 
 PlotlyModule.plotlyjs = PlotlyJS;
 export class MyHammerConfig extends HammerGestureConfig {
@@ -76,7 +77,8 @@ const appRoutes: Routes = [
     DashboardComponent,
     OptimalportfolioComponent,
     StockdetailDefaultComponent,
-    CarouselComponent
+    CarouselComponent,
+    NaviComponent
   ],
   imports: [
     BrowserModule,
