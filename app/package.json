@@ -25,6 +25,7 @@
     "all": "^0.0.0",
     "angular-plotly.js": "^4.0.4",
     "apexcharts": "^3.34.0",
+    "async": "^3.2.3",
     "bootstrap": "^5.1.3",
     "hammerjs": "^2.0.8",
     "igniteui-angular": "^13.1.9",
