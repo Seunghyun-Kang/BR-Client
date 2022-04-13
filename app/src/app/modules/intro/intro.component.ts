@@ -26,16 +26,22 @@ export class IntroComponent implements OnInit, OnDestroy {
     var howManyStars: number = IS_MOBILE ? 400 : 1000;
     // if (IS_MOBILE) return
     this.service.getStatus().subscribe((value) => {
+
       console.log("WEB STATUS CHANGED ::" + value);
       if (screenId === 'dashboard' && value === "normal") return
 
-      screenId = value;
-      if (this.starfield !== undefined) {
+      if(value === "GalaxyOff"){
         this.starfield.destroy();
         this.starfield = undefined
+      } else {
+        screenId = value;
+        if (this.starfield !== undefined) {
+          this.starfield.destroy();
+          this.starfield = undefined
+        }
+        this.starfield = new StarField(howManyStars, this.canvas);
+        this.starfield.startRenderLoop();
       }
-      this.starfield = new StarField(howManyStars, this.canvas);
-      this.starfield.startRenderLoop();
     });
 
     

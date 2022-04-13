@@ -1,6 +1,7 @@
 import { Component, OnInit, ViewChild, HostListener } from '@angular/core';
 import { Router } from '@angular/router';
 import { IgxNavigationDrawerComponent } from 'igniteui-angular';
+import { PagestatusService } from 'src/app/services/pagestatus.service';
 
 const IS_MOBILE = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
 
@@ -13,16 +14,19 @@ export class NaviComponent implements OnInit {
   @ViewChild(IgxNavigationDrawerComponent, { static: true })
   public drawer: IgxNavigationDrawerComponent;
   public navItems = [
-    { name: 'Dashboard', text: '대쉬보드' , family:'user-icons' },
-    { name: 'OptPortfolio', text: '종목 검색' , family:'user-icons' },
-    { name: 'StockDetails', text: '최적 포트폴리오' , family:'user-icons'  }
+    { name: 'Dashboard', text: '대쉬보드', family: 'user-icons' },
+    { name: 'OptPortfolio', text: '종목 검색', family: 'user-icons' },
+    { name: 'StockDetails', text: '최적 포트폴리오', family: 'user-icons' }
   ];
   private isOpenMenu: number = 0
   public selected = '';
-  public minWidth = IS_MOBILE ? "50px":"70px"
+  public minWidth = IS_MOBILE ? "50px" : "70px"
   public width = IS_MOBILE ? "190px" : "300px"
 
-  constructor( private router: Router,) { }
+  public isGalaxyOn: boolean = true
+
+  constructor(private router: Router,
+    private statusService: PagestatusService) { }
 
   ngOnInit(): void {
   }
@@ -30,24 +34,24 @@ export class NaviComponent implements OnInit {
   public navigate(item) {
     console.log(IS_MOBILE)
     console.log(this.isOpenMenu)
-    if(this.isOpenMenu == 0) return
-    if(IS_MOBILE && this.isOpenMenu == 2) return
-    
+    if (this.isOpenMenu == 0) return
+    if (IS_MOBILE && this.isOpenMenu == 2) return
+
     this.selected = item.text;
 
-    switch(item.text){
+    switch (item.text) {
       case '종목 검색':
         this.onPressGetStock()
         break;
       case '최적 포트폴리오':
         this.onPressOptPortfolio()
-         break;
+        break;
       case '대쉬보드':
         this.onPressDashboard()
         break;
-      default: 
+      default:
         break;
-  }
+    }
   }
 
   onPressGetStock() {
@@ -70,15 +74,15 @@ export class NaviComponent implements OnInit {
     this.router.navigate(['dashboard'])
   }
 
-  onOpenMenu(){
+  onOpenMenu() {
     console.log("OPEN" + this.isOpenMenu)
     this.isOpenMenu++
-    if(this.isOpenMenu >1) return 
+    if (this.isOpenMenu > 1) return
     this.drawer.toggle()
   }
-  onCloseMenu(){
+  onCloseMenu() {
     console.log("CLOSE")
-    if(this.isOpenMenu ==0) return 
+    if (this.isOpenMenu == 0) return
     this.drawer.close()
     this.isOpenMenu = 0
   }
@@ -86,5 +90,16 @@ export class NaviComponent implements OnInit {
 
   onSwitchChanged(event: any) {
     console.log(event)
+    switch (event.checked) {
+      case true:
+        this.statusService.setStatus("normal")
+        this.isGalaxyOn = true
+        break;
+      case false:
+        this.statusService.setStatus("GalaxyOff")
+        this.isGalaxyOn = false
+        break;
+
+    }
   }
 }
