@@ -124,7 +124,7 @@ export class DashboardComponent implements OnInit {
           else this.sellTrend.push([
             this.dataService.getCompanyNamebyCode(element.code),
             "전일 종가 " + String(element.close) + "원",
-            element.last_buy_close != -1 ? String(((element.last_buy_close - element.close) / element.last_buy_close * 100).toFixed(2)) + "% 수익" + "  " + "(매수가 " + String(element.last_buy_close) + "원)" : "정보 없음"
+            element.last_buy_close != -1 ? String(((element.close - element.last_buy_close) / element.last_buy_close * 100).toFixed(2)) + "% 수익" + "  " + "(매수가 " + String(element.last_buy_close) + "원)" : "정보 없음"
           ])
         });
         this.getTrendData = true
@@ -140,7 +140,7 @@ export class DashboardComponent implements OnInit {
           else this.sellReverse.push([
             this.dataService.getCompanyNamebyCode(element.code),
             "전일 종가 " + String(element.close) + "원",
-            element.last_buy_close != -1 ? String(((element.last_buy_close - element.close) / element.last_buy_close * 100).toFixed(2)) + "% 수익" + "  " + "(매수가 " + String(element.last_buy_close) + "원)" : "정보 없음"
+            element.last_buy_close != -1 ? String(((element.close - element.last_buy_close) / element.last_buy_close * 100).toFixed(2)) + "% 수익" + "  " + "(매수가 " + String(element.last_buy_close) + "원)" : "정보 없음"
           ])
         });
         this.getReverseData = true
@@ -156,7 +156,7 @@ export class DashboardComponent implements OnInit {
           else this.sellTriple.push([
             this.dataService.getCompanyNamebyCode(element.code),
             "전일 종가 " + String(element.close) + "원",
-            element.last_buy_close != -1 ? String(((element.last_buy_close - element.close) / element.last_buy_close * 100).toFixed(2)) + "% 수익" + "  " + "(매수가 " + String(element.last_buy_close) + "원)" : "정보 없음"
+            element.last_buy_close != -1 ? String(((element.close - element.last_buy_close) / element.last_buy_close * 100).toFixed(2)) + "% 수익" + "  " + "(매수가 " + String(element.last_buy_close) + "원)" : "정보 없음"
           ])
         });
         this.getTripleScreenData = true
