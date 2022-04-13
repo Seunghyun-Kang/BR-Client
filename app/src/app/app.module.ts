@@ -35,7 +35,7 @@ import { StockdstailTriplescreenComponent } from './components/stockdstail-tripl
 import { StockdetailDefaultComponent } from './components/stockdetail-default/stockdetail-default.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { CarouselComponent } from './modules/carousel/carousel.component';
-import { IgxButtonModule, IgxIconModule, IgxNavigationDrawerModule, IgxSwitchModule } from 'igniteui-angular';
+import { IgxButtonModule, IgxIconModule, IgxNavigationDrawerModule, IgxSwitchModule, IgxDialogModule } from 'igniteui-angular';
 import { NaviComponent } from './modules/navi/navi.component';
 
 PlotlyModule.plotlyjs = PlotlyJS;
@@ -101,7 +101,8 @@ const appRoutes: Routes = [
     HammerModule,
     IgxNavigationDrawerModule,
     IgxIconModule,
-    IgxSwitchModule
+    IgxSwitchModule,
+    IgxDialogModule
   ],
   providers: [HTMLCanvasElement,
     {
