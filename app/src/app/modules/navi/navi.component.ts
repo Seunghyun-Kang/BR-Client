@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, HostListener } from '@angular/core';
+import { Component, OnInit, ViewChild, HostListener, ElementRef } from '@angular/core';
 import { Router } from '@angular/router';
 import { IgxNavigationDrawerComponent } from 'igniteui-angular';
 import { PagestatusService } from 'src/app/services/pagestatus.service';
@@ -11,7 +11,18 @@ const IS_MOBILE = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini
   styleUrls: ['./navi.component.scss']
 })
 export class NaviComponent implements OnInit {
+  @HostListener('document:click', ['$event'])
+  clickout(event) {
+    if(!IS_MOBILE) return
+    if(this.eRef.nativeElement.contains(event.target)) {
+      console.log("clicked inside")
+    } else {
+      this.onCloseMenu()
+    }
+  }
+
   @ViewChild(IgxNavigationDrawerComponent, { static: true })
+  
   public drawer: IgxNavigationDrawerComponent;
   public navItems = [
     { name: 'Dashboard', text: '대쉬보드', family: 'user-icons' },
@@ -26,7 +37,8 @@ export class NaviComponent implements OnInit {
   public isGalaxyOn: boolean = true
 
   constructor(private router: Router,
-    private statusService: PagestatusService) { }
+    private statusService: PagestatusService,
+    private eRef: ElementRef) { }
 
   ngOnInit(): void {
   }
@@ -80,13 +92,13 @@ export class NaviComponent implements OnInit {
     if (this.isOpenMenu > 1) return
     this.drawer.toggle()
   }
+  
   onCloseMenu() {
     console.log("CLOSE")
     if (this.isOpenMenu == 0) return
     this.drawer.close()
     this.isOpenMenu = 0
   }
-
 
   onSwitchChanged(event: any) {
     console.log(event)
