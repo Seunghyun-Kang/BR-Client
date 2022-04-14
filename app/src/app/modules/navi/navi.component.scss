@@ -18,7 +18,8 @@ $custom-switch-theme: switch-theme(
   :host {
     $custom-theme: navdrawer-theme(
       $background: transparent,
-      $item-active-background: white,
+      $item-active-background: rgb(131, 91, 243),
+      $item-active-text-color: white,
       $item-header-text-color: white
   );
   igx-icon {
