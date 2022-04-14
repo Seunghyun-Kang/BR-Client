@@ -44,6 +44,7 @@ import {MatButtonModule} from '@angular/material/button';
 import { InformationComponent } from './components/information/information.component';
 import {MatTabsModule} from '@angular/material/tabs';
 import {MatCardModule} from '@angular/material/card';
+import {MatBadgeModule} from '@angular/material/badge';
 
 PlotlyModule.plotlyjs = PlotlyJS;
 export class MyHammerConfig extends HammerGestureConfig {
@@ -103,12 +104,12 @@ const appRoutes: Routes = [
     NgbModule,
     HammerModule,
     IgxNavigationDrawerModule, IgxIconModule, IgxSwitchModule, IgxButtonModule,
-    MatAutocompleteModule, MatChipsModule, MatFormFieldModule, MatIconModule, MatInputModule, MatToolbarModule, MatDialogModule, MatTableModule, MatButtonModule, MatTabsModule, MatCardModule
+    MatAutocompleteModule, MatChipsModule, MatFormFieldModule, MatIconModule, MatInputModule, MatToolbarModule, MatDialogModule, MatTableModule, MatButtonModule, MatTabsModule, MatCardModule,MatBadgeModule
   ],
   providers: [HTMLCanvasElement,
     {
       provide: "Version",
-      useValue: 'BR V15',
+      useValue: 'BR V16',
     },
     {
       provide: HAMMER_GESTURE_CONFIG,
