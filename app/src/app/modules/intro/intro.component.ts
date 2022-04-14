@@ -19,11 +19,13 @@ export class IntroComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
+    console.log("Intro ngOnInit")
     this.canvas = document.getElementById("canvas") as HTMLCanvasElement;
     this.UIToggleButton = document.getElementById("mouse-control-control") as HTMLElement;
   }
 
   ngAfterViewInit(): void {
+    console.log("Intro ngAfterViewInit")
     var howManyStars: number = IS_MOBILE ? 400 : 1000;
     
     this.service.getStatus().subscribe((value) => {
@@ -44,6 +46,7 @@ export class IntroComponent implements OnInit, OnDestroy {
           this.starfield.startRenderLoop();
           break;
         default:
+          console.log("Intro ngAfterViewInit :: default")
           if (this.isGalaxyOff) return
           screenId = value;
           if (this.starfield !== undefined) {
@@ -421,6 +424,7 @@ class StarField {
   private container: any;
 
   constructor(howManyStars: number, canvas: HTMLCanvasElement, depth: number = 2, UIFadeDelay = 1) {
+    console.log("Intro StarDust constructor")
     this.canvas = canvas;
     // this.context = canvas.getContext('2d');
     this.context = canvas.getContext('2d');
