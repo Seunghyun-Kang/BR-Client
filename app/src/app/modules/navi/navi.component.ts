@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, HostListener, ElementRef } from '@angular/core';
+import { Component, OnInit, ViewChild, HostListener, ElementRef, Input } from '@angular/core';
 import { Router } from '@angular/router';
 import { IgxNavigationDrawerComponent } from 'igniteui-angular';
 import { PagestatusService } from 'src/app/services/pagestatus.service';
@@ -10,6 +10,7 @@ const IS_MOBILE = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini
   templateUrl: './navi.component.html',
   styleUrls: ['./navi.component.scss']
 })
+
 export class NaviComponent implements OnInit {
   @HostListener('document:click', ['$event'])
   clickout(event) {
@@ -20,7 +21,7 @@ export class NaviComponent implements OnInit {
       this.onCloseMenu()
     }
   }
-
+  @Input() page: string = ""
   @ViewChild(IgxNavigationDrawerComponent, { static: true })
   
   public drawer: IgxNavigationDrawerComponent;
@@ -44,6 +45,7 @@ export class NaviComponent implements OnInit {
 
   ngOnInit(): void {
     this.isGalaxyOn = this.statusService.isGalaxyOn()
+    this.selected = this.page
   }
 
   public navigate(item) {
@@ -53,7 +55,8 @@ export class NaviComponent implements OnInit {
     if (IS_MOBILE && this.isOpenMenu == 2) return
 
     this.selected = item.text;
-
+    this.drawer.close()
+    
     switch (item.text) {
       case '종목 검색':
         this.onPressGetStock()

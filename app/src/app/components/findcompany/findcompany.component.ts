@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { DataService } from 'src/app/services/data.service';
 import { PagestatusService } from 'src/app/services/pagestatus.service';
@@ -16,7 +16,7 @@ export interface companyData {
   styleUrls: ['./findcompany.component.scss']
 })
 
-export class FindcompanyComponent implements OnInit {
+export class FindcompanyComponent implements OnInit, OnDestroy {
   public screenId = "FindCompany"
   public rawData: companyData[] = []
   public companyNameList: any[] = []
@@ -26,46 +26,66 @@ export class FindcompanyComponent implements OnInit {
   public codesForOpt: any = []
   public target: string = ""
   private isTapButton: boolean = false
-  public presentGuide: string[] = []
-  public OptGuideist = [
-    "회사들을 선택하면 각각 몇%로 투자해야하는지 알려줄게 (최소 2개)",
-  ]
-  public StockGuideist = [
-    "확인하고 싶은 회사명을 검색하면 매매 타이밍을 계산해줄게"
-  ]
+
+  public presentGuide: string
+  public OptGuideist = "회사들을 선택하면 각각 몇%로 투자해야하는지 알려줄게 (최소 2개)"
+  public StockGuideist = "확인하고 싶은 회사명을 검색하면 매매 타이밍을 계산해줄게"
+  public page: string =""
 
   constructor(private statusService: PagestatusService,
     private requestService: RequestService,
     private dataService: DataService,
     private route: ActivatedRoute,
     private router: Router) {
+
     this.route.queryParams.subscribe((params: any) => {
       this.target = params['target']
 
       switch (this.target) {
         case "GetStockDetails":
           this.presentGuide = this.StockGuideist
+          this.page = "종목 검색"
           break;
         case "OptPortfolio":
           this.presentGuide = this.OptGuideist
+          this.page = "최적 포트폴리오"
           break;
         default:
           break;
       }
-      this.statusService.setStatus("loading-forward")
     });
   }
 
   ngOnInit(): void {
+    this.statusService.setStatus("loading-forward")
     this.rawData = this.dataService.getCompanyData()
-    setTimeout(() => {
-      this.statusService.setStatus("normal")
-      this.getData = true
-    }, 1000);
 
-    this.rawData.forEach(element => {
-      this.companyNameList.push(element.company)
-    });
+    if (this.rawData.length !== 0) {
+      this.statusService.setStatus("normal");
+      this.getData = true
+
+      this.rawData.forEach(element => {
+        this.companyNameList.push(element.company)
+      });
+    } else {
+      this.requestService.getAllCompanies()
+        .subscribe({
+          next: (v: any) => {
+            this.rawData = Object(v.body)
+            this.dataService.setCompanyData(this.rawData)
+            this.getData = true
+            this.statusService.setStatus("normal");
+            this.rawData.forEach(element => {
+              this.companyNameList.push(element.company)
+            });
+          },
+          error: (e: any) => console.log("ERROR OCCURED :: " + JSON.stringify(e))
+        });
+    }
+  }
+
+  ngOnDestroy(): void {
+    console.log("ngOnDestroy")
   }
 
   onSelectedOption(event: any) {
