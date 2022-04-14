@@ -13,18 +13,20 @@
             
             <div class="header">
                 <p class="header-title">볼린저 추세 추종 알고리즘</p>
-                <igx-icon fontSet="material" (click)="openDialog('buyTrend')" [name]="'List'" [family]="'user-icons'"></igx-icon>
-            </div>
+                <!-- <mat-icon matBadge="15" matBadgeColor="warn"> -->
+                    <igx-icon  [matBadge]="buyTrend.length" fontSet="material" (click)="openDialog('buyTrend')" [name]="'List'" [family]="'user-icons'"></igx-icon>
+                <!-- </mat-icon> -->
+                </div>
             <app-carousel style="width: 100%;" *ngIf="getTrendData" [inputs]="buyTrend"></app-carousel>
             
             <div class="header">
                 <p class="header-title">볼린저 반전매매 알고리즘</p>
-                <igx-icon fontSet="material" (click)="openDialog('buyReverse')" [name]="'List'" [family]="'user-icons'"></igx-icon>
+                <igx-icon  [matBadge]="buyReverse.length" fontSet="material" (click)="openDialog('buyReverse')" [name]="'List'" [family]="'user-icons'"></igx-icon>
             </div>
             <app-carousel *ngIf="getTrendData" [inputs]="buyReverse"></app-carousel>
             <div class="header">
                 <p class="header-title">삼중창 알고리즘</p>
-                <igx-icon fontSet="material" (click)="openDialog('buyTriple')" [name]="'List'" [family]="'user-icons'"></igx-icon>
+                <igx-icon [matBadge]="buyTriple.length" fontSet="material" (click)="openDialog('buyTriple')" [name]="'List'" [family]="'user-icons'"></igx-icon>
             </div>
             <app-carousel *ngIf="getTrendData" [inputs]="buyTriple"></app-carousel>
         </div>
@@ -32,17 +34,17 @@
         <div class="signals-container" style="background-color: rgba(100, 149, 237,0.7);">
             <div class="header">
                 <p class="header-title">볼린저 추세 추종 알고리즘</p>
-                <igx-icon fontSet="material" (click)="openDialog('sellTrend')" [name]="'List'" [family]="'user-icons'"></igx-icon>
+                <igx-icon [matBadge]="sellTrend.length" fontSet="material" (click)="openDialog('sellTrend')" [name]="'List'" [family]="'user-icons'"></igx-icon>
             </div>
             <app-carousel *ngIf="getTrendData" [inputs]="sellTrend"></app-carousel>
             <div class="header">
                 <p class="header-title">볼린저 반전매매 알고리즘</p>
-                <igx-icon fontSet="material" (click)="openDialog('sellReverse')" [name]="'List'" [family]="'user-icons'"></igx-icon>
+                <igx-icon [matBadge]="sellReverse.length" fontSet="material" (click)="openDialog('sellReverse')" [name]="'List'" [family]="'user-icons'"></igx-icon>
             </div>
             <app-carousel *ngIf="getTrendData" [inputs]="sellReverse"></app-carousel>
             <div class="header">
                 <p class="header-title">삼중창 알고리즘</p>
-                <igx-icon fontSet="material" (click)="openDialog('sellTriple')" [name]="'List'" [family]="'user-icons'"></igx-icon>
+                <igx-icon [matBadge]="sellTriple.length" fontSet="material" (click)="openDialog('sellTriple')" [name]="'List'" [family]="'user-icons'"></igx-icon>
             </div>
             <app-carousel *ngIf="getTrendData" [inputs]="sellTriple"></app-carousel>
         </div>
