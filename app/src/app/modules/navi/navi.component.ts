@@ -27,7 +27,8 @@ export class NaviComponent implements OnInit {
   public navItems = [
     { name: 'Dashboard', text: '대쉬보드', family: 'user-icons' },
     { name: 'OptPortfolio', text: '종목 검색', family: 'user-icons' },
-    { name: 'StockDetails', text: '최적 포트폴리오', family: 'user-icons' }
+    { name: 'StockDetails', text: '최적 포트폴리오', family: 'user-icons' },
+    { name: 'Question', text: '기본 설명', family: 'user-icons' },
   ];
   private isOpenMenu: number = 0
   public selected = '';
@@ -63,6 +64,9 @@ export class NaviComponent implements OnInit {
       case '대쉬보드':
         this.onPressDashboard()
         break;
+        case '기본 설명':
+        this.onPressInformation()
+        break;
       default:
         break;
     }
@@ -82,6 +86,10 @@ export class NaviComponent implements OnInit {
         target: 'OptPortfolio'
       }
     })
+  }
+
+  onPressInformation() {
+    this.router.navigate(['information'])
   }
 
   onPressDashboard() {
