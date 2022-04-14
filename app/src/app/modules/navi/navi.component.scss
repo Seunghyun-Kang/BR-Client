@@ -36,4 +36,8 @@ $custom-switch-theme: switch-theme(
    ::ng-deep {
        @include switch($custom-switch-theme);
    }
+
+   ::ng-deep .igx-nav-drawer__item span{
+     margin-left: 1rem;
+   }
   }
