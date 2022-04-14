@@ -1,0 +1,127 @@
+<div class=dashboard>
+    <div class="actionbar">
+        <header [title]="'기본 설명'"></header>
+    </div>
+    <div class="main">
+
+        <app-navi></app-navi>
+
+        <div class="content">
+
+            <mat-tab-group dynamicHeight>
+                <mat-tab label="볼린저 추세 추종 알고리즘">
+                    <div class="example-large-box mat-elevation-z4">
+                        <mat-card class="example-card">
+                            <mat-card-title  class="algorithm-title">볼린저 추세 추종 알고리즘</mat-card-title>
+                            <mat-card-subtitle>매매 기법</mat-card-subtitle>
+                            <mat-card-content  class="algorithm-content">
+                              <p>자산 가격이 오르면 매수하고, 내려가면 매도하는 규칙을 적용한 트레이딩 전략으로,
+                                   가격이 한동안 추세를 지속한다는 믿음을 기반.</p>
+                                   <p>볼린저 밴드와 밴드 폭, 현금흐름의 지표를 활용하여 분석</p>
+                            </mat-card-content>
+                          </mat-card>
+                          <mat-card class="example-card">
+                            <mat-card-title class="word-title">볼린저밴드</mat-card-title>
+                            <mat-card-subtitle>분석 도구</mat-card-subtitle>
+                            <mat-card-content class="word-content">
+                              <p>주가의 변동이 표준 정규 분포 함수에 따른다고 가정, 20일 간의 주가 평균 +- (표준편차*2)의 값을 밴드 상한선, 하한선을 둔다.</p>
+                            </mat-card-content>
+                          </mat-card>
+                          <mat-card class="example-card">
+                            <mat-card-title class="word-title">%b 그래프</mat-card-title>
+                            <mat-card-subtitle>분석 도구</mat-card-subtitle>
+                            <mat-card-content  class="word-content">
+                              <p>주가의 변동폭이 크면 밴드 폭이 커지고, 변동폭이 작아지면 밴드 폭이 좁아진다. %b는 현재 주가가 밴드의 어느 위치에 있는지를 표현한 지표.</p>
+                              <p>우리는 상한선의 0.8일때 매수, 하한선(0) 기준 0.2일 때 매도 조건이 들어간다.
+                              </p>
+                            </mat-card-content>
+                          </mat-card>
+                          <mat-card class="example-card">
+                            <mat-card-title  class="word-title">MFI (현금흐름지표)</mat-card-title>
+                            <mat-card-subtitle>분석 도구</mat-card-subtitle>
+                            <mat-card-content  class="word-content">
+                              <p>단순 주가와 볼린저밴드로서 거래 타이밍을 잡기에는 신뢰도가 떨어지므로 현금흐름을 함께 고려할 수 있게 만든 지표
+                                  과매수, 과매도 상태를 판단하는데 활용됨.</p>
+                                  <p>0에 가까울 수록 과매도, 100에 가까울수록 과매수
+                              </p>
+                            </mat-card-content>
+                          </mat-card>
+                    </div>
+                </mat-tab>
+                <mat-tab label="볼린저 반전 매매 알고리즘">
+                    <div class="example-large-box mat-elevation-z4">
+                        <mat-card class="example-card">
+                            <mat-card-title  class="algorithm-title">볼린저 반전 매매 알고리즘</mat-card-title>
+                            <mat-card-subtitle>매매 기법</mat-card-subtitle>
+                            <mat-card-content  class="algorithm-content">
+                              <p>볼린저 밴드로 상대적 저점, 고점을 고려하고 %b와 일중강도로 상승, 하락 가능성을 고려하는 기법</p> 
+                                <p>저점에서 상승 가능성을 보인다면 매수, 고점에서 하락 가능성이 보이면 매도하는 전략</p>
+                            </mat-card-content>
+                          </mat-card>
+                          <mat-card class="example-card">
+                            <mat-card-title class="word-title">일중강도</mat-card-title>
+                            <mat-card-subtitle>분석 도구</mat-card-subtitle>
+                            <mat-card-content class="word-content">
+                              <p>시장의 움직임 패턴을 확인하기 위해 종가뿐아니라 시가, 고가, 저가, 종가를 모두 확인할 수 있게하는 도구.</p>
+                              <p>(2*종가-고가-저가)/(고가-저가)*거래량 으로 계산되는 값이며 이는 (일중 지지력 - 일중 저항력)/당일 변동폭 * 거래량 으로 해석 가능하다.</p>
+                              <p>상승/하락의 강도를 반영하는 거래량 지표</p>
+                              <p>우리는 21일간의 일중강도로 상승/하락 가능성을 고려한다.
+                              </p>
+                            </mat-card-content>
+                          </mat-card>
+                    </div>
+                </mat-tab>
+                <mat-tab label="삼중창 알고리즘">
+                    <div class="example-large-box mat-elevation-z4">
+                        <mat-card class="example-card">
+                            <mat-card-title  class="algorithm-title">삼중창 알고리즘</mat-card-title>
+                            <mat-card-subtitle>매매 기법</mat-card-subtitle>
+                            <mat-card-content  class="algorithm-content">
+                              <p>기술적 분석 뿐만 아니라 심리적 분석을 함께 고려하는 전략. '일간 추세가 장기 추세에 역행할 때 장기 추세 방향으로 진입'으로 요약할 수 있다.</p>
+                                <p>1. 첫번째 스크린: 장기차트에서 추세추종지표로 전략적 결정</p>
+                                    <p>2. 두번째 스크린: 중간 차트에서 진입과 청산에 관한 전략적 결정</p>
+                                        <p>3. 세번째 스크린: 단기 차트를 이용하여 진입 시점을 결정
+                              </p>
+                            </mat-card-content>
+                          </mat-card>
+                          <mat-card class="example-card">
+                            <mat-card-title class="word-title">EMA130</mat-card-title>
+                            <mat-card-subtitle>분석 도구</mat-card-subtitle>
+                            <mat-card-content class="word-content">
+                              <p>
+                                  130일간 주가를 산술 평균한 값인 주가 이동 평균을 표시한 선.</p>
+                                <p>오래된 기간의 정보에 대한 가중치를 낮추고 최근 정보의 가중치를 높혀 계산함으로서 최근 상황을 반영하는데 유리함 
+                              </p>
+                            </mat-card-content>
+                          </mat-card>
+                          <mat-card class="example-card">
+                            <mat-card-title class="word-title">MACD</mat-card-title>
+                            <mat-card-subtitle>분석 도구</mat-card-subtitle>
+                            <mat-card-content class="word-content">
+                              <p>이동평균선(EMA)의 수렴과 확산을 지표로 나타낸 도구.</p> 
+                            <p>단기지수이동평균 - 장기지수이동평균을 계산한 값이므로 양수이면 상승추세, 음수이면 하락추세로 볼 수 있다.</p> 
+                                <p>MACD-signal은 기준일간의 지수이동평균으로 MACD값의 변화를 signal을 기준으로 판단한다.</p> 
+                                <p>(우리는 단기지수를 60일, 장기지수를 130일, siganl을 45일로 한다.)</p>
+                                <p>MACD-hist는 MACD - signal이다.
+                              </p>
+                            </mat-card-content>
+                          </mat-card>
+                          <mat-card class="example-card">
+                            <mat-card-title class="word-title">스토캐스틱, %K, %D</mat-card-title>
+                            <mat-card-subtitle>분석 도구</mat-card-subtitle>
+                            <mat-card-content class="word-content">
+                              <p>MACD가 이평선의 수렴/발산이라면 스토캐스틱은 주가의 변동을 이용한 분석 도구</p>
+                            <p>박스권과 같은 가격등폭을 중심으로 주가가 회귀하려는 성질을 이용한 것이다.</p>
+                                <p>우리는 14일간의 폭을 참고한다.</p>
+
+                                <p>%K : 현재 가격의 폭/파동 전체 폭 현재의 가격이 어느 위치인가 분석한 요소 (일반적으로 20% 이하면 침체, 80% 이상이면 과열로 판단)</p>
+                                <p>%D : %K의 이동평균선, 우리는 3일을 적용한다. 단기(%K)가 장기(%D)와 멀어지면 발산, 가까워지면 수렴이다. 
+                              </p>
+                            </mat-card-content>
+                          </mat-card>
+                    </div>
+                </mat-tab>
+            </mat-tab-group>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,91 @@
+
+.dashboard {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+  
+    .actionbar {
+      z-index: 2;
+    }
+  .main{
+    
+    display: flex;
+    height: inherit;
+    .content {
+      z-index: 1;
+      padding-left: 5%;
+      padding-right: 10%;
+      width: 100%;
+      min-width: 300px;
+      overflow: hidden;
+    }
+  }
+  }
+  
+
+
+.example-large-box {
+    align-items: center;
+    justify-content: center;
+    margin: 10px;
+    padding: 10px;
+    border-radius: 8px;
+  }
+  
+  .example-large-box {
+    color: white;
+      
+    height: auto;
+    width: 90%;
+  }
+
+  .example-card {
+    background-color: rgba(17, 17, 99, 0.6);
+    color: white;
+    font-family: hyundai-card;
+    word-break: keep-all;
+    word-wrap: break-word;
+    margin-bottom: 7px;
+
+    .algorithm-title {
+        font-size: 14px;
+    }
+    .algorithm-content p {
+        font-size: 12px;
+
+    }
+    .word-title {
+        font-size: 14px;
+
+    }
+    .word-content p {
+        font-size: 12px;
+    }
+
+    mat-card-subtitle {
+    color: rgb(153, 152, 152);
+    }
+  }
+
+  ::ng-deep .mat-tab-header {
+    overflow-x: scroll !important;
+  }
+  
+  ::ng-deep .mat-tab-label-container { 
+    overflow: visible !important;
+  }
+  ::ng-deep .mat-tab-header::-webkit-scrollbar {
+    display: none;
+  }
+  ::ng-deep .mat-tab-label-content {
+      color: white;
+  font-family: hyundai-card;
+  word-break: keep-all;
+  word-wrap: break-word;
+  }
+
+  ::ng-deep .mat-tab-label {
+     
+    // max-width: 33vw;
+    height: auto;
+  }

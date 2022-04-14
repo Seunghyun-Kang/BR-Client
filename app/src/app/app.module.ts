@@ -41,6 +41,9 @@ import { ListComponent } from './modules/list/list.component';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatTableModule } from '@angular/material/table' 
 import {MatButtonModule} from '@angular/material/button';
+import { InformationComponent } from './components/information/information.component';
+import {MatTabsModule} from '@angular/material/tabs';
+import {MatCardModule} from '@angular/material/card';
 
 PlotlyModule.plotlyjs = PlotlyJS;
 export class MyHammerConfig extends HammerGestureConfig {
@@ -58,6 +61,7 @@ const appRoutes: Routes = [
   { path: 'stockdetail-bollingertrend', component: StockdstailBollingertrendComponent },
   { path: 'stockdetail-bollingerreverse', component: StockdstailBollingerreverseComponent },
   { path: 'optimalportfolio', component: OptimalportfolioComponent },
+  { path: 'information', component: InformationComponent },
   { path: '', redirectTo: '/home', pathMatch: 'full' }
 ];
 
@@ -82,19 +86,14 @@ const appRoutes: Routes = [
     StockdetailDefaultComponent,
     CarouselComponent,
     NaviComponent,
-    ListComponent
+    ListComponent,
+    InformationComponent
   ],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
-    MatAutocompleteModule,
-    MatChipsModule,
-    MatFormFieldModule,
     RouterModule.forRoot(appRoutes, { enableTracing: false, useHash: true }),
     AppRoutingModule,
-    MatIconModule,
-    MatInputModule,
-    MatToolbarModule,
     FormsModule,
     ReactiveFormsModule,
     HttpClientModule,
@@ -102,14 +101,9 @@ const appRoutes: Routes = [
     NgApexchartsModule,
     CommonModule,
     NgbModule,
-    IgxButtonModule,
     HammerModule,
-    IgxNavigationDrawerModule,
-    IgxIconModule,
-    IgxSwitchModule,
-    MatDialogModule,
-    MatTableModule,
-    MatButtonModule
+    IgxNavigationDrawerModule, IgxIconModule, IgxSwitchModule, IgxButtonModule,
+    MatAutocompleteModule, MatChipsModule, MatFormFieldModule, MatIconModule, MatInputModule, MatToolbarModule, MatDialogModule, MatTableModule, MatButtonModule, MatTabsModule, MatCardModule
   ],
   providers: [HTMLCanvasElement,
     {
