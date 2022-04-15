@@ -45,6 +45,7 @@ import { InformationComponent } from './components/information/information.compo
 import {MatTabsModule} from '@angular/material/tabs';
 import {MatCardModule} from '@angular/material/card';
 import {MatBadgeModule} from '@angular/material/badge';
+import { MatTooltipModule } from '@angular/material/tooltip';
 
 PlotlyModule.plotlyjs = PlotlyJS;
 export class MyHammerConfig extends HammerGestureConfig {
@@ -104,7 +105,8 @@ const appRoutes: Routes = [
     NgbModule,
     HammerModule,
     IgxNavigationDrawerModule, IgxIconModule, IgxSwitchModule, IgxButtonModule,
-    MatAutocompleteModule, MatChipsModule, MatFormFieldModule, MatIconModule, MatInputModule, MatToolbarModule, MatDialogModule, MatTableModule, MatButtonModule, MatTabsModule, MatCardModule,MatBadgeModule
+    MatAutocompleteModule, MatChipsModule, MatFormFieldModule, MatIconModule, MatInputModule, MatToolbarModule, MatDialogModule, MatTableModule, MatButtonModule,
+    MatTabsModule, MatCardModule,MatBadgeModule, MatTooltipModule
   ],
   providers: [HTMLCanvasElement,
     {
