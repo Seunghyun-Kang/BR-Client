@@ -5,6 +5,7 @@ import { PlotlyModule, PlotlyService } from "angular-plotly.js";
 import { bollingerData, priceData, signalData, TradeViewSettings, tripleScreenData } from './stockdetail.model';
 import { PagestatusService } from 'src/app/services/pagestatus.service';
 import { DataService } from 'src/app/services/data.service';
+import { MatTabChangeEvent } from '@angular/material/tabs';
 
 @Component({
   selector: 'app-stockdetail',
@@ -40,6 +41,9 @@ export class StockdetailComponent implements OnInit {
   public firstChart = new TradeViewSettings().settings;
   public revision = 1
 
+  public selectedIndex = 0
+  private itemLen = 4
+
   constructor(
     private requestService: RequestService,
     private statusService: PagestatusService,
@@ -66,55 +70,55 @@ export class StockdetailComponent implements OnInit {
           this.statusService.setStatus("normal")
 
           this.initCommonGraphSettings()
-          this.initDefaultGraph()          
+          this.initDefaultGraph()
           this.dataService.setStockData(this.code, this.rawStockData)
 
           this.requestService.getBollingerInfo(this.code)
-          .subscribe({
-            next: (v: any) => {
-              this.rawDataBollinger = Object(v.body)
-              this.dataService.setBollingerData(this.code, this.rawDataBollinger)
-    
-              this.requestService.getBollingerReverseSignal(this.code)
-              .subscribe({
-                next: (v: any) => {
-                  this.rawDataBollingerReverseSignal = Object(v.body)
-                  this.dataService.setBollingerReverseSignalData(this.code, this.rawDataBollingerReverseSignal)
-                  
-                  this.requestService.getBollingerTrendSignal(this.code)
+            .subscribe({
+              next: (v: any) => {
+                this.rawDataBollinger = Object(v.body)
+                this.dataService.setBollingerData(this.code, this.rawDataBollinger)
+
+                this.requestService.getBollingerReverseSignal(this.code)
                   .subscribe({
                     next: (v: any) => {
-                      this.rawDataBollingerTrendSignal = Object(v.body)
-                      this.dataService.setBollingerTrendSignalData(this.code, this.rawDataBollingerTrendSignal)
+                      this.rawDataBollingerReverseSignal = Object(v.body)
+                      this.dataService.setBollingerReverseSignalData(this.code, this.rawDataBollingerReverseSignal)
 
-          this.isDefault = true
+                      this.requestService.getBollingerTrendSignal(this.code)
+                        .subscribe({
+                          next: (v: any) => {
+                            this.rawDataBollingerTrendSignal = Object(v.body)
+                            this.dataService.setBollingerTrendSignalData(this.code, this.rawDataBollingerTrendSignal)
+
+                            this.isDefault = true
+                          },
+                          error: (e: any) => console.log("ERROR OCCURED :: " + JSON.stringify(e))
+                        });
                     },
                     error: (e: any) => console.log("ERROR OCCURED :: " + JSON.stringify(e))
                   });
-                },
-                error: (e: any) => console.log("ERROR OCCURED :: " + JSON.stringify(e))
-              });
-            },
-            error: (e: any) => console.log("ERROR OCCURED :: " + JSON.stringify(e))
-          });
+              },
+              error: (e: any) => console.log("ERROR OCCURED :: " + JSON.stringify(e))
+            });
 
           this.requestService.getTripleScreenSignal(this.code)
-          .subscribe({
-            next: (v: any) => {
-              this.rawDataTripleScreenSignal = Object(v.body)
-              this.dataService.setTripleScreenSignalData(this.code, this.rawDataTripleScreenSignal)
+            .subscribe({
+              next: (v: any) => {
+                this.rawDataTripleScreenSignal = Object(v.body)
+                this.dataService.setTripleScreenSignalData(this.code, this.rawDataTripleScreenSignal)
 
-              this.requestService.getTripleScreenInfo(this.code)
-              .subscribe({
-                next: (v: any) => {
-                  this.rawDataTripleScreen = Object(v.body)
-                  this.dataService.setTripleScreenData(this.code, this.rawDataTripleScreen)
-                },
-                error: (e: any) => console.log("ERROR OCCURED :: " + JSON.stringify(e))
-              });
-            },
-            error: (e: any) => console.log("ERROR OCCURED :: " + JSON.stringify(e))
-          });
+                this.requestService.getTripleScreenInfo(this.code)
+                  .subscribe({
+                    next: (v: any) => {
+                      this.rawDataTripleScreen = Object(v.body)
+                      this.dataService.setTripleScreenData(this.code, this.rawDataTripleScreen)
+                    },
+                    error: (e: any) => console.log("ERROR OCCURED :: " + JSON.stringify(e))
+                  });
+              },
+              error: (e: any) => console.log("ERROR OCCURED :: " + JSON.stringify(e))
+            });
 
         },
         error: (e: any) => console.log("ERROR OCCURED :: " + JSON.stringify(e))
@@ -178,7 +182,7 @@ export class StockdetailComponent implements OnInit {
     //graph drawing
     this.firstChart.data.push(this.stockGraph)
     this.firstChart.data.push(this.closeGraph)
-    
+
     let endDate = new Date(this.rawStockData[this.rawStockData.length - 1].date).getTime()
     let defaultstartDate = new Date(this.rawStockData[this.rawStockData.length - 31].date).getTime()
     this.firstChart.layout.xaxis.range = [defaultstartDate, endDate];
@@ -197,12 +201,6 @@ export class StockdetailComponent implements OnInit {
     this.isBollingerTrendFollowing = true
     this.isBollingerTrendReverse = false
     this.isTripleScreen = false
-    // this.router.navigate(['stockdetail-bollingertrend'], {
-    //   queryParams: {
-    //     code: this.code,
-    //     companyName: this.companyName
-    //   }
-    // })
   }
 
   tapBollingerReverse() {
@@ -211,12 +209,6 @@ export class StockdetailComponent implements OnInit {
     this.isBollingerTrendFollowing = false
     this.isBollingerTrendReverse = true
     this.isTripleScreen = false
-    // this.router.navigate(['stockdetail-bollingerreverse'], {
-    //   queryParams: {
-    //     code: this.code,
-    //     companyName: this.companyName
-    //   }
-    // })
   }
 
   tapTripleScreen() {
@@ -225,13 +217,6 @@ export class StockdetailComponent implements OnInit {
     this.isBollingerTrendFollowing = false
     this.isBollingerTrendReverse = false
     this.isTripleScreen = true
-    //   this.router.navigate(['stockdetail-triplescreen'], {
-  //     queryParams: {
-  //       code: this.code,
-  //       companyName: this.companyName
-  //     }
-  //   })
-  // }
   }
 
   tapDefault() {
@@ -240,12 +225,20 @@ export class StockdetailComponent implements OnInit {
     this.isBollingerTrendFollowing = false
     this.isBollingerTrendReverse = false
     this.isTripleScreen = false
-    //   this.router.navigate(['stockdetail-triplescreen'], {
-  //     queryParams: {
-  //       code: this.code,
-  //       companyName: this.companyName
-  //     }
-  //   })
-  // }
   }
+
+  tabChanged(tabChangeEvent: MatTabChangeEvent): void {
+    this.selectedIndex = tabChangeEvent.index;
+    switch (this.selectedIndex) {
+      case 0: this.tapDefault()
+        break;
+      case 1: this.tapBolingerTrend()
+        break;
+      case 2: this.tapBollingerReverse()
+        break;
+      case 3: this.tapTripleScreen()
+        break;
+    }
+  }
+
 }
