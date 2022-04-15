@@ -1,18 +1,21 @@
-<igx-nav-drawer id="navigation" [pin]="true" [pinThreshold]="0" (mouseover)="onOpenMenu()" (mouseleave)="onCloseMenu()"
+<igx-nav-drawer style="height: 90vh;" id="navigation" [pin]="true" [pinThreshold]="0" (mouseover)="onOpenMenu()" (mouseleave)="onCloseMenu()"
     [width]=width [miniWidth]=minWidth>
     <ng-template igxDrawer>
+        <div class="navi-container">
+            <div>
         <span *ngFor="let item of navItems" igxDrawerItem [active]="item.text === selected" igxRipple
             (click)="navigate(item)">
             <igx-icon fontSet="material" [name]="item.name" [family]="item.family">{{ item.name }}</igx-icon>
             <span>{{ item.text }}</span>
         </span>
-
+    </div>
         <div class="switch">
             <igx-icon style="width: 20px;" fontSet="material" [style.color]="'white'" [name]="'Rocket'"
                 [family]="'user-icons'"></igx-icon>
             <igx-switch [checked]="isGalaxyOn" (change)="onSwitchChanged($event)">
             </igx-switch>
         </div>
+    </div>
     </ng-template>
     <ng-template igxDrawerMini>
         <span *ngFor="let item of navItems" igxDrawerItem [active]="item.text === selected" igxRipple>

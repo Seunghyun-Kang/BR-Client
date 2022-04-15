@@ -9,12 +9,21 @@ $custom-switch-theme: switch-theme(
   $thumb-on-color: rgba(236, 222, 222, 0.795),
   $track-on-color: #673ab7
 );
-.switch {
 
-  position: fixed;
-  bottom: 30px;
-  left: 17px;
+.navi-container {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+.switch {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  align-content: center;
 }
+}
+
+
   :host {
     $custom-theme: navdrawer-theme(
       $background: transparent,
@@ -45,5 +54,9 @@ $custom-switch-theme: switch-theme(
    ::ng-deep .igx-nav-drawer__aside {
 
     border-right: 1px solid #673ab7;
+   }
+
+   ::ng-deep .igx-nav-drawer__aside--mini span{
+    justify-content: normal !important;
    }
   }
