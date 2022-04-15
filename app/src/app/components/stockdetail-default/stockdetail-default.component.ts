@@ -206,7 +206,7 @@ export class StockdetailDefaultComponent implements OnInit, OnDestroy {
 
     this.firstChart.data = []
     //graph drawing
-    if(!IS_MOBILE) this.firstChart.data.push(this.stockGraph)
+    // if(!IS_MOBILE) this.firstChart.data.push(this.stockGraph)
     this.firstChart.data.push(this.closeGraph)
 
     let endDate = new Date(this.rawStockData[this.rawStockData.length - 1].date).getTime()
