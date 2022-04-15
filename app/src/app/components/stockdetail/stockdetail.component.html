@@ -3,18 +3,18 @@
         <header [title]="companyName"></header>
     </div>
 
-    <!-- <div *ngIf="getData && isDefault" class="chart-container">
-            <plotly-plot [data]="firstChart.data" [layout]="firstChart.layout" [config]="firstChart.config"
-                [updateOnlyWithRevision]="true" [revision]="revision" [useResizeHandler]="true"
-                [style]="{position: 'relative'}"></plotly-plot>
-        </div> -->
+    <div class="main">
+        <app-navi [page]="'차트'"></app-navi>
+
+    <div class="content">
+    
         <app-stockdetail-default *ngIf="isDefault"></app-stockdetail-default>
         <app-stockdetail-bollingertrend *ngIf="isBollingerTrendFollowing"></app-stockdetail-bollingertrend>
         <app-stockdstail-bollingerreverse *ngIf="isBollingerTrendReverse"></app-stockdstail-bollingerreverse>
         <app-stockdstail-triplescreen *ngIf="isTripleScreen"></app-stockdstail-triplescreen>
         
         <div class="box_for_menu"></div>
-</div>
+        </div>
 
 <div class="chartmenu">
     <div class="card" (click)="tapDefault()">
@@ -48,4 +48,7 @@
         font-size: 1vh;">삼중창 매매</span>
         </div>
     </div>
+
+</div>
+</div>
 </div>
