@@ -20,6 +20,7 @@ $custom-switch-theme: switch-theme(
   justify-content: center;
   align-items: center;
   align-content: center;
+  margin-bottom: 50px;
 }
 }
 
@@ -57,6 +58,9 @@ $custom-switch-theme: switch-theme(
    }
 
    ::ng-deep .igx-nav-drawer__aside--mini span{
-    justify-content: normal !important;
+    justify-content: normal;
+
+    padding-right: 1.9rem;
+    padding-left: 0.3rem;
    }
   }
