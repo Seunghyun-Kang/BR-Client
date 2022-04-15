@@ -31,6 +31,7 @@ export class DashboardComponent implements OnInit {
   public sellTrend: Array<string[]> = []
   public sellReverse: Array<string[]> = []
   public sellTriple: Array<string[]> = []
+  private companyInfo: any[] = []
 
   constructor(private statusService: PagestatusService,
     private router: Router,
@@ -41,37 +42,51 @@ export class DashboardComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.companyInfo = this.dataService.getCompanyData()
+    if (this.companyInfo.length === 0) {
+      this.requestCompanyData()
+    } else {
+      this.requestSignalData()
+    }
+  }
 
-    setTimeout(() => {
-      this.statusService.setStatus("normal")
-    }, 1000);
+  requestCompanyData() {
+    this.requestService.getAllCompanies()
+      .subscribe({
+        next: (v: any) => {
+          this.dataService.setCompanyData(Object(v.body))
+          this.requestSignalData()
+        },
+        error: (e: any) => console.log("ERROR OCCURED :: " + JSON.stringify(e))
+      });
+  }
 
+  requestSignalData() {
     this.requestService.getLatestBollingerTrendSignal()
       .subscribe({
         next: (v: any) => {
           this.rawLatestSignalTrend = Object(v.body)
           console.log(this.rawLatestSignalTrend)
           this.parseSignalData(this.rawLatestSignalTrend, "bollinger-trend")
-        },
-        error: (e: any) => { }
-      });
 
-    this.requestService.getLatestBollingerReverseSignal()
-      .subscribe({
-        next: (v: any) => {
-          this.rawLatestSignalReverse = Object(v.body)
-          this.parseSignalData(this.rawLatestSignalReverse, "bollinger-reverse")
+          this.requestService.getLatestBollingerReverseSignal()
+            .subscribe({
+              next: (v: any) => {
+                this.rawLatestSignalReverse = Object(v.body)
+                this.parseSignalData(this.rawLatestSignalReverse, "bollinger-reverse")
 
-        },
-        error: (e: any) => console.log("ERROR OCCURED :: " + JSON.stringify(e))
-      });
-
-    this.requestService.getLatestTripleScreenSignal()
-      .subscribe({
-        next: (v: any) => {
-          this.rawLatestSignalTripleScreen = Object(v.body)
-          this.parseSignalData(this.rawLatestSignalTripleScreen, "triplescreen")
-
+                this.requestService.getLatestTripleScreenSignal()
+                  .subscribe({
+                    next: (v: any) => {
+                      this.rawLatestSignalTripleScreen = Object(v.body)
+                      this.parseSignalData(this.rawLatestSignalTripleScreen, "triplescreen")
+                      this.statusService.setStatus("normal")
+                    },
+                    error: (e: any) => console.log("ERROR OCCURED :: " + JSON.stringify(e))
+                  });
+              },
+              error: (e: any) => console.log("ERROR OCCURED :: " + JSON.stringify(e))
+            });
         },
         error: (e: any) => console.log("ERROR OCCURED :: " + JSON.stringify(e))
       });
@@ -80,14 +95,14 @@ export class DashboardComponent implements OnInit {
   openDialog(type: string) {
     let dataArray: Array<string[]> = []
     let title = ""
-    let columnlist = IS_MOBILE ? ["종목", "신호가", "과거 거래가", "수익률"]:["종목",  "신호일", "신호가","과거 거래일", "과거 거래가", "수익률"]
-    
+    let columnlist = IS_MOBILE ? ["종목", "신호가", "과거 거래가", "수익률"] : ["종목", "신호일", "신호가", "과거 거래일", "과거 거래가", "수익률"]
+
     switch (type) {
       case "buyTrend":
         this.rawLatestSignalTrend.forEach(element => {
           title = "볼린저 추세 추동 매수 신호"
-          if(element.type === "buy" && element.valid === "valid"){
-            if(!IS_MOBILE) dataArray.push([
+          if (element.type === "buy" && element.valid === "valid") {
+            if (!IS_MOBILE) dataArray.push([
               this.dataService.getCompanyNamebyCode(element.code),
               element.date,
               String(element.close),
@@ -109,8 +124,8 @@ export class DashboardComponent implements OnInit {
       case "buyReverse":
         title = "볼린저 반전 매매 매수 신호"
         this.rawLatestSignalReverse.forEach(element => {
-          if(element.type === "buy" && element.valid === "valid"){
-            if(!IS_MOBILE) dataArray.push([
+          if (element.type === "buy" && element.valid === "valid") {
+            if (!IS_MOBILE) dataArray.push([
               this.dataService.getCompanyNamebyCode(element.code),
               element.date,
               String(element.close),
@@ -133,8 +148,8 @@ export class DashboardComponent implements OnInit {
         title = "삼중창 매수 신호"
 
         this.rawLatestSignalTripleScreen.forEach(element => {
-          if(element.type === "buy" && element.valid === "valid"){
-            if(!IS_MOBILE) dataArray.push([
+          if (element.type === "buy" && element.valid === "valid") {
+            if (!IS_MOBILE) dataArray.push([
               this.dataService.getCompanyNamebyCode(element.code),
               element.date,
               String(element.close),
@@ -157,8 +172,8 @@ export class DashboardComponent implements OnInit {
         title = "볼린저 추세 추동 매도 신호"
 
         this.rawLatestSignalTrend.forEach(element => {
-          if(element.type === "sell" && element.valid === "valid"){
-            if(!IS_MOBILE) dataArray.push([
+          if (element.type === "sell" && element.valid === "valid") {
+            if (!IS_MOBILE) dataArray.push([
               this.dataService.getCompanyNamebyCode(element.code),
               element.date,
               String(element.close),
@@ -181,8 +196,8 @@ export class DashboardComponent implements OnInit {
         title = "볼린저 반전 매매 매도 신호"
 
         this.rawLatestSignalReverse.forEach(element => {
-          if(element.type === "sell" && element.valid === "valid"){
-            if(!IS_MOBILE) dataArray.push([
+          if (element.type === "sell" && element.valid === "valid") {
+            if (!IS_MOBILE) dataArray.push([
               this.dataService.getCompanyNamebyCode(element.code),
               element.date,
               String(element.close),
@@ -205,8 +220,8 @@ export class DashboardComponent implements OnInit {
         title = "볼린저 추세 추동 매도 신호"
 
         this.rawLatestSignalTripleScreen.forEach(element => {
-          if(element.type === "sell" && element.valid === "valid"){
-            if(!IS_MOBILE) dataArray.push([
+          if (element.type === "sell" && element.valid === "valid") {
+            if (!IS_MOBILE) dataArray.push([
               this.dataService.getCompanyNamebyCode(element.code),
               element.date,
               String(element.close),
@@ -231,8 +246,8 @@ export class DashboardComponent implements OnInit {
     }
 
     this.dialog.open(ListComponent, {
-      width:'80vw',
-      height:'80vh',
+      width: '80vw',
+      height: '80vh',
       data: {
         title: title,
         column: columnlist,
