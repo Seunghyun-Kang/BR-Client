@@ -52,7 +52,7 @@ export class NaviComponent implements OnInit {
     console.log(IS_MOBILE)
     console.log(this.isOpenMenu)
     if (this.isOpenMenu == 0) return
-    if (IS_MOBILE && this.isOpenMenu == 2) return
+    if (IS_MOBILE && this.isOpenMenu == 2) { this.isOpenMenu++; return}
 
     this.selected = item.text;
     this.drawer.close()

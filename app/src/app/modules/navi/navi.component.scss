@@ -18,7 +18,7 @@ $custom-switch-theme: switch-theme(
   :host {
     $custom-theme: navdrawer-theme(
       $background: transparent,
-      $item-active-background: rgb(131, 91, 243),
+      $item-active-background: #673ab7,
       $item-active-text-color: white,
       $item-header-text-color: white
   );
@@ -40,5 +40,10 @@ $custom-switch-theme: switch-theme(
 
    ::ng-deep .igx-nav-drawer__item span{
      margin-left: 1rem;
+   }
+
+   ::ng-deep .igx-nav-drawer__aside {
+
+    border-right: 1px solid #673ab7;
    }
   }
