@@ -19,5 +19,6 @@ export class AppComponent {
     this.iconSerivce.addSvgIcon('List', '../assets/iamge/list2-black.svg', 'user-icons')
     this.iconSerivce.addSvgIcon('Close', '../assets/iamge/close-black.svg', 'user-icons')
     this.iconSerivce.addSvgIcon('Question', '../assets/iamge/question-black.svg', 'user-icons')
+    this.iconSerivce.addSvgIcon('Menu', '../assets/iamge/menu-black.svg', 'user-icons')
   }
 }
