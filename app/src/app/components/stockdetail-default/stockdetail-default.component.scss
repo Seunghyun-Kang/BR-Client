@@ -13,13 +13,14 @@
     .signal-guide-container {
       margin-top: 20px;
       z-index: 90;
+      padding: 0 20px 0 20px;
 
       .header {
-        color: white;
+        color: #ae85d1;
         font-family: hyundai-card;
         font-size: 12px;
         z-index: 90;
-        margin: 15px;
+        margin: 15px 15px 5px 15px;
       }
   
       .signal-container {
@@ -39,4 +40,8 @@
       }
     }
     
+}
+
+::ng-deep .mat-tab-header-pagination {
+  min-width: 10px;
 }
