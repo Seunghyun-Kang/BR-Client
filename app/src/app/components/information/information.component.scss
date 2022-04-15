@@ -67,16 +67,16 @@
     }
   }
 
-  ::ng-deep .mat-tab-header {
-    overflow-x: scroll !important;
-  }
+  // ::ng-deep .mat-tab-header {
+  //   overflow-x: scroll !important;
+  // }
   
-  ::ng-deep .mat-tab-label-container { 
-    overflow: visible !important;
-  }
-  ::ng-deep .mat-tab-header::-webkit-scrollbar {
-    display: none;
-  }
+  // ::ng-deep .mat-tab-label-container { 
+  //   overflow: visible !important;
+  // }
+  // ::ng-deep .mat-tab-header::-webkit-scrollbar {
+  //   display: none;
+  // }
   ::ng-deep .mat-tab-label-content {
       color: white;
   font-family: hyundai-card;
