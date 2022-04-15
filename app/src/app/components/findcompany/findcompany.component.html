@@ -6,7 +6,7 @@
     <div class="main">
     <app-navi [page]="page"></app-navi>
     <div class="content">
-        <p style="width: 100%; text-align: center; color: white; margin-top: 20vh;">{{presentGuide}}</p>
+        <div style="width: 100%; text-align: center; color: white; padding: 20vh 15px 0 15px;">{{presentGuide}}</div>
         <div class="searchbar-container" *ngIf="getData">
             <app-search-bar (onSelectedOption)="onSelectedOption($event)" [autoCompleteList]="companyNameList"
                 [placeholder]="'어떤 회사?'"></app-search-bar>
