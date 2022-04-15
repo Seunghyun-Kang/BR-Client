@@ -266,7 +266,7 @@ export class StockdstailBollingertrendComponent implements OnInit, OnDestroy {
 
     //graph drawing
     this.firstChart.data = []
-    if(!IS_MOBILE) this.firstChart.data.push(this.stockGraph)
+    // if(!IS_MOBILE) this.firstChart.data.push(this.stockGraph)
     this.firstChart.data.push(this.closeGraph)
 
     let array = this.rawStockData.slice(this.rawStockData.length - 31, this.rawStockData.length - 1)

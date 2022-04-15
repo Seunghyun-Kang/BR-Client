@@ -262,7 +262,7 @@ export class StockdstailBollingerreverseComponent implements OnInit, OnDestroy {
     });
 
     //graph drawing
-    if(!IS_MOBILE) this.firstChart.data.push(this.stockGraph)
+    // if(!IS_MOBILE) this.firstChart.data.push(this.stockGraph)
     this.firstChart.data.push(this.closeGraph)
     this.firstChart.data.push(this.bollingerUpperGraph)
     this.firstChart.data.push(this.bollingerLowerGraph)

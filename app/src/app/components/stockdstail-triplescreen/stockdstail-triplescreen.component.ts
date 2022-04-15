@@ -246,8 +246,10 @@ export class StockdstailTriplescreenComponent implements OnInit, OnDestroy {
     });
 
   
-    if(!IS_MOBILE) this.firstChart.data.push(this.stockGraph)
-    else this.firstChart.data.push(this.closeGraph)
+    // if(!IS_MOBILE) 
+    //   this.firstChart.data.push(this.stockGraph)
+    // else 
+      this.firstChart.data.push(this.closeGraph)
     
     this.firstChart.data.push(this.EMA130Graph)
 
