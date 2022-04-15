@@ -13,19 +13,21 @@ export class IntroComponent implements OnInit, OnDestroy {
   public canvas: HTMLCanvasElement;
   public UIToggleButton: HTMLElement;
   private starfield: any
-  private isGalaxyOff: boolean = false
+  public isGalaxyOff: boolean = false
 
   constructor(private service: PagestatusService) {
   }
 
   ngOnInit(): void {
     console.log("Intro ngOnInit")
-    this.canvas = document.getElementById("canvas") as HTMLCanvasElement;
-    this.UIToggleButton = document.getElementById("mouse-control-control") as HTMLElement;
+      this.UIToggleButton = document.getElementById("mouse-control-control") as HTMLElement;
   }
 
   ngAfterViewInit(): void {
     console.log("Intro ngAfterViewInit")
+    console.log(this.isGalaxyOff);
+    this.canvas = document.getElementById("canvas") as HTMLCanvasElement;
+  
     var howManyStars: number = IS_MOBILE ? 400 : 1000;
     
     this.service.getStatus().subscribe((value) => {
@@ -35,26 +37,30 @@ export class IntroComponent implements OnInit, OnDestroy {
       switch (value) {
         case "GalaxyOff":
           this.isGalaxyOff = true
-          this.starfield.destroy();
-          this.starfield = undefined
           break;
         case "GalaxyOn":
           this.isGalaxyOff = false
           value = "normal"
           screenId = value;
+
+          setTimeout(() => {   
+          this.canvas = document.getElementById("canvas") as HTMLCanvasElement;
           this.starfield = new StarField(howManyStars, this.canvas);
           this.starfield.startRenderLoop();
+          }, 500);
           break;
         default:
-          console.log("Intro ngAfterViewInit :: default")
           if (this.isGalaxyOff) return
           screenId = value;
           if (this.starfield !== undefined) {
             this.starfield.destroy();
             this.starfield = undefined
           }
-          this.starfield = new StarField(howManyStars, this.canvas);
-          this.starfield.startRenderLoop();
+          setTimeout(() => {   
+            this.canvas = document.getElementById("canvas") as HTMLCanvasElement;
+            this.starfield = new StarField(howManyStars, this.canvas);
+            this.starfield.startRenderLoop();
+            }, 500);
           break;
       }
     });
@@ -469,7 +475,7 @@ class StarField {
     };
 
 
-
+    
     // getPointerInput doesn't control the animation, just passes pointer data to the callback
     // = pointer detector
 
