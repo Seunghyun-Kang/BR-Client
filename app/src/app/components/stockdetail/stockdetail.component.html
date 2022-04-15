@@ -8,7 +8,7 @@
 
     <div class="content">
     
-        <mat-tab-group #group dynamicHeight [selectedIndex]="selectedIndex" (selectedTabChange)="tabChanged($event)" >
+        <mat-tab-group #group dynamicHeight  mat-align-tabs="center" [selectedIndex]="selectedIndex" (selectedTabChange)="tabChanged($event)" >
             <mat-tab label="기본 정보" ></mat-tab>
             <mat-tab label="볼린저 추세 추종" ></mat-tab>
             <mat-tab label="볼린저 반전 매매" ></mat-tab>
