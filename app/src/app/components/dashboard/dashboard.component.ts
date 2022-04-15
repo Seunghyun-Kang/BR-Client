@@ -33,6 +33,10 @@ export class DashboardComponent implements OnInit {
   public sellTriple: Array<string[]> = []
   private companyInfo: any[] = []
 
+  public tooltipTrend = "볼린저 밴드의 상단 80%에 종가가 도달하고 현금 흐름이 좋을 때 매수, 하단 20%에 도달하고 현금 흐름이 안좋을 때 매도"
+  public tooltipReverse = "볼린저 밴드의 상단에 도달하고 일중강도가 약하면 충분히 올랐다고 판단하여 매도 반대는 내릴 만큼 내려서 오를거라 판단하여 매수"
+  public tooltipTriple = "첫번째 창으로 추세를 판단, 두번재 창으로 추세에 반하는 움직임을 판단, 세번째에 진입 시점을 판단하여 매수/매도"
+
   constructor(private statusService: PagestatusService,
     private router: Router,
     private requestService: RequestService,

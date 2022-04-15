@@ -45,13 +45,24 @@
   display:flex;
   justify-content: space-between;
   align-items: center;
+  .title-container{
+    display: flex;
+    align-content: space-around;
+    align-items: center;
+    justify-content: flex-start;
+
     .header-title {
       color: white;
       font-family: hyundai-card;
       font-size: 11px;
       z-index: 90;
-      margin: 15px 15px 0px 15px;
+      margin: 15px 0px 0px 15px;
+
+      ::ng-deep igx-icon svg {
+        filter: brightness(1) invert(0);
+      }
     }
+  }
   }
     .signals-container {
       border-radius: 30px;
@@ -72,104 +83,7 @@
 }
 }
 
-.card {
-  background: #020024;
-  width: 12vh;
-  height: 12vh;
-  padding: 3px;
-  position: relative;
-  border-radius: 50%;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
-  display: flex;
-  font-size: 20px;
-  color: white;
-  cursor: pointer;
-  font-family: hyundai-card;
-  word-break: keep-all;
-  word-wrap: break-word;
-}
-
-.card:hover {
-  color: rgb(88 199 250 / 100%);
-  transition: color 1s;
-}
-
-.card:hover:before,
-.card:hover:after {
-  animation: none;
-  opacity: 0;
-}
-
-
-.card::before {
-  content: "";
-  box-shadow: 5px 10px 20px #020024;
-  width: 106%;
-  height: 104%;
-  border-radius: 50%;
-  background-image: linear-gradient(132deg, #5ddcff, #3c67e3 43%, #4e00c2);
-  position: absolute;
-  z-index: -1;
-  top: -1%;
-  left: -2%;
-  -webkit-animation: spin 2.5s linear infinite;
-  -moz-animation: spin 2.5s linear infinite;
-  -ms-animation: spin 2.5s linear infinite;
-  animation: spin 2.5s linear infinite;
-}
-
-.card::after {
-  content: "";
-
-  box-shadow: 5px 10px 20px #020024;
-  position: absolute;
-  top: calc(var(--card-height) / 6);
-  left: 0;
-  right: 0;
-  border-radius: 50%;
-  z-index: -1;
-  height: 100%;
-  width: 100%;
-  margin: 0 auto;
-  transform: scale(0.8);
-  filter: blur(calc(var(--card-height) / 6));
-  background-image: linear-gradient(132deg, #5ddcff, #3c67e3 43%, #4e00c2);
-  opacity: 1;
-  transition: opacity .5s;
-  animation: spin 2.5s linear infinite;
-  -webkit-animation: spin 2.5s linear infinite;
-  -moz-animation: spin 2.5s linear infinite;
-  -ms-animation: spin 2.5s linear infinite;
-  animation: spin 2.5s linear infinite;
-}
-
-@-webkit-keyframes spin {
-  100% {
-    -webkit-transform: rotate(360deg);
-  }
-}
-
-@-moz-keyframes spin {
-  100% {
-    -moz-transform: rotate(360deg);
-  }
-}
-
-@-ms-keyframes spin {
-  100% {
-    -ms-transform: rotate(360deg);
-  }
-}
-
-@keyframes spin {
-  100% {
-    transform: rotate(360deg);
-  }
-}
-
-:host {
+// :host {
 
 igx-icon {
     width: 15px;
@@ -188,16 +102,13 @@ igx-icon {
     }
 }
 
-igx-dialog {
-  padding: 0px;
 
-:ng-deep .igx-dialog__window-content {
-  padding: 0px;
+::ng-deep .mat-tooltip-show {
+  background: #835bf3;
+  color: white;
+  font-family: hyundai-card;
+  word-break: keep-all;
+  word-wrap: break-word;
+}
 
-}
-  igx-icon {
-    width: 15px;
-    margin: 15px 15px 0px 15px;
-}
-}
-}
+// }
