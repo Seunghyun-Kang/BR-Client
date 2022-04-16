@@ -10,12 +10,18 @@ table {
     width: 100%;
     font-family: 'hyundai-card';
     color: white;
+
+    word-break: keep-all;
+    word-wrap: break-word;
     background-color: #2a273d !important;
 
     th.mat-header-cell {
         text-align: -webkit-center;
         font-size: 10px;
         color: white;
+
+        word-break: keep-all;
+        word-wrap: break-word;
     }
     tr.mat-row, tr.mat-footer-row {
     text-align: -webkit-center;
@@ -23,6 +29,9 @@ table {
     td.mat-cell {
         font-size: 10px;
         color: white;
+
+        word-break: keep-all;
+        word-wrap: break-word;
 
     }
   }
