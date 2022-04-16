@@ -14,11 +14,11 @@
   height: inherit;
   .content {
     z-index: 1;
-    padding-left: 5%;
-    padding-right: 5%;
+    padding-left: 63px;
+    padding-right: 10px;
     width: 100%;
     min-width: 300px;
-    overflow: hidden;
+    overflow: auto;
 
     .title {
       color: white;
@@ -82,8 +82,6 @@
   }
 }
 }
-
-// :host {
 
 igx-icon {
     width: 15px;
