@@ -73,7 +73,6 @@ ngb-carousel {
     .content-info {
         display: flex;
     flex-direction: row;
-    justify-content: space-evenly;
         .first {
             font-size: 12px;
             text-align: center;
@@ -83,6 +82,39 @@ ngb-carousel {
             font-size: 12px;
             text-align: center;
 
+        }
+    }
+}
+
+@import '~igniteui-angular/lib/core/styles/themes/index';
+
+
+.carousel-wrapper {
+    width: 100%;
+}
+
+.carousel-animation-wrapper {
+    margin: 20px auto;
+    display: flex;
+    justify-content: center;
+}
+
+:host ::ng-deep {
+    .titles {
+        display: inline-flex;
+        flex-flow: column;
+        margin-left: 1rem;
+        align-self: center;
+    }
+    igx-slide {
+        background: transparent;
+    }
+    .igx-carousel__inner {
+        min-height: 50px;
+    }
+    igx-carousel {
+        .igx-carousel-indicators--bottom{
+            display: none;
         }
     }
 }

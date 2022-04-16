@@ -268,11 +268,15 @@ export class DashboardComponent implements OnInit {
             this.dataService.getCompanyNamebyCode(element.code),
             "전일 종가 " + String(element.close) + "원",
           ])
-          else this.sellTrend.push([
+          else {
+            this.sellTrend.push([
             this.dataService.getCompanyNamebyCode(element.code),
             "전일 종가 " + String(element.close) + "원",
-            element.last_buy_close != -1 ? String(((element.close - element.last_buy_close) / element.last_buy_close * 100).toFixed(2)) + "% 수익" + "  " + "(매수가 " + String(element.last_buy_close) + "원)" : "정보 없음"
+            element.last_buy_close != -1 ? String(((element.close - element.last_buy_close) / element.last_buy_close * 100).toFixed(2)) + "% 수익" : "정보 없음",
+            element.last_buy_close != -1 ? "  " + " (매수가 " + String(element.last_buy_close) + "원)" : "" ,
+            String((element.close - element.last_buy_close) / element.last_buy_close * 100)
           ])
+        }
         });
         this.getTrendData = true
         break;
@@ -285,7 +289,9 @@ export class DashboardComponent implements OnInit {
           else this.sellReverse.push([
             this.dataService.getCompanyNamebyCode(element.code),
             "전일 종가 " + String(element.close) + "원",
-            element.last_buy_close != -1 ? String(((element.close - element.last_buy_close) / element.last_buy_close * 100).toFixed(2)) + "% 수익" + "  " + "(매수가 " + String(element.last_buy_close) + "원)" : "정보 없음"
+            element.last_buy_close != -1 ? String(((element.close - element.last_buy_close) / element.last_buy_close * 100).toFixed(2)) + "% 수익" : "정보 없음",
+            element.last_buy_close != -1 ? "  " + " (매수가 " + String(element.last_buy_close) + "원)" : "",
+            String((element.close - element.last_buy_close) / element.last_buy_close * 100)
           ])
         });
         this.getReverseData = true
@@ -299,7 +305,9 @@ export class DashboardComponent implements OnInit {
           else this.sellTriple.push([
             this.dataService.getCompanyNamebyCode(element.code),
             "전일 종가 " + String(element.close) + "원",
-            element.last_buy_close != -1 ? String(((element.close - element.last_buy_close) / element.last_buy_close * 100).toFixed(2)) + "% 수익" + "  " + "(매수가 " + String(element.last_buy_close) + "원)" : "정보 없음"
+            element.last_buy_close != -1 ? String(((element.close - element.last_buy_close) / element.last_buy_close * 100).toFixed(2)) + "% 수익" : "정보 없음",
+            element.last_buy_close != -1 ? "  " + " (매수가 " + String(element.last_buy_close) + "원)" : "",
+            String((element.close - element.last_buy_close) / element.last_buy_close * 100)
           ])
         });
         this.getTripleScreenData = true

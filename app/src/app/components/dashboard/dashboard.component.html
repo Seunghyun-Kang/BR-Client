@@ -7,8 +7,8 @@
     
     <app-navi [page]="'대쉬보드'"></app-navi>
 
-    <div class="content">
-        <p class="title">오늘의 <span class="red">매수</span> 신호</p>
+    <div class="content" *ngIf="getTrendData && getReverseData && getTripleScreenData">
+        <div class="title">오늘의 <span class="red">매수</span> 신호</div>
         <div class="signals-container" style="background-color: rgba(17, 17, 99, 0.5);">
             
             <div class="header">
@@ -16,33 +16,33 @@
         <div class="title-container">
                 <p class="header-title" #tooltipBuyTrend="matTooltip" [matTooltip]="tooltipTrend"
                 >볼린저 추세 추종 알고리즘</p>
-                <igx-icon  (click)="tooltipBuyTrend.show()" style="margin: 15px 15px 0px 5px;filter: invert(24%) sepia(1%) saturate(4420%) hue-rotate(236deg) brightness(101%) contrast(81%);" fontSet="material" [name]="'QuestionLeft'" [family]="'user-icons'"></igx-icon>
+                <igx-icon  (click)="tooltipBuyTrend.show()" style="margin: 0px 15px 0px 5px;filter: invert(24%) sepia(1%) saturate(4420%) hue-rotate(236deg) brightness(101%) contrast(81%);" fontSet="material" [name]="'QuestionLeft'" [family]="'user-icons'"></igx-icon>
             </div>   
                     <igx-icon *ngIf="buyTrend.length > 0" [matBadge]="buyTrend.length" fontSet="material" (click)="openDialog('buyTrend')" [name]="'List'" [family]="'user-icons'"></igx-icon>
               
                 </div>
-            <app-carousel style="width: 100%;" *ngIf="getTrendData" [inputs]="buyTrend"></app-carousel>
+            <app-carousel style="width: 100%;" [inputs]="buyTrend"></app-carousel>
             
             <div class="header">
                 <div class="title-container">
                 <p class="header-title" #tooltipBuyReverse="matTooltip" [matTooltip]="tooltipReverse"  >볼린저 반전매매 알고리즘</p>
-                <igx-icon  (click)="tooltipBuyReverse.show()" style="margin: 15px 15px 0px 5px;filter: invert(24%) sepia(1%) saturate(4420%) hue-rotate(236deg) brightness(101%) contrast(81%);
+                <igx-icon  (click)="tooltipBuyReverse.show()" style="margin: 0px 15px 0px 5px;filter: invert(24%) sepia(1%) saturate(4420%) hue-rotate(236deg) brightness(101%) contrast(81%);
 
                 " fontSet="material"[name]="'QuestionLeft'" [family]="'user-icons'"></igx-icon>
             </div>
                 <igx-icon  *ngIf="buyReverse.length > 0"  [matBadge]="buyReverse.length" fontSet="material" (click)="openDialog('buyReverse')" [name]="'List'" [family]="'user-icons'"></igx-icon>
             </div>
-            <app-carousel *ngIf="getTrendData" [inputs]="buyReverse"></app-carousel>
+            <app-carousel [inputs]="buyReverse"></app-carousel>
             <div class="header">
                 <div class="title-container" >
                 <p class="header-title" #tooltipBuyTriple="matTooltip" [matTooltip]="tooltipTriple" >삼중창 알고리즘</p>
-                <igx-icon (click)="tooltipBuyTriple.show()" style="margin: 15px 15px 0px 5px;filter: invert(24%) sepia(1%) saturate(4420%) hue-rotate(236deg) brightness(101%) contrast(81%);
+                <igx-icon (click)="tooltipBuyTriple.show()" style="margin: 0px 15px 0px 5px;filter: invert(24%) sepia(1%) saturate(4420%) hue-rotate(236deg) brightness(101%) contrast(81%);
 
                 " fontSet="material"[name]="'QuestionLeft'" [family]="'user-icons'"></igx-icon>
             </div>
                 <igx-icon *ngIf="buyTriple.length > 0" [matBadge]="buyTriple.length" fontSet="material" (click)="openDialog('buyTriple')" [name]="'List'" [family]="'user-icons'"></igx-icon>
             </div>
-            <app-carousel *ngIf="getTrendData" [inputs]="buyTriple"></app-carousel>
+            <app-carousel [inputs]="buyTriple"></app-carousel>
         </div>
         <p class="title">오늘의 <span class="blue">매도</span> 신호</p>
         <div class="signals-container" style="background-color: rgba(17, 17, 99, 0.5);">
@@ -50,33 +50,33 @@
                 <div class="title-container">
                 <p class="header-title" #tooltipSellTrend="matTooltip" [matTooltip]="tooltipTrend"
                 >볼린저 추세 추종 알고리즘</p>
-                <igx-icon (click)="tooltipSellTrend.show()" style="margin: 15px 15px 0px 5px;filter: invert(24%) sepia(1%) saturate(4420%) hue-rotate(236deg) brightness(101%) contrast(81%);" fontSet="material" [name]="'QuestionLeft'" [family]="'user-icons'"></igx-icon>
+                <igx-icon (click)="tooltipSellTrend.show()" style="margin: 0px 15px 0px 5px;filter: invert(24%) sepia(1%) saturate(4420%) hue-rotate(236deg) brightness(101%) contrast(81%);" fontSet="material" [name]="'QuestionLeft'" [family]="'user-icons'"></igx-icon>
             </div>
 
                 <igx-icon  *ngIf="sellTrend.length > 0" [matBadge]="sellTrend.length" fontSet="material" (click)="openDialog('sellTrend')" [name]="'List'" [family]="'user-icons'"></igx-icon>
             
             </div>
-            <app-carousel *ngIf="getTrendData" [inputs]="sellTrend"></app-carousel>
+            <app-carousel [inputs]="sellTrend"></app-carousel>
             <div class="header">
                 <div class="title-container">
                 <p class="header-title" #tooltipSellReverse="matTooltip" [matTooltip]="tooltipReverse" >볼린저 반전매매 알고리즘</p>
-                <igx-icon (click)="tooltipSellReverse.show()" style="margin: 15px 15px 0px 5px;filter: invert(24%) sepia(1%) saturate(4420%) hue-rotate(236deg) brightness(101%) contrast(81%);
+                <igx-icon (click)="tooltipSellReverse.show()" style="margin: 0px 15px 0px 5px;filter: invert(24%) sepia(1%) saturate(4420%) hue-rotate(236deg) brightness(101%) contrast(81%);
 
                 " fontSet="material" [name]="'QuestionLeft'" [family]="'user-icons'"></igx-icon>
             </div>
                 <igx-icon *ngIf="sellReverse.length > 0" [matBadge]="sellReverse.length" fontSet="material" (click)="openDialog('sellReverse')" [name]="'List'" [family]="'user-icons'"></igx-icon>
             </div>
-            <app-carousel *ngIf="getTrendData" [inputs]="sellReverse"></app-carousel>
+            <app-carousel [inputs]="sellReverse"></app-carousel>
             <div class="header">
                 <div class="title-container">
                 <p class="header-title" #tooltipSellTriple="matTooltip" [matTooltip]="tooltipTriple" >삼중창 알고리즘</p>
-                <igx-icon (click)="tooltipSellTriple.show()" style="margin: 15px 15px 0px 5px;filter: invert(24%) sepia(1%) saturate(4420%) hue-rotate(236deg) brightness(101%) contrast(81%);
+                <igx-icon (click)="tooltipSellTriple.show()" style="margin: 0px 15px 0px 5px;filter: invert(24%) sepia(1%) saturate(4420%) hue-rotate(236deg) brightness(101%) contrast(81%);
 
                 " fontSet="material" [name]="'QuestionLeft'" [family]="'user-icons'"></igx-icon>
             </div>
                 <igx-icon *ngIf="sellTriple.length > 0" [matBadge]="sellTriple.length" fontSet="material" (click)="openDialog('sellTriple')" [name]="'List'" [family]="'user-icons'"></igx-icon>
             </div>
-            <app-carousel *ngIf="getTrendData" [inputs]="sellTriple"></app-carousel>
+            <app-carousel [inputs]="sellTriple"></app-carousel>
         </div>
     </div>
 </div>

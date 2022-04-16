@@ -1,5 +1,6 @@
-import { Component, OnInit, Input, ViewChild } from '@angular/core';
+import { Component, OnInit, Input, ViewChild, ElementRef } from '@angular/core';
 import { NgbCarousel } from '@ng-bootstrap/ng-bootstrap';
+import { IgxCarouselComponent, IgxListComponent, IListItemClickEventArgs, ISlideEventArgs } from 'igniteui-angular';
 
 const IS_MOBILE = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
 
@@ -10,13 +11,30 @@ const IS_MOBILE = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini
 })
 export class CarouselComponent implements OnInit {
   @Input() inputs: any[] = []
-  @Input() speed: number = IS_MOBILE? 0: 5000
-  @ViewChild(NgbCarousel) carousel;
+  @Input() speed: number = IS_MOBILE? 0: 2000
+  // @ViewChild(NgbCarousel) carousel;
   
-  constructor() {
+  @ViewChild(IgxCarouselComponent, { static: true })
+  public carousel: IgxCarouselComponent;
+
+  @ViewChild(IgxListComponent, {static: true})
+  public list: IgxListComponent;
+
+  public currentIndex = 0;
+  
+  constructor(private eRef: ElementRef,
+    ) {
   }
 
   ngOnInit(): void {
+    // this.addSlides();
+    this.inputs.forEach(element => {
+   if(Number(element[4]) > 0 ) element[4] = 'red'
+   else element[4] = 'blue'
+ });
+  }
+
+  ngAfterViewInit() {
   }
 
   onSwipeRight(event: any) {
