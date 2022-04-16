@@ -1,6 +1,8 @@
 <igx-nav-drawer style="height: 90vh;" id="navigation" [pinThreshold]="5000"
     [width]=width [miniWidth]=minWidth>
     <ng-template igxDrawer>
+
+        <span igxDrawerItem [isHeader]="true"></span>
         <div class="navi-container">
             <div>
         <span *ngFor="let item of navItems" igxDrawerItem [active]="item.text === selected" igxRipple
@@ -18,6 +20,8 @@
     </div>
     </ng-template>
     <ng-template igxDrawerMini>
+
+        <span igxDrawerItem [isHeader]="true"></span> 
         <span *ngFor="let item of navItems" igxDrawerItem [active]="item.text === selected" igxRipple>
             <igx-icon fontSet="material" [name]="item.name" [family]="item.family">{{ item.name }}</igx-icon>
         </span>
