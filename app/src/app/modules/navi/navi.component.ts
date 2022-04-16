@@ -14,14 +14,42 @@ const IS_MOBILE = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini
 export class NaviComponent implements OnInit {
   @HostListener('document:click', ['$event'])
   clickout(event) {
-    if(!IS_MOBILE) return
-    if(this.eRef.nativeElement.contains(event.target)) {
-      console.log("clicked inside")
-    } else {
-      this.onCloseMenu()
-    }
+    if((<HTMLElement>this.eRef.nativeElement).querySelector(
+      '.igx-nav-drawer__aside'
+      ).contains(event.target)) {
+      console.log("clicked drawer")
+      this.isOpenMenu++;
+    } 
+    if((<HTMLElement>this.eRef.nativeElement).querySelector(
+      '.igx-nav-drawer__overlay'
+      ).contains(event.target)){
+      console.log("clicked overlay")
+
+      this.isOpenMenu =0;
+    } 
   }
+
+  @HostListener('mouseover', ['$event'])
+  onMouseOver(event) {
+    if((<HTMLElement>this.eRef.nativeElement).querySelector(
+      '.igx-nav-drawer__overlay'
+      ).contains(event.target)){
+      console.log("hover overlay")
+      this.drawer.close()
+
+      this.isOpenMenu=0;
+    } 
+    if((<HTMLElement>this.eRef.nativeElement).querySelector(
+      '.igx-nav-drawer__aside'
+      ).contains(event.target)) {
+      console.log("hover drawer")
+      this.drawer.open()
+    } 
+  }
+
   @Input() page: string = ""
+  @ViewChild('.igx-nav-drawer__aside') drawerAside: ElementRef;
+  @ViewChild('.igx-nav-drawer__overlay') autocompleteInput: ElementRef;
   @ViewChild(IgxNavigationDrawerComponent, { static: true })
   
   public drawer: IgxNavigationDrawerComponent;
@@ -35,7 +63,6 @@ export class NaviComponent implements OnInit {
   public selected = '';
   public minWidth = IS_MOBILE ? "50px" : "53px"
   public width = IS_MOBILE ? "190px" : "200px"
-
   public isGalaxyOn: boolean = true
 
   constructor(private router: Router,
@@ -47,15 +74,16 @@ export class NaviComponent implements OnInit {
     this.isGalaxyOn = this.statusService.isGalaxyOn()
     this.selected = this.page
   }
-
+  ngAfterViewInit() {
+  }
   public navigate(item) {
-    console.log(IS_MOBILE)
     console.log(this.isOpenMenu)
-    if (this.isOpenMenu == 0) return
-    if (IS_MOBILE && this.isOpenMenu == 2) { this.isOpenMenu++; return}
+    if (IS_MOBILE && this.isOpenMenu == 0) return
+    // if (IS_MOBILE && this.isOpenMenu == 2) { this.isOpenMenu++; return}
 
     this.selected = item.text;
-    this.drawer.close()
+    this.isOpenMenu = 0
+    if (IS_MOBILE )this.drawer.close()
     
     switch (item.text) {
       case '종목 검색':
@@ -100,17 +128,13 @@ export class NaviComponent implements OnInit {
   }
 
   onOpenMenu() {
-    console.log("OPEN" + this.isOpenMenu)
-    this.isOpenMenu++
-    if (this.isOpenMenu > 1) return
-    this.drawer.toggle()
+    console.log("OPEN")
+    this.drawer.open()
   }
   
   onCloseMenu() {
     console.log("CLOSE")
-    if (this.isOpenMenu == 0) return
     this.drawer.close()
-    this.isOpenMenu = 0
   }
 
   onSwitchChanged(event: any) {
