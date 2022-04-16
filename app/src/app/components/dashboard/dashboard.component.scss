@@ -26,7 +26,7 @@
       font-family: hyundai-card;
       font-size: 18px;
       z-index: 90;
-      margin: 15px 15px 0px 15px;
+      margin: 0px 15px 0px 15px;
 
       .red {
         color: rgb(184, 63, 63);
@@ -52,11 +52,11 @@
     justify-content: flex-start;
 
     .header-title {
-      color: white;
+      color: lightsteelblue;
       font-family: hyundai-card;
-      font-size: 11px;
+      font-size: 15px;
       z-index: 90;
-      margin: 15px 0px 0px 15px;
+      margin: 0px 0px 0px 15px;
 
       ::ng-deep igx-icon svg {
         filter: brightness(1) invert(0);
@@ -66,7 +66,7 @@
   }
     .signals-container {
       border-radius: 30px;
-      padding: 5px;
+padding: 15px 5px 5px 5px;
       margin-top: 10px;
       margin-bottom: 30px;
     }
@@ -85,7 +85,7 @@
 
 igx-icon {
     width: 15px;
-    margin: 15px 15px 0px 15px;
+    margin: 0px 15px 0px 15px;
 
     ::ng-deep svg {
       filter: brightness(0) invert(1);
