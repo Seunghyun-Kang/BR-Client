@@ -66,20 +66,34 @@ export class DashboardComponent implements OnInit {
   }
 
   requestSignalData() {
-    this.requestService.getLatestBollingerTrendSignal()
+    var lastday = 1
+    var today = new Date().getDay()
+    
+    switch(today) {
+      case 0:
+        lastday = 2
+        break
+      case 1:
+        lastday = 3
+        break
+      default:
+        break
+    }
+
+    this.requestService.getLastBollingerTrendSignal(lastday)
       .subscribe({
         next: (v: any) => {
           this.rawLatestSignalTrend = Object(v.body)
           console.log(this.rawLatestSignalTrend)
           this.parseSignalData(this.rawLatestSignalTrend, "bollinger-trend")
 
-          this.requestService.getLatestBollingerReverseSignal()
+          this.requestService.getLastBollingerReverseSignal(lastday)
             .subscribe({
               next: (v: any) => {
                 this.rawLatestSignalReverse = Object(v.body)
                 this.parseSignalData(this.rawLatestSignalReverse, "bollinger-reverse")
 
-                this.requestService.getLatestTripleScreenSignal()
+                this.requestService.getLastTripleScreenSignal(lastday)
                   .subscribe({
                     next: (v: any) => {
                       this.rawLatestSignalTripleScreen = Object(v.body)

@@ -103,23 +103,22 @@ export class RequestService {
         catchError(this.handleError)
       );
   }
-
-  getLatestBollingerTrendSignal() {
-    return this.http.get(this.REST_SERVER_URL + 'latest_signal_trend/', { observe: 'response', headers: this.headers })
+  getLastBollingerTrendSignal(lastday: number) {
+    return this.http.get(this.REST_SERVER_URL + 'latest_signal_trend/' + lastday + '/', { observe: 'response', headers: this.headers })
       .pipe(
         catchError(this.handleError)
       );
   }
 
-  getLatestBollingerReverseSignal() {
-    return this.http.get(this.REST_SERVER_URL + 'latest_signal_reverse/', { observe: 'response', headers: this.headers })
+  getLastBollingerReverseSignal(lastday: number) {
+    return this.http.get(this.REST_SERVER_URL + 'latest_signal_reverse/' + lastday + '/',{ observe: 'response', headers: this.headers })
       .pipe(
         catchError(this.handleError)
       );
   }
 
-  getLatestTripleScreenSignal() {
-    return this.http.get(this.REST_SERVER_URL + 'latest_signal_triple/', { observe: 'response', headers: this.headers })
+  getLastTripleScreenSignal(lastday: number) {
+    return this.http.get(this.REST_SERVER_URL + 'latest_signal_triple/' + lastday + '/', { observe: 'response', headers: this.headers })
       .pipe(
         catchError(this.handleError)
       );
