@@ -28,25 +28,13 @@ export class CarouselComponent implements OnInit {
 
   ngOnInit(): void {
     // this.addSlides();
-    this.list.itemClicked.subscribe((args: IListItemClickEventArgs) => {
-        this.currentIndex = args.item.index;
-        this.carousel.select(this.carousel.get(this.currentIndex));
-    });
-
-    this.carousel.onSlideChanged.subscribe((args: ISlideEventArgs) => {
-        this.currentIndex = args.slide.index;
-        (<HTMLElement>this.eRef.nativeElement).querySelector('.selected').scrollTo()
-    });
+    this.inputs.forEach(element => {
+   if(Number(element[4]) > 0 ) element[4] = 'red'
+   else element[4] = 'blue'
+ });
   }
 
   ngAfterViewInit() {
-  }
-
-  public slideStyle(image: string) {
-    return  {
-        background: `url(${image})`,
-        backgroundSize: 'cover'
-    };
   }
 
   onSwipeRight(event: any) {

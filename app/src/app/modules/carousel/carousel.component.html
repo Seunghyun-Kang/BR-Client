@@ -30,6 +30,7 @@ id="carousel"
                 <igx-slide #slide *ngFor="let item of inputs">
                 <div class="content" style="display: flex;
                 justify-content: space-evenly;">
+                <!-- {{item[3]}} -->
                     <div class="content-name">
                         {{item[0]}}
                     </div>
@@ -39,9 +40,9 @@ id="carousel"
                         {{item[1]}}
                     </div>
                     <div class="content-info">
-                        <div class="first">
-                            {{item[2]}}
-                        </div>
+                        <div class="first" [innerHTML]="item[2]" [ngStyle]="{'color': item[4] === 'red' ? '#ee3b89' : '#65a3f5' }"></div>
+                        <div class="second" >{{item[3]}}</div>
+                        
                     </div>
                 </div>
                 </div>
