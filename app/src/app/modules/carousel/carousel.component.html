@@ -1,9 +1,7 @@
-<ngb-carousel
-[showNavigationArrows]="true" 
+<!-- <ngb-carousel
+[showNavigationArrows]="false" 
 [showNavigationIndicators]="false"
 [interval]="speed"
-[keyboard]="true"
-[pauseOnHover]="true"
 [wrap]="true"
 id="carousel"
 (swipeleft)="onSwipeLeft($event)"
@@ -21,11 +19,33 @@ id="carousel"
                 <div class="first">
                     {{item[2]}}
                 </div>
-                <!-- <div class="second">
-                    {{item[3]}}
-                </div> -->
             </div>
         </div>
       </ng-template>
-  </ngb-carousel
-  >
+  </ngb-carousel> -->
+
+  <div class="carousel-animation-wrapper">
+    <div class="carousel-wrapper">
+        <igx-carousel [navigation]="false" [pause]="false" animationType="fade" [interval]="5000">
+                <igx-slide #slide *ngFor="let item of inputs">
+                <div class="content" style="display: flex;
+                justify-content: space-evenly;">
+                    <div class="content-name">
+                        {{item[0]}}
+                    </div>
+                    <div style="display: flex;
+                    flex-direction: column;">
+                    <div class="content-price">
+                        {{item[1]}}
+                    </div>
+                    <div class="content-info">
+                        <div class="first">
+                            {{item[2]}}
+                        </div>
+                    </div>
+                </div>
+                </div>
+                </igx-slide> 
+        </igx-carousel>
+    </div>
+</div>
