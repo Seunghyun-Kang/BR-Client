@@ -17,9 +17,9 @@
                 <p class="header-title" #tooltipBuyTrend="matTooltip" [matTooltip]="tooltipTrend"
                 >볼린저 추세 추종 알고리즘</p>
                 <igx-icon  (click)="tooltipBuyTrend.show()" style="margin: 15px 15px 0px 5px;filter: invert(24%) sepia(1%) saturate(4420%) hue-rotate(236deg) brightness(101%) contrast(81%);" fontSet="material" [name]="'QuestionLeft'" [family]="'user-icons'"></igx-icon>
-            </div>    <!-- <mat-icon matBadge="15" matBadgeColor="warn"> -->
+            </div>   
                     <igx-icon *ngIf="buyTrend.length > 0" [matBadge]="buyTrend.length" fontSet="material" (click)="openDialog('buyTrend')" [name]="'List'" [family]="'user-icons'"></igx-icon>
-                <!-- </mat-icon> -->
+              
                 </div>
             <app-carousel style="width: 100%;" *ngIf="getTrendData" [inputs]="buyTrend"></app-carousel>
             
