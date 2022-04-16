@@ -64,4 +64,7 @@ $custom-switch-theme: switch-theme(
     padding-right: 1.9rem;
     padding-left: 0.3rem;
    }
+   ::ng-deep .igx-nav-drawer__overlay{
+    height: 100%;
+   }
   }

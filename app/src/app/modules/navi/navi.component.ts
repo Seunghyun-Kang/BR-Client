@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, HostListener, ElementRef, Input } from '@angular/core';
+import { Component, OnInit, ViewChild, HostListener, ElementRef, Input, Renderer2 } from '@angular/core';
 import { Router } from '@angular/router';
 import { IgxNavigationDrawerComponent } from 'igniteui-angular';
 import { PagestatusService } from 'src/app/services/pagestatus.service';
@@ -14,44 +14,48 @@ const IS_MOBILE = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini
 export class NaviComponent implements OnInit {
   @HostListener('document:click', ['$event'])
   clickout(event) {
-    if((<HTMLElement>this.eRef.nativeElement).querySelector(
+    if ((<HTMLElement>this.eRef.nativeElement).querySelector(
       '.igx-nav-drawer__aside'
-      ).contains(event.target)) {
+    ).contains(event.target)) {
       console.log("clicked drawer")
       this.isOpenMenu++;
-    } 
-    if((<HTMLElement>this.eRef.nativeElement).querySelector(
+    }
+    if ((<HTMLElement>this.eRef.nativeElement).querySelector(
       '.igx-nav-drawer__overlay'
-      ).contains(event.target)){
+    ).contains(event.target)) {
       console.log("clicked overlay")
 
-      this.isOpenMenu =0;
-    } 
+      this.isOpenMenu = 0;
+    }
   }
 
   @HostListener('mouseover', ['$event'])
   onMouseOver(event) {
-    if((<HTMLElement>this.eRef.nativeElement).querySelector(
+    if ((<HTMLElement>this.eRef.nativeElement).querySelector(
       '.igx-nav-drawer__overlay'
-      ).contains(event.target)){
+    ).contains(event.target)) {
       console.log("hover overlay")
       this.drawer.close()
 
-      this.isOpenMenu=0;
-    } 
-    if((<HTMLElement>this.eRef.nativeElement).querySelector(
+      this.isOpenMenu = 0;
+    }
+    if ((<HTMLElement>this.eRef.nativeElement).querySelector(
       '.igx-nav-drawer__aside'
-      ).contains(event.target)) {
+    ).contains(event.target)) {
       console.log("hover drawer")
       this.drawer.open()
-    } 
+      this.renderer.setStyle((<HTMLElement>this.eRef.nativeElement).querySelector(
+        '.igx-nav-drawer__overlay'
+      ), "height", document.getElementById("body").offsetHeight + "px");
+    }
   }
 
   @Input() page: string = ""
+  @Input() overlayHeight: number = 0
   @ViewChild('.igx-nav-drawer__aside') drawerAside: ElementRef;
   @ViewChild('.igx-nav-drawer__overlay') autocompleteInput: ElementRef;
   @ViewChild(IgxNavigationDrawerComponent, { static: true })
-  
+
   public drawer: IgxNavigationDrawerComponent;
   public navItems = [
     { name: 'Dashboard', text: '대쉬보드', family: 'user-icons' },
@@ -68,13 +72,15 @@ export class NaviComponent implements OnInit {
   constructor(private router: Router,
     private statusService: PagestatusService,
     private eRef: ElementRef,
-    ) { }
+    private renderer: Renderer2
+  ) { }
 
   ngOnInit(): void {
     this.isGalaxyOn = this.statusService.isGalaxyOn()
     this.selected = this.page
   }
   ngAfterViewInit() {
+
   }
   public navigate(item) {
     console.log(this.isOpenMenu)
@@ -83,8 +89,8 @@ export class NaviComponent implements OnInit {
 
     this.selected = item.text;
     this.isOpenMenu = 0
-    if (IS_MOBILE )this.drawer.close()
-    
+    if (IS_MOBILE) this.drawer.close()
+
     switch (item.text) {
       case '종목 검색':
         this.onPressGetStock()
@@ -95,7 +101,7 @@ export class NaviComponent implements OnInit {
       case '대쉬보드':
         this.onPressDashboard()
         break;
-        case '기본 설명':
+      case '기본 설명':
         this.onPressInformation()
         break;
       default:
@@ -131,7 +137,7 @@ export class NaviComponent implements OnInit {
     console.log("OPEN")
     this.drawer.open()
   }
-  
+
   onCloseMenu() {
     console.log("CLOSE")
     this.drawer.close()
