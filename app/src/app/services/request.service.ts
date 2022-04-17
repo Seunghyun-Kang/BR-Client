@@ -37,7 +37,7 @@ export class RequestService {
   getPrices(code: string, symbol?: string) {
     if(symbol == undefined) symbol = "KRX"
   
-    return this.http.get(this.REST_SERVER_URL + 'prices/'+ symbol + + '/' + code + '/', { observe: 'response', headers: this.headers })
+    return this.http.get(this.REST_SERVER_URL + 'prices/'+ symbol +'/' + code + '/', { observe: 'response', headers: this.headers })
       .pipe(
         catchError(this.handleError)
       );
