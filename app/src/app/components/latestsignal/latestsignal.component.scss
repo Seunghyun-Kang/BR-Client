@@ -1,0 +1,129 @@
+
+.dashboard {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+  
+    .actionbar {
+      z-index: 2;
+    }
+  .main{
+    
+    display: flex;
+    height: inherit;
+    .content {
+      z-index: 1;
+      padding-left: 63px;
+      padding-right: 10px;
+      width: 100%;
+      min-width: 300px;
+      overflow: hidden;
+
+      .selection-container {
+          display: flex;
+          flex-direction: row;
+          align-content: center;
+          justify-content: flex-end;
+          align-items: center;
+          margin-top: 10px;
+          
+          ::ng-deep .mat-form-field-appearance-fill .mat-form-field-flex{
+            background-color: transparent;
+            padding: 0px;
+            height: 25px;
+          }
+
+          ::ng-deep .mat-form-field {
+              width: 100px;
+          }
+
+          ::ng-deep .mat-form-field-wrapper {
+              padding-bottom: 0px;
+    text-align: -webkit-center;
+          }
+          ::ng-deep .mat-form-field-label-wrapper { 
+            font-size: 15px;
+        }
+          ::ng-deep .mat-form-field-type-mat-select .mat-form-field-label {
+                color: white;
+          } 
+          ::ng-deep .mat-form-field-appearance-fill .mat-select-arrow-wrapper {
+              background-color:#835bf3;
+          }
+
+          ::ng-deep .mat-select-value{
+              color: white;
+          }
+
+          ::ng-deep .mat-form-field-appearance-fill .mat-form-field-underline {
+              background-color: transparent;
+              span {
+                  background-color: transparent;
+              }
+          }
+
+          
+      }
+    }
+  }
+  }
+  ::ng-deep .mat-select-panel {
+    min-width: 100% !important;
+    background-color:#835bf3;
+     .mat-option {
+        color: white;
+        font-family: hyundai-card;
+        word-break: keep-all;
+        word-wrap: break-word;
+    }
+    .mat-option-text {
+        color: white;
+    }
+}
+  ::ng-deep .mat-tab-label-content {
+      color: white;
+  font-family: hyundai-card;
+  word-break: keep-all;
+  word-wrap: break-word;
+  }
+
+  ::ng-deep .mat-tab-label {
+    height: auto;
+  }
+
+table {
+    width: 100%;
+    font-family: 'hyundai-card';
+    color: white;
+
+    word-break: keep-all;
+    word-wrap: break-word;
+    background-color: rgba(5,0, 20,0.3);
+
+    th.mat-header-cell {
+        text-align: -webkit-center;
+        font-size: 13px;
+        color: white;
+
+        word-break: keep-all;
+        word-wrap: break-word;
+    }
+    tr.mat-row, tr.mat-footer-row {
+    text-align: -webkit-center;
+    }
+    td.mat-cell {
+        font-size: 13px;
+        color: white;
+
+        word-break: keep-all;
+        word-wrap: break-word;
+
+    }
+    th.mat-header-cell:first-of-type, td.mat-cell:first-of-type, td.mat-footer-cell:first-of-type {
+        padding-left: 0px;
+    }
+    // th.mat-header-cell:last-of-type, td.mat-cell:last-of-type, td.mat-footer-cell:last-of-type {
+    //     padding-right: 0px;
+    // }
+  }
+

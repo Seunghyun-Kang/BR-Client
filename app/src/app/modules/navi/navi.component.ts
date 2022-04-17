@@ -59,6 +59,7 @@ export class NaviComponent implements OnInit {
   public drawer: IgxNavigationDrawerComponent;
   public navItems = [
     { name: 'Dashboard', text: '대쉬보드', family: 'user-icons' },
+    { name: 'LatestSignal', text: '최근 신호', family: 'user-icons' },
     { name: 'OptPortfolio', text: '종목 검색', family: 'user-icons' },
     { name: 'StockDetails', text: '최적 포트폴리오', family: 'user-icons' },
     { name: 'Question', text: '기본 설명', family: 'user-icons' },
@@ -95,6 +96,9 @@ export class NaviComponent implements OnInit {
       case '종목 검색':
         this.onPressGetStock()
         break;
+      case '최근 신호':
+        this.onPressLatestSignal()
+        break;
       case '최적 포트폴리오':
         this.onPressOptPortfolio()
         break;
@@ -127,6 +131,10 @@ export class NaviComponent implements OnInit {
 
   onPressInformation() {
     this.router.navigate(['information'])
+  }
+
+  onPressLatestSignal() {
+    this.router.navigate(['latestsignal'])
   }
 
   onPressDashboard() {

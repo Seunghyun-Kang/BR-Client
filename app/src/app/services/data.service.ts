@@ -15,6 +15,11 @@ export class DataService {
   public tripleScreenData = new Map<any, tripleScreenData[]>();
   public tripleScreenSignalData = new Map<any, signalData[]>();
 
+
+  public latestTripleScreenSignalData = new Map<any, signalData[]>();
+  public latestBollingerTrendSignalData = new Map<any, signalData[]>();
+  public latestBollingerReverseSignalData = new Map<any, signalData[]>();
+
   constructor() {
     console.log("Data service generated");
   }
@@ -85,4 +90,31 @@ export class DataService {
     console.log("getTripleScreenSignalData called");
     return this.tripleScreenSignalData.get(code)
   }
+
+  
+  getLatestTripleScreenSignalData(day: number): any {
+    console.log("getlatestTripleScreenSignalData called");
+    return this.latestTripleScreenSignalData.get(day)
+  }
+  setLatestTripleScreenSignalData(day: number, data: signalData[]) {
+    console.log("setlatestTripleScreenSignalData called");
+    this.latestTripleScreenSignalData.set(day, data)
+  }
+  getLatestBollingerTrendSignalData(day: number): any {
+    console.log("getLatestBollingerTrendSignalData called");
+    return this.latestBollingerTrendSignalData.get(day)
+  }
+  setLatestBollingerTrendSignalData(day: number, data: signalData[]) {
+    console.log("setlatestTripleScreenSignalData called");
+    this.latestBollingerTrendSignalData.set(day, data)
+  }
+  getLatestBollingerReverseSignalData(day: number): any {
+    console.log("getLatestBollingerReverseSignalData called");
+    return this.latestBollingerReverseSignalData.get(day)
+  }
+  setLatestBollingerReverseSignalData(day: number, data: signalData[]) {
+    console.log("setLatestBollingerReverseSignalData called");
+    this.latestBollingerReverseSignalData.set(day, data)
+  }
+
 }

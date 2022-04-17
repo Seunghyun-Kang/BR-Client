@@ -50,6 +50,8 @@ import {
 	IgxCarouselModule,
 	IgxListModule
  } from "igniteui-angular";
+import { LatestsignalComponent } from './components/latestsignal/latestsignal.component';
+import {MatSelectModule} from '@angular/material/select';
 
 PlotlyModule.plotlyjs = PlotlyJS;
 export class MyHammerConfig extends HammerGestureConfig {
@@ -68,6 +70,7 @@ const appRoutes: Routes = [
   { path: 'stockdetail-bollingerreverse', component: StockdstailBollingerreverseComponent },
   { path: 'optimalportfolio', component: OptimalportfolioComponent },
   { path: 'information', component: InformationComponent },
+  { path: 'latestsignal', component: LatestsignalComponent },
   { path: '', redirectTo: '/home', pathMatch: 'full' }
 ];
 
@@ -93,7 +96,8 @@ const appRoutes: Routes = [
     CarouselComponent,
     NaviComponent,
     ListComponent,
-    InformationComponent
+    InformationComponent,
+    LatestsignalComponent
   ],
   imports: [
     BrowserModule,
@@ -110,13 +114,13 @@ const appRoutes: Routes = [
     HammerModule,
     IgxNavigationDrawerModule, IgxIconModule, IgxSwitchModule, IgxButtonModule,
     MatAutocompleteModule, MatChipsModule, MatFormFieldModule, MatIconModule, MatInputModule, MatToolbarModule, MatDialogModule, MatTableModule, MatButtonModule,
-    MatTabsModule, MatCardModule,MatBadgeModule, MatTooltipModule, 
+    MatTabsModule, MatCardModule,MatBadgeModule, MatTooltipModule, MatSelectModule,
     IgxCarouselModule, IgxListModule
   ],
   providers: [HTMLCanvasElement,
     {
       provide: "Version",
-      useValue: 'BR V18',
+      useValue: 'BR V19',
     },
     {
       provide: HAMMER_GESTURE_CONFIG,
