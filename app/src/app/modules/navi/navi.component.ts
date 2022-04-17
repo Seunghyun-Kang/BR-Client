@@ -96,6 +96,9 @@ export class NaviComponent implements OnInit {
       case '종목 검색':
         this.onPressGetStock()
         break;
+      case '최근 신호':
+        this.onPressLatestSignal()
+        break;
       case '최적 포트폴리오':
         this.onPressOptPortfolio()
         break;
@@ -128,6 +131,10 @@ export class NaviComponent implements OnInit {
 
   onPressInformation() {
     this.router.navigate(['information'])
+  }
+
+  onPressLatestSignal() {
+    this.router.navigate(['latestsignal'])
   }
 
   onPressDashboard() {
