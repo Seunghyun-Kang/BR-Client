@@ -47,7 +47,7 @@ export class LatestsignalComponent implements OnInit {
       this.requestCompanyData()
     } else {
       this.rawLatestSignalTrend = this.dataService.getLatestBollingerTrendSignalData(3)
-      if (this.rawLatestSignalTrend.length === 0) {
+      if (this.rawLatestSignalTrend === undefined) {
         this.requestSignalData()
       }
     }
