@@ -41,15 +41,9 @@ export class RequestService {
       );
   }
 
-  getAllCompanies() {
-    return this.http.get(this.REST_SERVER_URL + 'companylist/', { observe: 'response', headers: this.headers })
-      .pipe(
-        catchError(this.handleError)
-      );
-  }
-
-  getCompanyName(code: string) {
-    return this.http.get(this.REST_SERVER_URL + 'company/' + code + '/', { observe: 'response', headers: this.headers })
+  getAllCompanies(symbol?: string) {
+    if(symbol == undefined) symbol = "KRX"
+    return this.http.get(this.REST_SERVER_URL + 'companylist/' + symbol + '/', { observe: 'response', headers: this.headers })
       .pipe(
         catchError(this.handleError)
       );
