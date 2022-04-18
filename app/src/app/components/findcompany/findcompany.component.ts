@@ -39,6 +39,7 @@ export class FindcompanyComponent implements OnInit, OnDestroy {
     private route: ActivatedRoute,
     private router: Router) {
 
+    this.statusService.setStatus("loading-forward")
     this.route.queryParams.subscribe((params: any) => {
       this.target = params['target']
 
@@ -90,7 +91,6 @@ export class FindcompanyComponent implements OnInit, OnDestroy {
       }
     });
 
-    this.statusService.setStatus("loading-forward")
   }
 
   resetAllData() {
@@ -114,7 +114,7 @@ export class FindcompanyComponent implements OnInit, OnDestroy {
           this.router.navigate(['stockdetail'], {
             queryParams: {
               code: element.code,
-              companyName: this.dataService.getCompanyNamebyCode(element.code)
+              companyName: this.dataService.getCompanyNamebyCode(element.code, this.type)
             }
           })
         }

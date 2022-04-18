@@ -49,7 +49,8 @@ export class OptimalportfolioComponent implements OnInit {
   public result1_portion: string = ""
   public result2_portion: string = ""
   public chartOptions: Partial<ChartOptions> | any;
-
+  public type: string
+  
   constructor(private statusService: PagestatusService,
     private requestService: RequestService,
     private dataService: DataService,
@@ -126,7 +127,7 @@ export class OptimalportfolioComponent implements OnInit {
     console.log(this.maxProfit)
 
     this.codes.forEach((element, index: any) => {
-      let info = this.dataService.getCompanyNamebyCode(element)
+      let info = this.dataService.getCompanyNamebyCode(element, this.type)
       this.result1_portion += info + ' ' + (this.maxSharpFull[element] * 100).toFixed(0) + '%'
       this.result2_portion += info + ' ' + (this.minRiskFull[element] * 100).toFixed(0) + '%'
 
