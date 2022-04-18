@@ -26,7 +26,8 @@ export class FindcompanyComponent implements OnInit, OnDestroy {
   public codesForOpt: any = []
   public target: string = ""
   private isTapButton: boolean = false
-
+  public type: string
+  
   public presentGuide: string
   public OptGuideist = "회사들을 선택하면 각각 몇%로 투자해야하는지 알려줄게 (최소 2개)"
   public StockGuideist = "확인하고 싶은 회사명을 검색하면 매매 타이밍을 계산해줄게"
@@ -57,22 +58,27 @@ export class FindcompanyComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    this.statusService.setStatus("loading-forward")
-    this.rawData = this.dataService.getCompanyData()
 
-    if (this.rawData.length !== 0) {
-      this.statusService.setStatus("normal");
-      this.getData = true
+    this.statusService.getType().subscribe((value) => {
+      console.log("TYPE ::" + value);
+      this.type = value
 
+      this.resetAllData()
+
+      this.rawData = this.dataService.getCompanyData(this.type)
+      console.log(this.rawData)
+      if (this.rawData !== undefined) {
+        this.getData = true
+        this.statusService.setStatus("normal");
       this.rawData.forEach(element => {
         this.companyNameList.push(element.company)
       });
-    } else {
-      this.requestService.getAllCompanies()
+      } else {
+        this.requestService.getAllCompanies(this.type)
         .subscribe({
           next: (v: any) => {
             this.rawData = Object(v.body)
-            this.dataService.setCompanyData(this.rawData)
+            this.dataService.setCompanyData(this.rawData,this.type)
             this.getData = true
             this.statusService.setStatus("normal");
             this.rawData.forEach(element => {
@@ -81,7 +87,17 @@ export class FindcompanyComponent implements OnInit, OnDestroy {
           },
           error: (e: any) => console.log("ERROR OCCURED :: " + JSON.stringify(e))
         });
-    }
+      }
+    });
+
+    this.statusService.setStatus("loading-forward")
+  }
+
+  resetAllData() {
+    this.rawData = []
+    this.companyNameList = []
+    this.getData = false
+    this.codesForOpt = []
   }
 
   ngOnDestroy(): void {
