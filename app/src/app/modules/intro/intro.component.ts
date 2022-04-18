@@ -2,7 +2,7 @@ import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { PagestatusService } from 'src/app/services/pagestatus.service';
 
 let screenId = "dashboard"
-
+var type = "KRX"
 @Component({
   selector: 'app-intro',
   templateUrl: './intro.component.html',
@@ -45,7 +45,7 @@ export class IntroComponent implements OnInit, OnDestroy {
 
           setTimeout(() => {   
           this.canvas = document.getElementById("canvas") as HTMLCanvasElement;
-          this.starfield = new StarField(howManyStars, this.canvas);
+          this.starfield = new StarField(howManyStars, this.canvas, type);
           this.starfield.startRenderLoop();
           }, 500);
           break;
@@ -58,11 +58,21 @@ export class IntroComponent implements OnInit, OnDestroy {
           }
           setTimeout(() => {   
             this.canvas = document.getElementById("canvas") as HTMLCanvasElement;
-            this.starfield = new StarField(howManyStars, this.canvas);
+            this.starfield = new StarField(howManyStars, this.canvas, type);
             this.starfield.startRenderLoop();
             }, 500);
           break;
       }
+    });
+
+    this.service.getType().subscribe((value) => {
+      console.log("WEB TYPE CHANGED ::" + value);
+      type = value
+      setTimeout(() => {   
+        this.canvas = document.getElementById("canvas") as HTMLCanvasElement;
+        this.starfield = new StarField(howManyStars, this.canvas, type);
+        this.starfield.startRenderLoop();
+        }, 500);
     });
   }
 
@@ -162,7 +172,7 @@ class Star {
   private pz;
   private color;
 
-  constructor(container: vec2) {
+  constructor(container: vec2, type: string) {
     let [size, depth] = container;
 
     this.FORWARD_SPEED = 500;
@@ -184,7 +194,8 @@ class Star {
     this.pz = this.z;
 
     // purple, green, and blue, but randomized ^.^
-    this.color = `rgb(${randRange(110, 200)},${randRange(110, 240)},${randRange(230, 255)})`;
+    if(type == "KRX") this.color = `rgb(${randRange(110, 200)},${randRange(110, 240)},${randRange(230, 255)})`;
+    else if(type == "NASDAQ") this.color = `rgb(${randRange(150, 300)},${randRange(10, 50)},${randRange(1, 100)})`;
   }
 
   resetX() {
@@ -429,7 +440,7 @@ class StarField {
   private screen: any;
   private container: any;
 
-  constructor(howManyStars: number, canvas: HTMLCanvasElement, depth: number = 2, UIFadeDelay = 1) {
+  constructor(howManyStars: number, canvas: HTMLCanvasElement, type: string= "KRX", depth: number = 2, UIFadeDelay = 1) {
     console.log("Intro StarDust constructor")
     this.canvas = canvas;
     // this.context = canvas.getContext('2d');
@@ -547,7 +558,7 @@ class StarField {
   populateStarField() {
     // fill an array with Star instances
     for (let i = 0; i < this.stars.length; i++) {
-      this.stars[i] = new Star(this.container);
+      this.stars[i] = new Star(this.container, type);
     }
   }
   emptyStarField() {

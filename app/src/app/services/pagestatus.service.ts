@@ -6,14 +6,20 @@ import { BehaviorSubject, Observable } from 'rxjs';
 })
 export class PagestatusService {
   private Status: BehaviorSubject<string>;
+  private type: BehaviorSubject<string>;
   private galaxyOn: boolean = true
 
   constructor() {
     this.Status = new BehaviorSubject<string>('dashboard');
+    this.type = new BehaviorSubject<string>('KRX');
   }
 
   getStatus(): Observable<string> {
     return this.Status.asObservable();
+  }
+
+  getType(): Observable<string> {
+    return this.type.asObservable();
   }
 
   setStatus(newValue: string): void {
@@ -23,6 +29,10 @@ export class PagestatusService {
     this.Status.next(newValue);
   }
 
+  setType(type: string) {
+    this.type.next(type);
+  }
+  
   isGalaxyOn(): boolean {
     return this.galaxyOn
   }
