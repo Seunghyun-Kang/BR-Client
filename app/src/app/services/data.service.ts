@@ -6,7 +6,7 @@ import { bollingerData, priceData, signalData, tripleScreenData } from '../compo
   providedIn: 'root'
 })
 export class DataService {
-  public companyData: Array<companyData> = []
+  public companyData = new Map<any, companyData[]>();
   public pricesData = new Map<any, any>();
   public stockData = new Map<any, priceData[]>();
   public bollingerData = new Map<any, bollingerData[]>();
@@ -24,20 +24,23 @@ export class DataService {
     console.log("Data service generated");
   }
 
-  setCompanyData(data: companyData[]) {
+  setCompanyData(data: companyData[], type?: string) {
+    if(type === undefined) type = "KRX"
     console.log("SET COMPANY DATA");
-    this.companyData = data
+    console.log(this.companyData)
+    this.companyData.set(type, data)
   }
 
-  getCompanyData(): companyData[] {
+  getCompanyData(type?: string): companyData[] {
+    if(type === undefined) type = "KRX"
     console.log("GET COMPANY DATA");
-    console.log(this.companyData);
-
-    return this.companyData
+    return this.companyData.get(type)
   }
-  getCompanyNamebyCode(company: string): string {
+
+  getCompanyNamebyCode(company: string, type?: string): string {
+    if(type === undefined) type = "KRX"
     let selected: any
-    selected = this.companyData.find(item => item.code === company)
+    selected = this.companyData.get(type).find(item => item.code === company)
     return selected.company
   }
 
