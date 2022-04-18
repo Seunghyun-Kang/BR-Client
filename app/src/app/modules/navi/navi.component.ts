@@ -90,7 +90,7 @@ export class NaviComponent implements OnInit {
   }
   public navigate(item) {
     console.log(this.isOpenMenu)
-    if (IS_MOBILE && this.isOpenMenu == 0) return
+    // if (IS_MOBILE && this.isOpenMenu == 0) return
     // if (IS_MOBILE && this.isOpenMenu == 2) { this.isOpenMenu++; return}
 
     this.selected = item.text;
