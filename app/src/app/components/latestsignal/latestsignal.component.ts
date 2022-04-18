@@ -237,6 +237,8 @@ this.rawLatestSignalTripleScreen.forEach(element => {
       column: columnlist,
       data: dataArrayTriple
     }
+
+    console.log(this.inputDataTrend)
 }
 
 onTapCompany(code: string, company: string) {

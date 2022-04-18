@@ -19,6 +19,16 @@
       min-width: 300px;
       overflow: hidden;
 
+      .nolist {
+        color: white;
+        font-family: hyundai-card;
+        word-break: keep-all;
+        word-wrap: break-word;
+        text-align: center;
+        margin-top: 40vh;
+        font-size: 20px;
+      }
+
       .selection-container {
           display: flex;
           flex-direction: row;
