@@ -26,7 +26,7 @@
           justify-content: flex-end;
           align-items: center;
           margin-top: 10px;
-          
+          margin-bottom: 5px;
           ::ng-deep .mat-form-field-appearance-fill .mat-form-field-flex{
             background-color: transparent;
             padding: 0px;
@@ -53,6 +53,7 @@
 
           ::ng-deep .mat-select-value{
               color: white;
+              width: 70%;
           }
 
           ::ng-deep .mat-form-field-appearance-fill .mat-form-field-underline {
@@ -60,6 +61,10 @@
               span {
                   background-color: transparent;
               }
+          }
+
+          ::ng-deep .mat-form-field-label {
+            width: 70%;
           }
 
           
