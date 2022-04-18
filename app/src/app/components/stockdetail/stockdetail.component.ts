@@ -43,6 +43,7 @@ export class StockdetailComponent implements OnInit {
 
   public selectedIndex = 0
   private itemLen = 4
+  public type: string
 
   constructor(
     private requestService: RequestService,
@@ -58,71 +59,95 @@ export class StockdetailComponent implements OnInit {
     const Plotly = plotlyService.getPlotly();
   }
 
+  // this.statusService.getType().subscribe((value) => {
+  //   console.log("TYPE ::" + value);
+  //   this.type = value
+
+  //   this.resetAllData()
+
+  //   this.companyInfo = this.dataService.getCompanyData(this.type)
+  //   console.log(this.companyInfo)
+  //   if (this.companyInfo === undefined) {
+  //     this.requestCompanyData(this.type)
+  //   } else {
+  //     this.requestSignalData(this.type)
+  //   }
+  // });
+
   ngOnInit(): void {
     console.log("ngOnInit called!")
 
-    this.requestService.getPrices(this.code)
-      .subscribe({
-        next: (v: any) => {
-          this.rawStockData = JSON.parse(Object(v.body))
-          console.log(this.rawStockData)
+    this.statusService.getType().subscribe((value) => {
+    console.log("TYPE ::" + value);
+    this.type = value
 
-          this.statusService.setStatus("normal")
+    this.requestData()
+  });
+  }
 
-          this.initCommonGraphSettings()
-          this.initDefaultGraph()
-          this.dataService.setStockData(this.code, this.rawStockData)
+  requestData() {
+    this.requestService.getPrices(this.code, this.type)
+    .subscribe({
+      next: (v: any) => {
+        this.rawStockData = JSON.parse(Object(v.body))
+        console.log(this.rawStockData)
 
-          this.requestService.getBollingerInfo(this.code)
-            .subscribe({
-              next: (v: any) => {
-                this.rawDataBollinger = Object(v.body)
-                this.dataService.setBollingerData(this.code, this.rawDataBollinger)
+        this.statusService.setStatus("normal")
 
-                this.requestService.getBollingerReverseSignal(this.code)
-                  .subscribe({
-                    next: (v: any) => {
-                      this.rawDataBollingerReverseSignal = Object(v.body)
-                      this.dataService.setBollingerReverseSignalData(this.code, this.rawDataBollingerReverseSignal)
+        this.initCommonGraphSettings()
+        this.initDefaultGraph()
+        this.dataService.setStockData(this.code, this.rawStockData)
 
-                      this.requestService.getBollingerTrendSignal(this.code)
-                        .subscribe({
-                          next: (v: any) => {
-                            this.rawDataBollingerTrendSignal = Object(v.body)
-                            this.dataService.setBollingerTrendSignalData(this.code, this.rawDataBollingerTrendSignal)
+        this.requestService.getBollingerInfo(this.code, this.type)
+          .subscribe({
+            next: (v: any) => {
+              this.rawDataBollinger = Object(v.body)
+              this.dataService.setBollingerData(this.code, this.rawDataBollinger)
 
-                            this.isDefault = true
-                          },
-                          error: (e: any) => console.log("ERROR OCCURED :: " + JSON.stringify(e))
-                        });
-                    },
-                    error: (e: any) => console.log("ERROR OCCURED :: " + JSON.stringify(e))
-                  });
-              },
-              error: (e: any) => console.log("ERROR OCCURED :: " + JSON.stringify(e))
-            });
+              this.requestService.getBollingerReverseSignal(this.code, this.type)
+                .subscribe({
+                  next: (v: any) => {
+                    this.rawDataBollingerReverseSignal = Object(v.body)
+                    this.dataService.setBollingerReverseSignalData(this.code, this.rawDataBollingerReverseSignal)
 
-          this.requestService.getTripleScreenSignal(this.code)
-            .subscribe({
-              next: (v: any) => {
-                this.rawDataTripleScreenSignal = Object(v.body)
-                this.dataService.setTripleScreenSignalData(this.code, this.rawDataTripleScreenSignal)
+                    this.requestService.getBollingerTrendSignal(this.code, this.type)
+                      .subscribe({
+                        next: (v: any) => {
+                          this.rawDataBollingerTrendSignal = Object(v.body)
+                          this.dataService.setBollingerTrendSignalData(this.code, this.rawDataBollingerTrendSignal)
 
-                this.requestService.getTripleScreenInfo(this.code)
-                  .subscribe({
-                    next: (v: any) => {
-                      this.rawDataTripleScreen = Object(v.body)
-                      this.dataService.setTripleScreenData(this.code, this.rawDataTripleScreen)
-                    },
-                    error: (e: any) => console.log("ERROR OCCURED :: " + JSON.stringify(e))
-                  });
-              },
-              error: (e: any) => console.log("ERROR OCCURED :: " + JSON.stringify(e))
-            });
+                          this.isDefault = true
+                        },
+                        error: (e: any) => console.log("ERROR OCCURED :: " + JSON.stringify(e))
+                      });
+                  },
+                  error: (e: any) => console.log("ERROR OCCURED :: " + JSON.stringify(e))
+                });
+            },
+            error: (e: any) => console.log("ERROR OCCURED :: " + JSON.stringify(e))
+          });
 
-        },
-        error: (e: any) => console.log("ERROR OCCURED :: " + JSON.stringify(e))
-      });
+        this.requestService.getTripleScreenSignal(this.code, this.type)
+          .subscribe({
+            next: (v: any) => {
+              this.rawDataTripleScreenSignal = Object(v.body)
+              this.dataService.setTripleScreenSignalData(this.code, this.rawDataTripleScreenSignal)
+
+              this.requestService.getTripleScreenInfo(this.code, this.type)
+                .subscribe({
+                  next: (v: any) => {
+                    this.rawDataTripleScreen = Object(v.body)
+                    this.dataService.setTripleScreenData(this.code, this.rawDataTripleScreen)
+                  },
+                  error: (e: any) => console.log("ERROR OCCURED :: " + JSON.stringify(e))
+                });
+            },
+            error: (e: any) => console.log("ERROR OCCURED :: " + JSON.stringify(e))
+          });
+
+      },
+      error: (e: any) => console.log("ERROR OCCURED :: " + JSON.stringify(e))
+    });
   }
 
   ngAfterViewInit() {
