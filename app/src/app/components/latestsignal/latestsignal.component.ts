@@ -16,6 +16,7 @@ const IS_MOBILE = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini
 })
 export class LatestsignalComponent implements OnInit {
   public lastday: number = 3
+  public type: string
 
   public rawLatestSignalTrend: signalData[] = []
   public rawLatestSignalReverse: signalData[] = []
@@ -42,37 +43,52 @@ export class LatestsignalComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.companyInfo = this.dataService.getCompanyData()
-    if (this.companyInfo.length === 0) {
-      this.requestCompanyData()
-    } else {
-        this.requestSignalData()
-    }
+    this.statusService.getType().subscribe((value) => {
+      console.log("TYPE ::" + value);
+      this.type = value
+
+      this.resetAllData()
+
+      this.companyInfo = this.dataService.getCompanyData(this.type)
+      console.log(this.companyInfo)
+      if (this.companyInfo === undefined) {
+        this.requestCompanyData(this.type)
+      } else {
+        this.requestSignalData(this.type)
+      }
+    });
   }
 
-  requestCompanyData() {
-    this.requestService.getAllCompanies()
+  resetAllData() {
+    this.rawLatestSignalTrend = []
+    this.rawLatestSignalReverse = []
+    this.rawLatestSignalTripleScreen = []
+    this.companyInfo = undefined
+  }
+
+  requestCompanyData(type: string) {
+    this.requestService.getAllCompanies(type)
       .subscribe({
         next: (v: any) => {
-          this.dataService.setCompanyData(Object(v.body))
-          this.requestSignalData()
+          this.dataService.setCompanyData(Object(v.body),type)
+          this.requestSignalData(type)
         },
         error: (e: any) => console.log("ERROR OCCURED :: " + JSON.stringify(e))
       });
   }
 
-  requestSignalData() {
-    this.requestService.getLastBollingerTrendSignal(this.lastday)
+  requestSignalData(type: string) {
+    this.requestService.getLastBollingerTrendSignal(this.lastday, type)
       .subscribe({
         next: (v: any) => {
           this.rawLatestSignalTrend = Object(v.body)
           this.dataService.setLatestBollingerTrendSignalData(this.lastday, this.rawLatestSignalTrend)
-          this.requestService.getLastBollingerReverseSignal(this.lastday)
+          this.requestService.getLastBollingerReverseSignal(this.lastday, type)
             .subscribe({
               next: (v: any) => {
                 this.rawLatestSignalReverse = Object(v.body)
                 this.dataService.setLatestBollingerReverseSignalData(this.lastday, this.rawLatestSignalReverse)
-                this.requestService.getLastTripleScreenSignal(this.lastday)
+                this.requestService.getLastTripleScreenSignal(this.lastday, type)
                   .subscribe({
                     next: (v: any) => {
                       this.rawLatestSignalTripleScreen = Object(v.body)
@@ -109,7 +125,7 @@ parseDataForList(typefilter: string[] = ['매수', '매도']) {
         (typefilter.length === 1 && typefilter[0] === '매도' && element.type === 'sell')){
         
         dataArrayTrend.push([
-        this.dataService.getCompanyNamebyCode(element.code),
+        this.dataService.getCompanyNamebyCode(element.code , this.type),
         element.type === "sell" ? "매도" : "매수",
         element.date,
         String(element.close),
@@ -125,7 +141,7 @@ parseDataForList(typefilter: string[] = ['매수', '매도']) {
       (typefilter.length === 1 && typefilter[0] === '매도' && element.type === 'sell')){
       
         dataArrayTrend.push([
-        this.dataService.getCompanyNamebyCode(element.code),
+        this.dataService.getCompanyNamebyCode(element.code , this.type),
         element.type === "sell" ? "매도" : "매수",
         String(element.close),
         element.type === "sell" ? String(element.last_buy_close) : String(element.last_sell_close),
@@ -143,7 +159,7 @@ parseDataForList(typefilter: string[] = ['매수', '매도']) {
       (typefilter.length === 1 && typefilter[0] === '매도' && element.type === 'sell')){
       
       dataArrayReverse.push([
-      this.dataService.getCompanyNamebyCode(element.code),
+      this.dataService.getCompanyNamebyCode(element.code , this.type),
       element.type === "sell" ? "매도" : "매수",
       element.date,
       String(element.close),
@@ -159,7 +175,7 @@ parseDataForList(typefilter: string[] = ['매수', '매도']) {
     (typefilter.length === 1 && typefilter[0] === '매도' && element.type === 'sell')){
     
       dataArrayReverse.push([
-      this.dataService.getCompanyNamebyCode(element.code),
+      this.dataService.getCompanyNamebyCode(element.code , this.type),
       element.type === "sell" ? "매도" : "매수",
       String(element.close),
       element.type === "sell" ? String(element.last_buy_close) : String(element.last_sell_close),
@@ -177,7 +193,7 @@ this.rawLatestSignalTripleScreen.forEach(element => {
     (typefilter.length === 1 && typefilter[0] === '매도' && element.type === 'sell')){
     
     dataArrayTriple.push([
-    this.dataService.getCompanyNamebyCode(element.code),
+    this.dataService.getCompanyNamebyCode(element.code , this.type),
     element.type === "sell" ? "매도" : "매수",
     element.date,
     String(element.close),
@@ -193,7 +209,7 @@ this.rawLatestSignalTripleScreen.forEach(element => {
   (typefilter.length === 1 && typefilter[0] === '매도' && element.type === 'sell')){
   
     dataArrayTriple.push([
-    this.dataService.getCompanyNamebyCode(element.code),
+    this.dataService.getCompanyNamebyCode(element.code , this.type),
     element.type === "sell" ? "매도" : "매수",
     String(element.close),
     element.type === "sell" ? String(element.last_buy_close) : String(element.last_sell_close),
@@ -253,15 +269,15 @@ onChangeDay(event: any){
   this.rawLatestSignalTrend = this.dataService.getLatestBollingerTrendSignalData(this.lastday)
   console.log(this.rawLatestSignalTrend)
       if (this.rawLatestSignalTrend === undefined) {
-        this.requestSignalData()
+        this.requestSignalData(this.type)
   }
   this.rawLatestSignalReverse = this.dataService.getLatestBollingerReverseSignalData(this.lastday)
       if (this.rawLatestSignalReverse === undefined) {
-        this.requestSignalData()
+        this.requestSignalData(this.type)
   }
   this.rawLatestSignalTripleScreen = this.dataService.getLatestTripleScreenSignalData(this.lastday)
       if (this.rawLatestSignalTripleScreen === undefined) {
-        this.requestSignalData()
+        this.requestSignalData(this.type)
   }
 }
 }
