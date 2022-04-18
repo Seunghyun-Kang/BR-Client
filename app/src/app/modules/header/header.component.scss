@@ -12,7 +12,52 @@
     color: white;
     font-family: hyundai-card;
 }
+.radio-group {
+    display: flex;
+    flex-direction: column;
+    margin: 15px 0;
+    align-items: flex-start;
+  }
+  
+.radio-button {
+    margin: 5px;
+  }
+.globe {
+    position: fixed;
+    right: 10px;
+    top: 5px; 
+}
+::ng-deep .mat-menu-panel {
+    border-radius: 10px !important;
+    background-color: transparent;
+    .mat-menu-content {
+        background: rgb(103 58 183 / 90%);
+        color: white;
+        font-family: hyundai-card;
 
+        .mat-radio-group {
+            margin: 0px;
+
+            .mat-radio-outer-circle  {
+                border-color: white;
+                width: 15px;
+                height: 15px;
+                // border-color: rgb(17, 17, 99);
+            }
+
+            .mat-radio-inner-circle{
+                // background-color: white;
+                background-color: #b83f3f;
+                width: 15px;
+                height: 15px;
+            }
+            .mat-radio-label-content {
+                font-size: 12px;
+            }
+
+        }
+    }
+}
 :ng-deep .mat-toolbar-row .mat-toolbar-single-row {
     justify-content: space-between;
 }

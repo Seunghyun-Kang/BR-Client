@@ -4,6 +4,14 @@ justify-content: space-around;
 padding: 0 15px;">
     <!-- <igx-icon *ngIf="status !== 'dashboard'" (click)="onPressBack()" fontSet="material" [style.color]="'white'"
         [name]="'Back'" [family]="'user-icons'"></igx-icon> -->
-    <span class="title">{{title}}</span>
-   
+    
+        <span class="title">{{title}}</span>
+    <igx-icon class="globe" [matMenuTriggerFor]="menu" fontSet="material" [style.color]="'white'" [name]="'Globe'" [family]="'user-icons'"></igx-icon>
+    <mat-menu #menu="matMenu">
+        <mat-radio-group class="radio-group"(change)="onTapGlobe($event)">
+  <mat-radio-button class="radio-button" *ngFor="let item of types; index as i" [value]="i" [checked]="i === 0">
+    {{item}}
+  </mat-radio-button>
+</mat-radio-group>
+      </mat-menu>
 </mat-toolbar>
