@@ -34,12 +34,13 @@
           }
 
           ::ng-deep .mat-form-field {
-              width: 100px;
+              width: 140px;
           }
 
           ::ng-deep .mat-form-field-wrapper {
               padding-bottom: 0px;
     text-align: -webkit-center;
+    width: 100%;
           }
           ::ng-deep .mat-form-field-label-wrapper { 
             font-size: 15px;
@@ -53,7 +54,7 @@
 
           ::ng-deep .mat-select-value{
               color: white;
-              width: 70%;
+              width: 80%;
           }
 
           ::ng-deep .mat-form-field-appearance-fill .mat-form-field-underline {
