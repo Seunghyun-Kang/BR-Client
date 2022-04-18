@@ -12,12 +12,20 @@ export class HeaderComponent implements OnInit {
 
   @Input() title: string = ""
   public status: string = ""
-  public types:string[] = ["코스닥", "나스닥 & 뉴욕"]
+  public types:string[] = ["Korea", "USA"]
+  public country: string
   constructor(private location: Location, private service: PagestatusService) { }
 
   ngOnInit(): void {
-    this.service.getStatus().subscribe((value: any) => {
-      this.status = value;
+    this.service.getType().subscribe((value: any) => {
+      switch(value){
+        case "KRX":
+          this.country = this.types[0]
+          break
+        case "NASDAQ":
+          this.country = this.types[1]
+          break
+      }
     });
   }
 

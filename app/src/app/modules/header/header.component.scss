@@ -25,18 +25,28 @@
 .globe {
     position: fixed;
     right: 10px;
-    top: 5px; 
+    top: 8px; 
+    width: 35px;
+    height: 35px;
 }
 ::ng-deep .mat-menu-panel {
     border-radius: 10px !important;
     background-color: transparent;
+    min-width: 70px !important;
+
     .mat-menu-content {
         background: rgb(103 58 183 / 90%);
         color: white;
         font-family: hyundai-card;
+        padding:  0px;
 
         .mat-radio-group {
             margin: 0px;
+            igx-icon {
+                width: 35px;
+                height: 35px;
+                margin-top: 4px;
+            }
 
             .mat-radio-outer-circle  {
                 border-color: white;
@@ -68,7 +78,7 @@
 
 :host {
 igx-icon {
-    filter: brightness(0) invert(1);
-    margin-top: 10px;
+    width: 35px;
+    height: 35px;
 }
 }
