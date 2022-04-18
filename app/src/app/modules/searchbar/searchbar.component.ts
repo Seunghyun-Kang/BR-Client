@@ -2,6 +2,7 @@ import { HttpEventType } from '@angular/common/http';
 import { Component, OnInit, ViewChild, ElementRef, EventEmitter, Output, Input } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { DataService } from 'src/app/services/data.service';
+import { PagestatusService } from 'src/app/services/pagestatus.service';
 
 @Component({
     selector: 'app-search-bar',
@@ -18,6 +19,7 @@ export class SearchBarComponent implements OnInit {
     select: Array<string> = []
     public list: any[] = []
     public inputList: any
+    public type: string
 
     @ViewChild('autocompleteInput') autocompleteInput: ElementRef;
     @Output() onSelectedOption = new EventEmitter();
@@ -25,8 +27,13 @@ export class SearchBarComponent implements OnInit {
 
 
     constructor(
-        public dataService: DataService
+        public dataService: DataService,
+        private statusServce: PagestatusService
     ) {
+        this.statusServce.getType().subscribe((value) => {
+            console.log("TYPE ::" + value);
+            this.type = value
+        });
     }
 
     ngOnInit() {
@@ -45,6 +52,7 @@ export class SearchBarComponent implements OnInit {
 
     // this is where filtering the data happens according to you typed value
     filterCategoryList(val: any) {
+        if(this.type === 'NASDAQ' && val.length < 3) return
         var categoryList = []
         if (typeof val != "string") {
             return [];
