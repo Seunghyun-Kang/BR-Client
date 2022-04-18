@@ -19,7 +19,14 @@
     width: 100%;
     min-width: 300px;
     overflow: auto;
-
+.nolist {
+  color: white;
+  text-align: center;
+  font-family: hyundai-card;
+  font-size: 18px;
+  font-size: 15px;
+  margin-bottom: 10px;
+}
     .title {
       color: white;
       text-align: center;
