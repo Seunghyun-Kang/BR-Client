@@ -7,16 +7,6 @@ import { catchError, retry } from 'rxjs/operators';
   providedIn: 'root'
 })
 
-// get() options for GET
-// options: {
-//   headers?: HttpHeaders | {[header: string]: string | string[]},
-//   observe?: 'body' | 'events' | 'response',
-//   params?: HttpParams|{[param: string]: string | number | boolean | ReadonlyArray<string | number | boolean>},
-//   reportProgress?: boolean,
-//   responseType?: 'arraybuffer'|'blob'|'json'|'text',
-//   withCredentials?: boolean,
-// }
-
 export class RequestService {
 
   REST_SERVER_URL = 'http://52.78.240.74:8080/'
@@ -31,7 +21,6 @@ export class RequestService {
         'Access-Control-Allow-Methods': 'GET'
       }
     );
-    // this.headers = this.headers.set('Content-Type', 'application/json; charset=utf-8');
   }
 
   getPrices(code: string, symbol?: string) {
@@ -65,57 +54,65 @@ export class RequestService {
       );
   }
 
-  getBollingerInfo(code: string) {
-    return this.http.get(this.REST_SERVER_URL + 'bollinger/' + code + '/', { observe: 'response', headers: this.headers })
+  getBollingerInfo(code: string, symbol?: string) {
+    if(symbol == undefined) symbol = "KRX"
+    return this.http.get(this.REST_SERVER_URL + 'bollinger/' + symbol +'/' + code + '/', { observe: 'response', headers: this.headers })
       .pipe(
         catchError(this.handleError)
       );
   }
 
 
-  getBollingerTrendSignal(code: string) {
-    return this.http.get(this.REST_SERVER_URL + 'bollinger_trend/' + code + '/', { observe: 'response', headers: this.headers })
+  getBollingerTrendSignal(code: string, symbol?: string) {
+    if(symbol == undefined) symbol = "KRX"
+    return this.http.get(this.REST_SERVER_URL + 'bollinger_trend/'+ symbol +'/'  + code + '/', { observe: 'response', headers: this.headers })
       .pipe(
         catchError(this.handleError)
       );
   }
 
-  getBollingerReverseSignal(code: string) {
-    return this.http.get(this.REST_SERVER_URL + 'bollinger_reverse/' + code + '/', { observe: 'response', headers: this.headers })
+  getBollingerReverseSignal(code: string, symbol?: string) {
+    if(symbol == undefined) symbol = "KRX"
+    return this.http.get(this.REST_SERVER_URL + 'bollinger_reverse/' + symbol +'/' + code + '/', { observe: 'response', headers: this.headers })
       .pipe(
         catchError(this.handleError)
       );
   }
 
-  getTripleScreenInfo(code: string) {
-    return this.http.get(this.REST_SERVER_URL + 'triplescreen/' + code + '/', { observe: 'response', headers: this.headers })
+  getTripleScreenInfo(code: string, symbol?: string) {
+    if(symbol == undefined) symbol = "KRX"
+    return this.http.get(this.REST_SERVER_URL + 'triplescreen/' + symbol +'/' + code + '/', { observe: 'response', headers: this.headers })
       .pipe(
         catchError(this.handleError)
       );
   }
 
-  getTripleScreenSignal(code: string) {
-    return this.http.get(this.REST_SERVER_URL + 'triplescreen_signal/' + code + '/', { observe: 'response', headers: this.headers })
+  getTripleScreenSignal(code: string, symbol?: string) {
+    if(symbol == undefined) symbol = "KRX"
+    return this.http.get(this.REST_SERVER_URL + 'triplescreen_signal/'+ symbol +'/'  + code + '/', { observe: 'response', headers: this.headers })
       .pipe(
         catchError(this.handleError)
       );
   }
-  getLastBollingerTrendSignal(lastday: number) {
-    return this.http.get(this.REST_SERVER_URL + 'latest_signal_trend/' + lastday + '/', { observe: 'response', headers: this.headers })
-      .pipe(
-        catchError(this.handleError)
-      );
-  }
-
-  getLastBollingerReverseSignal(lastday: number) {
-    return this.http.get(this.REST_SERVER_URL + 'latest_signal_reverse/' + lastday + '/',{ observe: 'response', headers: this.headers })
+  getLastBollingerTrendSignal(lastday: number, symbol?: string) {
+    if(symbol == undefined) symbol = "KRX"
+    return this.http.get(this.REST_SERVER_URL + 'latest_signal_trend/'+ symbol +'/'  + lastday + '/', { observe: 'response', headers: this.headers })
       .pipe(
         catchError(this.handleError)
       );
   }
 
-  getLastTripleScreenSignal(lastday: number) {
-    return this.http.get(this.REST_SERVER_URL + 'latest_signal_triple/' + lastday + '/', { observe: 'response', headers: this.headers })
+  getLastBollingerReverseSignal(lastday: number, symbol?: string) {
+    if(symbol == undefined) symbol = "KRX"
+    return this.http.get(this.REST_SERVER_URL + 'latest_signal_reverse/'+ symbol +'/'  + lastday + '/',{ observe: 'response', headers: this.headers })
+      .pipe(
+        catchError(this.handleError)
+      );
+  }
+
+  getLastTripleScreenSignal(lastday: number, symbol?: string) {
+    if(symbol == undefined) symbol = "KRX"
+    return this.http.get(this.REST_SERVER_URL + 'latest_signal_triple/' + symbol +'/' + lastday + '/', { observe: 'response', headers: this.headers })
       .pipe(
         catchError(this.handleError)
       );
