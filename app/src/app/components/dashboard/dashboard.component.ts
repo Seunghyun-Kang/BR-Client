@@ -20,6 +20,7 @@ export class DashboardComponent implements OnInit {
   public getReverseData: boolean = false
   public getTripleScreenData: boolean = false
   public status = "loading-forward";
+  public type: string = "KRX"
 
   public rawLatestSignalTrend: signalData[] = []
   public rawLatestSignalReverse: signalData[] = []
@@ -46,30 +47,56 @@ export class DashboardComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.companyInfo = this.dataService.getCompanyData()
-    if (this.companyInfo.length === 0) {
-      this.requestCompanyData()
-    } else {
-      this.requestSignalData()
-    }
+    this.statusService.getType().subscribe((value) => {
+      console.log("TYPE ::" + value);
+      this.type = value
+
+      this.resetAllData()
+
+      this.companyInfo = this.dataService.getCompanyData(this.type)
+      console.log(this.companyInfo)
+      if (this.companyInfo === undefined) {
+        this.requestCompanyData(this.type)
+      } else {
+        this.requestSignalData(this.type)
+      }
+    });
   }
 
-  requestCompanyData() {
-    this.requestService.getAllCompanies()
+  resetAllData() {
+    this.rawLatestSignalTrend = []
+    this.rawLatestSignalReverse = []
+    this.rawLatestSignalTripleScreen = []
+
+    this.buyTrend = []
+    this.buyReverse = []
+    this.buyTriple = []
+    this.sellTrend = []
+    this.sellReverse = []
+    this.sellTriple = []
+    this.companyInfo = undefined
+
+    this.getTrendData = false
+    this.getReverseData = false
+    this.getTripleScreenData = false
+  }
+
+  requestCompanyData(type: string) {
+    this.requestService.getAllCompanies(type)
       .subscribe({
         next: (v: any) => {
-          this.dataService.setCompanyData(Object(v.body))
-          this.requestSignalData()
+          this.dataService.setCompanyData(Object(v.body), type)
+          this.requestSignalData(type)
         },
         error: (e: any) => console.log("ERROR OCCURED :: " + JSON.stringify(e))
       });
   }
 
-  requestSignalData() {
+  requestSignalData(type: string) {
     var lastday = 1
     var today = new Date().getDay()
-    
-    switch(today) {
+
+    switch (today) {
       case 0:
         lastday = 2
         break
@@ -80,23 +107,25 @@ export class DashboardComponent implements OnInit {
         break
     }
 
-    this.requestService.getLastBollingerTrendSignal(lastday)
+    this.requestService.getLastBollingerTrendSignal(lastday, type)
       .subscribe({
         next: (v: any) => {
           this.rawLatestSignalTrend = Object(v.body)
           console.log(this.rawLatestSignalTrend)
           this.parseSignalData(this.rawLatestSignalTrend, "bollinger-trend")
 
-          this.requestService.getLastBollingerReverseSignal(lastday)
+          this.requestService.getLastBollingerReverseSignal(lastday, type)
             .subscribe({
               next: (v: any) => {
                 this.rawLatestSignalReverse = Object(v.body)
+                console.log(this.rawLatestSignalReverse)
                 this.parseSignalData(this.rawLatestSignalReverse, "bollinger-reverse")
 
-                this.requestService.getLastTripleScreenSignal(lastday)
+                this.requestService.getLastTripleScreenSignal(lastday, type)
                   .subscribe({
                     next: (v: any) => {
                       this.rawLatestSignalTripleScreen = Object(v.body)
+                      console.log(this.rawLatestSignalTripleScreen)
                       this.parseSignalData(this.rawLatestSignalTripleScreen, "triplescreen")
                       this.statusService.setStatus("normal")
                     },
@@ -284,13 +313,13 @@ export class DashboardComponent implements OnInit {
           ])
           else {
             this.sellTrend.push([
-            this.dataService.getCompanyNamebyCode(element.code),
-            "전일 종가 " + String(element.close) + "원",
-            element.last_buy_close != -1 ? String(((element.close - element.last_buy_close) / element.last_buy_close * 100).toFixed(2)) + "% 수익" : "정보 없음",
-            element.last_buy_close != -1 ? "  " + " (매수가 " + String(element.last_buy_close) + "원)" : "" ,
-            String((element.close - element.last_buy_close) / element.last_buy_close * 100)
-          ])
-        }
+              this.dataService.getCompanyNamebyCode(element.code),
+              "전일 종가 " + String(element.close) + "원",
+              element.last_buy_close != -1 ? String(((element.close - element.last_buy_close) / element.last_buy_close * 100).toFixed(2)) + "% 수익" : "정보 없음",
+              element.last_buy_close != -1 ? "  " + " (매수가 " + String(element.last_buy_close) + "원)" : "",
+              String((element.close - element.last_buy_close) / element.last_buy_close * 100)
+            ])
+          }
         });
         this.getTrendData = true
         break;
