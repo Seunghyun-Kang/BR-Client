@@ -52,6 +52,8 @@ import {
  } from "igniteui-angular";
 import { LatestsignalComponent } from './components/latestsignal/latestsignal.component';
 import {MatSelectModule} from '@angular/material/select';
+import {MatMenuModule} from '@angular/material/menu';
+import {MatRadioModule} from '@angular/material/radio';
 
 PlotlyModule.plotlyjs = PlotlyJS;
 export class MyHammerConfig extends HammerGestureConfig {
@@ -114,7 +116,7 @@ const appRoutes: Routes = [
     HammerModule,
     IgxNavigationDrawerModule, IgxIconModule, IgxSwitchModule, IgxButtonModule,
     MatAutocompleteModule, MatChipsModule, MatFormFieldModule, MatIconModule, MatInputModule, MatToolbarModule, MatDialogModule, MatTableModule, MatButtonModule,
-    MatTabsModule, MatCardModule,MatBadgeModule, MatTooltipModule, MatSelectModule,
+    MatTabsModule, MatCardModule,MatBadgeModule, MatTooltipModule, MatSelectModule, MatMenuModule, MatRadioModule,
     IgxCarouselModule, IgxListModule
   ],
   providers: [HTMLCanvasElement,
