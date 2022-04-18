@@ -3,7 +3,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { DataService } from 'src/app/services/data.service';
 import { PagestatusService } from 'src/app/services/pagestatus.service';
 import { RequestService } from 'src/app/services/request.service';
-
+import { Subscription } from 'rxjs';
 export interface companyData {
   code: string,
   company: string,
@@ -32,7 +32,8 @@ export class FindcompanyComponent implements OnInit, OnDestroy {
   public OptGuideist = "회사들을 선택하면 각각 몇%로 투자해야하는지 알려줄게 (최소 2개)"
   public StockGuideist = "확인하고 싶은 회사명을 검색하면 매매 타이밍을 계산해줄게"
   public page: string =""
-
+  private subscription : Subscription;
+  
   constructor(private statusService: PagestatusService,
     private requestService: RequestService,
     private dataService: DataService,
@@ -60,7 +61,7 @@ export class FindcompanyComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
 
-    this.statusService.getType().subscribe((value) => {
+    this.subscription = this.statusService.getType().subscribe((value) => {
       console.log("TYPE ::" + value);
       this.type = value
 
@@ -102,6 +103,7 @@ export class FindcompanyComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     console.log("ngOnDestroy")
+    this.subscription.unsubscribe()
   }
 
   onSelectedOption(event: any) {

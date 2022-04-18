@@ -12,6 +12,7 @@ import {
 import { DataService } from 'src/app/services/data.service';
 import { PagestatusService } from 'src/app/services/pagestatus.service';
 import { RequestService } from 'src/app/services/request.service';
+import { Subscription } from 'rxjs';
 
 export type ChartElem = {
   name: string,
@@ -50,6 +51,7 @@ export class OptimalportfolioComponent implements OnInit {
   public result2_portion: string = ""
   public chartOptions: Partial<ChartOptions> | any;
   public type: string
+  private subscription : Subscription;
   
   constructor(private statusService: PagestatusService,
     private requestService: RequestService,
@@ -78,6 +80,12 @@ export class OptimalportfolioComponent implements OnInit {
         error: (e: any) => console.log("ERROR OCCURED :: " + JSON.stringify(e))
       });
   }
+  
+  ngOnDestroy(): void {
+    console.log("ngOnDestroy")
+    this.subscription.unsubscribe()
+  }
+
 
   guideIndexChanged(event: any) {
 

@@ -6,7 +6,7 @@ import { bollingerData, priceData, signalData, TradeViewSettings, tripleScreenDa
 import { PagestatusService } from 'src/app/services/pagestatus.service';
 import { DataService } from 'src/app/services/data.service';
 import { MatTabChangeEvent } from '@angular/material/tabs';
-
+import { Subscription } from 'rxjs';
 @Component({
   selector: 'app-stockdetail',
   templateUrl: './stockdetail.component.html',
@@ -44,6 +44,7 @@ export class StockdetailComponent implements OnInit {
   public selectedIndex = 0
   private itemLen = 4
   public type: string
+  private subscription : Subscription;
 
   constructor(
     private requestService: RequestService,
@@ -77,12 +78,17 @@ export class StockdetailComponent implements OnInit {
   ngOnInit(): void {
     console.log("ngOnInit called!")
 
-    this.statusService.getType().subscribe((value) => {
+    this.subscription = this.statusService.getType().subscribe((value) => {
     console.log("TYPE ::" + value);
     this.type = value
 
     this.requestData()
   });
+  }
+  
+  ngOnDestroy(): void {
+    console.log("ngOnDestroy")
+    this.subscription.unsubscribe()
   }
 
   requestData() {

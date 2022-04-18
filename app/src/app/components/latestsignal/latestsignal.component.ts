@@ -6,6 +6,7 @@ import { signalData } from '../stockdetail/stockdetail.model';
 import { MatTabChangeEvent } from '@angular/material/tabs';
 import { Router } from '@angular/router';
 import { FormControl } from '@angular/forms';
+import { Subscription } from 'rxjs';
 
 const IS_MOBILE = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
 
@@ -33,6 +34,7 @@ export class LatestsignalComponent implements OnInit {
   private companyInfo: any[] = []
   
   public selectedIndex = 0
+  private subscription : Subscription;
 
   constructor(private statusService: PagestatusService,
     private requestService: RequestService,
@@ -43,7 +45,7 @@ export class LatestsignalComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.statusService.getType().subscribe((value) => {
+    this.subscription = this.statusService.getType().subscribe((value) => {
       console.log("TYPE ::" + value);
       this.type = value
 
@@ -57,6 +59,11 @@ export class LatestsignalComponent implements OnInit {
         this.requestSignalData(this.type)
       }
     });
+  }
+
+  ngOnDestroy(): void {
+    console.log("ngOnDestroy")
+    this.subscription.unsubscribe()
   }
 
   resetAllData() {
