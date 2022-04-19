@@ -38,7 +38,7 @@
         background: rgb(103 58 183 / 90%);
         color: white;
         font-family: hyundai-card;
-        padding:  0px;
+        padding:  0px !important;
 
         .mat-radio-group {
             margin: 0px;
@@ -61,10 +61,14 @@
                 width: 15px;
                 height: 15px;
             }
+            .mat-radio-label{
+                height: 30px;
+                margin-left: 10px;
+                padding-right: 10px;
             .mat-radio-label-content {
                 font-size: 12px;
             }
-
+        }
         }
     }
 }
