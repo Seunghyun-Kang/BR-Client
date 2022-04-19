@@ -23,11 +23,14 @@ export class HeaderComponent implements OnInit {
 
   ngOnInit(): void {
     this.service.getType().subscribe((value: any) => {
+
       switch(value){
         case "KRX":
+          this.num = 0
           this.country = this.types[0]
           break
         case "NASDAQ":
+          this.num = 1
           this.country = this.types[1]
           break
       }
