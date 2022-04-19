@@ -13,7 +13,7 @@ export class CarouselComponent implements OnInit {
   @Input() inputs: any[] = []
   @Input() speed: number = IS_MOBILE? 0: 2000
   // @ViewChild(NgbCarousel) carousel;
-  
+  public mobile = IS_MOBILE
   @ViewChild(IgxCarouselComponent, { static: true })
   public carousel: IgxCarouselComponent;
 
