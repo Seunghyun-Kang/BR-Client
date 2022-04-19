@@ -57,10 +57,13 @@ import {MatMenuModule} from '@angular/material/menu';
 import {MatRadioModule} from '@angular/material/radio';
 
 PlotlyModule.plotlyjs = PlotlyJS;
-export class MyHammerConfig extends HammerGestureConfig {
-  override overrides = <any> {
-    swipe: { direction: Hammer.DIRECTION_ALL },
-  };
+export class MyHammerConfig extends HammerGestureConfig  {
+  override buildHammer(element: HTMLElement) {
+    let mc = new Hammer(element, {
+      touchAction: "pan-y",
+    });
+    return mc;
+  }
 }
 
 const appRoutes: Routes = [
