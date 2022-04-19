@@ -6,7 +6,7 @@
     <div class="main">
         <app-navi [page]="'차트'"></app-navi>
 
-    <div class="content">
+    <div class="content" (swiperight)="onSwipeRight()" (swipeleft)="onSwipeLeft()">
     
         <mat-tab-group #group dynamicHeight  mat-align-tabs="center" [selectedIndex]="selectedIndex" (selectedTabChange)="tabChanged($event)" >
             <mat-tab label="기본 정보" ></mat-tab>

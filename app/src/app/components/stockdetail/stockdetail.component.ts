@@ -1,4 +1,4 @@
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild, HostListener } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { RequestService } from 'src/app/services/request.service';
 import { PlotlyModule, PlotlyService } from "angular-plotly.js";
@@ -7,6 +7,9 @@ import { PagestatusService } from 'src/app/services/pagestatus.service';
 import { DataService } from 'src/app/services/data.service';
 import { MatTabChangeEvent } from '@angular/material/tabs';
 import { Subscription } from 'rxjs';
+
+const IS_MOBILE = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+
 @Component({
   selector: 'app-stockdetail',
   templateUrl: './stockdetail.component.html',
@@ -15,9 +18,25 @@ import { Subscription } from 'rxjs';
 
 // const graph = new TradeViewSettings()
 export class StockdetailComponent implements OnInit {
+  @ViewChild('group') group;
   @ViewChild("chart", { static: true, read: ElementRef }) chart: ElementRef<
     PlotlyModule
   >;
+  @HostListener('touchstart', ['$event']) onTouchStart(event) {
+    (<HTMLElement>this.eRef.nativeElement).querySelectorAll('.nsewdrag').forEach(element => {
+    if(element.contains(event.target)) {
+      this.blockSwipe = true
+    }
+  });
+}
+@HostListener('touchend', ['$event']) onSwipeEnd(event) {
+  (<HTMLElement>this.eRef.nativeElement).querySelectorAll('.nsewdrag').forEach(element => {
+    if(element.contains(event.target)) {
+      this.blockSwipe = true
+    } 
+  });
+}
+
   public code: string = ""
   public companyName: string = ""
 
@@ -45,13 +64,16 @@ export class StockdetailComponent implements OnInit {
   private itemLen = 4
   public type: string
   private subscription : Subscription;
+  public blockSwipe: boolean = false
+  private chartElmList:any[] = []
 
   constructor(
     private requestService: RequestService,
     private statusService: PagestatusService,
     private dataService: DataService,
     private route: ActivatedRoute,
-    public plotlyService: PlotlyService) {
+    public plotlyService: PlotlyService,
+    private eRef: ElementRef,) {
     this.route.queryParams.subscribe((params: any) => {
       this.code = params['code']
       this.companyName = params['companyName']
@@ -272,4 +294,19 @@ export class StockdetailComponent implements OnInit {
     }
   }
 
+  onSwipeRight() {
+    console.log("SWIPE RIGHT")
+    if(!IS_MOBILE) return
+    if(this.blockSwipe) {this.blockSwipe = false; return}
+    if(this.selectedIndex !== 0) {this.selectedIndex = this.selectedIndex - 1;this.group.focusTab(this.selectedIndex )}
+ 
+  }
+  onSwipeLeft() {    
+    console.log("SWIPE LEFT")
+    if(!IS_MOBILE) return
+    if(this.blockSwipe) {this.blockSwipe = false; return}
+    if(this.selectedIndex !== this.itemLen-1) {this.selectedIndex = this.selectedIndex + 1
+    this.group.focusTab(this.selectedIndex )
+    }
+  }
 }
