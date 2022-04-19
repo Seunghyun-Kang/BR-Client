@@ -30,6 +30,7 @@ export class ListComponent implements OnInit {
   onTapCompany(code: string, company: string) {
     this.dialogRef.closeAll()
     this.router.navigate(['stockdetail'], {
+      skipLocationChange: true,
       queryParams: {
         code: code,
         companyName: company

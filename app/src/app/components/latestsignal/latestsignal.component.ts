@@ -252,6 +252,7 @@ this.rawLatestSignalTripleScreen.forEach(element => {
 
 onTapCompany(code: string, company: string) {
   this.router.navigate(['stockdetail'], {
+    skipLocationChange: true,
     queryParams: {
       code: code,
       companyName: company

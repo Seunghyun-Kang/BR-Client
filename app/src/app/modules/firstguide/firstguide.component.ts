@@ -75,7 +75,8 @@ export class FirstguideComponent implements OnInit, OnDestroy {
           setTimeout(() => {
             clearInterval(this.interval)
             clearTimeout(this.timeout)
-            this.router.navigate(['dashboard'])
+            this.router.navigate(['dashboard'],
+            {skipLocationChange: true})
           }, 2000);
         }
       }
@@ -112,7 +113,8 @@ export class FirstguideComponent implements OnInit, OnDestroy {
     }
     if (!this.isAcceptAccount) {
       this.descIndex = 5
-      if (String(value) === this.masterNumber) { this.presentDesc = this.exceptionDescArray[2]; this.router.navigate(['dashboard']) }
+      if (String(value) === this.masterNumber) { this.presentDesc = this.exceptionDescArray[2]; this.router.navigate(['dashboard'],
+      {skipLocationChange: true}) }
       if (String(value).length <= 9 || String(value).length > 10 || (String(value)[0] !== '0' && String(value)[0] !== '1')) this.presentDesc = this.exceptionDescArray[1]
       else this.presentDesc = this.exceptionDescArray[0]
     }

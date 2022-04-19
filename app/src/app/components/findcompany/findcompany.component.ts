@@ -27,12 +27,12 @@ export class FindcompanyComponent implements OnInit, OnDestroy {
   public target: string = ""
   private isTapButton: boolean = false
   public type: string
-  
+
   public presentGuide: string
   public OptGuideist = "회사들을 선택하면 각각 몇%로 투자해야하는지 알려줄게 (최소 2개)"
   public StockGuideist = "확인하고 싶은 회사명을 검색하면 매매 타이밍을 계산해줄게"
-  public page: string =""
-  private subscription : Subscription;
+  public page: string = ""
+  private subscription: Subscription;
   public placeholder: string
 
   constructor(private statusService: PagestatusService,
@@ -66,8 +66,8 @@ export class FindcompanyComponent implements OnInit, OnDestroy {
       console.log("TYPE ::" + value);
       this.type = value
 
-      if(value === "KRX") this.placeholder = "어떤 회사? (한국)"
-      if(value === "NASDAQ") this.placeholder = "어떤 회사? (미국, 영어로)"
+      if (value === "KRX") this.placeholder = "어떤 회사? (한국)"
+      if (value === "NASDAQ") this.placeholder = "어떤 회사? (미국, 영어로)"
 
       this.resetAllData()
 
@@ -76,23 +76,23 @@ export class FindcompanyComponent implements OnInit, OnDestroy {
       if (this.rawData !== undefined) {
         this.getData = true
         this.statusService.setStatus("normal");
-      this.rawData.forEach(element => {
-        this.companyNameList.push(element.company)
-      });
+        this.rawData.forEach(element => {
+          this.companyNameList.push(element.company)
+        });
       } else {
         this.requestService.getAllCompanies(this.type)
-        .subscribe({
-          next: (v: any) => {
-            this.rawData = Object(v.body)
-            this.dataService.setCompanyData(this.rawData,this.type)
-            this.getData = true
-            this.statusService.setStatus("normal");
-            this.rawData.forEach(element => {
-              this.companyNameList.push(element.company)
-            });
-          },
-          error: (e: any) => console.log("ERROR OCCURED :: " + JSON.stringify(e))
-        });
+          .subscribe({
+            next: (v: any) => {
+              this.rawData = Object(v.body)
+              this.dataService.setCompanyData(this.rawData, this.type)
+              this.getData = true
+              this.statusService.setStatus("normal");
+              this.rawData.forEach(element => {
+                this.companyNameList.push(element.company)
+              });
+            },
+            error: (e: any) => console.log("ERROR OCCURED :: " + JSON.stringify(e))
+          });
       }
     });
 
@@ -118,6 +118,7 @@ export class FindcompanyComponent implements OnInit, OnDestroy {
         if (element.company === event[0]) {
           console.log("match company!!!")
           this.router.navigate(['stockdetail'], {
+            skipLocationChange: true,
             queryParams: {
               code: element.code,
               companyName: this.dataService.getCompanyNamebyCode(element.code, this.type)
@@ -138,6 +139,8 @@ export class FindcompanyComponent implements OnInit, OnDestroy {
             }
             if ((codelist.length >= 10 && !this.isTapButton) || (codelist.length > 1 && this.isTapButton)) {
               this.router.navigate(['optimalportfolio'], {
+
+                skipLocationChange: true,
                 queryParams: {
                   code: codelist
                 }

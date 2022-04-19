@@ -120,6 +120,7 @@ export class NaviComponent implements OnInit {
 
   onPressGetStock() {
     this.router.navigate(['findcompany'], {
+      skipLocationChange: true,
       queryParams: {
         target: 'GetStockDetails'
       }
@@ -128,6 +129,7 @@ export class NaviComponent implements OnInit {
 
   onPressOptPortfolio() {
     this.router.navigate(['findcompany'], {
+      skipLocationChange: true,
       queryParams: {
         target: 'OptPortfolio'
       }
@@ -135,15 +137,15 @@ export class NaviComponent implements OnInit {
   }
 
   onPressInformation() {
-    this.router.navigate(['information'])
+    this.router.navigate(['information'],{skipLocationChange: true})
   }
 
   onPressLatestSignal() {
-    this.router.navigate(['latestsignal'])
+    this.router.navigate(['latestsignal'],{skipLocationChange: true})
   }
 
   onPressDashboard() {
-    this.router.navigate(['dashboard'])
+    this.router.navigate(['dashboard'],{skipLocationChange: true})
   }
 
   onOpenMenu() {
