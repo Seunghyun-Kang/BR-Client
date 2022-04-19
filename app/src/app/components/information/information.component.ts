@@ -1,5 +1,7 @@
 import { Component, OnInit, ElementRef, ViewChild } from '@angular/core';
 import { MatTabChangeEvent } from '@angular/material/tabs';
+import { Subscription } from 'rxjs';
+import { PagestatusService } from 'src/app/services/pagestatus.service';
 
 @Component({
   selector: 'app-information',
@@ -12,14 +14,26 @@ export class InformationComponent implements OnInit {
   public btnElement: Element;
   public selectedIndex = 0
   private itemLen = 3
+  public type: string
+  private subscription : Subscription;
+
   ElByClassName: any;
-  constructor() { }
+  constructor(private statusService: PagestatusService,) { }
 
   ngOnInit(): void {
+    this.subscription = this.statusService.getType().subscribe((value) => {
+      console.log("TYPE ::" + value);
+      this.type = value
+    });
   }
 
   tabChanged(tabChangeEvent: MatTabChangeEvent): void {
     this.selectedIndex = tabChangeEvent.index;
+}
+
+ngOnDestroy(): void {
+  console.log("ngOnDestroy")
+  this.subscription.unsubscribe()
 }
 
   onSwipeRight(event: any) {
