@@ -110,7 +110,7 @@ igx-icon {
 
 
 ::ng-deep .mat-tooltip-show {
-  background: #835bf3;
+  background: var(--default-menu-color);
   color: white;
   font-family: hyundai-card;
   word-break: keep-all;
