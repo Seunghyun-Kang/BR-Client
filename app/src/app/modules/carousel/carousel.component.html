@@ -43,7 +43,7 @@ id="carousel"
                     </div>
                     <div class="content-info">
                         <div class="first" [innerHTML]="item[2]" [ngStyle]="{'color': item[4] === 'red' ? '#ee3b89' : '#65a3f5' }"></div>
-                        <div class="second" >{{item[3]}}</div>
+                        <div class="second" *ngIf="item[3] != ''">{{item[3]}}</div>
                         
                     </div>
                 </div>
