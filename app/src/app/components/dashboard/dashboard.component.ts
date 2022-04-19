@@ -22,6 +22,7 @@ export class DashboardComponent implements OnInit {
   public getTripleScreenData: boolean = false
   public status = "loading-forward";
   public type: string = "KRX"
+  public unit : string = "원"
 
   public rawLatestSignalTrend: signalData[] = []
   public rawLatestSignalReverse: signalData[] = []
@@ -52,6 +53,9 @@ export class DashboardComponent implements OnInit {
     this.subscription = this.statusService.getType().subscribe((value) => {
       console.log("TYPE ::" + value);
       this.type = value
+
+      if(value == "NASDAQ") this.unit = "달러"
+      if(value == "KRX") this.unit = "원"
 
       this.resetAllData()
 
@@ -161,14 +165,14 @@ export class DashboardComponent implements OnInit {
               element.date,
               String(element.close),
               element.last_sell_date,
-              String(element.last_sell_close),
+              element.last_sell_close !== -1 ? String(element.last_sell_close) : "-",
               "-",
               element.code
             ])
             else dataArray.push([
               this.dataService.getCompanyNamebyCode(element.code,this.type),
               String(element.close),
-              String(element.last_sell_close),
+              element.last_sell_close !== -1 ? String(element.last_sell_close) : "-",
               "-",
               element.code
             ])
@@ -184,14 +188,16 @@ export class DashboardComponent implements OnInit {
               element.date,
               String(element.close),
               element.last_sell_date,
-              String(element.last_sell_close),
+              element.last_sell_close !== -1 ? String(element.last_sell_close) : "-",
+              
               "-",
               element.code
             ])
             else dataArray.push([
               this.dataService.getCompanyNamebyCode(element.code,this.type),
               String(element.close),
-              String(element.last_sell_close),
+              element.last_sell_close !== -1 ? String(element.last_sell_close) : "-",
+              
               "-",
               element.code
             ])
@@ -202,20 +208,23 @@ export class DashboardComponent implements OnInit {
         title = "삼중창 매수 신호"
 
         this.rawLatestSignalTripleScreen.forEach(element => {
+          console.log(element.last_sell_close)
           if (element.type === "buy" && element.valid === "valid") {
             if (!IS_MOBILE) dataArray.push([
               this.dataService.getCompanyNamebyCode(element.code,this.type),
               element.date,
               String(element.close),
               element.last_sell_date,
-              String(element.last_sell_close),
+              element.last_sell_close !== -1 ? String(element.last_sell_close) : "-",
+              
               "-",
               element.code
             ])
             else dataArray.push([
               this.dataService.getCompanyNamebyCode(element.code,this.type),
               String(element.close),
-              String(element.last_sell_close),
+              element.last_sell_close !== -1 ? String(element.last_sell_close) : "-",
+              
               "-",
               element.code
             ])
@@ -232,15 +241,15 @@ export class DashboardComponent implements OnInit {
               element.date,
               String(element.close),
               element.last_buy_date,
-              String(element.last_buy_close),
-              String(((element.close - element.last_buy_close) / element.last_buy_close * 100).toFixed(2)),
+              element.last_buy_close !== -1 ? String(element.last_buy_close) : "-",
+              element.last_buy_close !== -1 ? String(((element.close - element.last_buy_close) / element.last_buy_close * 100).toFixed(2)) : "-",
               element.code
             ])
             else dataArray.push([
               this.dataService.getCompanyNamebyCode(element.code,this.type),
               String(element.close),
-              String(element.last_buy_close),
-              String(((element.close - element.last_buy_close) / element.last_buy_close * 100).toFixed(2)),
+              element.last_buy_close !== -1 ? String(element.last_buy_close) : "-",
+              element.last_buy_close !== -1 ? String(((element.close - element.last_buy_close) / element.last_buy_close * 100).toFixed(2)) : "-",
               element.code
             ])
           }
@@ -256,15 +265,15 @@ export class DashboardComponent implements OnInit {
               element.date,
               String(element.close),
               element.last_buy_date,
-              String(element.last_buy_close),
-              String(((element.close - element.last_buy_close) / element.last_buy_close * 100).toFixed(2)),
+              element.last_buy_close !== -1 ? String(element.last_buy_close) : "-",
+              element.last_buy_close !== -1 ? String(((element.close - element.last_buy_close) / element.last_buy_close * 100).toFixed(2)) : "-",
               element.code
             ])
             else dataArray.push([
               this.dataService.getCompanyNamebyCode(element.code,this.type),
               String(element.close),
-              String(element.last_buy_close),
-              String(((element.close - element.last_buy_close) / element.last_buy_close * 100).toFixed(2)),
+              element.last_buy_close !== -1 ? String(element.last_buy_close) : "-",
+              element.last_buy_close !== -1 ? String(((element.close - element.last_buy_close) / element.last_buy_close * 100).toFixed(2)) : "-",
               element.code
             ])
           }
@@ -280,15 +289,15 @@ export class DashboardComponent implements OnInit {
               element.date,
               String(element.close),
               element.last_buy_date,
-              String(element.last_buy_close),
-              String(((element.close - element.last_buy_close) / element.last_buy_close * 100).toFixed(2)),
+              element.last_buy_close !== -1 ? String(element.last_buy_close) : "-",
+              element.last_buy_close !== -1 ? String(((element.close - element.last_buy_close) / element.last_buy_close * 100).toFixed(2)) : "-",
               element.code
             ])
             else dataArray.push([
               this.dataService.getCompanyNamebyCode(element.code,this.type),
               String(element.close),
-              String(element.last_buy_close),
-              String(((element.close - element.last_buy_close) / element.last_buy_close * 100).toFixed(2)),
+              element.last_buy_close !== -1 ? String(element.last_buy_close) : "-",
+              element.last_buy_close !== -1 ? String(((element.close - element.last_buy_close) / element.last_buy_close * 100).toFixed(2)) : "-",
               element.code
             ])
           }
@@ -316,14 +325,14 @@ export class DashboardComponent implements OnInit {
         data.forEach(element => {
           if (element.type === "buy") this.buyTrend.push([
             this.dataService.getCompanyNamebyCode(element.code,this.type),
-            "전일 종가 " + String(element.close) + "원",
+            "전일 종가 " + String(element.close) + this.unit,
           ])
           else {
             this.sellTrend.push([
               this.dataService.getCompanyNamebyCode(element.code,this.type),
-              "전일 종가 " + String(element.close) + "원",
+              "전일 종가 " + String(element.close) + this.unit,
               element.last_buy_close != -1 ? String(((element.close - element.last_buy_close) / element.last_buy_close * 100).toFixed(2)) + "% 수익" : "정보 없음",
-              element.last_buy_close != -1 ? "  " + " (매수가 " + String(element.last_buy_close) + "원)" : "",
+              element.last_buy_close != -1 ? "  " + " (매수가 " + String(element.last_buy_close) + this.unit +")" : "",
               String((element.close - element.last_buy_close) / element.last_buy_close * 100)
             ])
           }
@@ -334,13 +343,13 @@ export class DashboardComponent implements OnInit {
         data.forEach(element => {
           if (element.type === "buy") this.buyReverse.push([
             this.dataService.getCompanyNamebyCode(element.code,this.type),
-            "전일 종가 " + String(element.close) + "원",
+            "전일 종가 " + String(element.close) + this.unit,
           ])
           else this.sellReverse.push([
             this.dataService.getCompanyNamebyCode(element.code,this.type),
-            "전일 종가 " + String(element.close) + "원",
+            "전일 종가 " + String(element.close) + this.unit,
             element.last_buy_close != -1 ? String(((element.close - element.last_buy_close) / element.last_buy_close * 100).toFixed(2)) + "% 수익" : "정보 없음",
-            element.last_buy_close != -1 ? "  " + " (매수가 " + String(element.last_buy_close) + "원)" : "",
+            element.last_buy_close != -1 ? "  " + " (매수가 " + String(element.last_buy_close) + this.unit +")" : "",
             String((element.close - element.last_buy_close) / element.last_buy_close * 100)
           ])
         });
@@ -350,13 +359,13 @@ export class DashboardComponent implements OnInit {
         data.forEach(element => {
           if (element.type === "buy") this.buyTriple.push([
             this.dataService.getCompanyNamebyCode(element.code,this.type),
-            "전일 종가 " + String(element.close) + "원",
+            "전일 종가 " + String(element.close) + this.unit,
           ])
           else this.sellTriple.push([
             this.dataService.getCompanyNamebyCode(element.code,this.type),
-            "전일 종가 " + String(element.close) + "원",
+            "전일 종가 " + String(element.close) + this.unit,
             element.last_buy_close != -1 ? String(((element.close - element.last_buy_close) / element.last_buy_close * 100).toFixed(2)) + "% 수익" : "정보 없음",
-            element.last_buy_close != -1 ? "  " + " (매수가 " + String(element.last_buy_close) + "원)" : "",
+            element.last_buy_close != -1 ? "  " + " (매수가 " + String(element.last_buy_close) + this.unit +")" : "",
             String((element.close - element.last_buy_close) / element.last_buy_close * 100)
           ])
         });
