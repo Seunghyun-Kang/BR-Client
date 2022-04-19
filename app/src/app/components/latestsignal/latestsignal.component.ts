@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { PagestatusService } from 'src/app/services/pagestatus.service';
 import { RequestService } from 'src/app/services/request.service';
 import { DataService } from 'src/app/services/data.service';
@@ -16,8 +16,10 @@ const IS_MOBILE = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini
   styleUrls: ['./latestsignal.component.scss']
 })
 export class LatestsignalComponent implements OnInit {
+  @ViewChild('group') group;
   public lastday: number = 3
   public type: string
+  private itemLen = 3
 
   public rawLatestSignalTrend: signalData[] = []
   public rawLatestSignalReverse: signalData[] = []
@@ -287,6 +289,18 @@ onChangeDay(event: any){
   this.rawLatestSignalTripleScreen = this.dataService.getLatestTripleScreenSignalData(this.lastday)
       if (this.rawLatestSignalTripleScreen === undefined) {
         this.requestSignalData(this.type)
+  }
+}
+
+onSwipeRight(event: any) {
+  console.log("RIGHT")
+  if(this.selectedIndex !== 0) {this.selectedIndex = this.selectedIndex - 1;this.group.focusTab(this.selectedIndex )}
+
+}
+onSwipeLeft(event: any) {
+  console.log("Left")
+  if(this.selectedIndex !== this.itemLen-1) {this.selectedIndex = this.selectedIndex + 1
+  this.group.focusTab(this.selectedIndex )
   }
 }
 }
