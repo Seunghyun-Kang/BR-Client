@@ -153,7 +153,7 @@ export class DashboardComponent implements OnInit {
   openDialog(type: string) {
     let dataArray: Array<string[]> = []
     let title = ""
-    let columnlist = IS_MOBILE ? ["종목", "신호가", "과거 거래가", "수익률"] : ["종목", "신호일", "신호가", "과거 거래일", "과거 거래가", "수익률"]
+    let columnlist = IS_MOBILE ? ["종목", "신호가", "과거가", "수익률"] : ["종목", "신호일", "신호가", "과거 거래일", "과거 거래가", "수익률"]
 
     switch (type) {
       case "buyTrend":
