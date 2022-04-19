@@ -137,8 +137,8 @@ parseDataForList(typefilter: string[] = ['매수', '매도']) {
         element.date,
         String(element.close),
         element.type === "sell" ? element.last_buy_date : element.last_sell_date,
-        element.type === "sell" ? String(element.last_buy_close) : String(element.last_sell_close),
-        element.type === "buy" ? "-" : String(((element.close - element.last_buy_close) / element.last_buy_close * 100).toFixed(2)),
+        element.type === "sell" ? element.last_buy_close !== -1 ? String(element.last_buy_close): "-" : element.last_sell_close !== -1 ? String(element.last_sell_close): "-",
+    element.type === "buy" || element.last_buy_close === -1  ? "-" : String(((element.close - element.last_buy_close) / element.last_buy_close * 100).toFixed(2)),
         element.code
       ])
     }
@@ -151,8 +151,8 @@ parseDataForList(typefilter: string[] = ['매수', '매도']) {
         this.dataService.getCompanyNamebyCode(element.code , this.type),
         element.type === "sell" ? "매도" : "매수",
         String(element.close),
-        element.type === "sell" ? String(element.last_buy_close) : String(element.last_sell_close),
-        element.type === "buy" ? "-" : String(((element.close - element.last_buy_close) / element.last_buy_close * 100).toFixed(2)),
+        element.type === "sell" ? element.last_buy_close !== -1 ? String(element.last_buy_close): "-" : element.last_sell_close !== -1 ? String(element.last_sell_close): "-",
+    element.type === "buy" || element.last_buy_close === -1  ? "-" : String(((element.close - element.last_buy_close) / element.last_buy_close * 100).toFixed(2)),
         element.code
       ])
     }
@@ -171,8 +171,8 @@ parseDataForList(typefilter: string[] = ['매수', '매도']) {
       element.date,
       String(element.close),
       element.type === "sell" ? element.last_buy_date : element.last_sell_date,
-      element.type === "sell" ? String(element.last_buy_close) : String(element.last_sell_close),
-      element.type === "buy" ? "-" : String(((element.close - element.last_buy_close) / element.last_buy_close * 100).toFixed(2)),
+      element.type === "sell" ? element.last_buy_close !== -1 ? String(element.last_buy_close): "-" : element.last_sell_close !== -1 ? String(element.last_sell_close): "-",
+    element.type === "buy" || element.last_buy_close === -1  ? "-" : String(((element.close - element.last_buy_close) / element.last_buy_close * 100).toFixed(2)),
       element.code
     ])
   }
@@ -185,8 +185,8 @@ parseDataForList(typefilter: string[] = ['매수', '매도']) {
       this.dataService.getCompanyNamebyCode(element.code , this.type),
       element.type === "sell" ? "매도" : "매수",
       String(element.close),
-      element.type === "sell" ? String(element.last_buy_close) : String(element.last_sell_close),
-      element.type === "buy" ? "-" : String(((element.close - element.last_buy_close) / element.last_buy_close * 100).toFixed(2)),
+      element.type === "sell" ? element.last_buy_close !== -1 ? String(element.last_buy_close): "-" : element.last_sell_close !== -1 ? String(element.last_sell_close): "-",
+      element.type === "buy" || element.last_buy_close === -1  ? "-" : String(((element.close - element.last_buy_close) / element.last_buy_close * 100).toFixed(2)),
       element.code
     ])
   }
@@ -205,8 +205,8 @@ this.rawLatestSignalTripleScreen.forEach(element => {
     element.date,
     String(element.close),
     element.type === "sell" ? element.last_buy_date : element.last_sell_date,
-    element.type === "sell" ? String(element.last_buy_close) : String(element.last_sell_close),
-    element.type === "buy" ? "-" : String(((element.close - element.last_buy_close) / element.last_buy_close * 100).toFixed(2)),
+    element.type === "sell" ? element.last_buy_close !== -1 ? String(element.last_buy_close): "-" : element.last_sell_close !== -1 ? String(element.last_sell_close): "-",
+    element.type === "buy" || element.last_buy_close === -1  ? "-" : String(((element.close - element.last_buy_close) / element.last_buy_close * 100).toFixed(2)),
     element.code
   ])
 }
@@ -219,8 +219,8 @@ this.rawLatestSignalTripleScreen.forEach(element => {
     this.dataService.getCompanyNamebyCode(element.code , this.type),
     element.type === "sell" ? "매도" : "매수",
     String(element.close),
-    element.type === "sell" ? String(element.last_buy_close) : String(element.last_sell_close),
-    element.type === "buy" ? "-" : String(((element.close - element.last_buy_close) / element.last_buy_close * 100).toFixed(2)),
+    element.type === "sell" ? element.last_buy_close !== -1 ? String(element.last_buy_close): "-" : element.last_sell_close !== -1 ? String(element.last_sell_close): "-",
+    element.type === "buy" || element.last_buy_close === -1  ? "-" : String(((element.close - element.last_buy_close) / element.last_buy_close * 100).toFixed(2)),
     element.code
   ])
 }
