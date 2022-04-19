@@ -33,7 +33,8 @@ export class FindcompanyComponent implements OnInit, OnDestroy {
   public StockGuideist = "확인하고 싶은 회사명을 검색하면 매매 타이밍을 계산해줄게"
   public page: string =""
   private subscription : Subscription;
-  
+  public placeholder: string
+
   constructor(private statusService: PagestatusService,
     private requestService: RequestService,
     private dataService: DataService,
@@ -64,6 +65,9 @@ export class FindcompanyComponent implements OnInit, OnDestroy {
     this.subscription = this.statusService.getType().subscribe((value) => {
       console.log("TYPE ::" + value);
       this.type = value
+
+      if(value === "KRX") this.placeholder = "어떤 회사? (한국)"
+      if(value === "NASDAQ") this.placeholder = "어떤 회사? (미국, 영어로)"
 
       this.resetAllData()
 
