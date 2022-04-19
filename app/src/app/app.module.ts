@@ -48,7 +48,8 @@ import {MatBadgeModule} from '@angular/material/badge';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { 
 	IgxCarouselModule,
-	IgxListModule
+  IgxListModule,
+	IgxToastModule
  } from "igniteui-angular";
 import { LatestsignalComponent } from './components/latestsignal/latestsignal.component';
 import {MatSelectModule} from '@angular/material/select';
@@ -117,7 +118,7 @@ const appRoutes: Routes = [
     IgxNavigationDrawerModule, IgxIconModule, IgxSwitchModule, IgxButtonModule,
     MatAutocompleteModule, MatChipsModule, MatFormFieldModule, MatIconModule, MatInputModule, MatToolbarModule, MatDialogModule, MatTableModule, MatButtonModule,
     MatTabsModule, MatCardModule,MatBadgeModule, MatTooltipModule, MatSelectModule, MatMenuModule, MatRadioModule,
-    IgxCarouselModule, IgxListModule
+    IgxCarouselModule, IgxListModule, IgxToastModule
   ],
   providers: [HTMLCanvasElement,
     {

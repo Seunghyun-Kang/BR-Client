@@ -44,6 +44,17 @@ mat-dialog-container {
   border-radius: 30px !important;
 }
 
+
+igx-toast {
+  color: white !important;
+  font-family: hyundai-card !important;
+  word-break: keep-all !important;
+  word-wrap: break-word !important;
+  background-color: #465d77 !important;
+  border-radius: 15px;
+}
+
+
 .igx-scrollbar {
   --thumb-background: none;
   --size: 0;
