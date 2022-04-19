@@ -50,8 +50,13 @@ igx-toast {
   font-family: hyundai-card !important;
   word-break: keep-all !important;
   word-wrap: break-word !important;
-  background-color: #465d77 !important;
-  border-radius: 15px;
+  background-color: rgba(70, 93, 119, 0.6) !important;
+  border-radius: 15px !important;
+  
+  
+  width: 90%;
+  text-align: center;
+  margin-left: 5% !important;
 }
 
 
