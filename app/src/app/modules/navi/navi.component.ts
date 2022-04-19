@@ -64,8 +64,8 @@ export class NaviComponent implements OnInit {
   public navItems = [
     { name: 'Dashboard', text: '대쉬보드', family: 'user-icons' },
     { name: 'LatestSignal', text: '최근 신호', family: 'user-icons' },
-    { name: 'OptPortfolio', text: '종목 검색', family: 'user-icons' },
-    { name: 'StockDetails', text: '최적 포트폴리오', family: 'user-icons' },
+    { name: 'StockDetails', text: '종목 검색', family: 'user-icons' },
+    { name: 'OptPortfolio', text: '최적 포트폴리오', family: 'user-icons' },
     { name: 'Question', text: '기본 설명', family: 'user-icons' },
   ];
   private isOpenMenu: number = 0
