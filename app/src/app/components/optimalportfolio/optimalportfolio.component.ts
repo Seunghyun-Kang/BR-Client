@@ -66,7 +66,11 @@ export class OptimalportfolioComponent implements OnInit {
 
   ngOnInit(): void {
     console.log(this.codes)
-    this.requestService.getOptPortfolio(this.codes)
+    this.subscription = this.statusService.getType().subscribe((value) => {
+      console.log("TYPE ::" + value);
+      this.type = value
+
+      this.requestService.getOptPortfolio(this.codes, this.type)
       .subscribe({
         next: (v: any) => {
           this.rawData = JSON.parse(Object(v.body))
@@ -79,6 +83,7 @@ export class OptimalportfolioComponent implements OnInit {
         },
         error: (e: any) => console.log("ERROR OCCURED :: " + JSON.stringify(e))
       });
+    });
   }
   
   ngOnDestroy(): void {
@@ -127,9 +132,9 @@ export class OptimalportfolioComponent implements OnInit {
 
 
     console.log(this.maxSharpFull)
-    this.result1 += '리스크: ' + this.maxSharp[0] + '%, 이윤: ' + this.maxSharp[1] + '%'
+    this.result1 += '리스크: ' + this.maxSharp[0] + '%, 수익률: ' + this.maxSharp[1] + '%'
     console.log(this.minRisk)
-    this.result2 += '리스크: ' + this.minRisk[0] + '%, 이윤: ' + this.minRisk[1] + '%'
+    this.result2 += '리스크: ' + this.minRisk[0] + '%, 수익률: ' + this.minRisk[1] + '%'
     console.log(this.maxRisk)
     console.log(this.minProfit)
     console.log(this.maxProfit)
@@ -203,7 +208,7 @@ export class OptimalportfolioComponent implements OnInit {
           }
         },
         title: {
-          text: "이익",
+          text: "수익률",
           rotate: -90,
           offsetX: 0,
           offsetY: 0,
@@ -217,7 +222,7 @@ export class OptimalportfolioComponent implements OnInit {
         }
       },
       series: [{
-        name: "임의의 비율의 포트폴리오",
+        name: "임의의 포트폴리오",
         data: charData
       }, {
         name: "최적 포트폴리오",

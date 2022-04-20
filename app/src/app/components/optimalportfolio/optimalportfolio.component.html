@@ -6,7 +6,7 @@
   <div class="main">
     <app-navi></app-navi>
   <div class="content">
-    <div id="chart" *ngIf="getData">
+    <div id="chart" *ngIf="getData" style="text-align: -webkit-center;">
       <apx-chart [series]="chartOptions.series" [chart]="chartOptions.chart" [xaxis]="chartOptions.xaxis"
         [yaxis]="chartOptions.yaxis"></apx-chart>
     </div>
