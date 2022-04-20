@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, ViewChild, Inject } from '@angular/core';
 import { Location } from '@angular/common';
 import { PagestatusService } from 'src/app/services/pagestatus.service';
 import { MatRadioChange } from '@angular/material/radio';
@@ -18,8 +18,11 @@ export class HeaderComponent implements OnInit {
   ["한국 주식에 대한 정보와 예측은 매일 오전 4시에 업데이트 됩니다.",
    "미국 주식에 대한 정보와 예측은 매일 점심 12시에 업데이트 됩니다."]
   public num: number = -1;
+  public tap: number = 0;
 
-  constructor(private location: Location, private service: PagestatusService) { }
+  constructor(private location: Location, private service: PagestatusService,
+    @Inject("Version") public appVersion: string,) { }
+  @ViewChild('toast') toast;
 
   ngOnInit(): void {
     this.service.getType().subscribe((value: any) => {
@@ -35,6 +38,11 @@ export class HeaderComponent implements OnInit {
           break
       }
     });
+  }
+
+  onClickTitle() {
+    this.tap ++ ;
+    if(this.tap > 5) this.toast.open(this.appVersion)
   }
 
   onPressBack() {

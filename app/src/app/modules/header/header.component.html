@@ -2,7 +2,7 @@
 background: transparent;height:6vh;
 justify-content: space-around;
 padding: 0 15px;">
-  <span class="title">{{title}}</span>
+  <span class="title" (click)="onClickTitle()">{{title}}</span>
   <igx-icon class="globe" [matMenuTriggerFor]="menu" fontSet="material" [style.color]="'white'" [name]="country"
     [family]="'user-icons'"></igx-icon>
   <mat-menu #menu="matMenu">
