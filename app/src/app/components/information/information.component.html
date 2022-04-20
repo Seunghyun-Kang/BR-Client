@@ -11,7 +11,7 @@
             <mat-tab-group #group dynamicHeight  mat-align-tabs="center" [selectedIndex]="selectedIndex" (selectedTabChange)="tabChanged($event)" >
                 <mat-tab label="볼린저 추세 추종" >
                     <div class="example-large-box mat-elevation-z4" (swiperight)="onSwipeRight($event)" (swipeleft)="onSwipeLeft($event)">
-                        <mat-card class="example-card" [ngStyle]="{'background-color': type === 'KRX' ?  'var(--krx-card-color)' : 'var(--nasdaq-card-color)'}">
+                        <mat-card class="example-card" [ngStyle]="{'background-color': type === 'KRX' ?  'var(--krx-card-color)' : type === 'NASDAQ' ?  'var(--nasdaq-card-color)' : 'var(--coin-card-color)'}">
                             <mat-card-title  class="algorithm-title">볼린저 추세 추종 알고리즘</mat-card-title>
                             <mat-card-subtitle>매매 기법</mat-card-subtitle>
                             <mat-card-content  class="algorithm-content">
@@ -20,14 +20,14 @@
                                    <p>볼린저 밴드와 밴드 폭, 현금흐름의 지표를 활용하여 분석</p>
                             </mat-card-content>
                           </mat-card>
-                          <mat-card class="example-card" [ngStyle]="{'background-color': type === 'KRX' ?  'var(--krx-card-color)' : 'var(--nasdaq-card-color)'}">
+                          <mat-card class="example-card" [ngStyle]="{'background-color': type === 'KRX' ?  'var(--krx-card-color)' : type === 'NASDAQ' ?  'var(--nasdaq-card-color)' : 'var(--coin-card-color)'}">
                             <mat-card-title class="word-title">볼린저밴드</mat-card-title>
                             <mat-card-subtitle>분석 도구</mat-card-subtitle>
                             <mat-card-content class="word-content">
                               <p>주가의 변동이 표준 정규 분포 함수에 따른다고 가정, 20일 간의 주가 평균 +- (표준편차*2)의 값을 밴드 상한선, 하한선을 둔다.</p>
                             </mat-card-content>
                           </mat-card>
-                          <mat-card class="example-card" [ngStyle]="{'background-color': type === 'KRX' ?  'var(--krx-card-color)' : 'var(--nasdaq-card-color)'}">
+                          <mat-card class="example-card" [ngStyle]="{'background-color': type === 'KRX' ?  'var(--krx-card-color)' : type === 'NASDAQ' ?  'var(--nasdaq-card-color)' : 'var(--coin-card-color)'}">
                             <mat-card-title class="word-title">%b 그래프</mat-card-title>
                             <mat-card-subtitle>분석 도구</mat-card-subtitle>
                             <mat-card-content  class="word-content">
@@ -36,7 +36,7 @@
                               </p>
                             </mat-card-content>
                           </mat-card>
-                          <mat-card class="example-card" [ngStyle]="{'background-color': type === 'KRX' ?  'var(--krx-card-color)' : 'var(--nasdaq-card-color)'}">
+                          <mat-card class="example-card" [ngStyle]="{'background-color': type === 'KRX' ?  'var(--krx-card-color)' : type === 'NASDAQ' ?  'var(--nasdaq-card-color)' : 'var(--coin-card-color)'}">
                             <mat-card-title  class="word-title">MFI (현금흐름지표)</mat-card-title>
                             <mat-card-subtitle>분석 도구</mat-card-subtitle>
                             <mat-card-content  class="word-content">
@@ -50,7 +50,7 @@
                 </mat-tab>
                 <mat-tab label="볼린저 반전 매매">
                     <div class="example-large-box mat-elevation-z4" (swiperight)="onSwipeRight($event)" (swipeleft)="onSwipeLeft($event)">
-                        <mat-card class="example-card" [ngStyle]="{'background-color': type === 'KRX' ?  'var(--krx-card-color)' : 'var(--nasdaq-card-color)'}">
+                        <mat-card class="example-card" [ngStyle]="{'background-color': type === 'KRX' ?  'var(--krx-card-color)' : type === 'NASDAQ' ?  'var(--nasdaq-card-color)' : 'var(--coin-card-color)'}">
                             <mat-card-title  class="algorithm-title">볼린저 반전 매매 알고리즘</mat-card-title>
                             <mat-card-subtitle>매매 기법</mat-card-subtitle>
                             <mat-card-content  class="algorithm-content">
@@ -58,7 +58,7 @@
                                 <p>저점에서 상승 가능성을 보인다면 매수, 고점에서 하락 가능성이 보이면 매도하는 전략</p>
                             </mat-card-content>
                           </mat-card>
-                          <mat-card class="example-card" [ngStyle]="{'background-color': type === 'KRX' ?  'var(--krx-card-color)' : 'var(--nasdaq-card-color)'}">
+                          <mat-card class="example-card" [ngStyle]="{'background-color': type === 'KRX' ?  'var(--krx-card-color)' : type === 'NASDAQ' ?  'var(--nasdaq-card-color)' : 'var(--coin-card-color)'}">
                             <mat-card-title class="word-title">일중강도</mat-card-title>
                             <mat-card-subtitle>분석 도구</mat-card-subtitle>
                             <mat-card-content class="word-content">
@@ -73,7 +73,7 @@
                 </mat-tab>
                 <mat-tab label="삼중창 시스템" >
                     <div class="example-large-box mat-elevation-z4" (swiperight)="onSwipeRight($event)" (swipeleft)="onSwipeLeft($event)">
-                        <mat-card class="example-card" [ngStyle]="{'background-color': type === 'KRX' ?  'var(--krx-card-color)' : 'var(--nasdaq-card-color)'}">
+                        <mat-card class="example-card" [ngStyle]="{'background-color': type === 'KRX' ?  'var(--krx-card-color)' : type === 'NASDAQ' ?  'var(--nasdaq-card-color)' : 'var(--coin-card-color)'}">
                             <mat-card-title  class="algorithm-title">삼중창 알고리즘</mat-card-title>
                             <mat-card-subtitle>매매 기법</mat-card-subtitle>
                             <mat-card-content  class="algorithm-content">
@@ -84,7 +84,7 @@
                               </p>
                             </mat-card-content>
                           </mat-card>
-                          <mat-card class="example-card" [ngStyle]="{'background-color': type === 'KRX' ?  'var(--krx-card-color)' : 'var(--nasdaq-card-color)'}">
+                          <mat-card class="example-card" [ngStyle]="{'background-color': type === 'KRX' ?  'var(--krx-card-color)' : type === 'NASDAQ' ?  'var(--nasdaq-card-color)' : 'var(--coin-card-color)'}">
                             <mat-card-title class="word-title">EMA130</mat-card-title>
                             <mat-card-subtitle>분석 도구</mat-card-subtitle>
                             <mat-card-content class="word-content">
@@ -94,7 +94,7 @@
                               </p>
                             </mat-card-content>
                           </mat-card>
-                          <mat-card class="example-card" [ngStyle]="{'background-color': type === 'KRX' ?  'var(--krx-card-color)' : 'var(--nasdaq-card-color)'}">
+                          <mat-card class="example-card" [ngStyle]="{'background-color': type === 'KRX' ?  'var(--krx-card-color)' : type === 'NASDAQ' ?  'var(--nasdaq-card-color)' : 'var(--coin-card-color)'}">
                             <mat-card-title class="word-title">MACD</mat-card-title>
                             <mat-card-subtitle>분석 도구</mat-card-subtitle>
                             <mat-card-content class="word-content">
@@ -106,7 +106,7 @@
                               </p>
                             </mat-card-content>
                           </mat-card>
-                          <mat-card class="example-card" [ngStyle]="{'background-color': type === 'KRX' ?  'var(--krx-card-color)' : 'var(--nasdaq-card-color)'}">
+                          <mat-card class="example-card" [ngStyle]="{'background-color': type === 'KRX' ?  'var(--krx-card-color)' : type === 'NASDAQ' ?  'var(--nasdaq-card-color)' : 'var(--coin-card-color)'}">
                             <mat-card-title class="word-title">스토캐스틱, %K, %D</mat-card-title>
                             <mat-card-subtitle>분석 도구</mat-card-subtitle>
                             <mat-card-content class="word-content">

@@ -196,6 +196,7 @@ class Star {
     // purple, green, and blue, but randomized ^.^
     if(type == "KRX") this.color = `rgb(${randRange(110, 200)},${randRange(110, 240)},${randRange(230, 255)})`;
     else if(type == "NASDAQ") this.color = `rgb(${randRange(150, 300)},${randRange(10, 50)},${randRange(1, 100)})`;
+    else if(type == "COIN") this.color = `rgb(${randRange(0, 160)},${randRange(190, 210)},${randRange(40, 160)})`;
   }
 
   resetX() {
@@ -304,7 +305,7 @@ class Star {
 
     var maxRadius = (IS_HIGH_RES.matches) ? 3 : 1.5;
     if (IS_MOBILE) { maxRadius = 1.5 }
-    if (type === "NASDAQ") { maxRadius = maxRadius + 0.5 }
+    if (type === "NASDAQ" || type=== "COIN") { maxRadius = maxRadius + 0.5 }
     let radius = Math.min(Math.abs(mapRange(this.z, 0, depth, maxRadius, 0.01)), maxRadius);
 
     // star point

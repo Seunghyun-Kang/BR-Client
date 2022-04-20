@@ -55,7 +55,7 @@ export class DashboardComponent implements OnInit {
       this.type = value
 
       if(value == "NASDAQ") this.unit = "달러"
-      if(value == "KRX") this.unit = "원"
+      if(value == "KRX" || value == "COIN") this.unit = "원"
 
       this.resetAllData()
 

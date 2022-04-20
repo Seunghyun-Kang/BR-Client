@@ -68,6 +68,7 @@ export class FindcompanyComponent implements OnInit, OnDestroy {
 
       if (value === "KRX") this.placeholder = "어떤 회사? (한국)"
       if (value === "NASDAQ") this.placeholder = "어떤 회사? (미국, 영어로)"
+      if (value === "COIN") this.placeholder = "어떤 코인? (코인 코드, 영어로)"
 
       this.resetAllData()
 

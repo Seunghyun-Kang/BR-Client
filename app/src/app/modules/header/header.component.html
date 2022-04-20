@@ -3,12 +3,12 @@ background: transparent;height:6vh;
 justify-content: space-around;
 padding: 0 15px;">
   <span class="title" (click)="onClickTitle()">{{title}}</span>
-  <igx-icon class="globe" [matMenuTriggerFor]="menu" fontSet="material" [style.color]="'white'" [name]="country"
+  <igx-icon class="globe"[ngClass]="{'coin': country === 'COIN'}" [matMenuTriggerFor]="menu" fontSet="material" [style.color]="'white'" [name]="country"
     [family]="'user-icons'"></igx-icon>
   <mat-menu #menu="matMenu">
     <mat-radio-group class="radio-group" (change)="onTapGlobe($event);toast.open(updateGuide[num]);">
       <mat-radio-button class="radio-button" *ngFor="let item of types; index as i" [value]="i" [checked]="i === num">
-        <igx-icon fontSet="material" [style.color]="'white'" [name]="item" [family]="'user-icons'"></igx-icon>
+        <igx-icon fontSet="material" [ngClass]="{'coin': item === 'COIN'}" [style.color]="'white'" [name]="item" [family]="'user-icons'"></igx-icon>
       </mat-radio-button>
     </mat-radio-group>
   </mat-menu>
