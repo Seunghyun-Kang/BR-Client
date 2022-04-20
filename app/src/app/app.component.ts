@@ -25,5 +25,6 @@ export class AppComponent {
     this.iconSerivce.addSvgIcon('Globe', '../assets/iamge/globe-black.svg', 'user-icons')
     this.iconSerivce.addSvgIcon('Korea', '../assets/iamge/korea.svg', 'user-icons')
     this.iconSerivce.addSvgIcon('USA', '../assets/iamge/usa.svg', 'user-icons')
+    this.iconSerivce.addSvgIcon('COIN', '../assets/iamge/bitcoin (1).svg', 'user-icons')
   }
 }
