@@ -208,7 +208,6 @@ export class DashboardComponent implements OnInit {
         title = "삼중창 매수 신호"
 
         this.rawLatestSignalTripleScreen.forEach(element => {
-          console.log(element.last_sell_close)
           if (element.type === "buy" && element.valid === "valid") {
             if (!IS_MOBILE) dataArray.push([
               this.dataService.getCompanyNamebyCode(element.code,this.type),

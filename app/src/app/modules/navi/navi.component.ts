@@ -17,14 +17,11 @@ export class NaviComponent implements OnInit {
     if ((<HTMLElement>this.eRef.nativeElement).querySelector(
       '.igx-nav-drawer__aside'
     ).contains(event.target)) {
-      console.log("clicked drawer")
       this.isOpenMenu++;
     }
     if ((<HTMLElement>this.eRef.nativeElement).querySelector(
       '.igx-nav-drawer__overlay'
     ).contains(event.target)) {
-      console.log("clicked overlay")
-
       this.isOpenMenu = 0;
     }
   }
@@ -34,7 +31,6 @@ export class NaviComponent implements OnInit {
     if ((<HTMLElement>this.eRef.nativeElement).querySelector(
       '.igx-nav-drawer__overlay'
     ).contains(event.target)) {
-      console.log("hover overlay")
       this.drawer.close()
 
       this.isOpenMenu = 0;
@@ -42,7 +38,6 @@ export class NaviComponent implements OnInit {
     if ((<HTMLElement>this.eRef.nativeElement).querySelector(
       '.igx-nav-drawer__aside'
     ).contains(event.target)) {
-      console.log("hover drawer")
       this.drawer.open()
       this.renderer.setStyle((<HTMLElement>this.eRef.nativeElement).querySelector(
         '.igx-nav-drawer__overlay'
@@ -86,10 +81,6 @@ export class NaviComponent implements OnInit {
 
   }
   public navigate(item) {
-    console.log(this.isOpenMenu)
-    // if (IS_MOBILE && this.isOpenMenu == 0) return
-    // if (IS_MOBILE && this.isOpenMenu == 2) { this.isOpenMenu++; return}
-
     this.selected = item.text;
     this.isOpenMenu = 0
     if (IS_MOBILE) this.drawer.close()

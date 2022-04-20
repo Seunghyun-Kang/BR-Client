@@ -26,14 +26,11 @@ export class DataService {
 
   setCompanyData(data: companyData[], type?: string) {
     if(type === undefined) type = "KRX"
-    console.log("SET COMPANY DATA");
-    console.log(this.companyData)
     this.companyData.set(type, data)
   }
 
   getCompanyData(type?: string): companyData[] {
     if(type === undefined) type = "KRX"
-    console.log("GET COMPANY DATA");
     return this.companyData.get(type)
   }
 
@@ -45,78 +42,72 @@ export class DataService {
   }
 
   setStockData(code: string, data: priceData[]) {
-    console.log("setStockData called");
     this.stockData.set(code, data)
   }
   setBollingerData(code: string, data: bollingerData[]) {
-    console.log("setBollingerData called");
     this.bollingerData.set(code, data)
   }
   setBollingerTrendSignalData(code: string, data: signalData[]) {
-    console.log("setBollingerTrendSignalData called");
     this.bollingerTrendSignalData.set(code, data)
   }
   setBollingerReverseSignalData(code: string, data: signalData[]) {
-    console.log("setBollingerReverseSignalData called");
     this.bollingerReverseSignalData.set(code, data)
   }
   setTripleScreenData(code: string, data: tripleScreenData[]) {
-    console.log("setTripleScreenData called");
     this.tripleScreenData.set(code, data)
   }
   setTripleScreenSignalData(code: string, data: signalData[]) {
-    console.log("setTripleScreenSignalData called");
     this.tripleScreenSignalData.set(code, data)
   }
 
   getStockData(code: string): any{
-    console.log("getStockData called");
+    // console.log("getStockData called");
     return this.stockData.get(code)
   }
   getBollingerData(code: string): any {
-    console.log("getBollingerData called");
+    // console.log("getBollingerData called");
     return this.bollingerData.get(code)
   }
   getBollingerTrendSignalData(code: string): any {
-    console.log("getBollingerTrendSignalData called");
+    // console.log("getBollingerTrendSignalData called");
     return this.bollingerTrendSignalData.get(code)
   }
   getBollingerReverseSignalData(code: string): any {
-    console.log("getBollingerReverseSignalData called");
+    // console.log("getBollingerReverseSignalData called");
     return this.bollingerReverseSignalData.get(code)
   }
   getTripleScreenData(code: string): any {
-    console.log("getTripleScreenData called");
+    // console.log("getTripleScreenData called");
     return this.tripleScreenData.get(code)
   }
   getTripleScreenSignalData(code: string): any {
-    console.log("getTripleScreenSignalData called");
+    // console.log("getTripleScreenSignalData called");
     return this.tripleScreenSignalData.get(code)
   }
 
   
   getLatestTripleScreenSignalData(day: number): any {
-    console.log("getlatestTripleScreenSignalData called");
+    // console.log("getlatestTripleScreenSignalData called");
     return this.latestTripleScreenSignalData.get(day)
   }
   setLatestTripleScreenSignalData(day: number, data: signalData[]) {
-    console.log("setlatestTripleScreenSignalData called");
+    // console.log("setlatestTripleScreenSignalData called");
     this.latestTripleScreenSignalData.set(day, data)
   }
   getLatestBollingerTrendSignalData(day: number): any {
-    console.log("getLatestBollingerTrendSignalData called");
+    // console.log("getLatestBollingerTrendSignalData called");
     return this.latestBollingerTrendSignalData.get(day)
   }
   setLatestBollingerTrendSignalData(day: number, data: signalData[]) {
-    console.log("setlatestTripleScreenSignalData called");
+    // console.log("setlatestTripleScreenSignalData called");
     this.latestBollingerTrendSignalData.set(day, data)
   }
   getLatestBollingerReverseSignalData(day: number): any {
-    console.log("getLatestBollingerReverseSignalData called");
+    // console.log("getLatestBollingerReverseSignalData called");
     return this.latestBollingerReverseSignalData.get(day)
   }
   setLatestBollingerReverseSignalData(day: number, data: signalData[]) {
-    console.log("setLatestBollingerReverseSignalData called");
+    // console.log("setLatestBollingerReverseSignalData called");
     this.latestBollingerReverseSignalData.set(day, data)
   }
 

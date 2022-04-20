@@ -120,7 +120,6 @@ export class LatestsignalComponent implements OnInit {
 }
 
 parseDataForList(typefilter: string[] = ['매수', '매도']) {
-  console.log(this.typeSelected)
   let columnlist = IS_MOBILE ? ["종목", "종류", "신호가", "과거가", "수익률"] : ["종목","종류", "신호일", "신호가", "과거 거래일", "과거 거래가", "수익률"]
 
   let dataArrayTrend: Array<string[]> = []
@@ -262,7 +261,6 @@ onTapCompany(code: string, company: string) {
 
 onChangeType(event: any){
   this.typeSelected = event.value
-  console.log(this.typeSelected)
   this.parseDataForList(this.typeSelected)
 }
 
