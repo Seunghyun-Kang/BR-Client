@@ -119,7 +119,6 @@ export class FindcompanyComponent implements OnInit, OnDestroy {
         if (element.company === event[0]) {
           console.log("match company!!!")
           this.router.navigate(['stockdetail'], {
-            skipLocationChange: true,
             queryParams: {
               code: element.code,
               companyName: this.dataService.getCompanyNamebyCode(element.code, this.type)
@@ -140,8 +139,6 @@ export class FindcompanyComponent implements OnInit, OnDestroy {
             }
             if ((codelist.length >= 10 && !this.isTapButton) || (codelist.length > 1 && this.isTapButton)) {
               this.router.navigate(['optimalportfolio'], {
-
-                skipLocationChange: true,
                 queryParams: {
                   code: codelist
                 }
