@@ -41,14 +41,15 @@ export class RequestService {
       );
   }
 
-  getOptPortfolio(codes: string[]) {
+  getOptPortfolio(codes: string[], symbol?: string) {
+    if(symbol == undefined) symbol = "KRX"
     let params = ""
     codes.forEach((element: any, index: number) => {
       params += element
       if (index < codes.length - 1) params += ','
     });
     let payload = { codes: params }
-    return this.http.get(this.REST_SERVER_URL + 'optimalportfolio/', { observe: 'response', headers: this.headers, params: payload })
+    return this.http.get(this.REST_SERVER_URL + 'optimalportfolio/' + symbol + '/', { observe: 'response', headers: this.headers, params: payload })
       .pipe(
         catchError(this.handleError)
       );
