@@ -304,7 +304,7 @@ class Star {
 
     var maxRadius = (IS_HIGH_RES.matches) ? 3 : 1.5;
     if (IS_MOBILE) { maxRadius = 1.5 }
-    if (type === "NASDAQ") { maxRadius = maxRadius + 1.5 }
+    if (type === "NASDAQ") { maxRadius = maxRadius + 0.5 }
     let radius = Math.min(Math.abs(mapRange(this.z, 0, depth, maxRadius, 0.01)), maxRadius);
 
     // star point
