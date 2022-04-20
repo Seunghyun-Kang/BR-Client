@@ -52,6 +52,7 @@ export class OptimalportfolioComponent implements OnInit {
   public chartOptions: Partial<ChartOptions> | any;
   public type: string
   private subscription : Subscription;
+  public guide = "검색한 종목들을 각기 다른 20000개 조합을 만들어서 각 비율의 리스크에 따른 수익률을 표시하였습니다. (2020년 1월 1일 부터의 데이터 기준)"
   
   constructor(private statusService: PagestatusService,
     private requestService: RequestService,

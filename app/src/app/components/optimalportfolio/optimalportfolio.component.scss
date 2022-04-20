@@ -22,6 +22,14 @@
         width: 100%;
         padding-left: 63px;
         padding-right: 10px;
+        .guide {
+          color: white;
+        font-family: hyundai-card;
+        font-size: 16px;
+        word-break: keep-all;
+        word-wrap: break-word;
+        text-align: -webkit-center;
+        }
         .result1 {
         color: rgba(0, 227, 150, 0.85);
         font-family: hyundai-card;
