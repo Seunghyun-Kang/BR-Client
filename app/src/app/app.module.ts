@@ -126,7 +126,7 @@ const appRoutes: Routes = [
   providers: [HTMLCanvasElement,
     {
       provide: "Version",
-      useValue: 'BR V20',
+      useValue: 'BR V21',
     },
     {
       provide: HAMMER_GESTURE_CONFIG,
