@@ -42,10 +42,6 @@ export class NaviComponent implements OnInit {
     if ((<HTMLElement>this.eRef.nativeElement).querySelector(
       '.igx-nav-drawer__aside'
     ).contains(event.target)) {
-      if(this.onSwitch) {
-        this.onSwitch = false
-        return
-      }
       console.log("hover drawer")
       this.drawer.open()
       this.renderer.setStyle((<HTMLElement>this.eRef.nativeElement).querySelector(
@@ -74,6 +70,7 @@ export class NaviComponent implements OnInit {
   public width = IS_MOBILE ? "190px" : "200px"
   public isGalaxyOn: boolean = true
   private onSwitch: boolean = false
+  public switchGuide: string = ""
 
   constructor(private router: Router,
     private statusService: PagestatusService,
@@ -164,14 +161,12 @@ export class NaviComponent implements OnInit {
       case true:
         this.statusService.setStatus("GalaxyOn")
         this.isGalaxyOn = true
-        this.onSwitch = true
-        this.drawer.close()
+        this.switchGuide = "우주 배경이 켜집니다."
         break;
       case false:
         this.statusService.setStatus("GalaxyOff")
         this.isGalaxyOn = false
-        this.onSwitch = true
-        this.drawer.close()
+        this.switchGuide = "우주 배경이 꺼집니다."
         break;
     }
   }

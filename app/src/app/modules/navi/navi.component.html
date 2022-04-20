@@ -14,7 +14,7 @@
         <div class="switch">
             <igx-icon style="width: 20px;" fontSet="material" [style.color]="'white'" [name]="'Rocket'"
                 [family]="'user-icons'"></igx-icon>
-            <igx-switch [checked]="isGalaxyOn" (change)="onSwitchChanged($event)">
+            <igx-switch [checked]="isGalaxyOn" (change)="onSwitchChanged($event);toast.open(switchGuide);">
             </igx-switch>
         </div>
     </div>
@@ -27,3 +27,6 @@
         </span>
     </ng-template>
 </igx-nav-drawer>
+
+
+<igx-toast #toast [autoHide]="true"></igx-toast>
