@@ -7,7 +7,7 @@
     <ng-container *ngFor="let item of columnArray; index as i" [matColumnDef]=item>
         <th mat-header-cell *matHeaderCellDef> {{item}} </th>
         <td mat-cell *matCellDef="let element" (click)="onTapCompany(element[columnNum], element[0])"> 
-            {{element[i]}}</td>
+            <div [ngStyle]="{'color': i === columnNum-1 && element[i] > 0 ? '#ee3b89' : i === columnNum-1 && element[i] < 0 ? '#65a3f5' : 'white' }">{{element[i]}}</div></td>
     </ng-container>
 
     <tr mat-header-row *matHeaderRowDef="columnArray"></tr>
