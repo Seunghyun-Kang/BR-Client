@@ -139,6 +139,7 @@ export class DashboardComponent implements OnInit {
   requestSignalData(type: string) {
     var lastday = 1
     var today = new Date().getDay()
+    let hour = new Date().getHours() 
 
     switch (today) {
       case 0:
@@ -148,6 +149,9 @@ export class DashboardComponent implements OnInit {
         lastday = 3
         break
       default:
+        if(hour >=0 && hour <3 && this.type=== "KRX") lastday = 2
+        else if(hour >=0 && hour <13 && this.type=== "NASDAQ") lastday =2
+        else if(hour >=0 && hour <2 && this.type=== "COIN") lastday =2
         break
     }
 
