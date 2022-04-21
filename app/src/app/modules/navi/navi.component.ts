@@ -56,6 +56,7 @@ export class NaviComponent implements OnInit {
     { name: 'Dashboard', text: '대쉬보드', family: 'user-icons' },
     { name: 'LatestSignal', text: '최근 신호', family: 'user-icons' },
     { name: 'StockDetails', text: '종목 검색', family: 'user-icons' },
+    { name: 'Momentum', text: '상대 모멘텀', family: 'user-icons' },
     { name: 'OptPortfolio', text: '최적 포트폴리오', family: 'user-icons' },
     { name: 'Question', text: '기본 설명', family: 'user-icons' },
   ];
@@ -95,6 +96,9 @@ export class NaviComponent implements OnInit {
       case '최적 포트폴리오':
         this.onPressOptPortfolio()
         break;
+      case '상대 모멘텀':
+        this.onPressMomentum()
+        break
       case '대쉬보드':
         this.onPressDashboard()
         break;
@@ -128,6 +132,10 @@ export class NaviComponent implements OnInit {
 
   onPressLatestSignal() {
     this.router.navigate(['latestsignal'],{})
+  }
+
+  onPressMomentum() {
+    this.router.navigate(['momentum'],{})
   }
 
   onPressDashboard() {
