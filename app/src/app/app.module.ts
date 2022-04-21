@@ -55,6 +55,7 @@ import { LatestsignalComponent } from './components/latestsignal/latestsignal.co
 import {MatSelectModule} from '@angular/material/select';
 import {MatMenuModule} from '@angular/material/menu';
 import {MatRadioModule} from '@angular/material/radio';
+import { CookieService } from 'ngx-cookie-service';
 
 PlotlyModule.plotlyjs = PlotlyJS;
 export class MyHammerConfig extends HammerGestureConfig  {
@@ -123,7 +124,8 @@ const appRoutes: Routes = [
     MatTabsModule, MatCardModule,MatBadgeModule, MatTooltipModule, MatSelectModule, MatMenuModule, MatRadioModule,
     IgxCarouselModule, IgxListModule, IgxToastModule
   ],
-  providers: [HTMLCanvasElement,
+  providers: [
+    HTMLCanvasElement,
     {
       provide: "Version",
       useValue: 'BR V21',
@@ -131,7 +133,9 @@ const appRoutes: Routes = [
     {
       provide: HAMMER_GESTURE_CONFIG,
       useClass: MyHammerConfig,
-    }],
+    },
+    CookieService
+  ],
   bootstrap: [AppComponent]
 })
 
