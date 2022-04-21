@@ -3,7 +3,7 @@ import { Router } from '@angular/router';
 import { DataService } from 'src/app/services/data.service';
 import { PagestatusService } from 'src/app/services/pagestatus.service';
 import { RequestService } from 'src/app/services/request.service';
-import { signalData } from '../stockdetail/stockdetail.model';
+import { signalData, momentumData } from '../stockdetail/stockdetail.model';
 import { MatDialog } from '@angular/material/dialog';
 import { ListComponent } from 'src/app/modules/list/list.component';
 import { Subscription } from 'rxjs';
@@ -20,6 +20,8 @@ export class DashboardComponent implements OnInit {
   public getTrendData: boolean = false
   public getReverseData: boolean = false
   public getTripleScreenData: boolean = false
+  public getMomentumData: boolean = false
+
   public status = "loading-forward";
   public type: string = "KRX"
   public unit : string = "원"
@@ -27,6 +29,7 @@ export class DashboardComponent implements OnInit {
   public rawLatestSignalTrend: signalData[] = []
   public rawLatestSignalReverse: signalData[] = []
   public rawLatestSignalTripleScreen: signalData[] = []
+  public rawMomentum: any 
 
   public buyTrend: Array<string[]> = []
   public buyReverse: Array<string[]> = []
@@ -34,12 +37,16 @@ export class DashboardComponent implements OnInit {
   public sellTrend: Array<string[]> = []
   public sellReverse: Array<string[]> = []
   public sellTriple: Array<string[]> = []
+  public momentumData: Array<momentumData> = []
+  public momentumData5: Array<momentumData> = []
+
   private companyInfo: any[] = []
   private subscription : Subscription;
   
   public tooltipTrend = "볼린저 밴드의 상단 80%에 종가가 도달하고 현금 흐름이 좋을 때 매수, 하단 20%에 도달하고 현금 흐름이 안좋을 때 매도"
   public tooltipReverse = "볼린저 밴드의 상단에 도달하고 일중강도가 약하면 충분히 올랐다고 판단하여 매도 반대는 내릴 만큼 내려서 오를거라 판단하여 매수"
   public tooltipTriple = "첫번째 창으로 추세를 판단, 두번재 창으로 추세에 반하는 움직임을 판단, 세번째에 진입 시점을 판단하여 매수/매도"
+  public tooltipMomentum = "3~12개월 동안의 강세주들이 이후 동일한 기간 동안에도 강세주라는 전략. 기간이 길어질수록 더 확실하다."
 
   constructor(private statusService: PagestatusService,
     private router: Router,
@@ -65,6 +72,7 @@ export class DashboardComponent implements OnInit {
         this.requestCompanyData(this.type)
       } else {
         this.requestSignalData(this.type)
+        this.requestMomentum(this.type)
       }
     });
   }
@@ -90,6 +98,7 @@ export class DashboardComponent implements OnInit {
     this.getTrendData = false
     this.getReverseData = false
     this.getTripleScreenData = false
+    this.getMomentumData = false
   }
 
   requestCompanyData(type: string) {
@@ -98,9 +107,22 @@ export class DashboardComponent implements OnInit {
         next: (v: any) => {
           this.dataService.setCompanyData(Object(v.body), type)
           this.requestSignalData(type)
-        },
+          this.requestMomentum(this.type)
+      },
         error: (e: any) => console.log("ERROR OCCURED :: " + JSON.stringify(e))
       });
+  }
+
+  requestMomentum(type: string) {
+    this.requestService.getMomentum(90, 20, type)
+    .subscribe({
+      next: (v: any) => {
+        this.rawMomentum = JSON.parse(Object(v.body))
+        console.log(this.rawMomentum)
+        this.parseMomentum(this.rawMomentum)
+      },
+      error: (e: any) => console.log("ERROR OCCURED :: " + JSON.stringify(e))
+    });
   }
 
   requestSignalData(type: string) {
@@ -373,5 +395,16 @@ export class DashboardComponent implements OnInit {
       default:
         break;
     }
+  }
+  parseMomentum(data: any) {
+    data.forEach((element, index) => {
+      let item: momentumData = {
+        code: element.code,
+        company: this.dataService.getCompanyNamebyCode(element.code),
+        rate: String(element.returns.toFixed(2)) + "%"
+      }
+      this.momentumData.push(item)
+      if(index < 5) this.momentumData5.push(item)
+    });
   }
 }

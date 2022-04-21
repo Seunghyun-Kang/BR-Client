@@ -77,8 +77,31 @@
 padding: 15px 5px 5px 5px;
       margin-top: 10px;
       margin-bottom: 30px;
-    }
 
+      .momentum-content {
+        color: white;
+        font-family: hyundai-card;
+        word-break: keep-all;
+        word-wrap: break-word;
+        display: flex;
+        align-content: center;
+        align-items: center;
+        justify-content: space-evenly;
+        margin-bottom: 7px;
+        margin-top: 5px;
+        
+        .momentum-name {
+            font-size: 15px;
+            text-align: center;
+            width: 40%;
+        }
+        .momentum-rate {
+            font-size: 12px;
+            text-align: center;
+        }
+      
+    }
+  }
     .button-container {
       position: relative;
       display: flex;

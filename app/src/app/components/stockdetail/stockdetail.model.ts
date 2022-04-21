@@ -107,6 +107,12 @@ export interface signalData {
   last_sell_date: string
 }
 
+export interface momentumData {
+  code: string,
+  company: string,
+  rate: string
+}
+
 export interface bollingerData {
   code: string,
   date: string,
