@@ -936,6 +936,9 @@ terms above.
 ng-apexcharts
 MIT
 
+ngx-cookie-service
+MIT
+
 plotly.js-dist-min
 MIT
 The MIT License (MIT)
