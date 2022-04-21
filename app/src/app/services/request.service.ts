@@ -119,6 +119,14 @@ export class RequestService {
       );
   }
 
+  getMomentum(lastday: number, stockCount: number, symbol?: string, ) {
+    if(symbol == undefined) symbol = "KRX"
+    return this.http.get(this.REST_SERVER_URL + 'momentum/' + symbol +'/' + lastday + '/' + stockCount + '/', { observe: 'response', headers: this.headers })
+      .pipe(
+        catchError(this.handleError)
+      );
+  }
+
   private handleError(error: HttpErrorResponse) {
     if (error.status === 0) {
       console.error('An error occurred:', error.error);
