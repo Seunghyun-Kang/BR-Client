@@ -1,6 +1,7 @@
 import { Component, Input, OnDestroy, OnInit } from '@angular/core'
 import { FormBuilder, FormControl, Validators } from '@angular/forms'
 import { Router } from '@angular/router'
+import { LoginService } from 'src/app/services/login.service';
 
 const IS_MOBILE = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
 @Component({
@@ -25,7 +26,9 @@ export class FirstguideComponent implements OnInit, OnDestroy {
 
   constructor(
     private formBuilder: FormBuilder,
-    private router: Router) {
+    private router: Router,
+    private loginService: LoginService) {
+
     this.descIndex = IS_MOBILE ? 0 : -1 ;
     this.descArray = [
       "안녕, 우리 주식 똑똑하게 해보자",
@@ -54,9 +57,12 @@ export class FirstguideComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
+    if(this.loginService.getNumberInCookie() !== undefined) this.router.navigate(['dashboard'],{})
+    else {
     this.timeout = setTimeout(() => {
       this.setAutoGuide(this.descIndex)
     }, 5000)
+  }
   }
 
   private setAutoGuide(index: number) {
@@ -106,6 +112,7 @@ export class FirstguideComponent implements OnInit, OnDestroy {
     for (let key in this.registeredNumber) {
       if (key === String(value)) {
         console.log("MATCH!! :: " + this.registeredNumber[key] + " index: " + this.descIndex)
+        this.loginService.setNumberInCookie(String(value))
         this.descArray[this.descIndex + 1] = this.descArray[this.descIndex + 1].replace('#1#', this.registeredNumber[key])
         this.setAutoGuide(this.descIndex + 1)
         this.isAcceptAccount = true
@@ -113,7 +120,7 @@ export class FirstguideComponent implements OnInit, OnDestroy {
     }
     if (!this.isAcceptAccount) {
       this.descIndex = 5
-      if (String(value) === this.masterNumber) { this.presentDesc = this.exceptionDescArray[2]; this.router.navigate(['dashboard'],
+      if (String(value) === this.masterNumber) { this.presentDesc = this.exceptionDescArray[2]; this.loginService.setNumberInCookie(String(value));this.router.navigate(['dashboard'],
       {}) }
       if (String(value).length <= 9 || String(value).length > 10 || (String(value)[0] !== '0' && String(value)[0] !== '1')) this.presentDesc = this.exceptionDescArray[1]
       else this.presentDesc = this.exceptionDescArray[0]
