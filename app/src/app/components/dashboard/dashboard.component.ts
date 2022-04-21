@@ -24,12 +24,12 @@ export class DashboardComponent implements OnInit {
 
   public status = "loading-forward";
   public type: string = "KRX"
-  public unit : string = "원"
+  public unit: string = "원"
 
   public rawLatestSignalTrend: signalData[] = []
   public rawLatestSignalReverse: signalData[] = []
   public rawLatestSignalTripleScreen: signalData[] = []
-  public rawMomentum: any 
+  public rawMomentum: any
 
   public buyTrend: Array<string[]> = []
   public buyReverse: Array<string[]> = []
@@ -41,8 +41,8 @@ export class DashboardComponent implements OnInit {
   public momentumData5: Array<momentumData> = []
 
   private companyInfo: any[] = []
-  private subscription : Subscription;
-  
+  private subscription: Subscription;
+
   public tooltipTrend = "볼린저 밴드의 상단 80%에 종가가 도달하고 현금 흐름이 좋을 때 매수, 하단 20%에 도달하고 현금 흐름이 안좋을 때 매도"
   public tooltipReverse = "볼린저 밴드의 상단에 도달하고 일중강도가 약하면 충분히 올랐다고 판단하여 매도 반대는 내릴 만큼 내려서 오를거라 판단하여 매수"
   public tooltipTriple = "첫번째 창으로 추세를 판단, 두번재 창으로 추세에 반하는 움직임을 판단, 세번째에 진입 시점을 판단하여 매수/매도"
@@ -61,8 +61,8 @@ export class DashboardComponent implements OnInit {
       console.log("TYPE ::" + value);
       this.type = value
 
-      if(value == "NASDAQ") this.unit = "달러"
-      if(value == "KRX" || value == "COIN") this.unit = "원"
+      if (value == "NASDAQ") this.unit = "달러"
+      if (value == "KRX" || value == "COIN") this.unit = "원"
 
       this.resetAllData()
 
@@ -72,11 +72,17 @@ export class DashboardComponent implements OnInit {
         this.requestCompanyData(this.type)
       } else {
         this.requestSignalData(this.type)
-        this.requestMomentum(this.type)
+        this.momentumData = this.dataService.getMomentumData(90, this.type)
+        if (this.momentumData === undefined) this.requestMomentum(this.type)
+        else {
+          this.momentumData.forEach((element,index) => {
+            if(index <5) this.momentumData5.push(element)
+          });
+        }
       }
     });
   }
-  
+
   ngOnDestroy(): void {
     console.log("ngOnDestroy")
     this.subscription.unsubscribe()
@@ -107,22 +113,23 @@ export class DashboardComponent implements OnInit {
         next: (v: any) => {
           this.dataService.setCompanyData(Object(v.body), type)
           this.requestSignalData(type)
-          this.requestMomentum(this.type)
-      },
+          this.momentumData = this.dataService.getMomentumData(90, this.type)
+          if (this.momentumData === undefined) this.requestMomentum(this.type)
+        },
         error: (e: any) => console.log("ERROR OCCURED :: " + JSON.stringify(e))
       });
   }
 
   requestMomentum(type: string) {
     this.requestService.getMomentum(90, 20, type)
-    .subscribe({
-      next: (v: any) => {
-        this.rawMomentum = JSON.parse(Object(v.body))
-        console.log(this.rawMomentum)
-        this.parseMomentum(this.rawMomentum)
-      },
-      error: (e: any) => console.log("ERROR OCCURED :: " + JSON.stringify(e))
-    });
+      .subscribe({
+        next: (v: any) => {
+          this.rawMomentum = JSON.parse(Object(v.body))
+          console.log(this.rawMomentum)
+          this.parseMomentum(this.rawMomentum)
+        },
+        error: (e: any) => console.log("ERROR OCCURED :: " + JSON.stringify(e))
+      });
   }
 
   requestSignalData(type: string) {
@@ -183,7 +190,7 @@ export class DashboardComponent implements OnInit {
           title = "볼린저 추세 추동 매수 신호"
           if (element.type === "buy" && element.valid === "valid") {
             if (!IS_MOBILE) dataArray.push([
-              this.dataService.getCompanyNamebyCode(element.code,this.type),
+              this.dataService.getCompanyNamebyCode(element.code, this.type),
               element.date,
               String(element.close),
               element.last_sell_date,
@@ -192,7 +199,7 @@ export class DashboardComponent implements OnInit {
               element.code
             ])
             else dataArray.push([
-              this.dataService.getCompanyNamebyCode(element.code,this.type),
+              this.dataService.getCompanyNamebyCode(element.code, this.type),
               String(element.close),
               element.last_sell_close !== -1 ? String(element.last_sell_close) : "-",
               "-",
@@ -206,20 +213,20 @@ export class DashboardComponent implements OnInit {
         this.rawLatestSignalReverse.forEach(element => {
           if (element.type === "buy" && element.valid === "valid") {
             if (!IS_MOBILE) dataArray.push([
-              this.dataService.getCompanyNamebyCode(element.code,this.type),
+              this.dataService.getCompanyNamebyCode(element.code, this.type),
               element.date,
               String(element.close),
               element.last_sell_date,
               element.last_sell_close !== -1 ? String(element.last_sell_close) : "-",
-              
+
               "-",
               element.code
             ])
             else dataArray.push([
-              this.dataService.getCompanyNamebyCode(element.code,this.type),
+              this.dataService.getCompanyNamebyCode(element.code, this.type),
               String(element.close),
               element.last_sell_close !== -1 ? String(element.last_sell_close) : "-",
-              
+
               "-",
               element.code
             ])
@@ -232,20 +239,20 @@ export class DashboardComponent implements OnInit {
         this.rawLatestSignalTripleScreen.forEach(element => {
           if (element.type === "buy" && element.valid === "valid") {
             if (!IS_MOBILE) dataArray.push([
-              this.dataService.getCompanyNamebyCode(element.code,this.type),
+              this.dataService.getCompanyNamebyCode(element.code, this.type),
               element.date,
               String(element.close),
               element.last_sell_date,
               element.last_sell_close !== -1 ? String(element.last_sell_close) : "-",
-              
+
               "-",
               element.code
             ])
             else dataArray.push([
-              this.dataService.getCompanyNamebyCode(element.code,this.type),
+              this.dataService.getCompanyNamebyCode(element.code, this.type),
               String(element.close),
               element.last_sell_close !== -1 ? String(element.last_sell_close) : "-",
-              
+
               "-",
               element.code
             ])
@@ -258,7 +265,7 @@ export class DashboardComponent implements OnInit {
         this.rawLatestSignalTrend.forEach(element => {
           if (element.type === "sell" && element.valid === "valid") {
             if (!IS_MOBILE) dataArray.push([
-              this.dataService.getCompanyNamebyCode(element.code,this.type),
+              this.dataService.getCompanyNamebyCode(element.code, this.type),
               element.date,
               String(element.close),
               element.last_buy_date,
@@ -267,7 +274,7 @@ export class DashboardComponent implements OnInit {
               element.code
             ])
             else dataArray.push([
-              this.dataService.getCompanyNamebyCode(element.code,this.type),
+              this.dataService.getCompanyNamebyCode(element.code, this.type),
               String(element.close),
               element.last_buy_close !== -1 ? String(element.last_buy_close) : "-",
               element.last_buy_close !== -1 ? String(((element.close - element.last_buy_close) / element.last_buy_close * 100).toFixed(2)) : "-",
@@ -282,7 +289,7 @@ export class DashboardComponent implements OnInit {
         this.rawLatestSignalReverse.forEach(element => {
           if (element.type === "sell" && element.valid === "valid") {
             if (!IS_MOBILE) dataArray.push([
-              this.dataService.getCompanyNamebyCode(element.code,this.type),
+              this.dataService.getCompanyNamebyCode(element.code, this.type),
               element.date,
               String(element.close),
               element.last_buy_date,
@@ -291,7 +298,7 @@ export class DashboardComponent implements OnInit {
               element.code
             ])
             else dataArray.push([
-              this.dataService.getCompanyNamebyCode(element.code,this.type),
+              this.dataService.getCompanyNamebyCode(element.code, this.type),
               String(element.close),
               element.last_buy_close !== -1 ? String(element.last_buy_close) : "-",
               element.last_buy_close !== -1 ? String(((element.close - element.last_buy_close) / element.last_buy_close * 100).toFixed(2)) : "-",
@@ -306,7 +313,7 @@ export class DashboardComponent implements OnInit {
         this.rawLatestSignalTripleScreen.forEach(element => {
           if (element.type === "sell" && element.valid === "valid") {
             if (!IS_MOBILE) dataArray.push([
-              this.dataService.getCompanyNamebyCode(element.code,this.type),
+              this.dataService.getCompanyNamebyCode(element.code, this.type),
               element.date,
               String(element.close),
               element.last_buy_date,
@@ -315,7 +322,7 @@ export class DashboardComponent implements OnInit {
               element.code
             ])
             else dataArray.push([
-              this.dataService.getCompanyNamebyCode(element.code,this.type),
+              this.dataService.getCompanyNamebyCode(element.code, this.type),
               String(element.close),
               element.last_buy_close !== -1 ? String(element.last_buy_close) : "-",
               element.last_buy_close !== -1 ? String(((element.close - element.last_buy_close) / element.last_buy_close * 100).toFixed(2)) : "-",
@@ -345,15 +352,15 @@ export class DashboardComponent implements OnInit {
       case "bollinger-trend":
         data.forEach(element => {
           if (element.type === "buy") this.buyTrend.push([
-            this.dataService.getCompanyNamebyCode(element.code,this.type),
+            this.dataService.getCompanyNamebyCode(element.code, this.type),
             "전일 종가 " + String(element.close) + this.unit,
           ])
           else {
             this.sellTrend.push([
-              this.dataService.getCompanyNamebyCode(element.code,this.type),
+              this.dataService.getCompanyNamebyCode(element.code, this.type),
               "전일 종가 " + String(element.close) + this.unit,
               element.last_buy_close != -1 ? String(((element.close - element.last_buy_close) / element.last_buy_close * 100).toFixed(2)) + "% 수익" : "정보 없음",
-              element.last_buy_close != -1 ? "  " + " (매수가 " + String(element.last_buy_close) + this.unit +")" : "",
+              element.last_buy_close != -1 ? "  " + " (매수가 " + String(element.last_buy_close) + this.unit + ")" : "",
               String((element.close - element.last_buy_close) / element.last_buy_close * 100)
             ])
           }
@@ -363,14 +370,14 @@ export class DashboardComponent implements OnInit {
       case "bollinger-reverse":
         data.forEach(element => {
           if (element.type === "buy") this.buyReverse.push([
-            this.dataService.getCompanyNamebyCode(element.code,this.type),
+            this.dataService.getCompanyNamebyCode(element.code, this.type),
             "전일 종가 " + String(element.close) + this.unit,
           ])
           else this.sellReverse.push([
-            this.dataService.getCompanyNamebyCode(element.code,this.type),
+            this.dataService.getCompanyNamebyCode(element.code, this.type),
             "전일 종가 " + String(element.close) + this.unit,
             element.last_buy_close != -1 ? String(((element.close - element.last_buy_close) / element.last_buy_close * 100).toFixed(2)) + "% 수익" : "정보 없음",
-            element.last_buy_close != -1 ? "  " + " (매수가 " + String(element.last_buy_close) + this.unit +")" : "",
+            element.last_buy_close != -1 ? "  " + " (매수가 " + String(element.last_buy_close) + this.unit + ")" : "",
             String((element.close - element.last_buy_close) / element.last_buy_close * 100)
           ])
         });
@@ -379,14 +386,14 @@ export class DashboardComponent implements OnInit {
       case "triplescreen":
         data.forEach(element => {
           if (element.type === "buy") this.buyTriple.push([
-            this.dataService.getCompanyNamebyCode(element.code,this.type),
+            this.dataService.getCompanyNamebyCode(element.code, this.type),
             "전일 종가 " + String(element.close) + this.unit,
           ])
           else this.sellTriple.push([
-            this.dataService.getCompanyNamebyCode(element.code,this.type),
+            this.dataService.getCompanyNamebyCode(element.code, this.type),
             "전일 종가 " + String(element.close) + this.unit,
             element.last_buy_close != -1 ? String(((element.close - element.last_buy_close) / element.last_buy_close * 100).toFixed(2)) + "% 수익" : "정보 없음",
-            element.last_buy_close != -1 ? "  " + " (매수가 " + String(element.last_buy_close) + this.unit +")" : "",
+            element.last_buy_close != -1 ? "  " + " (매수가 " + String(element.last_buy_close) + this.unit + ")" : "",
             String((element.close - element.last_buy_close) / element.last_buy_close * 100)
           ])
         });
@@ -397,6 +404,8 @@ export class DashboardComponent implements OnInit {
     }
   }
   parseMomentum(data: any) {
+    this.momentumData = []
+
     data.forEach((element, index) => {
       let item: momentumData = {
         code: element.code,
@@ -404,7 +413,12 @@ export class DashboardComponent implements OnInit {
         rate: String(element.returns.toFixed(2)) + "%"
       }
       this.momentumData.push(item)
-      if(index < 5) this.momentumData5.push(item)
+      if (index < 5) this.momentumData5.push(item)
     });
+    this.dataService.setMomentumData(this.momentumData, 90, this.type)
+  }
+
+  onTapMomentum() {
+    this.router.navigate(['momentum'])
   }
 }
