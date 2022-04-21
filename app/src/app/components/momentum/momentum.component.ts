@@ -107,7 +107,7 @@ export class MomentumComponent implements OnInit {
     data.forEach((element) => {
       let item: momentumData = {
         code: element.code,
-        company: this.dataService.getCompanyNamebyCode(element.code),
+        company: this.dataService.getCompanyNamebyCode(element.code, this.type),
         rate: String(element.returns.toFixed(2)) + "% "
       }
       this.momentumData.push(item)
