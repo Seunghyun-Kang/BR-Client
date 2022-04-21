@@ -43,7 +43,7 @@
     min-width: 70px !important;
 
     .mat-menu-content {
-        background: rgb(103 58 183 / 90%);
+        background: var(--default-item-color);
         color: white;
         font-family: hyundai-card;
         padding:  0px !important;

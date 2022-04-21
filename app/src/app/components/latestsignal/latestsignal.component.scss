@@ -59,7 +59,7 @@
                 color: white;
           } 
           ::ng-deep .mat-form-field-appearance-fill .mat-select-arrow-wrapper {
-              background-color:var(--default-menu-color);
+              background-color:var(--default-item-color);
           }
 
           ::ng-deep .mat-select-value{
@@ -85,7 +85,7 @@
   }
   ::ng-deep .mat-select-panel {
     min-width: 100% !important;
-    background-color:var(--default-menu-color);
+    background-color:var(--default-item-color);
      .mat-option {
         color: white;
         font-family: hyundai-card;
@@ -95,6 +95,13 @@
     .mat-option-text {
         color: white;
     }
+}
+::ng-deep .mat-tab-label-container {
+  .mat-tab-list {
+    mat-ink-bar {
+      background-color: var(--default-item-color);
+    }
+  }
 }
   ::ng-deep .mat-tab-label-content {
       color: white;
@@ -106,7 +113,7 @@
   ::ng-deep .mat-tab-label {
     height: auto;
   }
-
+ 
 table {
     width: 100%;
     font-family: 'hyundai-card';

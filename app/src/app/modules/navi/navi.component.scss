@@ -7,7 +7,7 @@
   
 $custom-switch-theme: switch-theme(
   $thumb-on-color: rgba(236, 222, 222, 0.795),
-  $track-on-color: #673ab7
+  $track-on-color: var(--default-item-color)
 );
 
 .navi-container {
@@ -29,7 +29,7 @@ $custom-switch-theme: switch-theme(
     $custom-theme: navdrawer-theme(
       $background: #050014,
   
-      $item-active-background: #673ab7,
+      $item-active-background: var(--default-item-color),
       $item-active-text-color: white,
       $item-header-text-color: white
   );

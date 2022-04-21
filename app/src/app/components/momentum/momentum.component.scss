@@ -59,7 +59,7 @@
                 color: white;
           } 
           ::ng-deep .mat-form-field-appearance-fill .mat-select-arrow-wrapper {
-              background-color:var(--default-menu-color);
+              background-color:var(--default-item-color);
           }
 
           ::ng-deep .mat-select-value{
@@ -85,7 +85,7 @@
   }
   ::ng-deep .mat-select-panel {
     min-width: 100% !important;
-    background-color:var(--default-menu-color);
+    background-color:var(--default-item-color);
      .mat-option {
         color: white;
         font-family: hyundai-card;
