@@ -103,7 +103,8 @@
                 <div class="momentum-name">{{item.company}}</div>
                 <div class="momentum-rate">{{item.rate}}</div>
             </div>
-            <div class= "momentum-content" style="margin-left: 10px" *ngIf="rawMomentum != undeifned && rawMomentum.length > 0">...</div>
+            <div class= "momentum-content" style="margin-left: 10px" *ngIf="momentumData5 != undeifned && momentumData5.length > 0">...</div>
+            <div class= "momentum-content" style="margin-left: 10px" *ngIf="momentumData5.length == 0">모멘텀 계산 중...</div>
     </div>
 </div>
 </div>
