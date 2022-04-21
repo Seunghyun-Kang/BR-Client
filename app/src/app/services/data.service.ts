@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { companyData } from '../components/findcompany/findcompany.component';
-import { bollingerData, priceData, signalData, tripleScreenData } from '../components/stockdetail/stockdetail.model';
+import { bollingerData, priceData, signalData, tripleScreenData, momentumData } from '../components/stockdetail/stockdetail.model';
 
 @Injectable({
   providedIn: 'root'
@@ -15,6 +15,10 @@ export class DataService {
   public tripleScreenData = new Map<any, tripleScreenData[]>();
   public tripleScreenSignalData = new Map<any, signalData[]>();
 
+  private momentum3 = new Map<any, momentumData[]>();
+  private momentum6 = new Map<any, momentumData[]>();
+  private momentum9 = new Map<any, momentumData[]>();
+  private momentum12 = new Map<any, momentumData[]>();
 
   public latestTripleScreenSignalData = new Map<any, signalData[]>();
   public latestBollingerTrendSignalData = new Map<any, signalData[]>();
@@ -110,5 +114,22 @@ export class DataService {
     // console.log("setLatestBollingerReverseSignalData called");
     this.latestBollingerReverseSignalData.set(day, data)
   }
+  
+  getMomentumData(lastday: number, type?: string): momentumData[] {
+    if(type === undefined) type = "KRX"
 
+    if(lastday === 90) return this.momentum3.get(type)
+    else if(lastday === 180) return this.momentum6.get(type)
+    else if(lastday === 270) return this.momentum9.get(type)
+    else if(lastday === 360) return this.momentum12.get(type)
+  }
+
+  setMomentumData(data: momentumData[], lastday: number, type?: string) {
+    if(type === undefined) type = "KRX"
+    
+    if(lastday === 90) this.momentum3.set(type, data)
+    else if(lastday === 180) this.momentum6.set(type, data)
+    else if(lastday === 270) this.momentum9.set(type, data)
+    else if(lastday === 360) this.momentum12.set(type, data)
+  }
 }
