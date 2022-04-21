@@ -73,7 +73,7 @@ export class DashboardComponent implements OnInit {
       } else {
         this.requestSignalData(this.type)
         this.momentumData = this.dataService.getMomentumData(90, this.type)
-        if (this.momentumData === undefined) this.requestMomentum(this.type)
+        if (this.momentumData === undefined) {this.requestMomentum(this.type); this.momentumData = []}
         else {
           this.momentumData.forEach((element,index) => {
             if(index <5) this.momentumData5.push(element)
@@ -92,6 +92,7 @@ export class DashboardComponent implements OnInit {
     this.rawLatestSignalTrend = []
     this.rawLatestSignalReverse = []
     this.rawLatestSignalTripleScreen = []
+    this.rawMomentum = []
 
     this.buyTrend = []
     this.buyReverse = []
@@ -100,6 +101,9 @@ export class DashboardComponent implements OnInit {
     this.sellReverse = []
     this.sellTriple = []
     this.companyInfo = undefined
+
+    this.momentumData = []
+    this.momentumData5 = []
 
     this.getTrendData = false
     this.getReverseData = false
@@ -114,7 +118,7 @@ export class DashboardComponent implements OnInit {
           this.dataService.setCompanyData(Object(v.body), type)
           this.requestSignalData(type)
           this.momentumData = this.dataService.getMomentumData(90, this.type)
-          if (this.momentumData === undefined) this.requestMomentum(this.type)
+          if (this.momentumData === undefined) {this.requestMomentum(this.type); this.momentumData = []}
         },
         error: (e: any) => console.log("ERROR OCCURED :: " + JSON.stringify(e))
       });
@@ -405,11 +409,12 @@ export class DashboardComponent implements OnInit {
   }
   parseMomentum(data: any) {
     this.momentumData = []
+    this.momentumData5 = []
 
     data.forEach((element, index) => {
       let item: momentumData = {
         code: element.code,
-        company: this.dataService.getCompanyNamebyCode(element.code),
+        company: this.dataService.getCompanyNamebyCode(element.code, this.type),
         rate: String(element.returns.toFixed(2)) + "%"
       }
       this.momentumData.push(item)
