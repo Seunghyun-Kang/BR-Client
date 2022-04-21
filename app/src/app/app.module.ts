@@ -57,6 +57,7 @@ import {MatMenuModule} from '@angular/material/menu';
 import {MatRadioModule} from '@angular/material/radio';
 import { CookieService } from 'ngx-cookie-service';
 import { AuthGuard } from './services/auth.guard';
+import { MomentumComponent } from './components/momentum/momentum.component';
 
 PlotlyModule.plotlyjs = PlotlyJS;
 export class MyHammerConfig extends HammerGestureConfig  {
@@ -81,7 +82,9 @@ const appRoutes: Routes = [
   { path: 'stockdetail-bollingerreverse', component: StockdstailBollingerreverseComponent },
   { path: 'optimalportfolio', component: OptimalportfolioComponent },
   { path: 'information', component: InformationComponent },
-  { path: 'latestsignal', component: LatestsignalComponent },]
+  { path: 'latestsignal', component: LatestsignalComponent },
+  { path: 'momentum', component: MomentumComponent },
+]
   }
 ];
 
@@ -108,7 +111,8 @@ const appRoutes: Routes = [
     NaviComponent,
     ListComponent,
     InformationComponent,
-    LatestsignalComponent
+    LatestsignalComponent,
+    MomentumComponent
   ],
   imports: [
     BrowserModule,

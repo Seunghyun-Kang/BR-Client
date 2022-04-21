@@ -1,0 +1,35 @@
+<div class=dashboard>
+    <div class="actionbar">
+        <header [title]="'상대 모멘텀'"></header>
+    </div>
+    <div class="main">
+        <app-navi [page]="'상대 모멘텀'"></app-navi>
+        <div class="content">
+                    <div class="selection-container" *ngIf="momentumData !== undefined">
+                          <mat-form-field appearance="fill">
+                            <mat-label>검색 기간</mat-label>
+                            <mat-select disableRipple (selectionChange)="onChangeDay($event)" [(value)]="daySelected">
+                              <mat-option value="1">3개월</mat-option>
+                              <mat-option value="2">6개월</mat-option>
+                              <mat-option value="3">9개월</mat-option>
+                              <mat-option value="4">12개월</mat-option>
+                            </mat-select>
+                          </mat-form-field>
+                    </div>
+                    <div class="title" *ngIf="getData">{{totalRate}}</div>
+                    <div class="title" *ngIf="!getData">모멘텀 계산중...</div>
+                    <div class="signals-container" *ngIf="momentumData !== undefined" [ngStyle]="{'background-color': type === 'KRX' ?  'var(--krx-card-color)' : type === 'NASDAQ' ? 'var(--nasdaq-card-color)': 'var(--coin-card-color)'}">
+        
+                    <div class= "momentum-content" *ngFor="let item of momentumData; index as i">
+                      <div class="momentum-name" style="width: 10%;">{{i+1}}.</div>
+                      <div class="momentum-name">{{item.company}}</div>
+                      <div class="momentum-rate">
+                        {{item.rate}}
+                        <igx-icon style="width: 13px; height: 13px;margin-left: 5px;" fontSet="material" [name]="'Up'" [family]="'user-icons'"></igx-icon>
+                      </div>
+                  </div>
+                    </div>
+                  <div class="nolist"  *ngIf="momentumData !== undefined && momentumData.length == 0"> 신호 없음 </div>
+        </div>
+    </div>
+</div>
