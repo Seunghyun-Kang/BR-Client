@@ -56,6 +56,7 @@ import {MatSelectModule} from '@angular/material/select';
 import {MatMenuModule} from '@angular/material/menu';
 import {MatRadioModule} from '@angular/material/radio';
 import { CookieService } from 'ngx-cookie-service';
+import { AuthGuard } from './services/auth.guard';
 
 PlotlyModule.plotlyjs = PlotlyJS;
 export class MyHammerConfig extends HammerGestureConfig  {
@@ -69,7 +70,10 @@ export class MyHammerConfig extends HammerGestureConfig  {
 
 const appRoutes: Routes = [
   { path: 'home', component: HomeComponent },
-  { path: 'dashboard', component: DashboardComponent },
+  { path: '', redirectTo: '/home', pathMatch: 'full' },
+  {
+    path: '', canActivate: [AuthGuard],
+  children: [{ path: 'dashboard', component: DashboardComponent },
   { path: 'findcompany', component: FindcompanyComponent },
   { path: 'stockdetail', component: StockdetailComponent },
   { path: 'stockdetail-triplescreen', component: StockdstailTriplescreenComponent },
@@ -77,8 +81,8 @@ const appRoutes: Routes = [
   { path: 'stockdetail-bollingerreverse', component: StockdstailBollingerreverseComponent },
   { path: 'optimalportfolio', component: OptimalportfolioComponent },
   { path: 'information', component: InformationComponent },
-  { path: 'latestsignal', component: LatestsignalComponent },
-  { path: '', redirectTo: '/home', pathMatch: 'full' }
+  { path: 'latestsignal', component: LatestsignalComponent },]
+  }
 ];
 
 @NgModule({
@@ -128,7 +132,7 @@ const appRoutes: Routes = [
     HTMLCanvasElement,
     {
       provide: "Version",
-      useValue: 'BR V21',
+      useValue: 'BR V22',
     },
     {
       provide: HAMMER_GESTURE_CONFIG,

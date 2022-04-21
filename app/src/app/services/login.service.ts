@@ -1,12 +1,14 @@
 import { Injectable } from '@angular/core';
 import { CookieService } from 'ngx-cookie-service';
+import {CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot, UrlTree, Router} from '@angular/router';
+
 
 @Injectable({
   providedIn: 'root'
 })
 
 export class LoginService {
-  constructor(private cookieService: CookieService) { }
+  constructor(private cookieService: CookieService, private route: Router) { }
 
   ngOnInit() {
   }
