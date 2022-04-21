@@ -123,7 +123,7 @@ igx-icon {
     }
 
     ::ng-deep span {
-      background-color: rgb(131, 91, 243);
+      background-color: var(--default-item-color);
 
     width: 15px;
     height: 15px;
