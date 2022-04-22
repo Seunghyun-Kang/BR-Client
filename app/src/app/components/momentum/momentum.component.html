@@ -16,8 +16,11 @@
                             </mat-select>
                           </mat-form-field>
                     </div>
+                    
                     <div class="title" *ngIf="getData">{{totalRate}}</div>
                     <div class="title" *ngIf="!getData">모멘텀 계산중...</div>
+                    <div class="title" style="font-size: 14px;" *ngIf="getData">{{duration[daySelected-1]}} 전 부터 오늘까지 가장 많이 오른 30 종목</div>
+
                     <div class="signals-container" *ngIf="momentumData !== undefined" [ngStyle]="{'background-color': type === 'KRX' ?  'var(--krx-card-color)' : type === 'NASDAQ' ? 'var(--nasdaq-card-color)': 'var(--coin-card-color)'}">
         
                     <div class= "momentum-content" *ngFor="let item of momentumData; index as i">

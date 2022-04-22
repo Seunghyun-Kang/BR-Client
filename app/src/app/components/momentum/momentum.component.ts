@@ -26,7 +26,7 @@ export class MomentumComponent implements OnInit {
 
   public daySelected: string = "1";
   private companyInfo: any[] = []
-
+  public duration = ['3개월','6개월','9개월','12개월']
   public selectedIndex = 0
   private subscription: Subscription;
 
