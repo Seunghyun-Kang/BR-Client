@@ -137,7 +137,7 @@ export class MomentumComponent implements OnInit {
       case 1: { this.lastday = 90; this.daySelected = event.value; break; }
       case 2: { this.lastday = 180; this.daySelected = event.value; break; }
       case 3: { this.lastday = 270; this.daySelected = event.value; break; }
-      case 3: { this.lastday = 360; this.daySelected = event.value; break; }
+      case 4: { this.lastday = 360; this.daySelected = event.value; break; }
       default: break;
     }
 
