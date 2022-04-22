@@ -97,7 +97,7 @@
                 >3개월 절대 모멘텀</p>
                 <igx-icon (click)="tooltipMomentum2.show()" style="margin: 0px 15px 0px 5px;filter: invert(24%) sepia(1%) saturate(4420%) hue-rotate(236deg) brightness(101%) contrast(81%);" fontSet="material" [name]="'QuestionLeft'" [family]="'user-icons'"></igx-icon>
             </div>
-                <igx-icon  *ngIf="rawMomentum != undeifned && rawMomentum.length > 0" [matBadge]="rawMomentum.length" fontSet="material" (click)="onTapMomentum()" [name]="'List'" [family]="'user-icons'"></igx-icon>
+                <igx-icon  *ngIf="momentumData5 != undeifned && momentumData5.length > 0" [matBadge]="'30'" fontSet="material" (click)="onTapMomentum()" [name]="'List'" [family]="'user-icons'"></igx-icon>
             </div>
             <div class= "momentum-content" *ngFor="let item of momentumData5; index as i">
                 <div class="momentum-name">{{item.company}}</div>
