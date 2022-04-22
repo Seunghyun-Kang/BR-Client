@@ -125,10 +125,10 @@ export class DashboardComponent implements OnInit {
   }
 
   requestMomentum(type: string) {
-    this.requestService.getMomentum(90, 20, type)
+    this.requestService.getMomentum(90, type)
       .subscribe({
         next: (v: any) => {
-          this.rawMomentum = JSON.parse(Object(v.body))
+          this.rawMomentum = Object(v.body)
           console.log(this.rawMomentum)
           this.parseMomentum(this.rawMomentum)
         },
@@ -417,8 +417,8 @@ export class DashboardComponent implements OnInit {
 
     data.forEach((element, index) => {
       let item: momentumData = {
-        code: element.code,
-        company: this.dataService.getCompanyNamebyCode(element.code, this.type),
+        code: element.company,
+        company: this.dataService.getCompanyNamebyCode(element.company, this.type),
         rate: String(element.returns.toFixed(2)) + "%"
       }
       this.momentumData.push(item)
