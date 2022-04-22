@@ -117,7 +117,7 @@ const appRoutes: Routes = [
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
-    RouterModule.forRoot(appRoutes, { enableTracing: false, useHash: true }),
+    RouterModule.forRoot(appRoutes, { enableTracing: false, useHash: true, scrollPositionRestoration: 'enabled' }),
     AppRoutingModule,
     FormsModule,
     ReactiveFormsModule,
