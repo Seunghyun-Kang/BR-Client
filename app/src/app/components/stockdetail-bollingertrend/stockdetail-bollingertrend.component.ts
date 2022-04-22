@@ -372,9 +372,9 @@ export class StockdstailBollingertrendComponent implements OnInit, OnDestroy {
 
     var line = {
       x0: 0,
-      y0: -10000000000,
+      y0: -100000000,
       x1: 0,
-      y1: 10000000000,
+      y1: 100000000,
       type: "line",
       line: {
         color: color,
