@@ -81,10 +81,10 @@ export class MomentumComponent implements OnInit {
   requestMomentum(type: string) {
     this.statusService.setStatus("loading-forward")
     this.getData = false
-    this.requestService.getMomentum(this.lastday, this.stockNum, type)
+    this.requestService.getMomentum(this.lastday, type)
       .subscribe({
         next: (v: any) => {
-          this.parseMomentum(JSON.parse(Object(v.body)))
+          this.parseMomentum(Object(v.body))
           this.statusService.setStatus('normal')
           this.getData = true
         },
@@ -95,9 +95,9 @@ export class MomentumComponent implements OnInit {
   calTotalRate() {
     var total = 0
     this.momentumData.forEach(element => {
-      total += Number(element.rate.split('% ')[0])
+      total += Number(element.rate.split('%')[0])
     });
-    this.totalRate = "총 수익률 :" + String(total) + "%"
+    this.totalRate = "총 상승률 :" + String(total.toFixed(2)) + "%"
   }
 
   parseMomentum(data: any) {
@@ -106,8 +106,8 @@ export class MomentumComponent implements OnInit {
 
     data.forEach((element) => {
       let item: momentumData = {
-        code: element.code,
-        company: this.dataService.getCompanyNamebyCode(element.code, this.type),
+        code: element.company,
+        company: this.dataService.getCompanyNamebyCode(element.company, this.type),
         rate: String(element.returns.toFixed(2)) + "% "
       }
       this.momentumData.push(item)
