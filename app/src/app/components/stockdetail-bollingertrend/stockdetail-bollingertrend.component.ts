@@ -332,21 +332,18 @@ export class StockdstailBollingertrendComponent implements OnInit, OnDestroy {
       var date: number = Number(new Date(element.date).getTime())
       var isValid: boolean = false
 
-      if(index > 0 && this.rawDataBollingerTrendSignal[index-1].type !== element.type) {
-        isValid = true
-      }
 
-      if (element.type === 'buy') {
+      if (element.type === 'buy' && element.valid === 'valid') {
         this.buyTrendMarker.x.push(new Date(element.date).getTime())
-        if(isValid) this.buyTrendLine.push(this.createLineElem(new Date(element.date).getTime(), '#EE4B28'))
+        this.buyTrendLine.push(this.createLineElem(new Date(element.date).getTime(), '#EE4B28'))
         // else this.buyTrendLine.push(this.createLineElem(new Date(element.date).getTime(), 'yellow'))
         
         this.rawStockData.forEach(item => {
           if (date === Number(item.date)) this.buyTrendMarker.y.push(item.close)
         });
-      } else if (element.type === 'sell') {
+      } else if (element.type === 'sell' && element.valid === 'valid') {
         this.sellTrendMarker.x.push(new Date(element.date).getTime())
-        if(isValid) this.sellTrendLine.push(this.createLineElem(new Date(element.date).getTime(), '#4E7FEE'))
+        this.sellTrendLine.push(this.createLineElem(new Date(element.date).getTime(), '#4E7FEE'))
         // else this.buyTrendLine.push(this.createLineElem(new Date(element.date).getTime(), 'green'))
         
         this.rawStockData.forEach(item => {
