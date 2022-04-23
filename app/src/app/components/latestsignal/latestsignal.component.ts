@@ -18,6 +18,7 @@ const IS_MOBILE = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini
 export class LatestsignalComponent implements OnInit {
   @ViewChild('group') group;
   public lastday: number = 3
+  public money: number = 20
   public type: string
   private itemLen = 3
 
@@ -33,6 +34,7 @@ export class LatestsignalComponent implements OnInit {
   toppingList: string[] = ['매수', '매도'];
   public typeSelected: string[] = ['매도'];
   public daySelected: string = "1";
+  public moneySelected: string = "20";
   private companyInfo: any[] = []
 
   public totalRateTrend: number
@@ -243,11 +245,12 @@ export class LatestsignalComponent implements OnInit {
 
     this.pastPriceTrend = 0
     this.nowPriceTrend = 0
+    var limit = 10000 * this.money
     dataArrayTrend.forEach((element, index) => {
       if (IS_MOBILE && element[1] === "매도" && element[3] != "-" && element[2] != "-" ) {
         var time = 1
         var price = Number(element[2])
-        while(price < 200000){
+        while(price < limit){
           time = time+1
           price = Number(element[2]) * time
         }
@@ -257,7 +260,7 @@ export class LatestsignalComponent implements OnInit {
       if (!IS_MOBILE && element[1] === "매도" && element[3] != "-" && element[5] != "-" ) {
         var time = 1
         var price = Number(element[3])
-        while(price < 200000){
+        while(price < limit){
           time = time+1
           price = Number(element[3]) * time
         }
@@ -282,7 +285,7 @@ export class LatestsignalComponent implements OnInit {
       if (IS_MOBILE && element[1] === "매도" && element[3] != "-" && element[2] != "-" ) {
         var time = 1
         var price = Number(element[2])
-        while(price < 200000){
+        while(price < limit){
           time = time+1
           price = Number(element[2]) * time
         }
@@ -292,7 +295,7 @@ export class LatestsignalComponent implements OnInit {
       if (!IS_MOBILE && element[1] === "매도" && element[3] != "-" && element[5] != "-" ) {
         var time = 1
         var price = Number(element[3])
-        while(price < 200000){
+        while(price < limit){
           time = time+1
           price = Number(element[3]) * time
         }
@@ -308,7 +311,7 @@ export class LatestsignalComponent implements OnInit {
       if (IS_MOBILE && element[1] === "매도" && element[3] != "-" && element[2] != "-" ) {
         var time = 1
         var price = Number(element[2])
-        while(price < 200000){
+        while(price < limit){
           time = time+1
           price = Number(element[2]) * time
         }
@@ -318,7 +321,7 @@ export class LatestsignalComponent implements OnInit {
       if (!IS_MOBILE && element[1] === "매도" && element[3] != "-" && element[5] != "-" ) {
         var time = 1
         var price = Number(element[3])
-        while(price < 200000){
+        while(price < limit){
           time = time+1
           price = Number(element[3]) * time
         }
@@ -386,6 +389,20 @@ export class LatestsignalComponent implements OnInit {
     this.rawLatestSignalTripleScreen = this.dataService.getLatestTripleScreenSignalData(this.lastday)
     if (this.rawLatestSignalTripleScreen === undefined) {
       this.requestSignalData(this.type)
+    }
+    this.parseDataForList(this.typeSelected)
+  }
+
+  onChangeMoney(event: any) {
+    console.log(event.value)
+
+    switch (Number(event.value)) {
+      case 10: { this.money = 10; this.moneySelected = event.value; break; }
+      case 20: { this.money = 20; this.moneySelected = event.value; break; }
+      case 30: { this.money = 30; this.moneySelected = event.value; break; }
+      case 50: { this.money = 50; this.moneySelected = event.value; break; }
+      case 100: { this.money = 100; this.moneySelected = event.value; break; }
+      default: break;
     }
     this.parseDataForList(this.typeSelected)
   }

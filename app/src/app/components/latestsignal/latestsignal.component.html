@@ -25,19 +25,29 @@
                 <mat-option value="3">14일</mat-option>
                 <mat-option value="4">1개월</mat-option>
                 <mat-option value="5">6개월</mat-option>
-                <mat-option value="6">1년</mat-option>
+              </mat-select>
+            </mat-form-field>
+
+            <mat-form-field appearance="fill">
+              <mat-label>가상 투자금 (종목당)</mat-label>
+              <mat-select disableRipple (selectionChange)="onChangeMoney($event)" [(value)]="moneySelected">
+                <mat-option value="10">10만원</mat-option>
+                <mat-option value="20">20만원</mat-option>
+                <mat-option value="30">30만원</mat-option>
+                <mat-option value="50">50만원</mat-option>
+                <mat-option value="100">100만원</mat-option>
               </mat-select>
             </mat-form-field>
           </div>
           <div *ngIf="inputDataTrend !== undefined && inputDataTrend.data.length > 0" class="profit_guide"
             style="margin-top: 30px;">
-            모든 종목 대략 20만원씩 신호때마다 샀다면?
+            모든 종목 대략 {{money}}만원씩 신호때마다 샀다면?
           </div>
           <div *ngIf="inputDataTrend !== undefined && inputDataTrend.data.length > 0" class="profit_guide">
-            투자금 {{pastPriceTrend | currency:'KRW':'symbol'}}
+            투자금 {{pastPriceTrend | currency:'KRW':'symbol'}}  /   현재 {{nowPriceTrend| currency:'KRW':'symbol'}}
           </div>
           <div *ngIf="inputDataTrend !== undefined && inputDataTrend.data.length > 0" class="profit_guide">
-            현재 {{nowPriceTrend| currency:'KRW':'symbol'}}
+            <span [ngStyle]="{'color': nowPriceTrend - pastPriceTrend>0 ? '#ee3b89' : '#65a3f5' }">{{ nowPriceTrend - pastPriceTrend | currency:'KRW':'symbol'}}</span> 수익
           </div>
           <div *ngIf="inputDataTrend !== undefined && inputDataTrend.data.length > 0" class="profit_guide">
             - 총 수익률 : <span [ngStyle]="{'color': totalRateTrend>0 ? '#ee3b89' : '#65a3f5' }">{{totalRateTrend}}</span> %
@@ -77,16 +87,26 @@
                 <mat-option value="3">14일</mat-option>
               </mat-select>
             </mat-form-field>
+            <mat-form-field appearance="fill">
+              <mat-label>가상 투자금 (종목당)</mat-label>
+              <mat-select disableRipple (selectionChange)="onChangeMoney($event)" [(value)]="moneySelected">
+                <mat-option value="10">10만원</mat-option>
+                <mat-option value="20">20만원</mat-option>
+                <mat-option value="30">30만원</mat-option>
+                <mat-option value="50">50만원</mat-option>
+                <mat-option value="100">100만원</mat-option>
+              </mat-select>
+            </mat-form-field>
           </div>
           <div *ngIf="inputDataReverse !== undefined && inputDataReverse.data.length > 0" class="profit_guide"
             style="margin-top: 30px;">
-            모든 종목 대략 20만원씩 신호때마다 샀다면?
+            모든 종목 대략 {{money}}만원씩 신호때마다 샀다면?
           </div>
           <div *ngIf="inputDataReverse !== undefined && inputDataReverse.data.length > 0" class="profit_guide">
-            투자금 {{pastPriceReverse | currency:'KRW':'symbol'}}
+            투자금 {{pastPriceReverse | currency:'KRW':'symbol'}}  /   현재 {{nowPriceReverse| currency:'KRW':'symbol'}}
           </div>
           <div *ngIf="inputDataReverse !== undefined && inputDataReverse.data.length > 0" class="profit_guide">
-            현재 {{nowPriceReverse| currency:'KRW':'symbol'}}
+            <span [ngStyle]="{'color': nowPriceReverse - pastPriceReverse>0 ? '#ee3b89' : '#65a3f5' }">{{ nowPriceReverse - pastPriceReverse | currency:'KRW':'symbol'}}</span> 수익
           </div>
           <div *ngIf="inputDataReverse !== undefined && inputDataReverse.data.length > 0" class="profit_guide">
             - 총 수익률 : <span
@@ -126,16 +146,26 @@
                 <mat-option value="3">14일</mat-option>
               </mat-select>
             </mat-form-field>
+                <mat-form-field appearance="fill">
+                  <mat-label>가상 투자금 (종목당)</mat-label>
+                  <mat-select disableRipple (selectionChange)="onChangeMoney($event)" [(value)]="moneySelected">
+                    <mat-option value="10">10만원</mat-option>
+                    <mat-option value="20">20만원</mat-option>
+                    <mat-option value="30">30만원</mat-option>
+                    <mat-option value="50">50만원</mat-option>
+                    <mat-option value="100">100만원</mat-option>
+                  </mat-select>
+                </mat-form-field>
           </div>
           <div *ngIf="inputDataTriple !== undefined && inputDataTriple.data.length > 0" class="profit_guide"
             style="margin-top: 30px;">
-            모든 종목 대략 20만원씩 신호때마다 샀다면?
+            모든 종목 대략 {{money}}만원씩 신호때마다 샀다면?
           </div>
           <div *ngIf="inputDataTriple !== undefined && inputDataTriple.data.length > 0" class="profit_guide">
-            투자금 {{pastPriceTriple | currency:'KRW':'symbol'}}
+            투자금 {{pastPriceTriple | currency:'KRW':'symbol'}}  /   현재 {{nowPriceTriple| currency:'KRW':'symbol'}}
           </div>
           <div *ngIf="inputDataTriple !== undefined && inputDataTriple.data.length > 0" class="profit_guide">
-            현재 {{nowPriceTriple| currency:'KRW':'symbol'}}
+            <span [ngStyle]="{'color': nowPriceTriple - pastPriceTriple>0 ? '#ee3b89' : '#65a3f5' }">{{ nowPriceTriple - pastPriceTriple | currency:'KRW':'symbol'}}</span> 수익
           </div>
           <div *ngIf="inputDataTriple !== undefined && inputDataTriple.data.length > 0" class="profit_guide">
             - 총 수익률 : <span [ngStyle]="{'color': totalRateTriple>0 ? '#ee3b89' : '#65a3f5' }">{{totalRateTriple}}</span>
