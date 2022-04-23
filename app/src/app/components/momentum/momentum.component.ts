@@ -84,6 +84,7 @@ export class MomentumComponent implements OnInit {
     this.requestService.getMomentum(this.lastday, type)
       .subscribe({
         next: (v: any) => {
+          Object(v.body).sort((a, b) => b.returns - a.returns)
           this.parseMomentum(Object(v.body))
           this.statusService.setStatus('normal')
           this.getData = true

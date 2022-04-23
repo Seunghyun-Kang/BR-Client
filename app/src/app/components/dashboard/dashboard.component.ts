@@ -128,6 +128,7 @@ export class DashboardComponent implements OnInit {
     this.requestService.getMomentum(90, type)
       .subscribe({
         next: (v: any) => {
+          Object(v.body).sort((a, b) => b.returns - a.returns)
           this.rawMomentum = Object(v.body)
           console.log(this.rawMomentum)
           this.parseMomentum(this.rawMomentum)
