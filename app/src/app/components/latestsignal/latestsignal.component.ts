@@ -25,9 +25,9 @@ export class LatestsignalComponent implements OnInit {
   public rawLatestSignalReverse: signalData[] = []
   public rawLatestSignalTripleScreen: signalData[] = []
 
-  public inputDataTrend: {title: string, column: string[], data: Array<string[]>}
-  public inputDataReverse: {title: string, column: string[], data: Array<string[]>}
-  public inputDataTriple: {title: string, column: string[], data: Array<string[]>}
+  public inputDataTrend: { title: string, column: string[], data: Array<string[]> }
+  public inputDataReverse: { title: string, column: string[], data: Array<string[]> }
+  public inputDataTriple: { title: string, column: string[], data: Array<string[]> }
 
   toppings = new FormControl(['매수', '매도']);
   toppingList: string[] = ['매수', '매도'];
@@ -36,11 +36,11 @@ export class LatestsignalComponent implements OnInit {
   private companyInfo: any[] = []
 
   public totalRateTrend: number
-  public totalRateReverse:number
+  public totalRateReverse: number
   public totalRateTriple: number
-  
+
   public selectedIndex = 0
-  private subscription : Subscription;
+  private subscription: Subscription;
 
   constructor(private statusService: PagestatusService,
     private requestService: RequestService,
@@ -83,7 +83,7 @@ export class LatestsignalComponent implements OnInit {
     this.requestService.getAllCompanies(type)
       .subscribe({
         next: (v: any) => {
-          this.dataService.setCompanyData(Object(v.body),type)
+          this.dataService.setCompanyData(Object(v.body), type)
           this.requestSignalData(type)
         },
         error: (e: any) => console.log("ERROR OCCURED :: " + JSON.stringify(e))
@@ -121,141 +121,141 @@ export class LatestsignalComponent implements OnInit {
 
   tabChanged(tabChangeEvent: MatTabChangeEvent): void {
     this.selectedIndex = tabChangeEvent.index;
-}
-
-parseDataForList(typefilter: string[] = ['매수', '매도']) {
-  let columnlist = IS_MOBILE ? ["종목", "종류", "신호가", "과거가", "수익률"] : ["종목","종류", "신호일", "신호가", "과거 거래일", "과거 거래가", "수익률"]
-
-  let dataArrayTrend: Array<string[]> = []
-  let dataArrayReverse: Array<string[]> = []
-  let dataArrayTriple: Array<string[]> = []
-
-  this.rawLatestSignalTrend.forEach(element => {
-      if (!IS_MOBILE){ 
-        if((typefilter.length === 2) || 
-        (typefilter.length === 1 && typefilter[0] === '매수' && element.type === 'buy') ||
-        (typefilter.length === 1 && typefilter[0] === '매도' && element.type === 'sell')){
-        
-        dataArrayTrend.push([
-        this.dataService.getCompanyNamebyCode(element.code , this.type),
-        element.type === "sell" ? "매도" : "매수",
-        element.date,
-        String(element.close),
-        element.type === "sell" ? element.last_buy_date : element.last_sell_date,
-        element.type === "sell" ? element.last_buy_close !== -1 ? String(element.last_buy_close): "-" : element.last_sell_close !== -1 ? String(element.last_sell_close): "-",
-    element.type === "buy" || element.last_buy_close === -1  ? "-" : String(((element.close - element.last_buy_close) / element.last_buy_close * 100).toFixed(2)),
-        element.code
-      ])
-    }
-    } else {
-      if((typefilter.length === 2) || 
-      (typefilter.length === 1 && typefilter[0] === '매수' && element.type === 'buy') ||
-      (typefilter.length === 1 && typefilter[0] === '매도' && element.type === 'sell')){
-      
-        dataArrayTrend.push([
-        this.dataService.getCompanyNamebyCode(element.code , this.type),
-        element.type === "sell" ? "매도" : "매수",
-        String(element.close),
-        element.type === "sell" ? element.last_buy_close !== -1 ? String(element.last_buy_close): "-" : element.last_sell_close !== -1 ? String(element.last_sell_close): "-",
-    element.type === "buy" || element.last_buy_close === -1  ? "-" : String(((element.close - element.last_buy_close) / element.last_buy_close * 100).toFixed(2)),
-        element.code
-      ])
-    }
-    }
-  });
-
-  this.rawLatestSignalReverse.forEach(element => {
-    if (!IS_MOBILE){ 
-      if((typefilter.length === 2) || 
-      (typefilter.length === 1 && typefilter[0] === '매수' && element.type === 'buy') ||
-      (typefilter.length === 1 && typefilter[0] === '매도' && element.type === 'sell')){
-      
-      dataArrayReverse.push([
-      this.dataService.getCompanyNamebyCode(element.code , this.type),
-      element.type === "sell" ? "매도" : "매수",
-      element.date,
-      String(element.close),
-      element.type === "sell" ? element.last_buy_date : element.last_sell_date,
-      element.type === "sell" ? element.last_buy_close !== -1 ? String(element.last_buy_close): "-" : element.last_sell_close !== -1 ? String(element.last_sell_close): "-",
-    element.type === "buy" || element.last_buy_close === -1  ? "-" : String(((element.close - element.last_buy_close) / element.last_buy_close * 100).toFixed(2)),
-      element.code
-    ])
   }
-  } else {
-    if((typefilter.length === 2) || 
-    (typefilter.length === 1 && typefilter[0] === '매수' && element.type === 'buy') ||
-    (typefilter.length === 1 && typefilter[0] === '매도' && element.type === 'sell')){
-    
-      dataArrayReverse.push([
-      this.dataService.getCompanyNamebyCode(element.code , this.type),
-      element.type === "sell" ? "매도" : "매수",
-      String(element.close),
-      element.type === "sell" ? element.last_buy_close !== -1 ? String(element.last_buy_close): "-" : element.last_sell_close !== -1 ? String(element.last_sell_close): "-",
-      element.type === "buy" || element.last_buy_close === -1  ? "-" : String(((element.close - element.last_buy_close) / element.last_buy_close * 100).toFixed(2)),
-      element.code
-    ])
-  }
-  }
-});
 
-this.rawLatestSignalTripleScreen.forEach(element => {
-  if (!IS_MOBILE){ 
-    if((typefilter.length === 2) || 
-    (typefilter.length === 1 && typefilter[0] === '매수' && element.type === 'buy') ||
-    (typefilter.length === 1 && typefilter[0] === '매도' && element.type === 'sell')){
-    
-    dataArrayTriple.push([
-    this.dataService.getCompanyNamebyCode(element.code , this.type),
-    element.type === "sell" ? "매도" : "매수",
-    element.date,
-    String(element.close),
-    element.type === "sell" ? element.last_buy_date : element.last_sell_date,
-    element.type === "sell" ? element.last_buy_close !== -1 ? String(element.last_buy_close): "-" : element.last_sell_close !== -1 ? String(element.last_sell_close): "-",
-    element.type === "buy" || element.last_buy_close === -1  ? "-" : String(((element.close - element.last_buy_close) / element.last_buy_close * 100).toFixed(2)),
-    element.code
-  ])
-}
-} else {
-  if((typefilter.length === 2) || 
-  (typefilter.length === 1 && typefilter[0] === '매수' && element.type === 'buy') ||
-  (typefilter.length === 1 && typefilter[0] === '매도' && element.type === 'sell')){
-  
-    dataArrayTriple.push([
-    this.dataService.getCompanyNamebyCode(element.code , this.type),
-    element.type === "sell" ? "매도" : "매수",
-    String(element.close),
-    element.type === "sell" ? element.last_buy_close !== -1 ? String(element.last_buy_close): "-" : element.last_sell_close !== -1 ? String(element.last_sell_close): "-",
-    element.type === "buy" || element.last_buy_close === -1  ? "-" : String(((element.close - element.last_buy_close) / element.last_buy_close * 100).toFixed(2)),
-    element.code
-  ])
-}
-}
-});
+  parseDataForList(typefilter: string[] = ['매수', '매도']) {
+    let columnlist = IS_MOBILE ? ["종목", "종류", "신호가", "과거가", "수익률"] : ["종목", "종류", "신호일", "신호가", "과거 거래일", "과거 거래가", "수익률"]
+
+    let dataArrayTrend: Array<string[]> = []
+    let dataArrayReverse: Array<string[]> = []
+    let dataArrayTriple: Array<string[]> = []
+
+    this.rawLatestSignalTrend.forEach(element => {
+      if (!IS_MOBILE) {
+        if ((typefilter.length === 2) ||
+          (typefilter.length === 1 && typefilter[0] === '매수' && element.type === 'buy') ||
+          (typefilter.length === 1 && typefilter[0] === '매도' && element.type === 'sell')) {
+
+          dataArrayTrend.push([
+            this.dataService.getCompanyNamebyCode(element.code, this.type),
+            element.type === "sell" ? "매도" : "매수",
+            element.date,
+            String(element.close),
+            element.type === "sell" ? element.last_buy_date : element.last_sell_date,
+            element.type === "sell" ? element.last_buy_close !== -1 ? String(element.last_buy_close) : "-" : element.last_sell_close !== -1 ? String(element.last_sell_close) : "-",
+            element.type === "buy" || element.last_buy_close === -1 ? "-" : String(((element.close - element.last_buy_close) / element.last_buy_close * 100).toFixed(2)),
+            element.code
+          ])
+        }
+      } else {
+        if ((typefilter.length === 2) ||
+          (typefilter.length === 1 && typefilter[0] === '매수' && element.type === 'buy') ||
+          (typefilter.length === 1 && typefilter[0] === '매도' && element.type === 'sell')) {
+
+          dataArrayTrend.push([
+            this.dataService.getCompanyNamebyCode(element.code, this.type),
+            element.type === "sell" ? "매도" : "매수",
+            String(element.close),
+            element.type === "sell" ? element.last_buy_close !== -1 ? String(element.last_buy_close) : "-" : element.last_sell_close !== -1 ? String(element.last_sell_close) : "-",
+            element.type === "buy" || element.last_buy_close === -1 ? "-" : String(((element.close - element.last_buy_close) / element.last_buy_close * 100).toFixed(2)),
+            element.code
+          ])
+        }
+      }
+    });
+
+    this.rawLatestSignalReverse.forEach(element => {
+      if (!IS_MOBILE) {
+        if ((typefilter.length === 2) ||
+          (typefilter.length === 1 && typefilter[0] === '매수' && element.type === 'buy') ||
+          (typefilter.length === 1 && typefilter[0] === '매도' && element.type === 'sell')) {
+
+          dataArrayReverse.push([
+            this.dataService.getCompanyNamebyCode(element.code, this.type),
+            element.type === "sell" ? "매도" : "매수",
+            element.date,
+            String(element.close),
+            element.type === "sell" ? element.last_buy_date : element.last_sell_date,
+            element.type === "sell" ? element.last_buy_close !== -1 ? String(element.last_buy_close) : "-" : element.last_sell_close !== -1 ? String(element.last_sell_close) : "-",
+            element.type === "buy" || element.last_buy_close === -1 ? "-" : String(((element.close - element.last_buy_close) / element.last_buy_close * 100).toFixed(2)),
+            element.code
+          ])
+        }
+      } else {
+        if ((typefilter.length === 2) ||
+          (typefilter.length === 1 && typefilter[0] === '매수' && element.type === 'buy') ||
+          (typefilter.length === 1 && typefilter[0] === '매도' && element.type === 'sell')) {
+
+          dataArrayReverse.push([
+            this.dataService.getCompanyNamebyCode(element.code, this.type),
+            element.type === "sell" ? "매도" : "매수",
+            String(element.close),
+            element.type === "sell" ? element.last_buy_close !== -1 ? String(element.last_buy_close) : "-" : element.last_sell_close !== -1 ? String(element.last_sell_close) : "-",
+            element.type === "buy" || element.last_buy_close === -1 ? "-" : String(((element.close - element.last_buy_close) / element.last_buy_close * 100).toFixed(2)),
+            element.code
+          ])
+        }
+      }
+    });
+
+    this.rawLatestSignalTripleScreen.forEach(element => {
+      if (!IS_MOBILE) {
+        if ((typefilter.length === 2) ||
+          (typefilter.length === 1 && typefilter[0] === '매수' && element.type === 'buy') ||
+          (typefilter.length === 1 && typefilter[0] === '매도' && element.type === 'sell')) {
+
+          dataArrayTriple.push([
+            this.dataService.getCompanyNamebyCode(element.code, this.type),
+            element.type === "sell" ? "매도" : "매수",
+            element.date,
+            String(element.close),
+            element.type === "sell" ? element.last_buy_date : element.last_sell_date,
+            element.type === "sell" ? element.last_buy_close !== -1 ? String(element.last_buy_close) : "-" : element.last_sell_close !== -1 ? String(element.last_sell_close) : "-",
+            element.type === "buy" || element.last_buy_close === -1 ? "-" : String(((element.close - element.last_buy_close) / element.last_buy_close * 100).toFixed(2)),
+            element.code
+          ])
+        }
+      } else {
+        if ((typefilter.length === 2) ||
+          (typefilter.length === 1 && typefilter[0] === '매수' && element.type === 'buy') ||
+          (typefilter.length === 1 && typefilter[0] === '매도' && element.type === 'sell')) {
+
+          dataArrayTriple.push([
+            this.dataService.getCompanyNamebyCode(element.code, this.type),
+            element.type === "sell" ? "매도" : "매수",
+            String(element.close),
+            element.type === "sell" ? element.last_buy_close !== -1 ? String(element.last_buy_close) : "-" : element.last_sell_close !== -1 ? String(element.last_sell_close) : "-",
+            element.type === "buy" || element.last_buy_close === -1 ? "-" : String(((element.close - element.last_buy_close) / element.last_buy_close * 100).toFixed(2)),
+            element.code
+          ])
+        }
+      }
+    });
 
 
-  var total = 0
-  dataArrayTrend.forEach(element => {
-    console.log(element)
-    if(IS_MOBILE && element[1] === "매도" && element[4] != "-") total = total + Number(element[4])
-    if(!IS_MOBILE && element[1] === "매도" && element[6] != "-") total = total + Number(element[6])
-  });
-  this.totalRateTrend = Number(total.toFixed(2))
+    var total = 0
+    dataArrayTrend.forEach(element => {
+      console.log(element)
+      if (IS_MOBILE && element[1] === "매도" && element[4] != "-") total = total + Number(element[4])
+      if (!IS_MOBILE && element[1] === "매도" && element[6] != "-") total = total + Number(element[6])
+    });
+    this.totalRateTrend = Number(total.toFixed(2))
 
-  var total = 0
-  dataArrayReverse.forEach(element => {
-    if(IS_MOBILE && element[1] === "매도" && element[4] != "-") total = total + Number(element[4])
-    if(!IS_MOBILE && element[1] === "매도" && element[6] != "-") total = total + Number(element[6])
-  });
-  this.totalRateReverse = Number(total.toFixed(2))
-  var total = 0
-  dataArrayTriple.forEach(element => {
-    if(IS_MOBILE && element[1] === "매도" && element[4] != "-") total = total + Number(element[4])
-    if(!IS_MOBILE && element[1] === "매도" && element[6] != "-") total = total + Number(element[6])
-  });
-  this.totalRateTriple = Number(total.toFixed(2))
-  
+    var total = 0
+    dataArrayReverse.forEach(element => {
+      if (IS_MOBILE && element[1] === "매도" && element[4] != "-") total = total + Number(element[4])
+      if (!IS_MOBILE && element[1] === "매도" && element[6] != "-") total = total + Number(element[6])
+    });
+    this.totalRateReverse = Number(total.toFixed(2))
+    var total = 0
+    dataArrayTriple.forEach(element => {
+      if (IS_MOBILE && element[1] === "매도" && element[4] != "-") total = total + Number(element[4])
+      if (!IS_MOBILE && element[1] === "매도" && element[6] != "-") total = total + Number(element[6])
+    });
+    this.totalRateTriple = Number(total.toFixed(2))
 
-  this.inputDataTrend = {
+
+    this.inputDataTrend = {
       title: "테스트 알고리즘 중",
       column: columnlist,
       data: dataArrayTrend
@@ -274,58 +274,59 @@ this.rawLatestSignalTripleScreen.forEach(element => {
     }
 
     console.log(this.inputDataTrend)
-}
+  }
 
-onTapCompany(code: string, company: string) {
-  this.router.navigate(['stockdetail'], {
-    queryParams: {
-      code: code,
-      companyName: company
+  onTapCompany(code: string, company: string) {
+    this.router.navigate(['stockdetail'], {
+      queryParams: {
+        code: code,
+        companyName: company
+      }
+    })
+  }
+
+  onChangeType(event: any) {
+    this.typeSelected = event.value
+    this.parseDataForList(this.typeSelected)
+  }
+
+  onChangeDay(event: any) {
+    console.log(event.value)
+
+    switch (Number(event.value)) {
+      case 1: { this.lastday = 3; this.daySelected = event.value; break; }
+      case 2: { this.lastday = 7; this.daySelected = event.value; break; }
+      case 3: { this.lastday = 14; this.daySelected = event.value; break; }
+      default: break;
     }
-  })
-}
 
-onChangeType(event: any){
-  this.typeSelected = event.value
-  this.parseDataForList(this.typeSelected)
-}
+    console.log(this.lastday)
 
-onChangeDay(event: any){
-  console.log(event.value)
-
-  switch(Number(event.value)){
-    case 1: {this.lastday = 3; this.daySelected= event.value; break;}
-    case 2: {this.lastday = 7; this.daySelected= event.value; break;}
-    case 3: {this.lastday = 14; this.daySelected= event.value; break;}
-    default: break;
+    this.rawLatestSignalTrend = this.dataService.getLatestBollingerTrendSignalData(this.lastday)
+    console.log(this.rawLatestSignalTrend)
+    if (this.rawLatestSignalTrend === undefined) {
+      this.requestSignalData(this.type)
+    }
+    this.rawLatestSignalReverse = this.dataService.getLatestBollingerReverseSignalData(this.lastday)
+    if (this.rawLatestSignalReverse === undefined) {
+      this.requestSignalData(this.type)
+    }
+    this.rawLatestSignalTripleScreen = this.dataService.getLatestTripleScreenSignalData(this.lastday)
+    if (this.rawLatestSignalTripleScreen === undefined) {
+      this.requestSignalData(this.type)
+    }
   }
 
-  console.log(this.lastday)
+  onSwipeRight(event: any) {
+    console.log("RIGHT")
+    if (this.selectedIndex !== 0) { this.selectedIndex = this.selectedIndex - 1; this.group.focusTab(this.selectedIndex) }
 
-  this.rawLatestSignalTrend = this.dataService.getLatestBollingerTrendSignalData(this.lastday)
-  console.log(this.rawLatestSignalTrend)
-      if (this.rawLatestSignalTrend === undefined) {
-        this.requestSignalData(this.type)
   }
-  this.rawLatestSignalReverse = this.dataService.getLatestBollingerReverseSignalData(this.lastday)
-      if (this.rawLatestSignalReverse === undefined) {
-        this.requestSignalData(this.type)
+  onSwipeLeft(event: any) {
+    console.log("Left")
+    if (this.selectedIndex !== this.itemLen - 1) {
+    this.selectedIndex = this.selectedIndex + 1
+      this.group.focusTab(this.selectedIndex)
+    }
   }
-  this.rawLatestSignalTripleScreen = this.dataService.getLatestTripleScreenSignalData(this.lastday)
-      if (this.rawLatestSignalTripleScreen === undefined) {
-        this.requestSignalData(this.type)
-  }
-}
-
-onSwipeRight(event: any) {
-  console.log("RIGHT")
-  if(this.selectedIndex !== 0) {this.selectedIndex = this.selectedIndex - 1;this.group.focusTab(this.selectedIndex )}
-
-}
-onSwipeLeft(event: any) {
-  console.log("Left")
-  if(this.selectedIndex !== this.itemLen-1) {this.selectedIndex = this.selectedIndex + 1
-  this.group.focusTab(this.selectedIndex )
-  }
-}
 }
