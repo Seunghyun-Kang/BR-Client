@@ -297,6 +297,9 @@ export class LatestsignalComponent implements OnInit {
       case 1: { this.lastday = 3; this.daySelected = event.value; break; }
       case 2: { this.lastday = 7; this.daySelected = event.value; break; }
       case 3: { this.lastday = 14; this.daySelected = event.value; break; }
+      case 4: { this.lastday = 30; this.daySelected = event.value; break; }
+      case 5: { this.lastday = 180; this.daySelected = event.value; break; }
+      case 6: { this.lastday = 360; this.daySelected = event.value; break; }
       default: break;
     }
 
