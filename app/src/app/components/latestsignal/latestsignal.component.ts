@@ -29,9 +29,9 @@ export class LatestsignalComponent implements OnInit {
   public inputDataReverse: { title: string, column: string[], data: Array<string[]> }
   public inputDataTriple: { title: string, column: string[], data: Array<string[]> }
 
-  toppings = new FormControl(['매수', '매도']);
+  toppings = new FormControl(['매도']);
   toppingList: string[] = ['매수', '매도'];
-  public typeSelected: string[] = ['매수', '매도'];
+  public typeSelected: string[] = ['매도'];
   public daySelected: string = "1";
   private companyInfo: any[] = []
 
@@ -91,6 +91,7 @@ export class LatestsignalComponent implements OnInit {
   }
 
   requestSignalData(type: string) {
+    this.statusService.setStatus("loading-forward")
     this.requestService.getLastBollingerTrendSignal(this.lastday, type)
       .subscribe({
         next: (v: any) => {
@@ -130,7 +131,7 @@ export class LatestsignalComponent implements OnInit {
     let dataArrayReverse: Array<string[]> = []
     let dataArrayTriple: Array<string[]> = []
 
-    this.rawLatestSignalTrend.forEach(element => {
+    if(this.rawLatestSignalTrend !== undefined) this.rawLatestSignalTrend.forEach(element => {
       if (!IS_MOBILE) {
         if ((typefilter.length === 2) ||
           (typefilter.length === 1 && typefilter[0] === '매수' && element.type === 'buy') ||
@@ -164,7 +165,7 @@ export class LatestsignalComponent implements OnInit {
       }
     });
 
-    this.rawLatestSignalReverse.forEach(element => {
+    if(this.rawLatestSignalReverse !== undefined) this.rawLatestSignalReverse.forEach(element => {
       if (!IS_MOBILE) {
         if ((typefilter.length === 2) ||
           (typefilter.length === 1 && typefilter[0] === '매수' && element.type === 'buy') ||
@@ -198,7 +199,7 @@ export class LatestsignalComponent implements OnInit {
       }
     });
 
-    this.rawLatestSignalTripleScreen.forEach(element => {
+    if(this.rawLatestSignalTripleScreen !== undefined) this.rawLatestSignalTripleScreen.forEach(element => {
       if (!IS_MOBILE) {
         if ((typefilter.length === 2) ||
           (typefilter.length === 1 && typefilter[0] === '매수' && element.type === 'buy') ||
@@ -233,26 +234,29 @@ export class LatestsignalComponent implements OnInit {
     });
 
 
-    var total = 0
+    var pastPrice = 0
+    var nowPrice = 0
     dataArrayTrend.forEach(element => {
-      console.log(element)
-      if (IS_MOBILE && element[1] === "매도" && element[4] != "-") total = total + Number(element[4])
-      if (!IS_MOBILE && element[1] === "매도" && element[6] != "-") total = total + Number(element[6])
+      if (IS_MOBILE && element[1] === "매도" && element[3] != "-" && element[2] != "-" ) {nowPrice = nowPrice + Number(element[2]);pastPrice = pastPrice + Number(element[3]);}
+      if (!IS_MOBILE && element[1] === "매도" && element[3] != "-" && element[5] != "-" ) {nowPrice = nowPrice + Number(element[3]);pastPrice = pastPrice + Number(element[5]);}
     });
-    this.totalRateTrend = Number(total.toFixed(2))
+    this.totalRateTrend = Number(((nowPrice/pastPrice-1) * 100).toFixed(2))
 
-    var total = 0
+    var pastPrice = 0
+    var nowPrice = 0
     dataArrayReverse.forEach(element => {
-      if (IS_MOBILE && element[1] === "매도" && element[4] != "-") total = total + Number(element[4])
-      if (!IS_MOBILE && element[1] === "매도" && element[6] != "-") total = total + Number(element[6])
+      if (IS_MOBILE && element[1] === "매도" && element[3] != "-" && element[2] != "-" ) {nowPrice = nowPrice + Number(element[2]);pastPrice = pastPrice + Number(element[3]);}
+      if (!IS_MOBILE && element[1] === "매도" && element[3] != "-" && element[5] != "-" )  {nowPrice = nowPrice + Number(element[3]);pastPrice = pastPrice + Number(element[5]);}
     });
-    this.totalRateReverse = Number(total.toFixed(2))
-    var total = 0
+    this.totalRateReverse = Number(((nowPrice/pastPrice-1) * 100).toFixed(2))
+
+    var pastPrice = 0
+    var nowPrice = 0
     dataArrayTriple.forEach(element => {
-      if (IS_MOBILE && element[1] === "매도" && element[4] != "-") total = total + Number(element[4])
-      if (!IS_MOBILE && element[1] === "매도" && element[6] != "-") total = total + Number(element[6])
+      if (IS_MOBILE && element[1] === "매도" && element[3] != "-" && element[2] != "-" ) {nowPrice = nowPrice + Number(element[2]);pastPrice = pastPrice + Number(element[3]);}
+      if (!IS_MOBILE && element[1] === "매도" && element[3] != "-" && element[5] != "-" ) {nowPrice = nowPrice + Number(element[3]);pastPrice = pastPrice + Number(element[5]);}
     });
-    this.totalRateTriple = Number(total.toFixed(2))
+    this.totalRateTriple = Number(((nowPrice/pastPrice -1) * 100).toFixed(2))
 
 
     this.inputDataTrend = {
@@ -272,8 +276,6 @@ export class LatestsignalComponent implements OnInit {
       column: columnlist,
       data: dataArrayTriple
     }
-
-    console.log(this.inputDataTrend)
   }
 
   onTapCompany(code: string, company: string) {
@@ -303,10 +305,7 @@ export class LatestsignalComponent implements OnInit {
       default: break;
     }
 
-    console.log(this.lastday)
-
     this.rawLatestSignalTrend = this.dataService.getLatestBollingerTrendSignalData(this.lastday)
-    console.log(this.rawLatestSignalTrend)
     if (this.rawLatestSignalTrend === undefined) {
       this.requestSignalData(this.type)
     }
@@ -318,6 +317,7 @@ export class LatestsignalComponent implements OnInit {
     if (this.rawLatestSignalTripleScreen === undefined) {
       this.requestSignalData(this.type)
     }
+    this.parseDataForList(this.typeSelected)
   }
 
   onSwipeRight(event: any) {
