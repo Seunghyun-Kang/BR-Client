@@ -29,13 +29,20 @@
               </mat-select>
             </mat-form-field>
           </div>
-          <div style="
-                    margin-top: 30px;
-                    color: white;
-                    text-align: center;
-                    font-family: hyundai-card;
-                    word-break: keep-all;
-                    word-wrap: break-word;">총 수익률 : <span [ngStyle]="{'color': totalRateTrend>0 ? '#ee3b89' : '#65a3f5' }">{{totalRateTrend}}</span> %</div>
+          <div *ngIf="inputDataTrend !== undefined && inputDataTrend.data.length > 0" class="profit_guide"
+            style="margin-top: 30px;">
+            모든 종목 대략 20만원씩 신호때마다 샀다면?
+          </div>
+          <div *ngIf="inputDataTrend !== undefined && inputDataTrend.data.length > 0" class="profit_guide">
+            투자금 {{pastPriceTrend | currency:'KRW':'symbol'}}
+          </div>
+          <div *ngIf="inputDataTrend !== undefined && inputDataTrend.data.length > 0" class="profit_guide">
+            현재 {{nowPriceTrend| currency:'KRW':'symbol'}}
+          </div>
+          <div *ngIf="inputDataTrend !== undefined && inputDataTrend.data.length > 0" class="profit_guide">
+            - 총 수익률 : <span [ngStyle]="{'color': totalRateTrend>0 ? '#ee3b89' : '#65a3f5' }">{{totalRateTrend}}</span> %
+          </div>
+
           <table mat-table *ngIf="inputDataTrend !== undefined && inputDataTrend.data.length > 0"
             [dataSource]="inputDataTrend.data" class="mat-elevation-z8" (swiperight)="onSwipeRight($event)"
             (swipeleft)="onSwipeLeft($event)">
@@ -71,14 +78,20 @@
               </mat-select>
             </mat-form-field>
           </div>
-          <div style="
-                    margin-top: 30px;
-                    color: white;
-                    text-align: center;
-                    font-family: hyundai-card;
-                    word-break: keep-all;
-                    word-wrap: break-word;">총 수익률 : <span [ngStyle]="{'color': totalRateReverse>0 ? '#ee3b89' : '#65a3f5' }">{{totalRateReverse}}</span> %</div>
-
+          <div *ngIf="inputDataReverse !== undefined && inputDataReverse.data.length > 0" class="profit_guide"
+            style="margin-top: 30px;">
+            모든 종목 대략 20만원씩 신호때마다 샀다면?
+          </div>
+          <div *ngIf="inputDataReverse !== undefined && inputDataReverse.data.length > 0" class="profit_guide">
+            투자금 {{pastPriceReverse | currency:'KRW':'symbol'}}
+          </div>
+          <div *ngIf="inputDataReverse !== undefined && inputDataReverse.data.length > 0" class="profit_guide">
+            현재 {{nowPriceReverse| currency:'KRW':'symbol'}}
+          </div>
+          <div *ngIf="inputDataReverse !== undefined && inputDataReverse.data.length > 0" class="profit_guide">
+            - 총 수익률 : <span
+              [ngStyle]="{'color': totalRateReverse>0 ? '#ee3b89' : '#65a3f5' }">{{totalRateReverse}}</span> %
+          </div>
           <table mat-table (swiperight)="onSwipeRight($event)" (swipeleft)="onSwipeLeft($event)"
             *ngIf="inputDataReverse !== undefined && inputDataReverse.data.length > 0"
             [dataSource]="inputDataReverse.data" class="mat-elevation-z8">
@@ -114,14 +127,20 @@
               </mat-select>
             </mat-form-field>
           </div>
-          <div style="
-                    margin-top: 30px;
-                    color: white;
-                    text-align: center;
-                    font-family: hyundai-card;
-                    word-break: keep-all;
-                    word-wrap: break-word;">총 수익률 : <span [ngStyle]="{'color': totalRateTriple>0 ? '#ee3b89' : '#65a3f5' }">{{totalRateTriple}}</span> %</div>
-
+          <div *ngIf="inputDataTriple !== undefined && inputDataTriple.data.length > 0" class="profit_guide"
+            style="margin-top: 30px;">
+            모든 종목 대략 20만원씩 신호때마다 샀다면?
+          </div>
+          <div *ngIf="inputDataTriple !== undefined && inputDataTriple.data.length > 0" class="profit_guide">
+            투자금 {{pastPriceTriple | currency:'KRW':'symbol'}}
+          </div>
+          <div *ngIf="inputDataTriple !== undefined && inputDataTriple.data.length > 0" class="profit_guide">
+            현재 {{nowPriceTriple| currency:'KRW':'symbol'}}
+          </div>
+          <div *ngIf="inputDataTriple !== undefined && inputDataTriple.data.length > 0" class="profit_guide">
+            - 총 수익률 : <span [ngStyle]="{'color': totalRateTriple>0 ? '#ee3b89' : '#65a3f5' }">{{totalRateTriple}}</span>
+            %
+          </div>
           <table mat-table (swiperight)="onSwipeRight($event)" (swipeleft)="onSwipeLeft($event)"
             *ngIf="inputDataTriple !== undefined && inputDataTriple.data.length > 0" [dataSource]="inputDataTriple.data"
             class="mat-elevation-z8">

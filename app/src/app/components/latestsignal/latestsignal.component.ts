@@ -38,7 +38,14 @@ export class LatestsignalComponent implements OnInit {
   public totalRateTrend: number
   public totalRateReverse: number
   public totalRateTriple: number
-
+  
+  public nowPriceTrend = 0
+  public pastPriceTrend = 0
+  public nowPriceReverse = 0
+  public pastPriceReverse = 0
+  public nowPriceTriple = 0
+  public pastPriceTriple = 0
+  
   public selectedIndex = 0
   private subscription: Subscription;
 
@@ -234,29 +241,92 @@ export class LatestsignalComponent implements OnInit {
     });
 
 
-    var pastPrice = 0
-    var nowPrice = 0
-    dataArrayTrend.forEach(element => {
-      if (IS_MOBILE && element[1] === "매도" && element[3] != "-" && element[2] != "-" ) {nowPrice = nowPrice + Number(element[2]);pastPrice = pastPrice + Number(element[3]);}
-      if (!IS_MOBILE && element[1] === "매도" && element[3] != "-" && element[5] != "-" ) {nowPrice = nowPrice + Number(element[3]);pastPrice = pastPrice + Number(element[5]);}
-    });
-    this.totalRateTrend = Number(((nowPrice/pastPrice-1) * 100).toFixed(2))
+    this.pastPriceTrend = 0
+    this.nowPriceTrend = 0
+    dataArrayTrend.forEach((element, index) => {
+      if (IS_MOBILE && element[1] === "매도" && element[3] != "-" && element[2] != "-" ) {
+        var time = 1
+        var price = Number(element[2])
+        while(price < 200000){
+          time = time+1
+          price = Number(element[2]) * time
+        }
+        this.nowPriceTrend = this.nowPriceTrend + price
+        this.pastPriceTrend = this.pastPriceTrend + Number(element[3]) * time;
+      }
+      if (!IS_MOBILE && element[1] === "매도" && element[3] != "-" && element[5] != "-" ) {
+        var time = 1
+        var price = Number(element[3])
+        while(price < 200000){
+          time = time+1
+          price = Number(element[3]) * time
+        }
+        this.nowPriceTrend = this.nowPriceTrend + price
+        this.pastPriceTrend = this.pastPriceTrend + Number(element[5]) * time;
 
-    var pastPrice = 0
-    var nowPrice = 0
-    dataArrayReverse.forEach(element => {
-      if (IS_MOBILE && element[1] === "매도" && element[3] != "-" && element[2] != "-" ) {nowPrice = nowPrice + Number(element[2]);pastPrice = pastPrice + Number(element[3]);}
-      if (!IS_MOBILE && element[1] === "매도" && element[3] != "-" && element[5] != "-" )  {nowPrice = nowPrice + Number(element[3]);pastPrice = pastPrice + Number(element[5]);}
+        // console.log(index)
+        // console.log("종목가 : " + price + ",  종목수: " + time)
+        // console.log("종목가 : " + Number(element[5]) * time + ",  종목수: " + time)
+        // console.log(Number(((price/(Number(element[5]) * time) -1) * 100).toFixed(2)) + "%")
+        // console.log("----------------------")
+        // console.log("총 현재가: " + nowPrice)
+        // console.log("총 과거가: " + pastPrice)
+        // console.log(Number(((this.nowPrice/this.pastPrice-1) * 100).toFixed(2)) + "%")
+      }
     });
-    this.totalRateReverse = Number(((nowPrice/pastPrice-1) * 100).toFixed(2))
+    this.totalRateTrend = Number(((this.nowPriceTrend/this.pastPriceTrend-1) * 100).toFixed(2))
 
-    var pastPrice = 0
-    var nowPrice = 0
-    dataArrayTriple.forEach(element => {
-      if (IS_MOBILE && element[1] === "매도" && element[3] != "-" && element[2] != "-" ) {nowPrice = nowPrice + Number(element[2]);pastPrice = pastPrice + Number(element[3]);}
-      if (!IS_MOBILE && element[1] === "매도" && element[3] != "-" && element[5] != "-" ) {nowPrice = nowPrice + Number(element[3]);pastPrice = pastPrice + Number(element[5]);}
+    this.pastPriceReverse = 0
+    this.nowPriceReverse = 0
+    dataArrayReverse.forEach((element, index) => {
+      if (IS_MOBILE && element[1] === "매도" && element[3] != "-" && element[2] != "-" ) {
+        var time = 1
+        var price = Number(element[2])
+        while(price < 200000){
+          time = time+1
+          price = Number(element[2]) * time
+        }
+        this.nowPriceReverse = this.nowPriceReverse + price
+        this.pastPriceReverse = this.pastPriceReverse + Number(element[3]) * time;
+      }
+      if (!IS_MOBILE && element[1] === "매도" && element[3] != "-" && element[5] != "-" ) {
+        var time = 1
+        var price = Number(element[3])
+        while(price < 200000){
+          time = time+1
+          price = Number(element[3]) * time
+        }
+        this.nowPriceReverse = this.nowPriceReverse + price
+        this.pastPriceReverse = this.pastPriceReverse + Number(element[5]) * time;
+      }
     });
-    this.totalRateTriple = Number(((nowPrice/pastPrice -1) * 100).toFixed(2))
+    this.totalRateReverse = Number(((this.nowPriceReverse/this.pastPriceReverse-1) * 100).toFixed(2))
+
+    this.pastPriceTriple = 0
+    this.nowPriceTriple = 0
+    dataArrayTriple.forEach((element, index) => {
+      if (IS_MOBILE && element[1] === "매도" && element[3] != "-" && element[2] != "-" ) {
+        var time = 1
+        var price = Number(element[2])
+        while(price < 200000){
+          time = time+1
+          price = Number(element[2]) * time
+        }
+        this.nowPriceTriple = this.nowPriceTriple + price
+        this.pastPriceTriple = this.pastPriceTriple + Number(element[3]) * time;
+      }
+      if (!IS_MOBILE && element[1] === "매도" && element[3] != "-" && element[5] != "-" ) {
+        var time = 1
+        var price = Number(element[3])
+        while(price < 200000){
+          time = time+1
+          price = Number(element[3]) * time
+        }
+        this.nowPriceTriple = this.nowPriceTriple + price
+        this.pastPriceTriple = this.pastPriceTriple + Number(element[5]) * time;
+      }
+    });
+    this.totalRateTriple = Number(((this.nowPriceTriple/this.pastPriceTriple -1) * 100).toFixed(2))
 
 
     this.inputDataTrend = {
