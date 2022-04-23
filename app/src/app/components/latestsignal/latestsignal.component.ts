@@ -260,7 +260,7 @@ export class LatestsignalComponent implements OnInit {
 
 
     this.inputDataTrend = {
-      title: "테스트 알고리즘 중",
+      title: "테스트 알고리즘",
       column: columnlist,
       data: dataArrayTrend
     }
