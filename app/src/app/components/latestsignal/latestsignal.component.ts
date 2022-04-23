@@ -34,6 +34,10 @@ export class LatestsignalComponent implements OnInit {
   public typeSelected: string[] = ['매수', '매도'];
   public daySelected: string = "1";
   private companyInfo: any[] = []
+
+  public totalRateTrend: number
+  public totalRateReverse:number
+  public totalRateTriple: number
   
   public selectedIndex = 0
   private subscription : Subscription;
@@ -228,8 +232,31 @@ this.rawLatestSignalTripleScreen.forEach(element => {
 }
 });
 
+
+  var total = 0
+  dataArrayTrend.forEach(element => {
+    console.log(element)
+    if(IS_MOBILE && element[1] === "매도" && element[4] != "-") total = total + Number(element[4])
+    if(!IS_MOBILE && element[1] === "매도" && element[6] != "-") total = total + Number(element[6])
+  });
+  this.totalRateTrend = Number(total.toFixed(2))
+
+  var total = 0
+  dataArrayReverse.forEach(element => {
+    if(IS_MOBILE && element[1] === "매도" && element[4] != "-") total = total + Number(element[4])
+    if(!IS_MOBILE && element[1] === "매도" && element[6] != "-") total = total + Number(element[6])
+  });
+  this.totalRateReverse = Number(total.toFixed(2))
+  var total = 0
+  dataArrayTriple.forEach(element => {
+    if(IS_MOBILE && element[1] === "매도" && element[4] != "-") total = total + Number(element[4])
+    if(!IS_MOBILE && element[1] === "매도" && element[6] != "-") total = total + Number(element[6])
+  });
+  this.totalRateTriple = Number(total.toFixed(2))
+  
+
   this.inputDataTrend = {
-      title: "매매 알고리즘 테스트 중",
+      title: "테스트 알고리즘 중",
       column: columnlist,
       data: dataArrayTrend
     }
