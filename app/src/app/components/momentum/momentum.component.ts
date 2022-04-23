@@ -114,7 +114,7 @@ export class MomentumComponent implements OnInit {
       this.momentumData.push(item)
       total += element.returns
     });
-    this.totalRate = "총 상승률 :  " + String(total.toFixed(2)) + "%"
+    this.totalRate = String(total.toFixed(2)) + "%"
     this.dataService.setMomentumData(this.momentumData, this.lastday, this.type)
   }
 

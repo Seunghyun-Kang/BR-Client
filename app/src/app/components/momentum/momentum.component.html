@@ -17,7 +17,7 @@
                           </mat-form-field>
                     </div>
                     
-                    <div class="title" *ngIf="getData">{{totalRate}}</div>
+                    <div class="title" *ngIf="getData">총 상승룰 <span style="color:crimson">{{totalRate}}</span></div>
                     <div class="title" *ngIf="!getData">모멘텀 계산중...</div>
                     <div class="title" style="font-size: 14px;" *ngIf="getData">{{duration[daySelected-1]}} 전 부터 오늘까지 가장 많이 오른 30 종목</div>
 

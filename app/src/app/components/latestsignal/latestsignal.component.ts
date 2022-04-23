@@ -229,7 +229,7 @@ this.rawLatestSignalTripleScreen.forEach(element => {
 });
 
   this.inputDataTrend = {
-      title: "볼린저 추세 추동 매도 신호",
+      title: "매매 알고리즘 테스트 중",
       column: columnlist,
       data: dataArrayTrend
     }
