@@ -8,6 +8,14 @@ import { DataService } from 'src/app/services/data.service';
 
 const IS_MOBILE = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
 
+export interface simulationElm {
+  buy_num: number,
+  price_buy_all: number,
+  price_buy_avg: number,
+  sell_price: number,
+  profit: number
+}
+
 @Component({
   selector: 'app-stockdetail-bollingertrend',
   templateUrl: './stockdetail-bollingertrend.component.html',
@@ -19,13 +27,15 @@ export class StockdstailBollingertrendComponent implements OnInit, OnDestroy {
   @ViewChild("chart", { static: true, read: ElementRef }) chart: ElementRef<
     PlotlyModule
   >;
-  
+
   public code: string = ""
   public companyName: string = ""
 
   public rawStockData: priceData[] = []
   public rawDataBollinger: bollingerData[] = []
   public rawDataBollingerTrendSignal: signalData[] = []
+
+  public simulationData: simulationElm[] = []
 
   private stockGraph: any = {}
   private closeGraph: any = {}
@@ -44,7 +54,7 @@ export class StockdstailBollingertrendComponent implements OnInit, OnDestroy {
   public graphList = [] as any
 
   public getData: boolean = false
-  
+
   public firstChart = new TradeViewSettings().settings;
   public secondChart = new TradeViewSettings().settings;
   public thirdChart = new TradeViewSettings().settings;
@@ -81,8 +91,8 @@ export class StockdstailBollingertrendComponent implements OnInit, OnDestroy {
 
   relayoutChart(event: any) {
     console.log("relayoutChart called!")
-    if(event['xaxis.range[0]'] == undefined) return 
-    if(event['xaxis.range[1]'] == undefined) return 
+    if (event['xaxis.range[0]'] == undefined) return
+    if (event['xaxis.range[1]'] == undefined) return
 
     let parseStart = event['xaxis.range[0]'].replace('-', '/').replace('-', '/').substr(0, 19)
     let parseEnd = event['xaxis.range[1]'].replace('-', '/').replace('-', '/').substr(0, 19)
@@ -93,8 +103,8 @@ export class StockdstailBollingertrendComponent implements OnInit, OnDestroy {
     this.firstChart.layout.xaxis.range = [startdate, enddate];
     this.secondChart.layout.xaxis.range = [startdate, enddate];
     this.thirdChart.layout.xaxis.range = [startdate, enddate];
-    
-    this.revision++ 
+
+    this.revision++
   }
 
   ngAfterViewInit() {
@@ -273,7 +283,7 @@ export class StockdstailBollingertrendComponent implements OnInit, OnDestroy {
     let maxY = Math.max.apply(Math, array.map(function (o) { return o.high; }))
     let minY = Math.min.apply(Math, array.map(function (o) { return o.low; }))
     this.firstChart.layout.yaxis.range = [minY, maxY];
-    
+
     this.secondChart.data = []
     this.secondChart.data.push(this.bollingerLowerGraph)
     this.secondChart.data.push(this.bollingerUpperGraph)
@@ -289,7 +299,7 @@ export class StockdstailBollingertrendComponent implements OnInit, OnDestroy {
     this.thirdChart.data.push(this.MFI10Graph)
 
     let maxY3 = Math.max.apply(Math, array2.map(function (o) { return Math.max(o.mfi10, o.pb * 100) }))
-    let minY3 = Math.min.apply(Math, array2.map(function (o) { return Math.min(o.mfi10, o.pb * 100)  }))
+    let minY3 = Math.min.apply(Math, array2.map(function (o) { return Math.min(o.mfi10, o.pb * 100) }))
     this.thirdChart.layout.yaxis.range = [minY3, maxY3];
     this.thirdChart.layout.yaxis.title = ""
   }
@@ -328,16 +338,39 @@ export class StockdstailBollingertrendComponent implements OnInit, OnDestroy {
       name: "추세 추종 매도 포인트"
     }
 
+    var buy_num = 0
+    var buy_all = 0
+    var buy_avg = 0
+
+
     this.rawDataBollingerTrendSignal.forEach((element, index) => {
       var date: number = Number(new Date(element.date).getTime())
       var isValid: boolean = false
 
+      if (element.type == 'buy') {
+        buy_num++
+        buy_all = buy_all + element.close
+        buy_avg = buy_all / buy_num
+      } else {
+        let elm: simulationElm = {
+          buy_num: buy_num,
+          price_buy_all: buy_all,
+          price_buy_avg: buy_avg,
+          sell_price: element.close,
+          profit: (element.close - buy_avg) * buy_num
+        }
+        this.simulationData.push(elm)
+
+        buy_num = 0
+        buy_all = 0
+        buy_avg = 0
+      }
 
       if (element.type === 'buy' && element.valid === 'valid') {
         this.buyTrendMarker.x.push(new Date(element.date).getTime())
         this.buyTrendLine.push(this.createLineElem(new Date(element.date).getTime(), '#EE4B28'))
         // else this.buyTrendLine.push(this.createLineElem(new Date(element.date).getTime(), 'yellow'))
-        
+
         this.rawStockData.forEach(item => {
           if (date === Number(item.date)) this.buyTrendMarker.y.push(item.close)
         });
@@ -345,7 +378,7 @@ export class StockdstailBollingertrendComponent implements OnInit, OnDestroy {
         this.sellTrendMarker.x.push(new Date(element.date).getTime())
         this.sellTrendLine.push(this.createLineElem(new Date(element.date).getTime(), '#4E7FEE'))
         // else this.buyTrendLine.push(this.createLineElem(new Date(element.date).getTime(), 'green'))
-        
+
         this.rawStockData.forEach(item => {
           if (date === Number(item.date)) this.sellTrendMarker.y.push(item.close)
         });

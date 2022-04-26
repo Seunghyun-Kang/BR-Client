@@ -1,4 +1,12 @@
 <div class=dashboard>
+
+    <div *ngIf="getData" class="chart-container">
+        <div *ngFor="let element of simulationData; index as i">
+            {{i+1}}번째 수익: {{element.profit}}, 매매수: {{element.buy_num}}, 평단: {{element.price_buy_avg}}, 매도 가격: {{element.sell_price}} 
+        </div>
+    </div>
+
+
      <div *ngIf="getData" class="chart-container">
         <plotly-plot [data]="firstChart.data" [layout]="firstChart.layout" [config]="firstChart.config"
             [updateOnlyWithRevision]="true" [revision]="revision" [useResizeHandler]="true"
