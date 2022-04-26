@@ -28,5 +28,7 @@ export class AppComponent {
     this.iconSerivce.addSvgIcon('COIN', '../assets/iamge/bitcoin (1).svg', 'user-icons')
     this.iconSerivce.addSvgIcon('Up', '../assets/iamge/arrowup.svg', 'user-icons')
     this.iconSerivce.addSvgIcon('Momentum', '../assets/iamge/momentum.svg', 'user-icons')
+    this.iconSerivce.addSvgIcon('Next', '../assets/iamge/next.svg', 'user-icons')
+    this.iconSerivce.addSvgIcon('Prev', '../assets/iamge/prev.svg', 'user-icons')
   }
 }
