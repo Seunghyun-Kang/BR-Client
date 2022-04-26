@@ -160,10 +160,16 @@ table {
 
 .page-container {
   display: flex;
+  align-content: center;
+  justify-content: flex-end;
+  align-items: center;
+
   height: 30px;
-  color: white;
-  text-align: center;
-  font-family: hyundai-card;
+  .index {
+    color: white;
+    text-align: center;
+    font-family: hyundai-card;
+  }
   igx-icon {
     width: 15px;
     margin: 0px 15px 0px 15px;
