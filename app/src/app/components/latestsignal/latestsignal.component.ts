@@ -26,7 +26,7 @@ export class LatestsignalComponent implements OnInit {
   public rawLatestSignalReverse: signalData[] = []
   public rawLatestSignalTripleScreen: signalData[] = []
 
-  public inputDataTrend: { title: string, column: string[], data: Array<string[]> }
+  public inputDataTrend: { title: string, column: string[], data: Array<string[]>, index: number, length: number }
   public inputDataReverse: { title: string, column: string[], data: Array<string[]> }
   public inputDataTriple: { title: string, column: string[], data: Array<string[]> }
 
@@ -139,7 +139,7 @@ export class LatestsignalComponent implements OnInit {
     let dataArrayTrend: Array<string[]> = []
     let dataArrayReverse: Array<string[]> = []
     let dataArrayTriple: Array<string[]> = []
-
+    
     if(this.rawLatestSignalTrend !== undefined) this.rawLatestSignalTrend.forEach(element => {
       if (!IS_MOBILE) {
         if ((typefilter.length === 2) ||
@@ -332,12 +332,15 @@ export class LatestsignalComponent implements OnInit {
     this.totalRateTriple = Number(((this.nowPriceTriple/this.pastPriceTriple -1) * 100).toFixed(2))
 
 
-    this.inputDataTrend = {
-      title: "테스트 알고리즘",
-      column: columnlist,
-      data: dataArrayTrend
-    }
-
+    // this.inputDataTrend = {
+    //   title: "테스트 알고리즘",
+    //   column: columnlist,
+    //   data: dataArrayTrend,
+    //   index: 1,
+    //   length: 
+    // }
+    this.setDisplayDataTrend(0, typefilter ,columnlist)
+    
     this.inputDataReverse = {
       title: "볼린저 반전 매매 매수 신호",
       column: columnlist,
@@ -349,6 +352,55 @@ export class LatestsignalComponent implements OnInit {
       column: columnlist,
       data: dataArrayTriple
     }
+  }
+
+  setDisplayDataTrend(page: number, typefilter: string[] = ['매수', '매도'], columnlist: string[] =[]){
+    let dataArrayTrend: Array<string[]> = []
+    let startIndex = page * 20 
+    let lastIndex = startIndex + 20
+
+    if(this.rawLatestSignalTrend !== undefined) this.rawLatestSignalTrend.forEach((element, index) => {
+      if(index >= startIndex && index < lastIndex){
+      if (!IS_MOBILE) {
+        if ((typefilter.length === 2) ||
+          (typefilter.length === 1 && typefilter[0] === '매수' && element.type === 'buy') ||
+          (typefilter.length === 1 && typefilter[0] === '매도' && element.type === 'sell')) {
+
+          dataArrayTrend.push([
+            this.dataService.getCompanyNamebyCode(element.code, this.type),
+            element.type === "sell" ? "매도" : "매수",
+            element.date,
+            String(element.close),
+            element.type === "sell" ? element.last_buy_date : element.last_sell_date,
+            element.type === "sell" ? element.last_buy_close !== -1 ? String(element.last_buy_close) : "-" : element.last_sell_close !== -1 ? String(element.last_sell_close) : "-",
+            element.type === "buy" || element.last_buy_close === -1 ? "-" : String(((element.close - element.last_buy_close) / element.last_buy_close * 100).toFixed(2)),
+            element.code
+          ])
+        }
+      } else {
+        if ((typefilter.length === 2) ||
+          (typefilter.length === 1 && typefilter[0] === '매수' && element.type === 'buy') ||
+          (typefilter.length === 1 && typefilter[0] === '매도' && element.type === 'sell')) {
+
+          dataArrayTrend.push([
+            this.dataService.getCompanyNamebyCode(element.code, this.type),
+            element.type === "sell" ? "매도" : "매수",
+            String(element.close),
+            element.type === "sell" ? element.last_buy_close !== -1 ? String(element.last_buy_close) : "-" : element.last_sell_close !== -1 ? String(element.last_sell_close) : "-",
+            element.type === "buy" || element.last_buy_close === -1 ? "-" : String(((element.close - element.last_buy_close) / element.last_buy_close * 100).toFixed(2)),
+            element.code
+          ])
+        }
+      }}
+    });
+
+    this.inputDataTrend = {
+        title: "테스트 알고리즘",
+        column: columnlist,
+        data: dataArrayTrend,
+        index: page,
+        length: this.rawLatestSignalTrend.length / 20
+      }
   }
 
   onTapCompany(code: string, company: string) {
