@@ -68,7 +68,14 @@
           </table>
           <div class="nolist" *ngIf="inputDataTrend !== undefined && inputDataTrend.data.length == 0"
             (swiperight)="onSwipeRight($event)" (swipeleft)="onSwipeLeft($event)"> 신호 없음 </div>
+
+            <div class="page-container">
+              <igx-icon fontSet="material" (click)="onTapPrev()" [name]="'Prev'" [family]="'user-icons'"></igx-icon>
+              <div class="index"></div>
+              <igx-icon fontSet="material" (click)="onTapNext()" [name]="'Next'" [family]="'user-icons'"></igx-icon>
+            </div>
         </mat-tab>
+        
         <mat-tab label="볼린저 반전 매매">
           <div class="selection-container" *ngIf="inputDataReverse !== undefined">
             <mat-form-field appearance="fill">

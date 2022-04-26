@@ -157,3 +157,19 @@ table {
                     word-break: keep-all;
                     word-wrap: break-word;
 }
+
+.page-container {
+  display: flex;
+  height: 30px;
+  color: white;
+  text-align: center;
+  font-family: hyundai-card;
+  igx-icon {
+    width: 15px;
+    margin: 0px 15px 0px 15px;
+
+    ::ng-deep svg {
+      filter: brightness(0) invert(1);
+    }
+  }
+}
