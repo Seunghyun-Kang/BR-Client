@@ -11,7 +11,7 @@ const IS_MOBILE = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini
 })
 export class CarouselComponent implements OnInit {
   @Input() inputs: any[] = []
-  @Input() speed: number = IS_MOBILE ? 0: 5000
+  @Input() speed: number = 5000
   // @ViewChild(NgbCarousel) carousel;
   public mobile = IS_MOBILE
   @ViewChild(IgxCarouselComponent, { static: true })
