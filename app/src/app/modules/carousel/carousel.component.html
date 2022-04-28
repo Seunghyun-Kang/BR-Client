@@ -26,7 +26,7 @@ id="carousel"
 
   <div class="carousel-animation-wrapper">
     <div class="carousel-wrapper">
-        <igx-carousel [navigation]="false" [pause]="false" animationType="fade" [interval]="5000"
+        <igx-carousel [navigation]="false" [pause]="false" animationType="slide" [interval]="speed"
         (click)="onSwipeLeft($event)">
                 <igx-slide #slide *ngFor="let item of inputs">
                 <div class="content" style="display: flex;
