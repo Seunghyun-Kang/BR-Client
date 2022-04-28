@@ -64,7 +64,7 @@ export class NaviComponent implements OnInit {
   public selected = '';
   public minWidth = IS_MOBILE ? "50px" : "53px"
   public width = IS_MOBILE ? "190px" : "200px"
-  public isGalaxyOn: boolean = true
+  public isGalaxyOn: boolean = false
   private onSwitch: boolean = false
   public switchGuide: string = ""
 

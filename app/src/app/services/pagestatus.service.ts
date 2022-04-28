@@ -7,7 +7,7 @@ import { BehaviorSubject, Observable } from 'rxjs';
 export class PagestatusService {
   private Status: BehaviorSubject<string>;
   private type: BehaviorSubject<string>;
-  private galaxyOn: boolean = true
+  private galaxyOn: boolean = false
 
   constructor() {
     this.Status = new BehaviorSubject<string>('dashboard');
