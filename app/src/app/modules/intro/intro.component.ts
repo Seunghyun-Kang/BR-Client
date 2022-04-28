@@ -13,7 +13,7 @@ export class IntroComponent implements OnInit, OnDestroy {
   public canvas: HTMLCanvasElement;
   public UIToggleButton: HTMLElement;
   private starfield: any
-  public isGalaxyOff: boolean = true
+  public isGalaxyOff: boolean = false
 
   constructor(private service: PagestatusService) {
   }
@@ -30,7 +30,7 @@ export class IntroComponent implements OnInit, OnDestroy {
   
     var howManyStars: number = IS_MOBILE ? 400 : 1000;
     
-    if(!this.isGalaxyOff) this.service.getStatus().subscribe((value) => {
+    this.service.getStatus().subscribe((value) => {
       console.log("WEB STATUS CHANGED ::" + value);
       if (screenId === 'dashboard' && value === "normal") return
 
