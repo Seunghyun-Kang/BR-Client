@@ -70,9 +70,9 @@
             (swiperight)="onSwipeRight($event)" (swipeleft)="onSwipeLeft($event)"> 신호 없음 </div>
 
             <div class="page-container">
-              <igx-icon fontSet="material" (click)="onTapPrev()" [name]="'Prev'" [family]="'user-icons'"></igx-icon>
-              <div class="index"> {{inputDataTrend.index}} / {{ inputDataTrend.length }}</div>
-              <igx-icon fontSet="material" (click)="onTapNext()" [name]="'Next'" [family]="'user-icons'"></igx-icon>
+              <igx-icon fontSet="material" *ngIf="inputDataTrend !== undefined"(click)="onTapPrev(inputDataTrend.index-1, inputDataTrend.length)" [name]="'Prev'" [family]="'user-icons'"></igx-icon>
+              <div class="index" *ngIf="inputDataTrend !== undefined"> {{inputDataTrend.index + 1 }} / {{ inputDataTrend.length }}</div>
+              <igx-icon fontSet="material" *ngIf="inputDataTrend !== undefined" (click)="onTapNext(inputDataTrend.index +1, inputDataTrend.length)" [name]="'Next'" [family]="'user-icons'"></igx-icon>
             </div>
         </mat-tab>
         
@@ -92,6 +92,8 @@
                 <mat-option value="1">3일</mat-option>
                 <mat-option value="2">7일</mat-option>
                 <mat-option value="3">14일</mat-option>
+                <mat-option value="4">1개월</mat-option>
+                <mat-option value="5">6개월</mat-option>
               </mat-select>
             </mat-form-field>
             <mat-form-field appearance="fill">
@@ -134,7 +136,13 @@
           </table>
           <div class="nolist" (swiperight)="onSwipeRight($event)" (swipeleft)="onSwipeLeft($event)"
             *ngIf="inputDataReverse !== undefined && inputDataReverse.data.length == 0"> 신호 없음 </div>
+            <div class="page-container">
+              <igx-icon fontSet="material" *ngIf="inputDataReverse !== undefined"(click)="onTapPrev(inputDataReverse.index-1, inputDataReverse.length)" [name]="'Prev'" [family]="'user-icons'"></igx-icon>
+              <div class="index" *ngIf="inputDataReverse !== undefined"> {{inputDataReverse.index + 1 }} / {{ inputDataReverse.length }}</div>
+              <igx-icon fontSet="material" *ngIf="inputDataReverse !== undefined" (click)="onTapNext(inputDataReverse.index +1, inputDataReverse.length)" [name]="'Next'" [family]="'user-icons'"></igx-icon>
+            </div>
         </mat-tab>
+
         <mat-tab label="삼중창 시스템">
           <div class="selection-container" *ngIf="inputDataTriple !== undefined">
             <mat-form-field appearance="fill">
@@ -151,6 +159,8 @@
                 <mat-option value="1">3일</mat-option>
                 <mat-option value="2">7일</mat-option>
                 <mat-option value="3">14일</mat-option>
+                <mat-option value="4">1개월</mat-option>
+                <mat-option value="5">6개월</mat-option>
               </mat-select>
             </mat-form-field>
                 <mat-form-field appearance="fill">
@@ -193,6 +203,11 @@
           </table>
           <div class="nolist" (swiperight)="onSwipeRight($event)" (swipeleft)="onSwipeLeft($event)"
             *ngIf="inputDataTriple !== undefined && inputDataTriple.data.length == 0"> 신호 없음 </div>
+            <div class="page-container">
+              <igx-icon fontSet="material" *ngIf="inputDataTriple !== undefined"(click)="onTapPrev(inputDataTriple.index-1, inputDataTriple.length)" [name]="'Prev'" [family]="'user-icons'"></igx-icon>
+              <div class="index" *ngIf="inputDataTriple !== undefined"> {{inputDataTriple.index + 1 }} / {{ inputDataTriple.length }}</div>
+              <igx-icon fontSet="material" *ngIf="inputDataTriple !== undefined" (click)="onTapNext(inputDataTriple.index +1, inputDataTrend.length)" [name]="'Next'" [family]="'user-icons'"></igx-icon>
+            </div>
         </mat-tab>
       </mat-tab-group>
     </div>
