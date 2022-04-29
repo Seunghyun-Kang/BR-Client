@@ -462,18 +462,20 @@ export class LatestsignalComponent implements OnInit {
     }
   }
 
-  onTapNext(page: number, total: number) {
+  onTapNext(page: number, total: number, type: number) {
     console.log(page)
     if (page >= total) return
-    this.setDisplayDataTrend(page, this.typeSelected, this.columnlist)
-    this.setDisplayDataReverse(page, this.typeSelected, this.columnlist)
-    this.setDisplayDataTriple(page, this.typeSelected, this.columnlist)
+
+    if(type == 1) this.setDisplayDataTrend(page, this.typeSelected, this.columnlist)
+    else if (type == 2) this.setDisplayDataReverse(page, this.typeSelected, this.columnlist)
+    else if (type == 3) this.setDisplayDataTriple(page, this.typeSelected, this.columnlist)
   }
-  onTapPrev(page: number, total: number) {
+  onTapPrev(page: number, total: number, type: number) {
     console.log(page)
     if (page < 0) return
-    this.setDisplayDataTrend(page, this.typeSelected, this.columnlist)
-    this.setDisplayDataReverse(page, this.typeSelected, this.columnlist)
-    this.setDisplayDataTriple(page, this.typeSelected, this.columnlist)
+    
+    if(type == 1) this.setDisplayDataTrend(page, this.typeSelected, this.columnlist)
+    else if (type == 2) this.setDisplayDataReverse(page, this.typeSelected, this.columnlist)
+    else if (type == 3) this.setDisplayDataTriple(page, this.typeSelected, this.columnlist)
   }
 }
