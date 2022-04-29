@@ -42,7 +42,8 @@ export class DataService {
     if(type === undefined) type = "KRX"
     let selected: any
     selected = this.companyData.get(type).find(item => item.code === company)
-    return selected.company
+    if(selected != undefined) return selected.company
+    else return ""
   }
 
   setStockData(code: string, data: priceData[]) {
