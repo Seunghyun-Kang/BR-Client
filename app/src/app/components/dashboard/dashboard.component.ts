@@ -196,7 +196,7 @@ export class DashboardComponent implements OnInit {
     switch (type) {
       case "buyTrend":
         this.rawLatestSignalTrend.forEach(element => {
-          title = "테스트 알고리즘 매수 신호"
+          title = "강승현 알고리즘 매수 신호"
           if (element.type === "buy" && element.valid === "valid") {
             if (!IS_MOBILE) dataArray.push([
               this.dataService.getCompanyNamebyCode(element.code, this.type),
@@ -269,7 +269,7 @@ export class DashboardComponent implements OnInit {
         });
         break;
       case "sellTrend":
-        title = "테스트 알고리즘 매도 신호"
+        title = "강승현 알고리즘 매도 신호"
 
         this.rawLatestSignalTrend.forEach(element => {
           if (element.type === "sell" && element.valid === "valid") {
@@ -317,7 +317,7 @@ export class DashboardComponent implements OnInit {
         });
         break;
       case "sellTriple":
-        title = "테스트 알고리즘 매도 신호"
+        title = "강승현 알고리즘 매도 신호"
 
         this.rawLatestSignalTripleScreen.forEach(element => {
           if (element.type === "sell" && element.valid === "valid") {

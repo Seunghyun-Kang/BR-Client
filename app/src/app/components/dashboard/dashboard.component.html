@@ -15,7 +15,7 @@
 
         <div class="title-container">
                 <p class="header-title" #tooltipBuyTrend="matTooltip" [matTooltip]="tooltipTrend"
-                >테스트 알고리즘</p>
+                >강승현 알고리즘</p>
                 <igx-icon  (click)="tooltipBuyTrend.show()" style="margin: 0px 15px 0px 5px;filter: invert(24%) sepia(1%) saturate(4420%) hue-rotate(236deg) brightness(101%) contrast(81%);" fontSet="material" [name]="'QuestionLeft'" [family]="'user-icons'"></igx-icon>
             </div>   
                     <igx-icon *ngIf="buyTrend.length > 0" [matBadge]="buyTrend.length" fontSet="material" (click)="openDialog('buyTrend')" [name]="'List'" [family]="'user-icons'"></igx-icon>
@@ -23,7 +23,7 @@
                 </div>
             <app-carousel *ngIf="buyTrend.length > 0" style="width: 100%;" [inputs]="buyTrend"></app-carousel>
             <div  class="nolist" *ngIf="buyTrend.length ==  0"> 신호 없음 </div>
-            <div class="header">
+            <!-- <div class="header">
                 <div class="title-container">
                 <p class="header-title" #tooltipBuyReverse="matTooltip" [matTooltip]="tooltipReverse"  >볼린저 반전매매 알고리즘</p>
                 <igx-icon  (click)="tooltipBuyReverse.show()" style="margin: 0px 15px 0px 5px;filter: invert(24%) sepia(1%) saturate(4420%) hue-rotate(236deg) brightness(101%) contrast(81%);
@@ -46,14 +46,14 @@
             </div>
             <app-carousel *ngIf="buyTriple.length > 0" [inputs]="buyTriple"></app-carousel>
             <div class="nolist"  *ngIf="buyTriple.length ==  0"> 신호 없음 </div>
-            
+             -->
         </div>
         <p class="title">오늘의 <span class="blue">매도</span> 신호</p>
         <div class="signals-container" [ngStyle]="{'background-color': type === 'KRX' ?  'var(--krx-card-color)' : type === 'NASDAQ' ? 'var(--nasdaq-card-color)': 'var(--coin-card-color)'}">
             <div class="header">
                 <div class="title-container">
                 <p class="header-title" #tooltipSellTrend="matTooltip" [matTooltip]="tooltipTrend"
-                >테스트 알고리즘</p>
+                >강승현 알고리즘</p>
                 <igx-icon (click)="tooltipSellTrend.show()" style="margin: 0px 15px 0px 5px;filter: invert(24%) sepia(1%) saturate(4420%) hue-rotate(236deg) brightness(101%) contrast(81%);" fontSet="material" [name]="'QuestionLeft'" [family]="'user-icons'"></igx-icon>
             </div>
 
@@ -63,7 +63,7 @@
             <app-carousel  *ngIf="sellTrend.length > 0" [inputs]="sellTrend"></app-carousel>
             <div class="nolist"  *ngIf="sellTrend.length ==  0"> 신호 없음 </div>
             
-            <div class="header">
+            <!-- <div class="header">
                 <div class="title-container">
                 <p class="header-title" #tooltipSellReverse="matTooltip" [matTooltip]="tooltipReverse" >볼린저 반전매매 알고리즘</p>
                 <igx-icon (click)="tooltipSellReverse.show()" style="margin: 0px 15px 0px 5px;filter: invert(24%) sepia(1%) saturate(4420%) hue-rotate(236deg) brightness(101%) contrast(81%);
@@ -86,7 +86,7 @@
             </div>
             <app-carousel  *ngIf="sellTriple.length > 0" [inputs]="sellTriple"></app-carousel>
             <div class="nolist" *ngIf="sellTriple.length ==  0"> 신호 없음 </div>
-            
+             -->
         </div>
 
         <div class="title">최근 3개월 최고 수익 종목 상위 20</div>
