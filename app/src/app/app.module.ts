@@ -14,7 +14,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HomeComponent } from './components/home/home.component';
 import { StockdetailComponent } from './components/stockdetail/stockdetail.component';
 import { HttpClientModule } from '@angular/common/http';
-import * as Hammer from 'hammerjs';
+import Hammer from 'hammerjs';
 import * as PlotlyJS from 'plotly.js-dist-min';
 import { PlotlyModule } from 'angular-plotly.js';
 import { FindcompanyComponent } from './components/findcompany/findcompany.component';
