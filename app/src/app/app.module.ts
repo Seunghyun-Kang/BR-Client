@@ -58,6 +58,12 @@ import {MatRadioModule} from '@angular/material/radio';
 import { CookieService } from 'ngx-cookie-service';
 import { AuthGuard } from './services/auth.guard';
 import { MomentumComponent } from './components/momentum/momentum.component';
+import {MatDatepickerModule} from '@angular/material/datepicker';
+// import {MatNativeDateModule} from '@angular/material';
+// import { MatMomentDateModule } from "@angular/material-moment-adapter";
+import {MatNativeDateModule} from '@angular/material/core';
+import {DatePipe} from '@angular/common';
+
 
 PlotlyModule.plotlyjs = PlotlyJS;
 export class MyHammerConfig extends HammerGestureConfig  {
@@ -129,7 +135,7 @@ const appRoutes: Routes = [
     HammerModule,
     IgxNavigationDrawerModule, IgxIconModule, IgxSwitchModule, IgxButtonModule,
     MatAutocompleteModule, MatChipsModule, MatFormFieldModule, MatIconModule, MatInputModule, MatToolbarModule, MatDialogModule, MatTableModule, MatButtonModule,
-    MatTabsModule, MatCardModule,MatBadgeModule, MatTooltipModule, MatSelectModule, MatMenuModule, MatRadioModule,
+    MatTabsModule, MatCardModule,MatBadgeModule, MatTooltipModule, MatSelectModule, MatMenuModule, MatRadioModule,MatDatepickerModule,MatNativeDateModule,
     IgxCarouselModule, IgxListModule, IgxToastModule
   ],
   providers: [
@@ -142,9 +148,11 @@ const appRoutes: Routes = [
       provide: HAMMER_GESTURE_CONFIG,
       useClass: MyHammerConfig,
     },
-    CookieService
+    CookieService,
+    MatDatepickerModule,
+    DatePipe
   ],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
 
 export class AppModule {
