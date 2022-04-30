@@ -8,7 +8,7 @@
       <mat-tab-group #group dynamicHeight mat-align-tabs="center" [selectedIndex]="selectedIndex"
         (selectedTabChange)="tabChanged($event)">
         <mat-tab label="강승현 알고리즘">
-          <div class="selection-container" *ngIf="inputDataTrend !== undefined">
+          <div class="selection-container" *ngIf="inputDataTrend !== undefined" style="justify-content: flex-end;">
             <mat-form-field appearance="fill">
               <mat-label>종류</mat-label>
               <mat-select [formControl]="toppings" multiple [(value)]="typeSelected"
@@ -17,21 +17,6 @@
               </mat-select>
             </mat-form-field>
 
-            <mat-form-field appearance="fill">
-              <mat-label>시작</mat-label>
-              <input matInput [matDatepicker]="startpicker" [formGroup]="start" [formControl]="start" (dateChange)= "startDateChange($event)">
-              <!-- <mat-hint>시작 구간</mat-hint> -->
-              <mat-datepicker-toggle matSuffix [for]="startpicker"></mat-datepicker-toggle>
-              <mat-datepicker #startpicker></mat-datepicker>
-            </mat-form-field>
-
-            <mat-form-field appearance="fill">
-              <mat-label>종료</mat-label>
-              <input matInput [matDatepicker]="endpicker" [formGroup]="end" [formControl]="end" (dateChange)= "endDateChange($event)">
-              <!-- <mat-hint>종료 구간</mat-hint> -->
-              <mat-datepicker-toggle matSuffix [for]="endpicker"></mat-datepicker-toggle>
-              <mat-datepicker #endpicker ></mat-datepicker>
-            </mat-form-field>
             <!-- <mat-form-field appearance="fill">
               <mat-label>최근 일자</mat-label>
               <mat-select disableRipple (selectionChange)="onChangeDay($event)" [(value)]="daySelected">
@@ -52,6 +37,24 @@
                 <mat-option value="50">50만원</mat-option>
                 <mat-option value="100">100만원</mat-option>
               </mat-select>
+            </mat-form-field>
+          </div>
+          <div class="selection-container" *ngIf="inputDataTrend !== undefined">
+
+            <mat-form-field appearance="fill">
+              <mat-label>시작</mat-label>
+              <input matInput [matDatepicker]="startpicker" [formGroup]="start" [formControl]="start" (dateChange)= "startDateChange($event)">
+              <!-- <mat-hint>시작 구간</mat-hint> -->
+              <mat-datepicker-toggle matSuffix [for]="startpicker"></mat-datepicker-toggle>
+              <mat-datepicker #startpicker></mat-datepicker>
+            </mat-form-field>
+
+            <mat-form-field appearance="fill">
+              <mat-label>종료</mat-label>
+              <input matInput [matDatepicker]="endpicker" [formGroup]="end" [formControl]="end" (dateChange)= "endDateChange($event)">
+              <!-- <mat-hint>종료 구간</mat-hint> -->
+              <mat-datepicker-toggle matSuffix [for]="endpicker"></mat-datepicker-toggle>
+              <mat-datepicker #endpicker ></mat-datepicker>
             </mat-form-field>
           </div>
           <div *ngIf="inputDataTrend !== undefined && inputDataTrend.data.length > 0" class="profit_guide"
@@ -92,7 +95,7 @@
         </mat-tab>
         
         <mat-tab label="볼린저 반전 매매">
-          <div class="selection-container" *ngIf="inputDataReverse !== undefined">
+          <div class="selection-container" *ngIf="inputDataReverse !== undefined" style="justify-content: flex-end;">
             <mat-form-field appearance="fill">
               <mat-label>종류</mat-label>
               <mat-select [formControl]="toppings" multiple [(value)]="typeSelected"
@@ -120,6 +123,24 @@
                 <mat-option value="50">50만원</mat-option>
                 <mat-option value="100">100만원</mat-option>
               </mat-select>
+            </mat-form-field>
+          </div>
+          <div class="selection-container" *ngIf="inputDataTrend !== undefined">
+
+            <mat-form-field appearance="fill">
+              <mat-label>시작</mat-label>
+              <input matInput [matDatepicker]="startpicker" [formGroup]="start" [formControl]="start" (dateChange)= "startDateChange($event)">
+              <!-- <mat-hint>시작 구간</mat-hint> -->
+              <mat-datepicker-toggle matSuffix [for]="startpicker"></mat-datepicker-toggle>
+              <mat-datepicker #startpicker></mat-datepicker>
+            </mat-form-field>
+
+            <mat-form-field appearance="fill">
+              <mat-label>종료</mat-label>
+              <input matInput [matDatepicker]="endpicker" [formGroup]="end" [formControl]="end" (dateChange)= "endDateChange($event)">
+              <!-- <mat-hint>종료 구간</mat-hint> -->
+              <mat-datepicker-toggle matSuffix [for]="endpicker"></mat-datepicker-toggle>
+              <mat-datepicker #endpicker ></mat-datepicker>
             </mat-form-field>
           </div>
           <div *ngIf="inputDataReverse !== undefined && inputDataReverse.data.length > 0" class="profit_guide"
@@ -159,7 +180,7 @@
         </mat-tab>
 
         <mat-tab label="삼중창 시스템">
-          <div class="selection-container" *ngIf="inputDataTriple !== undefined">
+          <div class="selection-container" *ngIf="inputDataTriple !== undefined" style="justify-content: flex-end;">
             <mat-form-field appearance="fill">
               <mat-label>종류</mat-label>
               <mat-select [formControl]="toppings" multiple [(value)]="typeSelected"
@@ -188,6 +209,24 @@
                     <mat-option value="100">100만원</mat-option>
                   </mat-select>
                 </mat-form-field>
+          </div>
+          <div class="selection-container" *ngIf="inputDataTrend !== undefined">
+
+            <mat-form-field appearance="fill">
+              <mat-label>시작</mat-label>
+              <input matInput [matDatepicker]="startpicker" [formGroup]="start" [formControl]="start" (dateChange)= "startDateChange($event)">
+              <!-- <mat-hint>시작 구간</mat-hint> -->
+              <mat-datepicker-toggle matSuffix [for]="startpicker"></mat-datepicker-toggle>
+              <mat-datepicker #startpicker></mat-datepicker>
+            </mat-form-field>
+
+            <mat-form-field appearance="fill">
+              <mat-label>종료</mat-label>
+              <input matInput [matDatepicker]="endpicker" [formGroup]="end" [formControl]="end" (dateChange)= "endDateChange($event)">
+              <!-- <mat-hint>종료 구간</mat-hint> -->
+              <mat-datepicker-toggle matSuffix [for]="endpicker"></mat-datepicker-toggle>
+              <mat-datepicker #endpicker ></mat-datepicker>
+            </mat-form-field>
           </div>
           <div *ngIf="inputDataTriple !== undefined && inputDataTriple.data.length > 0" class="profit_guide"
             style="margin-top: 30px;">

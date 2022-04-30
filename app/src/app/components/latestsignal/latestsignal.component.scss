@@ -37,6 +37,7 @@
           align-items: center;
           margin-top: 25px;
           margin-bottom: 5px;
+          height: 30px;
           ::ng-deep .mat-form-field-appearance-fill .mat-form-field-flex{
             background-color: transparent;
             padding: 0px;
@@ -198,10 +199,9 @@ table {
 
   ::ng-deep .mat-form-field-infix {
     color: white;
-
-    font-size: 1px;
+    font-size: 15px;
   }
 
   ::ng-deep .mat-form-field-flex {
-    width: 70px !important;
+    width: 100% !important;
   }
