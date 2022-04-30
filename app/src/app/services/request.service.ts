@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
 import { catchError, retry } from 'rxjs/operators';
+import { LoginService } from './login.service';
 
 @Injectable({
   providedIn: 'root'
@@ -12,7 +13,8 @@ export class RequestService {
   REST_SERVER_URL = 'http://52.78.240.74:8080/'
   private headers: HttpHeaders
 
-  constructor(private http: HttpClient) {
+  constructor(private http: HttpClient,
+    private loginService: LoginService) {
     this.headers = new HttpHeaders(
       {
         'Content-Type': 'application/json',
@@ -95,25 +97,25 @@ export class RequestService {
         catchError(this.handleError)
       );
   }
-  getLastBollingerTrendSignal(lastday: number, symbol?: string) {
+  getLastBollingerTrendSignal(start: string, end: string, symbol?: string) {
     if(symbol == undefined) symbol = "KRX"
-    return this.http.get(this.REST_SERVER_URL + 'latest_signal_trend/'+ symbol +'/'  + lastday + '/', { observe: 'response', headers: this.headers })
+    return this.http.get(this.REST_SERVER_URL + 'latest_signal_trend/'+ symbol +'/'  + start + '/' + end + '/', { observe: 'response', headers: this.headers })
       .pipe(
         catchError(this.handleError)
       );
   }
 
-  getLastBollingerReverseSignal(lastday: number, symbol?: string) {
+  getLastBollingerReverseSignal(start: string, end: string, symbol?: string) {
     if(symbol == undefined) symbol = "KRX"
-    return this.http.get(this.REST_SERVER_URL + 'latest_signal_reverse/'+ symbol +'/'  + lastday + '/',{ observe: 'response', headers: this.headers })
+    return this.http.get(this.REST_SERVER_URL + 'latest_signal_reverse/'+ symbol +'/' + start + '/' + end + '/',{ observe: 'response', headers: this.headers })
       .pipe(
         catchError(this.handleError)
       );
   }
 
-  getLastTripleScreenSignal(lastday: number, symbol?: string) {
+  getLastTripleScreenSignal(start: string, end: string, symbol?: string) {
     if(symbol == undefined) symbol = "KRX"
-    return this.http.get(this.REST_SERVER_URL + 'latest_signal_triple/' + symbol +'/' + lastday + '/', { observe: 'response', headers: this.headers })
+    return this.http.get(this.REST_SERVER_URL + 'latest_signal_triple/' + symbol +'/' + start + '/' + end + '/', { observe: 'response', headers: this.headers })
       .pipe(
         catchError(this.handleError)
       );
@@ -122,6 +124,15 @@ export class RequestService {
   getMomentum(duration: number, symbol?: string, ) {
     if(symbol == undefined) symbol = "KRX"
     return this.http.get(this.REST_SERVER_URL + 'momentum/' + symbol +'/' + duration + '/', { observe: 'response', headers: this.headers })
+      .pipe(
+        catchError(this.handleError)
+      );
+  }
+
+  getTradeHistory(duration: number, symbol?: string) {
+    if(symbol == undefined) symbol = "KRX"
+    let phone_number = this.loginService.getNumberInCookie()
+    return this.http.get(this.REST_SERVER_URL + 'trade_history/' + symbol +'/'+ phone_number +'/'+ duration + '/', { observe: 'response', headers: this.headers })
       .pipe(
         catchError(this.handleError)
       );
