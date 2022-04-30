@@ -74,8 +74,8 @@ export class LatestsignalComponent implements OnInit {
     this.start = new FormControl(date)
 
     let now = new Date();
-    this.startday = this.datePipe.transform(now,"yyyy-MM-dd")
-    this.endday = this.datePipe.transform(now.setDate(now.getDate() - 2),"yyyy-MM-dd")
+    this.endday = this.datePipe.transform(now,"yyyy-MM-dd")
+    this.startday = this.datePipe.transform(now.setDate(now.getDate() - 2),"yyyy-MM-dd")
 
     this.subscription = this.statusService.getType().subscribe((value) => {
       console.log("TYPE ::" + value);
@@ -498,10 +498,14 @@ export class LatestsignalComponent implements OnInit {
   startDateChange(event: any) {
     this.startday = this.datePipe.transform(event.value,"yyyy-MM-dd")
     console.log(this.datePipe.transform(event.value,"yyyy-MM-dd"))
+    
+    this.requestSignalData(this.type)
   }
 
   endDateChange(event: any) {
     this.endday = this.datePipe.transform(event.value,"yyyy-MM-dd")
     console.log(this.datePipe.transform(event.value,"yyyy-MM-dd"))
+
+    this.requestSignalData(this.type)
   }
 }

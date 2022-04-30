@@ -193,8 +193,8 @@ export class DashboardComponent implements OnInit {
 
 
     let now = new Date();
-    this.start = this.datePipe.transform(now,"yyyy-MM-dd")
-    this.end = this.datePipe.transform(now.setDate(now.getDate() - lastday),"yyyy-MM-dd")
+    this.end = this.datePipe.transform(now,"yyyy-MM-dd")
+    this.start = this.datePipe.transform(now.setDate(now.getDate() - lastday),"yyyy-MM-dd")
 
     this.requestService.getLastBollingerTrendSignal(this.start, this.end, type)
       .subscribe({

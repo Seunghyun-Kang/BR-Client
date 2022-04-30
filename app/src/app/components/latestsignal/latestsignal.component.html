@@ -86,7 +86,7 @@
 
             <div class="page-container">
               <igx-icon fontSet="material" *ngIf="inputDataTrend !== undefined"(click)="onTapPrev(inputDataTrend.index-1, inputDataTrend.length,1)" [name]="'Prev'" [family]="'user-icons'"></igx-icon>
-              <div class="index" *ngIf="inputDataTrend !== undefined"> {{inputDataTrend.index + 1 }} / {{ inputDataTrend.length }}</div>
+              <div class="index" *ngIf="inputDataTrend !== undefined && inputDataTrend.length > 0"> {{inputDataTrend.index + 1 }} / {{ inputDataTrend.length }}</div>
               <igx-icon fontSet="material" *ngIf="inputDataTrend !== undefined" (click)="onTapNext(inputDataTrend.index +1, inputDataTrend.length,1)" [name]="'Next'" [family]="'user-icons'"></igx-icon>
             </div>
         </mat-tab>
@@ -153,7 +153,7 @@
             *ngIf="inputDataReverse !== undefined && inputDataReverse.data.length == 0"> 신호 없음 </div>
             <div class="page-container">
               <igx-icon fontSet="material" *ngIf="inputDataReverse !== undefined"(click)="onTapPrev(inputDataReverse.index-1, inputDataReverse.length,2)" [name]="'Prev'" [family]="'user-icons'"></igx-icon>
-              <div class="index" *ngIf="inputDataReverse !== undefined"> {{inputDataReverse.index + 1 }} / {{ inputDataReverse.length }}</div>
+              <div class="index" *ngIf="inputDataReverse !== undefined && inputDataReverse.length > 0"> {{inputDataReverse.index + 1 }} / {{ inputDataReverse.length }}</div>
               <igx-icon fontSet="material" *ngIf="inputDataReverse !== undefined" (click)="onTapNext(inputDataReverse.index +1, inputDataReverse.length,2)" [name]="'Next'" [family]="'user-icons'"></igx-icon>
             </div>
         </mat-tab>
@@ -220,7 +220,7 @@
             *ngIf="inputDataTriple !== undefined && inputDataTriple.data.length == 0"> 신호 없음 </div>
             <div class="page-container">
               <igx-icon fontSet="material" *ngIf="inputDataTriple !== undefined"(click)="onTapPrev(inputDataTriple.index-1, inputDataTriple.length,3)" [name]="'Prev'" [family]="'user-icons'"></igx-icon>
-              <div class="index" *ngIf="inputDataTriple !== undefined"> {{inputDataTriple.index + 1 }} / {{ inputDataTriple.length }}</div>
+              <div class="index" *ngIf="inputDataTriple !== undefined && inputDataTriple.length > 0"> {{inputDataTriple.index + 1 }} / {{ inputDataTriple.length }}</div>
               <igx-icon fontSet="material" *ngIf="inputDataTriple !== undefined" (click)="onTapNext(inputDataTriple.index +1, inputDataTriple.length,3)" [name]="'Next'" [family]="'user-icons'"></igx-icon>
             </div>
         </mat-tab>
