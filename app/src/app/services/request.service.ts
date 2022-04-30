@@ -99,7 +99,7 @@ export class RequestService {
   }
   getLastBollingerTrendSignal(start: string, end: string, symbol?: string) {
     if(symbol == undefined) symbol = "KRX"
-    return this.http.get(this.REST_SERVER_URL + 'latest_signal_trend/'+ symbol +'/'  + start + '/' + end + '/', { observe: 'response', headers: this.headers })
+    return this.http.get(this.REST_SERVER_URL + 'signal_trend/'+ symbol +'/'  + start + '/' + end + '/', { observe: 'response', headers: this.headers })
       .pipe(
         catchError(this.handleError)
       );
@@ -107,7 +107,7 @@ export class RequestService {
 
   getLastBollingerReverseSignal(start: string, end: string, symbol?: string) {
     if(symbol == undefined) symbol = "KRX"
-    return this.http.get(this.REST_SERVER_URL + 'latest_signal_reverse/'+ symbol +'/' + start + '/' + end + '/',{ observe: 'response', headers: this.headers })
+    return this.http.get(this.REST_SERVER_URL + 'signal_reverse/'+ symbol +'/' + start + '/' + end + '/',{ observe: 'response', headers: this.headers })
       .pipe(
         catchError(this.handleError)
       );
@@ -115,7 +115,7 @@ export class RequestService {
 
   getLastTripleScreenSignal(start: string, end: string, symbol?: string) {
     if(symbol == undefined) symbol = "KRX"
-    return this.http.get(this.REST_SERVER_URL + 'latest_signal_triple/' + symbol +'/' + start + '/' + end + '/', { observe: 'response', headers: this.headers })
+    return this.http.get(this.REST_SERVER_URL + 'signal_triple/' + symbol +'/' + start + '/' + end + '/', { observe: 'response', headers: this.headers })
       .pipe(
         catchError(this.handleError)
       );
