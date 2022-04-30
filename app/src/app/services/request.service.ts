@@ -3,6 +3,7 @@ import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http
 import { Observable, throwError } from 'rxjs';
 import { catchError, retry } from 'rxjs/operators';
 import { LoginService } from './login.service';
+import InfoJson from '../../assets/info.json';
 
 @Injectable({
   providedIn: 'root'
@@ -10,7 +11,7 @@ import { LoginService } from './login.service';
 
 export class RequestService {
 
-  REST_SERVER_URL = 'http://52.78.240.74:8080/'
+  REST_SERVER_URL = InfoJson["REST_SERVER"]
   private headers: HttpHeaders
 
   constructor(private http: HttpClient,
