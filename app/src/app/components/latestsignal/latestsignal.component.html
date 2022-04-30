@@ -18,6 +18,21 @@
             </mat-form-field>
 
             <mat-form-field appearance="fill">
+              <mat-label>시작</mat-label>
+              <input matInput [matDatepicker]="startpicker" [formGroup]="start" [formControl]="start" (dateChange)= "startDateChange($event)">
+              <!-- <mat-hint>시작 구간</mat-hint> -->
+              <mat-datepicker-toggle matSuffix [for]="startpicker"></mat-datepicker-toggle>
+              <mat-datepicker #startpicker></mat-datepicker>
+            </mat-form-field>
+
+            <mat-form-field appearance="fill">
+              <mat-label>종료</mat-label>
+              <input matInput [matDatepicker]="endpicker" [formGroup]="end" [formControl]="end" (dateChange)= "endDateChange($event)">
+              <!-- <mat-hint>종료 구간</mat-hint> -->
+              <mat-datepicker-toggle matSuffix [for]="endpicker"></mat-datepicker-toggle>
+              <mat-datepicker #endpicker ></mat-datepicker>
+            </mat-form-field>
+            <!-- <mat-form-field appearance="fill">
               <mat-label>최근 일자</mat-label>
               <mat-select disableRipple (selectionChange)="onChangeDay($event)" [(value)]="daySelected">
                 <mat-option value="1">3일</mat-option>
@@ -26,7 +41,7 @@
                 <mat-option value="4">1개월</mat-option>
                 <mat-option value="5">6개월</mat-option>
               </mat-select>
-            </mat-form-field>
+            </mat-form-field> -->
 
             <mat-form-field appearance="fill">
               <mat-label>가상 투자금 (종목당)</mat-label>

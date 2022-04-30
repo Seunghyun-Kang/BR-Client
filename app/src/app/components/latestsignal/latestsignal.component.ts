@@ -5,8 +5,9 @@ import { DataService } from 'src/app/services/data.service';
 import { signalData } from '../stockdetail/stockdetail.model';
 import { MatTabChangeEvent } from '@angular/material/tabs';
 import { Router } from '@angular/router';
-import { FormControl } from '@angular/forms';
+import { FormControl, FormGroup } from '@angular/forms';
 import { Subscription } from 'rxjs';
+import { DatePipe } from '@angular/common';
 
 const IS_MOBILE = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
 
@@ -22,6 +23,11 @@ export class LatestsignalComponent implements OnInit {
   public type: string
   private itemLen = 3
 
+  public start: any
+  public end: any
+  public startday: any
+  public endday: any
+  
   public rawLatestSignalTrend: signalData[] = []
   public rawLatestSignalReverse: signalData[] = []
   public rawLatestSignalTripleScreen: signalData[] = []
@@ -56,11 +62,21 @@ export class LatestsignalComponent implements OnInit {
     private requestService: RequestService,
     private dataService: DataService,
     private router: Router,
+    private datePipe: DatePipe
   ) {
     this.statusService.setStatus("loading-forward")
   }
 
   ngOnInit(): void {
+    let date = new Date();
+    date.setDate(date.getDate() - 2);
+    this.end = new FormControl(new Date())
+    this.start = new FormControl(date)
+
+    let now = new Date();
+    this.startday = this.datePipe.transform(now,"yyyy-MM-dd")
+    this.endday = this.datePipe.transform(now.setDate(now.getDate() - 2),"yyyy-MM-dd")
+
     this.subscription = this.statusService.getType().subscribe((value) => {
       console.log("TYPE ::" + value);
       this.type = value
@@ -102,21 +118,21 @@ export class LatestsignalComponent implements OnInit {
 
   requestSignalData(type: string) {
     this.statusService.setStatus("loading-forward")
-    this.requestService.getLastBollingerTrendSignal(this.lastday, type)
+    this.requestService.getLastBollingerTrendSignal(this.startday, this.endday, type)
       .subscribe({
         next: (v: any) => {
           this.rawLatestSignalTrend = Object(v.body)
-          this.dataService.setLatestBollingerTrendSignalData(this.lastday, this.rawLatestSignalTrend)
-          this.requestService.getLastBollingerReverseSignal(this.lastday, type)
+          // this.dataService.setLatestBollingerTrendSignalData(this.lastday, this.rawLatestSignalTrend)
+          this.requestService.getLastBollingerReverseSignal(this.startday, this.endday, type)
             .subscribe({
               next: (v: any) => {
                 this.rawLatestSignalReverse = Object(v.body)
-                this.dataService.setLatestBollingerReverseSignalData(this.lastday, this.rawLatestSignalReverse)
-                this.requestService.getLastTripleScreenSignal(this.lastday, type)
+                // this.dataService.setLatestBollingerReverseSignalData(this.lastday, this.rawLatestSignalReverse)
+                this.requestService.getLastTripleScreenSignal(this.startday, this.endday, type)
                   .subscribe({
                     next: (v: any) => {
                       this.rawLatestSignalTripleScreen = Object(v.body)
-                      this.dataService.setLatestTripleScreenSignalData(this.lastday, this.rawLatestSignalTripleScreen)
+                      // this.dataService.setLatestTripleScreenSignalData(this.lastday, this.rawLatestSignalTripleScreen)
                       this.statusService.setStatus("normal")
 
                       this.setDisplayDataTrend(0, this.typeSelected, this.columnlist)
@@ -477,5 +493,15 @@ export class LatestsignalComponent implements OnInit {
     if(type == 1) this.setDisplayDataTrend(page, this.typeSelected, this.columnlist)
     else if (type == 2) this.setDisplayDataReverse(page, this.typeSelected, this.columnlist)
     else if (type == 3) this.setDisplayDataTriple(page, this.typeSelected, this.columnlist)
+  }
+
+  startDateChange(event: any) {
+    this.startday = this.datePipe.transform(event.value,"yyyy-MM-dd")
+    console.log(this.datePipe.transform(event.value,"yyyy-MM-dd"))
+  }
+
+  endDateChange(event: any) {
+    this.endday = this.datePipe.transform(event.value,"yyyy-MM-dd")
+    console.log(this.datePipe.transform(event.value,"yyyy-MM-dd"))
   }
 }

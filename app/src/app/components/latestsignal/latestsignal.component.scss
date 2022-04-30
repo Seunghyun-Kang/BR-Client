@@ -33,14 +33,13 @@
           display: flex;
           flex-direction: row;
           align-content: center;
-          justify-content: flex-end;
+          justify-content: space-around;
           align-items: center;
-          margin-top: 10px;
+          margin-top: 25px;
           margin-bottom: 5px;
           ::ng-deep .mat-form-field-appearance-fill .mat-form-field-flex{
             background-color: transparent;
             padding: 0px;
-            height: 25px;
           }
 
           ::ng-deep .mat-form-field {
@@ -179,3 +178,30 @@ table {
     }
   }
 }
+
+::ng-deep .mat-form-field-label {
+  color : white;
+}
+
+::ng-deep .mat-icon-button {
+  background-color: var(--default-item-color);
+}
+
+::ng-deep .mat-form-field .mat-form-field-suffix .mat-icon-button{
+  width: 1.5em !important;
+  height: 1.5em !important;
+  .mat-datepicker-toggle-default-icon {
+    width: 1em !important;
+    height: 1em !important;
+  }
+  }
+
+  ::ng-deep .mat-form-field-infix {
+    color: white;
+
+    font-size: 1px;
+  }
+
+  ::ng-deep .mat-form-field-flex {
+    width: 70px !important;
+  }
