@@ -7,9 +7,18 @@ import { signalData, momentumData } from '../stockdetail/stockdetail.model';
 import { MatDialog } from '@angular/material/dialog';
 import { ListComponent } from 'src/app/modules/list/list.component';
 import { Subscription } from 'rxjs';
+import { DatePipe } from '@angular/common';
 
 const IS_MOBILE = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
 
+export interface TradeData {
+  id: string,
+  code: string,
+  date: string,
+  type: string,
+  num: number,
+  price: number
+}
 @Component({
   selector: 'app-menu',
   templateUrl: './dashboard.component.html',
@@ -29,6 +38,7 @@ export class DashboardComponent implements OnInit {
   public rawLatestSignalTrend: signalData[] = []
   public rawLatestSignalReverse: signalData[] = []
   public rawLatestSignalTripleScreen: signalData[] = []
+  public rawTradeHistory: TradeData[] = []
   public rawMomentum: any
 
   public buyTrend: Array<string[]> = []
@@ -42,6 +52,8 @@ export class DashboardComponent implements OnInit {
 
   private companyInfo: any[] = []
   private subscription: Subscription;
+  private start: any
+  private end: any
 
   public tooltipTrend = "알고리즘 테스트 중... "
   public tooltipReverse = "볼린저 밴드의 상단에 도달하고 일중강도가 약하면 충분히 올랐다고 판단하여 매도 반대는 내릴 만큼 내려서 오를거라 판단하여 매수"
@@ -52,7 +64,8 @@ export class DashboardComponent implements OnInit {
     private router: Router,
     private requestService: RequestService,
     private dataService: DataService,
-    public dialog: MatDialog) {
+    public dialog: MatDialog,
+    private datePipe: DatePipe) {
     this.statusService.setStatus("loading-forward")
   }
 
@@ -79,6 +92,15 @@ export class DashboardComponent implements OnInit {
             if(index <5) this.momentumData5.push(element)
           });
         }
+
+        this.requestTradeHistory(this.type)
+        // this.momentumData = this.dataService.getMomentumData(90, this.type)
+        // if (this.momentumData === undefined) {this.requestMomentum(this.type); this.momentumData = []}
+        // else {
+        //   this.momentumData.forEach((element,index) => {
+        //     if(index <5) this.momentumData5.push(element)
+        //   });
+        // }
       }
     });
   }
@@ -119,6 +141,7 @@ export class DashboardComponent implements OnInit {
           this.requestSignalData(type)
           this.momentumData = this.dataService.getMomentumData(90, this.type)
           if (this.momentumData === undefined) {this.requestMomentum(this.type); this.momentumData = []}
+          this.requestTradeHistory(this.type)
         },
         error: (e: any) => console.log("ERROR OCCURED :: " + JSON.stringify(e))
       });
@@ -132,6 +155,18 @@ export class DashboardComponent implements OnInit {
           this.rawMomentum = Object(v.body)
           console.log(this.rawMomentum)
           this.parseMomentum(this.rawMomentum)
+        },
+        error: (e: any) => console.log("ERROR OCCURED :: " + JSON.stringify(e))
+      });
+  }
+
+  requestTradeHistory(type: string) {
+    this.requestService.getTradeHistory(365, type)
+      .subscribe({
+        next: (v: any) => {
+          this.rawTradeHistory = Object(v.body)
+          console.log(this.rawTradeHistory)
+          this.parseTradeHistory(this.rawTradeHistory)
         },
         error: (e: any) => console.log("ERROR OCCURED :: " + JSON.stringify(e))
       });
@@ -156,21 +191,26 @@ export class DashboardComponent implements OnInit {
         break
     }
 
-    this.requestService.getLastBollingerTrendSignal(lastday, type)
+
+    let now = new Date();
+    this.start = this.datePipe.transform(now,"yyyy-MM-dd")
+    this.end = this.datePipe.transform(now.setDate(now.getDate() - lastday),"yyyy-MM-dd")
+
+    this.requestService.getLastBollingerTrendSignal(this.start, this.end, type)
       .subscribe({
         next: (v: any) => {
           this.rawLatestSignalTrend = Object(v.body)
           console.log(this.rawLatestSignalTrend)
           this.parseSignalData(this.rawLatestSignalTrend, "bollinger-trend")
 
-          this.requestService.getLastBollingerReverseSignal(lastday, type)
+          this.requestService.getLastBollingerReverseSignal(this.start, this.end, type)
             .subscribe({
               next: (v: any) => {
                 this.rawLatestSignalReverse = Object(v.body)
                 console.log(this.rawLatestSignalReverse)
                 this.parseSignalData(this.rawLatestSignalReverse, "bollinger-reverse")
 
-                this.requestService.getLastTripleScreenSignal(lastday, type)
+                this.requestService.getLastTripleScreenSignal(this.start, this.end, type)
                   .subscribe({
                     next: (v: any) => {
                       this.rawLatestSignalTripleScreen = Object(v.body)
@@ -354,6 +394,10 @@ export class DashboardComponent implements OnInit {
         data: dataArray
       },
     });
+  }
+
+  parseTradeHistory(data: TradeData[]) {
+
   }
 
   parseSignalData(data: signalData[], type: string) {
