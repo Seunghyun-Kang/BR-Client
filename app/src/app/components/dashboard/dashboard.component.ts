@@ -258,7 +258,7 @@ export class DashboardComponent implements OnInit {
         });
         break;
       case "buyReverse":
-        title = "볼린저 반전 매매 매수 신호"
+        title = "테스트 알고리즘 매수 신호"
         this.rawLatestSignalReverse.forEach(element => {
           if (element.type === "buy" && element.valid === "valid") {
             if (!IS_MOBILE) dataArray.push([
@@ -333,7 +333,7 @@ export class DashboardComponent implements OnInit {
         });
         break;
       case "sellReverse":
-        title = "볼린저 반전 매매 매도 신호"
+        title = "테스트 알고리즘 매도 신호"
 
         this.rawLatestSignalReverse.forEach(element => {
           if (element.type === "sell" && element.valid === "valid") {
