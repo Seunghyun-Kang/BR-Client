@@ -104,7 +104,10 @@ export interface signalData {
   last_buy_close: number,
   last_buy_date: string,
   last_sell_close: number,
-  last_sell_date: string
+  last_sell_date: string,
+  _period: number,
+  _rank: number,
+  _returns: number
 }
 
 export interface momentumData {
