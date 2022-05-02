@@ -55,6 +55,9 @@ export class LatestsignalComponent implements OnInit {
   public nowPriceTriple = 0
   public pastPriceTriple = 0
 
+  public period_avg_trend = ""
+  public period_avg_reverse = ""
+
   public selectedIndex = 0
   private subscription: Subscription;
 
@@ -127,20 +130,25 @@ export class LatestsignalComponent implements OnInit {
             .subscribe({
               next: (v: any) => {
                 this.rawLatestSignalReverse = Object(v.body)
-                // this.dataService.setLatestBollingerReverseSignalData(this.lastday, this.rawLatestSignalReverse)
-                this.requestService.getLastTripleScreenSignal(this.startday, this.endday, type)
-                  .subscribe({
-                    next: (v: any) => {
-                      this.rawLatestSignalTripleScreen = Object(v.body)
-                      // this.dataService.setLatestTripleScreenSignalData(this.lastday, this.rawLatestSignalTripleScreen)
-                      this.statusService.setStatus("normal")
+                this.statusService.setStatus("normal")
 
                       this.setDisplayDataTrend(0, this.typeSelected, this.columnlist)
                       this.setDisplayDataReverse(0, this.typeSelected, this.columnlist)
                       this.setDisplayDataTriple(0, this.typeSelected, this.columnlist)
-                    },
-                    error: (e: any) => console.log("ERROR OCCURED :: " + JSON.stringify(e))
-                  });
+                // this.dataService.setLatestBollingerReverseSignalData(this.lastday, this.rawLatestSignalReverse)
+                // this.requestService.getLastTripleScreenSignal(this.startday, this.endday, type)
+                //   .subscribe({
+                //     next: (v: any) => {
+                //       this.rawLatestSignalTripleScreen = Object(v.body)
+                //       // this.dataService.setLatestTripleScreenSignalData(this.lastday, this.rawLatestSignalTripleScreen)
+                //       this.statusService.setStatus("normal")
+
+                //       this.setDisplayDataTrend(0, this.typeSelected, this.columnlist)
+                //       this.setDisplayDataReverse(0, this.typeSelected, this.columnlist)
+                //       this.setDisplayDataTriple(0, this.typeSelected, this.columnlist)
+                //     },
+                //     error: (e: any) => console.log("ERROR OCCURED :: " + JSON.stringify(e))
+                //   });
               },
               error: (e: any) => console.log("ERROR OCCURED :: " + JSON.stringify(e))
             });
@@ -158,12 +166,18 @@ export class LatestsignalComponent implements OnInit {
     let dataArrayShow: Array<string[]> = []
     let startIndex = page * 10
     let lastIndex = startIndex + 10
+    let period = 0
+    let sell_num = 0
+
     if (this.rawLatestSignalTrend !== undefined) this.rawLatestSignalTrend.forEach((element, index) => {
       if (!IS_MOBILE) {
         if ((typefilter.length === 2) ||
           (typefilter.length === 1 && typefilter[0] === '매수' && element.type === 'buy') ||
           (typefilter.length === 1 && typefilter[0] === '매도' && element.type === 'sell')) {
-
+            if(element.type === 'sell' && element._period > 0){
+              period = period + element._period
+              sell_num++
+              }
           dataArrayAll.push([
             this.dataService.getCompanyNamebyCode(element.code, this.type)+'(' +String(element._returns.toFixed(2)) + ')' ,
             element.type === "sell" ? "매도" : "매수",
@@ -226,6 +240,7 @@ export class LatestsignalComponent implements OnInit {
       }
     });
 
+    this.period_avg_trend = (period / sell_num).toFixed(2)
     this.inputDataTrend = {
       title: "강승현 알고리즘",
       column: columnlist,
@@ -240,13 +255,18 @@ export class LatestsignalComponent implements OnInit {
     let dataArrayShow: Array<string[]> = []
     let startIndex = page * 10
     let lastIndex = startIndex + 10
+    let period = 0
+    let sell_num = 0
 
     if (this.rawLatestSignalReverse !== undefined) this.rawLatestSignalReverse.forEach((element, index) => {
       if (!IS_MOBILE) {
         if ((typefilter.length === 2) ||
           (typefilter.length === 1 && typefilter[0] === '매수' && element.type === 'buy') ||
           (typefilter.length === 1 && typefilter[0] === '매도' && element.type === 'sell')) {
-
+            if(element.type === 'sell' && element._period > 0){
+            period = period + element._period
+            sell_num++
+            }
           dataArrayAll.push([
             this.dataService.getCompanyNamebyCode(element.code, this.type)+'(' +String(element._returns.toFixed(2)) + ')' ,
             element.type === "sell" ? "매도" : "매수",
@@ -308,6 +328,7 @@ export class LatestsignalComponent implements OnInit {
       }
     });
 
+    this.period_avg_reverse = (period / sell_num).toFixed(2)
     this.inputDataReverse = {
       title: "강승현 알고리즘2",
       column: columnlist,

@@ -59,6 +59,9 @@
           <div *ngIf="inputDataTrend !== undefined && inputDataTrend.data.length > 0" class="profit_guide">
             - 총 수익률 : <span [ngStyle]="{'color': totalRateTrend>0 ? '#ee3b89' : '#65a3f5' }">{{totalRateTrend}}</span> %
           </div>
+          <div *ngIf="inputDataTrend !== undefined && inputDataTrend.data.length > 0" class="profit_guide">
+            - 평균 수익 실현 기간 {{period_avg_trend}}
+          </div>
 
           <table mat-table *ngIf="inputDataTrend !== undefined && inputDataTrend.data.length > 0"
             [dataSource]="inputDataTrend.data" class="mat-elevation-z8" (swiperight)="onSwipeRight($event)"
@@ -76,14 +79,14 @@
           <div class="nolist" *ngIf="inputDataTrend !== undefined && inputDataTrend.data.length == 0"
             (swiperight)="onSwipeRight($event)" (swipeleft)="onSwipeLeft($event)"> 신호 없음 </div>
 
-            <div class="page-container">
-              <igx-icon fontSet="material" *ngIf="inputDataTrend !== undefined"(click)="onTapPrev(inputDataTrend.index-1, inputDataTrend.length,1)" [name]="'Prev'" [family]="'user-icons'"></igx-icon>
-              <div class="index" *ngIf="inputDataTrend !== undefined && inputDataTrend.length > 0"> {{inputDataTrend.index + 1 }} / {{ inputDataTrend.length }}</div>
-              <igx-icon fontSet="material" *ngIf="inputDataTrend !== undefined" (click)="onTapNext(inputDataTrend.index +1, inputDataTrend.length,1)" [name]="'Next'" [family]="'user-icons'"></igx-icon>
+            <div class="page-container" *ngIf="inputDataTrend !== undefined && inputDataTrend.length > 0">
+              <igx-icon fontSet="material" (click)="onTapPrev(inputDataTrend.index-1, inputDataTrend.length,1)" [name]="'Prev'" [family]="'user-icons'"></igx-icon>
+              <div class="index"> {{inputDataTrend.index + 1 }} / {{ inputDataTrend.length }}</div>
+              <igx-icon fontSet="material" (click)="onTapNext(inputDataTrend.index +1, inputDataTrend.length,1)" [name]="'Next'" [family]="'user-icons'"></igx-icon>
             </div>
         </mat-tab>
         
-        <mat-tab label="볼린저 반전 매매">
+        <mat-tab label="테스트 알고리즘">
           <div *ngIf="inputDataReverse !== undefined && inputDataReverse.data.length > 0" class="profit_guide"
             style="margin-top: 30px;">
             모든 종목 대략 {{money}}만원씩 신호때마다 샀다면?
@@ -97,6 +100,9 @@
           <div *ngIf="inputDataReverse !== undefined && inputDataReverse.data.length > 0" class="profit_guide">
             - 총 수익률 : <span
               [ngStyle]="{'color': totalRateReverse>0 ? '#ee3b89' : '#65a3f5' }">{{totalRateReverse}}</span> %
+          </div>
+          <div *ngIf="inputDataReverse !== undefined && inputDataReverse.data.length > 0" class="profit_guide">
+            - 평균 수익 실현 기간 {{period_avg_reverse}}
           </div>
           <table mat-table (swiperight)="onSwipeRight($event)" (swipeleft)="onSwipeLeft($event)"
             *ngIf="inputDataReverse !== undefined && inputDataReverse.data.length > 0"
@@ -113,14 +119,14 @@
           </table>
           <div class="nolist" (swiperight)="onSwipeRight($event)" (swipeleft)="onSwipeLeft($event)"
             *ngIf="inputDataReverse !== undefined && inputDataReverse.data.length == 0"> 신호 없음 </div>
-            <div class="page-container">
-              <igx-icon fontSet="material" *ngIf="inputDataReverse !== undefined"(click)="onTapPrev(inputDataReverse.index-1, inputDataReverse.length,2)" [name]="'Prev'" [family]="'user-icons'"></igx-icon>
-              <div class="index" *ngIf="inputDataReverse !== undefined && inputDataReverse.length > 0"> {{inputDataReverse.index + 1 }} / {{ inputDataReverse.length }}</div>
-              <igx-icon fontSet="material" *ngIf="inputDataReverse !== undefined" (click)="onTapNext(inputDataReverse.index +1, inputDataReverse.length,2)" [name]="'Next'" [family]="'user-icons'"></igx-icon>
+            <div class="page-container" *ngIf="inputDataReverse !== undefined && inputDataReverse.length > 0">
+              <igx-icon fontSet="material" (click)="onTapPrev(inputDataReverse.index-1, inputDataReverse.length,2)" [name]="'Prev'" [family]="'user-icons'"></igx-icon>
+              <div class="index"> {{inputDataReverse.index + 1 }} / {{ inputDataReverse.length }}</div>
+              <igx-icon fontSet="material" (click)="onTapNext(inputDataReverse.index +1, inputDataReverse.length,2)" [name]="'Next'" [family]="'user-icons'"></igx-icon>
             </div>
         </mat-tab>
 
-        <mat-tab label="삼중창 시스템">
+        <!-- <mat-tab label="삼중창 시스템">
           <div *ngIf="inputDataTriple !== undefined && inputDataTriple.data.length > 0" class="profit_guide"
             style="margin-top: 30px;">
             모든 종목 대략 {{money}}만원씩 신호때마다 샀다면?
@@ -155,7 +161,7 @@
               <div class="index" *ngIf="inputDataTriple !== undefined && inputDataTriple.length > 0"> {{inputDataTriple.index + 1 }} / {{ inputDataTriple.length }}</div>
               <igx-icon fontSet="material" *ngIf="inputDataTriple !== undefined" (click)="onTapNext(inputDataTriple.index +1, inputDataTriple.length,3)" [name]="'Next'" [family]="'user-icons'"></igx-icon>
             </div>
-        </mat-tab>
+        </mat-tab> -->
       </mat-tab-group>
     </div>
   </div>
