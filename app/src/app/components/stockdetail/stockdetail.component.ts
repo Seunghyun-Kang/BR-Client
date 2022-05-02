@@ -155,23 +155,23 @@ export class StockdetailComponent implements OnInit {
             error: (e: any) => console.log("ERROR OCCURED :: " + JSON.stringify(e))
           });
 
-        this.requestService.getTripleScreenSignal(this.code, this.type)
-          .subscribe({
-            next: (v: any) => {
-              this.rawDataTripleScreenSignal = Object(v.body)
-              this.dataService.setTripleScreenSignalData(this.code, this.rawDataTripleScreenSignal)
+        // this.requestService.getTripleScreenSignal(this.code, this.type)
+        //   .subscribe({
+        //     next: (v: any) => {
+        //       this.rawDataTripleScreenSignal = Object(v.body)
+        //       this.dataService.setTripleScreenSignalData(this.code, this.rawDataTripleScreenSignal)
 
-              this.requestService.getTripleScreenInfo(this.code, this.type)
-                .subscribe({
-                  next: (v: any) => {
-                    this.rawDataTripleScreen = Object(v.body)
-                    this.dataService.setTripleScreenData(this.code, this.rawDataTripleScreen)
-                  },
-                  error: (e: any) => console.log("ERROR OCCURED :: " + JSON.stringify(e))
-                });
-            },
-            error: (e: any) => console.log("ERROR OCCURED :: " + JSON.stringify(e))
-          });
+        //       this.requestService.getTripleScreenInfo(this.code, this.type)
+        //         .subscribe({
+        //           next: (v: any) => {
+        //             this.rawDataTripleScreen = Object(v.body)
+        //             this.dataService.setTripleScreenData(this.code, this.rawDataTripleScreen)
+        //           },
+        //           error: (e: any) => console.log("ERROR OCCURED :: " + JSON.stringify(e))
+        //         });
+        //     },
+        //     error: (e: any) => console.log("ERROR OCCURED :: " + JSON.stringify(e))
+        //   });
 
       },
       error: (e: any) => console.log("ERROR OCCURED :: " + JSON.stringify(e))

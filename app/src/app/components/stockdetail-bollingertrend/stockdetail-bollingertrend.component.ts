@@ -278,6 +278,8 @@ export class StockdstailBollingertrendComponent implements OnInit, OnDestroy {
     this.firstChart.data = []
     // if(!IS_MOBILE) this.firstChart.data.push(this.stockGraph)
     this.firstChart.data.push(this.closeGraph)
+    this.firstChart.data.push(this.bollingerLowerGraph)
+    this.firstChart.data.push(this.bollingerUpperGraph)
 
     let array = this.rawStockData.slice(this.rawStockData.length - 31, this.rawStockData.length - 1)
     let maxY = Math.max.apply(Math, array.map(function (o) { return o.high; }))

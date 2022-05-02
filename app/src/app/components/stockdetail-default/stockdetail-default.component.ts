@@ -146,25 +146,25 @@ export class StockdetailDefaultComponent implements OnInit, OnDestroy {
       lastDate: "",
       lastPrice: 0
     }
-    this.rawDataTripleScreenSignal.forEach((element, index) => { 
-      if(index > 0 && this.rawDataTripleScreenSignal[index-1].type !== element.type) {
-        this.validTripleScreenSignal.push(element)
+    // this.rawDataTripleScreenSignal.forEach((element, index) => { 
+    //   if(index > 0 && this.rawDataTripleScreenSignal[index-1].type !== element.type) {
+    //     this.validTripleScreenSignal.push(element)
         
-        console.log(lastInfo)
-        switch(element.type) {
-          case "buy":
-            percent =((element.close - lastInfo.lastPrice) / lastInfo.lastPrice)* 100
-            this.tripleScreenStatus = "$lastdate $lastprice원 매수 후 매도 신호 대기중..".replace("$lastdate", element.date).replace("$lastprice", String(lastInfo.lastPrice))
-            break
-          case "sell":
-            percent = ((element.close - lastInfo.lastPrice) / lastInfo.lastPrice)* 100
-            this.tripleScreenStatus = "$lastdate $lastprice원 매도($percent% 손익) 후 매수 신호 대기중..".replace("$lastdate", element.date).replace("$lastprice", String(lastInfo.lastPrice)).replace("$percent", String(percent.toFixed(2)))
-            break
-        }
-        lastInfo.lastDate = String(element.date)
-        lastInfo.lastPrice = element.close
-      }
-    });
+    //     console.log(lastInfo)
+    //     switch(element.type) {
+    //       case "buy":
+    //         percent =((element.close - lastInfo.lastPrice) / lastInfo.lastPrice)* 100
+    //         this.tripleScreenStatus = "$lastdate $lastprice원 매수 후 매도 신호 대기중..".replace("$lastdate", element.date).replace("$lastprice", String(lastInfo.lastPrice))
+    //         break
+    //       case "sell":
+    //         percent = ((element.close - lastInfo.lastPrice) / lastInfo.lastPrice)* 100
+    //         this.tripleScreenStatus = "$lastdate $lastprice원 매도($percent% 손익) 후 매수 신호 대기중..".replace("$lastdate", element.date).replace("$lastprice", String(lastInfo.lastPrice)).replace("$percent", String(percent.toFixed(2)))
+    //         break
+    //     }
+    //     lastInfo.lastDate = String(element.date)
+    //     lastInfo.lastPrice = element.close
+    //   }
+    // });
   }
   initDefaultGraph() {
     console.log("initDefaultGraph called!")
