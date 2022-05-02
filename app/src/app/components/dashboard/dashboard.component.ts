@@ -93,7 +93,7 @@ export class DashboardComponent implements OnInit {
           });
         }
 
-        this.requestTradeHistory(this.type)
+        // this.requestTradeHistory(this.type)
         // this.momentumData = this.dataService.getMomentumData(90, this.type)
         // if (this.momentumData === undefined) {this.requestMomentum(this.type); this.momentumData = []}
         // else {
@@ -141,7 +141,7 @@ export class DashboardComponent implements OnInit {
           this.requestSignalData(type)
           this.momentumData = this.dataService.getMomentumData(90, this.type)
           if (this.momentumData === undefined) {this.requestMomentum(this.type); this.momentumData = []}
-          this.requestTradeHistory(this.type)
+          // this.requestTradeHistory(this.type)
         },
         error: (e: any) => console.log("ERROR OCCURED :: " + JSON.stringify(e))
       });
@@ -209,17 +209,18 @@ export class DashboardComponent implements OnInit {
                 this.rawLatestSignalReverse = Object(v.body)
                 console.log(this.rawLatestSignalReverse)
                 this.parseSignalData(this.rawLatestSignalReverse, "bollinger-reverse")
-
-                this.requestService.getLastTripleScreenSignal(this.start, this.end, type)
-                  .subscribe({
-                    next: (v: any) => {
-                      this.rawLatestSignalTripleScreen = Object(v.body)
-                      console.log(this.rawLatestSignalTripleScreen)
-                      this.parseSignalData(this.rawLatestSignalTripleScreen, "triplescreen")
                       this.statusService.setStatus("normal")
-                    },
-                    error: (e: any) => console.log("ERROR OCCURED :: " + JSON.stringify(e))
-                  });
+
+                // this.requestService.getLastTripleScreenSignal(this.start, this.end, type)
+                //   .subscribe({
+                //     next: (v: any) => {
+                //       this.rawLatestSignalTripleScreen = Object(v.body)
+                //       console.log(this.rawLatestSignalTripleScreen)
+                //       this.parseSignalData(this.rawLatestSignalTripleScreen, "triplescreen")
+                //       this.statusService.setStatus("normal")
+                //     },
+                //     error: (e: any) => console.log("ERROR OCCURED :: " + JSON.stringify(e))
+                //   });
               },
               error: (e: any) => console.log("ERROR OCCURED :: " + JSON.stringify(e))
             });

@@ -7,7 +7,7 @@
     
     <app-navi [page]="'대쉬보드'"></app-navi>
 
-    <div class="content" *ngIf="getTrendData && getReverseData && getTripleScreenData">
+    <div class="content" *ngIf="getTrendData && getReverseData">
         <div class="title">오늘의 <span class="red">매수</span> 신호</div>
         <div class="signals-container" [ngStyle]="{'background-color': type === 'KRX' ?  'var(--krx-card-color)' : type === 'NASDAQ' ? 'var(--nasdaq-card-color)': 'var(--coin-card-color)'}">
             
