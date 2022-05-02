@@ -242,7 +242,7 @@ export class LatestsignalComponent implements OnInit {
 
     this.period_avg_trend = (period / sell_num).toFixed(2)
     this.inputDataTrend = {
-      title: "강승현 알고리즘",
+      title: "테스트  알고리즘",
       column: columnlist,
       data: dataArrayShow,
       index: page,
@@ -330,7 +330,7 @@ export class LatestsignalComponent implements OnInit {
 
     this.period_avg_reverse = (period / sell_num).toFixed(2)
     this.inputDataReverse = {
-      title: "강승현 알고리즘2",
+      title: "테스트  알고리즘2",
       column: columnlist,
       data: dataArrayShow,
       index: page,
