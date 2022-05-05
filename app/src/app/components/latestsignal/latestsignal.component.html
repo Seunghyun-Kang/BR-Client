@@ -69,7 +69,7 @@
             <ng-container *ngFor="let item of inputDataTrend.column; index as i" [matColumnDef]=item>
               <th mat-header-cell *matHeaderCellDef> {{item}} </th>
               <td mat-cell *matCellDef="let element"
-                [ngStyle]="{'color': element[i] === '매수' ? '#ee3b89' : element[i] === '매도' ?'#65a3f5': 'white' }"
+                [ngStyle]="{'color': element[i] === '매수' ? '#ee3b89' : element[i] === '매도' ?'#65a3f5': 'white', 'color': i == inputDataReverse.column.length-1 && element[i] > 0 ? '#ee3b89' : i == inputDataReverse.column.length-1 && element[i] < 0 ?'#65a3f5': 'white'  }"
                 (click)="onTapCompany(element[inputDataTrend.column.length], element[0])">
                 {{element[i]}}</td>
             </ng-container>
@@ -110,7 +110,7 @@
             <ng-container *ngFor="let item of inputDataReverse.column; index as i" [matColumnDef]=item>
               <th mat-header-cell *matHeaderCellDef> {{item}} </th>
               <td mat-cell *matCellDef="let element"
-                [ngStyle]="{'color': element[i] === '매수' ? '#ee3b89' : element[i] === '매도' ?'#65a3f5': 'white' }"
+                [ngStyle]="{'color': element[i] === '매수' ? '#ee3b89' : element[i] === '매도' ?'#65a3f5': 'white', 'color': i == inputDataReverse.column.length-1 && element[i] > 0 ? '#ee3b89' : i == inputDataReverse.column.length-1 && element[i] < 0 ?'#65a3f5': 'white' }"
                 (click)="onTapCompany(element[inputDataReverse.column.length], element[0])">
                 {{element[i]}}</td>
             </ng-container>
