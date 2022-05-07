@@ -55,8 +55,8 @@ export class DashboardComponent implements OnInit {
   private start: any
   private end: any
 
-  public tooltipTrend = "알고리즘 테스트 중... "
-  public tooltipReverse = "볼린저 밴드의 상단에 도달하고 일중강도가 약하면 충분히 올랐다고 판단하여 매도 반대는 내릴 만큼 내려서 오를거라 판단하여 매수"
+  public tooltipTrend = "알고리즘 815"
+  public tooltipReverse = "알고리즘 923"
   public tooltipTriple = "첫번째 창으로 추세를 판단, 두번재 창으로 추세에 반하는 움직임을 판단, 세번째에 진입 시점을 판단하여 매수/매도"
   public tooltipMomentum = "3~12개월 동안의 강세주들이 이후 동일한 기간 동안에도 강세주라는 전략. 기간이 길어질수록 더 확실하다."
 
@@ -237,7 +237,7 @@ export class DashboardComponent implements OnInit {
     switch (type) {
       case "buyTrend":
         this.rawLatestSignalTrend.forEach(element => {
-          title = "테스트  알고리즘 매수 신호"
+          title = "알고리즘815 매수 신호"
           if (element.type === "buy" && element.valid === "valid") {
             if (!IS_MOBILE) dataArray.push([
               this.dataService.getCompanyNamebyCode(element.code, this.type),
@@ -259,7 +259,7 @@ export class DashboardComponent implements OnInit {
         });
         break;
       case "buyReverse":
-        title = "테스트 알고리즘 매수 신호"
+        title = "알고리즘923 매수 신호"
         this.rawLatestSignalReverse.forEach(element => {
           if (element.type === "buy" && element.valid === "valid") {
             if (!IS_MOBILE) dataArray.push([
@@ -310,7 +310,7 @@ export class DashboardComponent implements OnInit {
         });
         break;
       case "sellTrend":
-        title = "테스트  알고리즘 매도 신호"
+        title = "알고리즘815 매도 신호"
 
         this.rawLatestSignalTrend.forEach(element => {
           if (element.type === "sell" && element.valid === "valid") {
@@ -334,7 +334,7 @@ export class DashboardComponent implements OnInit {
         });
         break;
       case "sellReverse":
-        title = "테스트 알고리즘 매도 신호"
+        title = "알고리즘923 매도 신호"
 
         this.rawLatestSignalReverse.forEach(element => {
           if (element.type === "sell" && element.valid === "valid") {
