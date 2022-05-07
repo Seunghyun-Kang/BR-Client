@@ -11,7 +11,8 @@ import InfoJson from '../../assets/info.json';
 
 export class RequestService {
 
-  REST_SERVER_URL = InfoJson["REST_SERVER"]
+  // REST_SERVER_URL = InfoJson["REST_SERVER"]
+  REST_SERVER_URL = "http://52.78.240.74:8080/"
   private headers: HttpHeaders
 
   constructor(private http: HttpClient,
