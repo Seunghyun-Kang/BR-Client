@@ -22,12 +22,13 @@ export class LatestsignalComponent implements OnInit {
   public money: number = 20
   public type: string
   private itemLen = 3
+  public getData: boolean = false
 
   public start: any
   public end: any
   public startday: any
   public endday: any
-  
+  public isMobileDevice: boolean = false
   public rawLatestSignalTrend: signalData[] = []
   public rawLatestSignalReverse: signalData[] = []
   public rawLatestSignalTripleScreen: signalData[] = []
@@ -71,6 +72,7 @@ export class LatestsignalComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.isMobileDevice = IS_MOBILE
     let date = new Date();
     date.setDate(date.getDate() - 2);
     this.end = new FormControl(new Date())
@@ -121,6 +123,7 @@ export class LatestsignalComponent implements OnInit {
 
   requestSignalData(type: string) {
     this.statusService.setStatus("loading-forward")
+    this.getData = false
     this.requestService.getLastBollingerTrendSignal(this.startday, this.endday, type)
       .subscribe({
         next: (v: any) => {
@@ -131,7 +134,7 @@ export class LatestsignalComponent implements OnInit {
               next: (v: any) => {
                 this.rawLatestSignalReverse = Object(v.body)
                 this.statusService.setStatus("normal")
-
+                this.getData = true
                       this.setDisplayDataTrend(0, this.typeSelected, this.columnlist)
                       this.setDisplayDataReverse(0, this.typeSelected, this.columnlist)
                       this.setDisplayDataTriple(0, this.typeSelected, this.columnlist)
@@ -242,7 +245,7 @@ export class LatestsignalComponent implements OnInit {
 
     this.period_avg_trend = (period / sell_num).toFixed(2)
     this.inputDataTrend = {
-      title: "테스트  알고리즘",
+      title: "알고리즘815",
       column: columnlist,
       data: dataArrayShow,
       index: page,
@@ -330,7 +333,7 @@ export class LatestsignalComponent implements OnInit {
 
     this.period_avg_reverse = (period / sell_num).toFixed(2)
     this.inputDataReverse = {
-      title: "테스트  알고리즘2",
+      title: "알고리즘923",
       column: columnlist,
       data: dataArrayShow,
       index: page,

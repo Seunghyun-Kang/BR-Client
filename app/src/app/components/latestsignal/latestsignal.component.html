@@ -45,7 +45,7 @@
       </div>
       <mat-tab-group #group dynamicHeight mat-align-tabs="center" [selectedIndex]="selectedIndex"
         (selectedTabChange)="tabChanged($event)">
-        <mat-tab label="테스트  알고리즘">
+        <mat-tab label="알고리즘 815" *ngIf="getData">
           <div *ngIf="inputDataTrend !== undefined && inputDataTrend.data.length > 0" class="profit_guide"
             style="margin-top: 30px;">
             모든 종목 대략 {{money}}만원씩 신호때마다 샀다면?
@@ -59,7 +59,7 @@
           <div *ngIf="inputDataTrend !== undefined && inputDataTrend.data.length > 0" class="profit_guide">
             - 총 수익률 : <span [ngStyle]="{'color': totalRateTrend>0 ? '#ee3b89' : '#65a3f5' }">{{totalRateTrend}}</span> %
           </div>
-          <div *ngIf="inputDataTrend !== undefined && inputDataTrend.data.length > 0" class="profit_guide">
+          <div *ngIf="inputDataTrend !== undefined && inputDataTrend.data.length > 0 && !isMobileDevice" class="profit_guide">
             - 평균 수익 실현 기간 {{period_avg_trend}}
           </div>
 
@@ -86,7 +86,7 @@
             </div>
         </mat-tab>
         
-        <mat-tab label="테스트 알고리즘">
+        <mat-tab label="알고리즘 923" *ngIf="getData">
           <div *ngIf="inputDataReverse !== undefined && inputDataReverse.data.length > 0" class="profit_guide"
             style="margin-top: 30px;">
             모든 종목 대략 {{money}}만원씩 신호때마다 샀다면?
@@ -101,7 +101,7 @@
             - 총 수익률 : <span
               [ngStyle]="{'color': totalRateReverse>0 ? '#ee3b89' : '#65a3f5' }">{{totalRateReverse}}</span> %
           </div>
-          <div *ngIf="inputDataReverse !== undefined && inputDataReverse.data.length > 0" class="profit_guide">
+          <div *ngIf="inputDataReverse !== undefined && inputDataReverse.data.length > 0 && !isMobileDevice" class="profit_guide">
             - 평균 수익 실현 기간 {{period_avg_reverse}}
           </div>
           <table mat-table (swiperight)="onSwipeRight($event)" (swipeleft)="onSwipeLeft($event)"
