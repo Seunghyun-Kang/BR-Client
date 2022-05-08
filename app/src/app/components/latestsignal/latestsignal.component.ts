@@ -173,6 +173,7 @@ export class LatestsignalComponent implements OnInit {
     let sell_num = 0
 
     if (this.rawLatestSignalTrend !== undefined) this.rawLatestSignalTrend.forEach((element, index) => {
+      var name = this.dataService.getCompanyNamebyCode(element.code, this.type)
       if (!IS_MOBILE) {
         if ((typefilter.length === 2) ||
           (typefilter.length === 1 && typefilter[0] === '매수' && element.type === 'buy') ||
@@ -182,7 +183,7 @@ export class LatestsignalComponent implements OnInit {
               sell_num++
               }
           dataArrayAll.push([
-            this.dataService.getCompanyNamebyCode(element.code, this.type)+'(' +String(element._returns.toFixed(2)) + ')' ,
+            name +'(' +String(element._returns.toFixed(2)) + ')' ,
             element.type === "sell" ? "매도" : "매수",
             element.date +'(' +String(element._period) + ')',
             String(element.close),
@@ -198,7 +199,7 @@ export class LatestsignalComponent implements OnInit {
           (typefilter.length === 1 && typefilter[0] === '매도' && element.type === 'sell')) {
 
           dataArrayAll.push([
-            this.dataService.getCompanyNamebyCode(element.code, this.type),
+            name,
             element.type === "sell" ? "매도" : "매수",
             String(element.close),
             element.type === "sell" ? element.last_buy_close !== -1 ? String(element.last_buy_close) : "-" : element.last_sell_close !== -1 ? String(element.last_sell_close) : "-",
@@ -262,6 +263,7 @@ export class LatestsignalComponent implements OnInit {
     let sell_num = 0
 
     if (this.rawLatestSignalReverse !== undefined) this.rawLatestSignalReverse.forEach((element, index) => {
+      var name = this.dataService.getCompanyNamebyCode(element.code, this.type)
       if (!IS_MOBILE) {
         if ((typefilter.length === 2) ||
           (typefilter.length === 1 && typefilter[0] === '매수' && element.type === 'buy') ||
@@ -271,7 +273,7 @@ export class LatestsignalComponent implements OnInit {
             sell_num++
             }
           dataArrayAll.push([
-            this.dataService.getCompanyNamebyCode(element.code, this.type)+'(' +String(element._returns.toFixed(2)) + ')' ,
+            name +'(' +String(element._returns.toFixed(2)) + ')' ,
             element.type === "sell" ? "매도" : "매수",
             element.date +'(' +String(element._period) + ')',
             String(element.close),
@@ -287,7 +289,7 @@ export class LatestsignalComponent implements OnInit {
           (typefilter.length === 1 && typefilter[0] === '매도' && element.type === 'sell')) {
 
           dataArrayAll.push([
-            this.dataService.getCompanyNamebyCode(element.code, this.type),
+            name,
             element.type === "sell" ? "매도" : "매수",
             String(element.close),
             element.type === "sell" ? element.last_buy_close !== -1 ? String(element.last_buy_close) : "-" : element.last_sell_close !== -1 ? String(element.last_sell_close) : "-",
