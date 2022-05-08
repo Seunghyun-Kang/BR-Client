@@ -46,23 +46,23 @@
       <mat-tab-group #group dynamicHeight mat-align-tabs="center" [selectedIndex]="selectedIndex"
         (selectedTabChange)="tabChanged($event)">
         <mat-tab label="알고리즘 815" *ngIf="getData">
-          <div *ngIf="inputDataTrend !== undefined && inputDataTrend.data.length > 0" class="profit_guide"
+          <div *ngIf="inputDataTrend !== undefined && inputDataTrend.data.length > 0 &&  !(typeSelected.length === 1 && typeSelected[0] === '매수')" class="profit_guide"
             style="margin-top: 30px;">
             모든 종목 대략 {{money}}만원씩 신호때마다 샀다면?
           </div>
-          <div *ngIf="inputDataTrend !== undefined && inputDataTrend.data.length > 0" class="profit_guide">
+          <div *ngIf="inputDataTrend !== undefined && inputDataTrend.data.length > 0 &&  !(typeSelected.length === 1 && typeSelected[0] === '매수')" class="profit_guide">
             투자금 {{pastPriceTrend | currency:'KRW':'symbol'}}  /   현재 {{nowPriceTrend| currency:'KRW':'symbol'}}
           </div>
-          <div *ngIf="inputDataTrend !== undefined && inputDataTrend.data.length > 0" class="profit_guide">
+          <div *ngIf="inputDataTrend !== undefined && inputDataTrend.data.length > 0 &&  !(typeSelected.length === 1 && typeSelected[0] === '매수')" class="profit_guide">
             <span [ngStyle]="{'color': nowPriceTrend - pastPriceTrend>0 ? '#ee3b89' : '#65a3f5' }">{{ nowPriceTrend - pastPriceTrend | currency:'KRW':'symbol'}}</span> 수익
           </div>
-          <div *ngIf="inputDataTrend !== undefined && inputDataTrend.data.length > 0" class="profit_guide">
+          <div *ngIf="inputDataTrend !== undefined && inputDataTrend.data.length > 0 &&  !(typeSelected.length === 1 && typeSelected[0] === '매수')" class="profit_guide">
             - 총 수익률 : <span [ngStyle]="{'color': totalRateTrend>0 ? '#ee3b89' : '#65a3f5' }">{{totalRateTrend}}</span> %
           </div>
-          <div *ngIf="inputDataTrend !== undefined && inputDataTrend.data.length > 0 && !isMobileDevice" class="profit_guide">
+          <div *ngIf="inputDataTrend !== undefined && inputDataTrend.data.length > 0 && !isMobileDevice && !(typeSelected.length === 1 && typeSelected[0] === '매수')" class="profit_guide">
             - 평균 수익 실현 기간 {{period_avg_trend}}
           </div>
-
+        
           <table mat-table *ngIf="inputDataTrend !== undefined && inputDataTrend.data.length > 0"
             [dataSource]="inputDataTrend.data" class="mat-elevation-z8" (swiperight)="onSwipeRight($event)"
             (swipeleft)="onSwipeLeft($event)">
@@ -87,21 +87,21 @@
         </mat-tab>
         
         <mat-tab label="알고리즘 923" *ngIf="getData">
-          <div *ngIf="inputDataReverse !== undefined && inputDataReverse.data.length > 0" class="profit_guide"
+          <div *ngIf="inputDataReverse !== undefined && inputDataReverse.data.length > 0 && !(typeSelected.length === 1 && typeSelected[0] === '매수')" class="profit_guide"
             style="margin-top: 30px;">
             모든 종목 대략 {{money}}만원씩 신호때마다 샀다면?
           </div>
-          <div *ngIf="inputDataReverse !== undefined && inputDataReverse.data.length > 0" class="profit_guide">
+          <div *ngIf="inputDataReverse !== undefined && inputDataReverse.data.length > 0 && !(typeSelected.length === 1 && typeSelected[0] === '매수')" class="profit_guide">
             투자금 {{pastPriceReverse | currency:'KRW':'symbol'}}  /   현재 {{nowPriceReverse| currency:'KRW':'symbol'}}
           </div>
-          <div *ngIf="inputDataReverse !== undefined && inputDataReverse.data.length > 0" class="profit_guide">
+          <div *ngIf="inputDataReverse !== undefined && inputDataReverse.data.length > 0 && !(typeSelected.length === 1 && typeSelected[0] === '매수')" class="profit_guide">
             <span [ngStyle]="{'color': nowPriceReverse - pastPriceReverse>0 ? '#ee3b89' : '#65a3f5' }">{{ nowPriceReverse - pastPriceReverse | currency:'KRW':'symbol'}}</span> 수익
           </div>
-          <div *ngIf="inputDataReverse !== undefined && inputDataReverse.data.length > 0" class="profit_guide">
+          <div *ngIf="inputDataReverse !== undefined && inputDataReverse.data.length > 0 && !(typeSelected.length === 1 && typeSelected[0] === '매수')" class="profit_guide">
             - 총 수익률 : <span
               [ngStyle]="{'color': totalRateReverse>0 ? '#ee3b89' : '#65a3f5' }">{{totalRateReverse}}</span> %
           </div>
-          <div *ngIf="inputDataReverse !== undefined && inputDataReverse.data.length > 0 && !isMobileDevice" class="profit_guide">
+          <div *ngIf="inputDataReverse !== undefined && inputDataReverse.data.length > 0 && !isMobileDevice && !(typeSelected.length === 1 && typeSelected[0] === '매수')" class="profit_guide">
             - 평균 수익 실현 기간 {{period_avg_reverse}}
           </div>
           <table mat-table (swiperight)="onSwipeRight($event)" (swipeleft)="onSwipeLeft($event)"
