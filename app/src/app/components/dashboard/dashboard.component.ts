@@ -173,29 +173,30 @@ export class DashboardComponent implements OnInit {
   }
 
   requestSignalData(type: string) {
-    var lastday = 1
-    var today = new Date().getDay()
-    let hour = new Date().getHours() 
-
-    switch (today) {
-      case 0:
-        lastday = 2
-        break
-      case 1:
-        lastday = 3
-        break
-      default:
-        if(hour >=0 && hour <3 && this.type=== "KRX") lastday = 2
-        else if(hour >=0 && hour <13 && this.type=== "NASDAQ") lastday =2
-        else if(hour >=0 && hour <2 && this.type=== "COIN") lastday =2
-        break
-    }
-
-
     let now = new Date();
-    this.end = this.datePipe.transform(now,"yyyy-MM-dd")
-    this.start = this.datePipe.transform(now.setDate(now.getDate() - lastday),"yyyy-MM-dd")
-
+    this.end = this.datePipe.transform(now, "yyyy-MM-dd")
+    switch (now.getDay()) {
+      case 0: // sunday
+        this.start = this.datePipe.transform(now.setDate(now.getDate() - 2), "yyyy-MM-dd")
+        break;
+      case 1: //mon
+        if (now.getHours() < 16) {
+          this.start = this.datePipe.transform(now.setDate(now.getDate() - 3), "yyyy-MM-dd")
+        } else {
+          this.start = this.datePipe.transform(now, "yyyy-MM-dd")
+        }
+        break;
+      case 6: //saturday
+        this.start = this.datePipe.transform(now.setDate(now.getDate() - 1), "yyyy-MM-dd")
+        break;
+      default:
+        if (now.getHours() < 16) {
+          this.start = this.datePipe.transform(now.setDate(now.getDate() - 1), "yyyy-MM-dd")
+        } else {
+          this.start = this.datePipe.transform(now, "yyyy-MM-dd")
+        }
+    }
+    
     this.requestService.getLastBollingerTrendSignal(this.start, this.end, type)
       .subscribe({
         next: (v: any) => {
