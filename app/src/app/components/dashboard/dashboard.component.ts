@@ -240,7 +240,7 @@ export class DashboardComponent implements OnInit {
           title = "알고리즘815 매수 신호"
           if (element.type === "buy" && element.valid === "valid") {
             if (!IS_MOBILE) dataArray.push([
-              this.dataService.getCompanyNamebyCode(element.code, this.type),
+              this.dataService.getCompanyNamebyCode(element.code, this.type) + ' (' + element.code + ')',
               element.date,
               String(element.close),
               element.last_sell_date,
@@ -249,7 +249,7 @@ export class DashboardComponent implements OnInit {
               element.code
             ])
             else dataArray.push([
-              this.dataService.getCompanyNamebyCode(element.code, this.type),
+              this.dataService.getCompanyNamebyCode(element.code, this.type) + ' (' + element.code + ')',
               String(element.close),
               element.last_sell_close !== -1 ? String(element.last_sell_close) : "-",
               "-",
@@ -263,7 +263,7 @@ export class DashboardComponent implements OnInit {
         this.rawLatestSignalReverse.forEach(element => {
           if (element.type === "buy" && element.valid === "valid") {
             if (!IS_MOBILE) dataArray.push([
-              this.dataService.getCompanyNamebyCode(element.code, this.type),
+              this.dataService.getCompanyNamebyCode(element.code, this.type) + ' (' + element.code + ')',
               element.date,
               String(element.close),
               element.last_sell_date,
@@ -273,7 +273,7 @@ export class DashboardComponent implements OnInit {
               element.code
             ])
             else dataArray.push([
-              this.dataService.getCompanyNamebyCode(element.code, this.type),
+              this.dataService.getCompanyNamebyCode(element.code, this.type) + ' (' + element.code + ')',
               String(element.close),
               element.last_sell_close !== -1 ? String(element.last_sell_close) : "-",
 
@@ -315,7 +315,7 @@ export class DashboardComponent implements OnInit {
         this.rawLatestSignalTrend.forEach(element => {
           if (element.type === "sell" && element.valid === "valid") {
             if (!IS_MOBILE) dataArray.push([
-              this.dataService.getCompanyNamebyCode(element.code, this.type),
+              this.dataService.getCompanyNamebyCode(element.code, this.type) + ' (' + element.code + ')',
               element.date,
               String(element.close),
               element.last_buy_date,
@@ -324,7 +324,7 @@ export class DashboardComponent implements OnInit {
               element.code
             ])
             else dataArray.push([
-              this.dataService.getCompanyNamebyCode(element.code, this.type),
+              this.dataService.getCompanyNamebyCode(element.code, this.type) + ' (' + element.code + ')',
               String(element.close),
               element.last_buy_close !== -1 ? String(element.last_buy_close) : "-",
               element.last_buy_close !== -1 ? String(((element.close - element.last_buy_close) / element.last_buy_close * 100).toFixed(2)) : "-",
@@ -339,7 +339,7 @@ export class DashboardComponent implements OnInit {
         this.rawLatestSignalReverse.forEach(element => {
           if (element.type === "sell" && element.valid === "valid") {
             if (!IS_MOBILE) dataArray.push([
-              this.dataService.getCompanyNamebyCode(element.code, this.type),
+              this.dataService.getCompanyNamebyCode(element.code, this.type) + ' (' + element.code + ')',
               element.date,
               String(element.close),
               element.last_buy_date,
@@ -348,7 +348,7 @@ export class DashboardComponent implements OnInit {
               element.code
             ])
             else dataArray.push([
-              this.dataService.getCompanyNamebyCode(element.code, this.type),
+              this.dataService.getCompanyNamebyCode(element.code, this.type) + ' (' + element.code + ')',
               String(element.close),
               element.last_buy_close !== -1 ? String(element.last_buy_close) : "-",
               element.last_buy_close !== -1 ? String(((element.close - element.last_buy_close) / element.last_buy_close * 100).toFixed(2)) : "-",
