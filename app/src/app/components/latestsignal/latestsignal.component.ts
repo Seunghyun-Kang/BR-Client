@@ -187,7 +187,7 @@ export class LatestsignalComponent implements OnInit {
             element.type === "sell" ? "매도" : "매수",
             element.date +'(' +String(element._period) + ')',
             String(element.close),
-            element.type === "sell" ? element.last_buy_date : element.last_sell_date,
+            element.type === "sell" ? element.first_buy_date : element.last_sell_date,
             element.type === "sell" ? element.last_buy_close !== -1 ? String(element.last_buy_close) : "-" : element.last_sell_close !== -1 ? String(element.last_sell_close) : "-",
             element.type === "buy" || element.last_buy_close === -1 ? "-" : String(((element.close - element.last_buy_close) / element.last_buy_close * 100).toFixed(2)),
             element.code
@@ -277,7 +277,7 @@ export class LatestsignalComponent implements OnInit {
             element.type === "sell" ? "매도" : "매수",
             element.date +'(' +String(element._period) + ')',
             String(element.close),
-            element.type === "sell" ? element.last_buy_date : element.last_sell_date,
+            element.type === "sell" ? element.first_buy_date : element.last_sell_date,
             element.type === "sell" ? element.last_buy_close !== -1 ? String(element.last_buy_close): "-" : element.last_sell_close !== -1 ? String(element.last_sell_close) : "-",
             element.type === "buy" || element.last_buy_close === -1 ? "-" : String(((element.close - element.last_buy_close) / element.last_buy_close * 100).toFixed(2)),
             element.code
@@ -360,7 +360,7 @@ export class LatestsignalComponent implements OnInit {
             element.type === "sell" ? "매도" : "매수",
             element.date,
             String(element.close),
-            element.type === "sell" ? element.last_buy_date : element.last_sell_date,
+            element.type === "sell" ? element.first_buy_date : element.last_sell_date,
             element.type === "sell" ? element.last_buy_close !== -1 ? String(element.last_buy_close) : "-" : element.last_sell_close !== -1 ? String(element.last_sell_close) : "-",
             element.type === "buy" || element.last_buy_close === -1 ? "-" : String(((element.close - element.last_buy_close) / element.last_buy_close * 100).toFixed(2)),
             element.code
