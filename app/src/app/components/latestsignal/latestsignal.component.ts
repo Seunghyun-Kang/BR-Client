@@ -178,14 +178,14 @@ export class LatestsignalComponent implements OnInit {
         if ((typefilter.length === 2) ||
           (typefilter.length === 1 && typefilter[0] === '매수' && element.type === 'buy') ||
           (typefilter.length === 1 && typefilter[0] === '매도' && element.type === 'sell')) {
-            if(element.type === 'sell' && element._period > 0){
-              period = period + element._period
+            if(element.type === 'sell' && element._period_first > 0){
+              period = period + element._period_first
               sell_num++
               }
           dataArrayAll.push([
             name +'(' +String(element._returns.toFixed(2)) + ')' ,
             element.type === "sell" ? "매도" : "매수",
-            element.date +'(' +String(element._period) + ')',
+            element.date +'(' +String(element._period_first) + ')',
             String(element.close),
             element.type === "sell" ? element.first_buy_date : element.last_sell_date,
             element.type === "sell" ? element.last_buy_close !== -1 ? String(element.last_buy_close) : "-" : element.last_sell_close !== -1 ? String(element.last_sell_close) : "-",
@@ -268,14 +268,14 @@ export class LatestsignalComponent implements OnInit {
         if ((typefilter.length === 2) ||
           (typefilter.length === 1 && typefilter[0] === '매수' && element.type === 'buy') ||
           (typefilter.length === 1 && typefilter[0] === '매도' && element.type === 'sell')) {
-            if(element.type === 'sell' && element._period > 0){
-            period = period + element._period
+            if(element.type === 'sell' && element._period_first > 0){
+            period = period + element._period_first
             sell_num++
             }
           dataArrayAll.push([
             name +'(' +String(element._returns.toFixed(2)) + ')' ,
             element.type === "sell" ? "매도" : "매수",
-            element.date +'(' +String(element._period) + ')',
+            element.date +'(' +String(element._period_first) + ')',
             String(element.close),
             element.type === "sell" ? element.first_buy_date : element.last_sell_date,
             element.type === "sell" ? element.last_buy_close !== -1 ? String(element.last_buy_close): "-" : element.last_sell_close !== -1 ? String(element.last_sell_close) : "-",
