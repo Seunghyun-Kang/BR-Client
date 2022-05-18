@@ -23,6 +23,8 @@ export class DataService {
   public latestTripleScreenSignalData = new Map<any, signalData[]>();
   public latestBollingerTrendSignalData = new Map<any, signalData[]>();
   public latestBollingerReverseSignalData = new Map<any, signalData[]>();
+  public latestBollingerTest1SignalData = new Map<any, signalData[]>();
+  public latestBollingerTest2SignalData = new Map<any, signalData[]>();
 
   constructor() {
     console.log("Data service generated");
@@ -115,7 +117,22 @@ export class DataService {
     // console.log("setLatestBollingerReverseSignalData called");
     this.latestBollingerReverseSignalData.set(day, data)
   }
-  
+  getLatestBollingerTest1SignalData(day: number): any {
+    // console.log("getLatestBollingerTrendSignalData called");
+    return this.latestBollingerTest1SignalData.get(day)
+  }
+  setLatestBollingerTest1SignalData(day: number, data: signalData[]) {
+    // console.log("setlatestTripleScreenSignalData called");
+    this.latestBollingerTest1SignalData.set(day, data)
+  }
+  getLatestBollingerTest2SignalData(day: number): any {
+    // console.log("getLatestBollingerTrendSignalData called");
+    return this.latestBollingerTest2SignalData.get(day)
+  }
+  setLatestBollingerTest2SignalData(day: number, data: signalData[]) {
+    // console.log("setlatestTripleScreenSignalData called");
+    this.latestBollingerTest2SignalData.set(day, data)
+  }
   getMomentumData(lastday: number, type?: string): momentumData[] {
     if(type === undefined) type = "KRX"
 

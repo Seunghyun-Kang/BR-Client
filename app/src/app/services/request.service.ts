@@ -115,6 +115,20 @@ export class RequestService {
       );
   }
 
+  getLastBollingerTest1Signal(start: string, end: string, symbol?: string) {
+    if(symbol == undefined) symbol = "KRX"
+    return this.http.get(this.REST_SERVER_URL + 'signal_test1/'+ symbol +'/' + start + '/' + end + '/',{ observe: 'response', headers: this.headers })
+      .pipe(
+        catchError(this.handleError)
+      );
+  }
+  getLastBollingerTest2Signal(start: string, end: string, symbol?: string) {
+    if(symbol == undefined) symbol = "KRX"
+    return this.http.get(this.REST_SERVER_URL + 'signal_test2/'+ symbol +'/' + start + '/' + end + '/',{ observe: 'response', headers: this.headers })
+      .pipe(
+        catchError(this.handleError)
+      );
+  }
   getLastTripleScreenSignal(start: string, end: string, symbol?: string) {
     if(symbol == undefined) symbol = "KRX"
     return this.http.get(this.REST_SERVER_URL + 'signal_triple/' + symbol +'/' + start + '/' + end + '/', { observe: 'response', headers: this.headers })
