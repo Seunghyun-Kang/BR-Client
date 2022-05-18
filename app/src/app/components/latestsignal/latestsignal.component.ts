@@ -31,10 +31,16 @@ export class LatestsignalComponent implements OnInit {
   public isMobileDevice: boolean = false
   public rawLatestSignalTrend: signalData[] = []
   public rawLatestSignalReverse: signalData[] = []
+  public rawLatestSignalTest1: signalData[] = []
+  public rawLatestSignalTest2: signalData[] = []
+
   public rawLatestSignalTripleScreen: signalData[] = []
 
   public inputDataTrend: { title: string, column: string[], data: Array<string[]>, index: number, length: number }
   public inputDataReverse: { title: string, column: string[], data: Array<string[]>, index: number, length: number }
+  public inputDataTest1: { title: string, column: string[], data: Array<string[]>, index: number, length: number }
+  public inputDataTest2: { title: string, column: string[], data: Array<string[]>, index: number, length: number }
+
   public inputDataTriple: { title: string, column: string[], data: Array<string[]>, index: number, length: number }
   private columnlist = IS_MOBILE ? ["종목", "종류", "신호가", "과거가", "수익률"] : ["종목", "종류", "신호일", "신호가", "과거 거래일", "과거 거래가", "수익률"]
 
@@ -47,17 +53,27 @@ export class LatestsignalComponent implements OnInit {
 
   public totalRateTrend: number
   public totalRateReverse: number
+  public totalRateTest1: number
+  public totalRateTest2: number
+
   public totalRateTriple: number
 
   public nowPriceTrend = 0
   public pastPriceTrend = 0
   public nowPriceReverse = 0
   public pastPriceReverse = 0
+  public nowPriceTest1 = 0
+  public pastPriceTest1 = 0
+  public nowPriceTest2 = 0
+  public pastPriceTest2 = 0
+  
   public nowPriceTriple = 0
   public pastPriceTriple = 0
 
   public period_avg_trend = ""
   public period_avg_reverse = ""
+  public period_avg_test1 = ""
+  public period_avg_test2 = ""
 
   public selectedIndex = 0
   private subscription: Subscription;
@@ -106,6 +122,9 @@ export class LatestsignalComponent implements OnInit {
   resetAllData() {
     this.rawLatestSignalTrend = []
     this.rawLatestSignalReverse = []
+    this.rawLatestSignalTest1 = []
+    this.rawLatestSignalTest2 = []
+
     this.rawLatestSignalTripleScreen = []
     this.companyInfo = undefined
   }
@@ -133,11 +152,29 @@ export class LatestsignalComponent implements OnInit {
             .subscribe({
               next: (v: any) => {
                 this.rawLatestSignalReverse = Object(v.body)
+                
+                this.requestService.getLastBollingerTest1Signal(this.startday, this.endday, type)
+            .subscribe({
+              next: (v: any) => {
+                this.rawLatestSignalTest1 = Object(v.body)
+                this.requestService.getLastBollingerTest2Signal(this.startday, this.endday, type)
+            .subscribe({
+              next: (v: any) => {
+                this.rawLatestSignalTest2 = Object(v.body)  
                 this.statusService.setStatus("normal")
                 this.getData = true
-                      this.setDisplayDataTrend(0, this.typeSelected, this.columnlist)
-                      this.setDisplayDataReverse(0, this.typeSelected, this.columnlist)
-                      this.setDisplayDataTriple(0, this.typeSelected, this.columnlist)
+                this.setDisplayDataTrend(0, this.typeSelected, this.columnlist)
+                this.setDisplayDataReverse(0, this.typeSelected, this.columnlist)
+                this.setDisplayDataTriple(0, this.typeSelected, this.columnlist)
+                this.setDisplayDataTest1(0, this.typeSelected, this.columnlist)
+                this.setDisplayDataTest2(0, this.typeSelected, this.columnlist)
+              },
+              error: (e: any) => console.log("ERROR OCCURED :: " + JSON.stringify(e))
+            });
+              
+                    },
+                    error: (e: any) => console.log("ERROR OCCURED :: " + JSON.stringify(e))
+                  });
                 // this.dataService.setLatestBollingerReverseSignalData(this.lastday, this.rawLatestSignalReverse)
                 // this.requestService.getLastTripleScreenSignal(this.startday, this.endday, type)
                 //   .subscribe({
@@ -425,6 +462,185 @@ export class LatestsignalComponent implements OnInit {
     }
   }
 
+  setDisplayDataTest1(page: number, typefilter: string[] = ['매수', '매도'], columnlist: string[] = []) {
+    let dataArrayAll: Array<string[]> = []
+    let dataArrayShow: Array<string[]> = []
+    let startIndex = page * 10
+    let lastIndex = startIndex + 10
+    let period = 0
+    let sell_num = 0
+
+    if (this.rawLatestSignalTest1 !== undefined) this.rawLatestSignalTest1.forEach((element, index) => {
+      if (!IS_MOBILE) {
+        if ((typefilter.length === 2) ||
+          (typefilter.length === 1 && typefilter[0] === '매수' && element.type === 'buy') ||
+          (typefilter.length === 1 && typefilter[0] === '매도' && element.type === 'sell')) {
+            if(element.type === 'sell' && element._period_first > 0){
+              period = period + element._period_first
+              sell_num++
+              }
+          dataArrayAll.push([
+            this.dataService.getCompanyNamebyCode(element.code, this.type),
+            element.type === "sell" ? "매도" : "매수",
+            element.date,
+            String(element.close),
+            element.type === "sell" ? element.first_buy_date : element.last_sell_date,
+            element.type === "sell" ? element.last_buy_close !== -1 ? String(element.last_buy_close) : "-" : element.last_sell_close !== -1 ? String(element.last_sell_close) : "-",
+            element.type === "buy" || element.last_buy_close === -1 ? "-" : String(((element.close - element.last_buy_close) / element.last_buy_close * 100).toFixed(2)),
+            element.code
+          ])
+        }
+      } else {
+        if ((typefilter.length === 2) ||
+          (typefilter.length === 1 && typefilter[0] === '매수' && element.type === 'buy') ||
+          (typefilter.length === 1 && typefilter[0] === '매도' && element.type === 'sell')) {
+
+          dataArrayAll.push([
+            this.dataService.getCompanyNamebyCode(element.code, this.type),
+            element.type === "sell" ? "매도" : "매수",
+            String(element.close),
+            element.type === "sell" ? element.last_buy_close !== -1 ? String(element.last_buy_close) : "-" : element.last_sell_close !== -1 ? String(element.last_sell_close) : "-",
+            element.type === "buy" || element.last_buy_close === -1 ? "-" : String(((element.close - element.last_buy_close) / element.last_buy_close * 100).toFixed(2)),
+            element.code
+          ])
+        }
+      }
+    });
+
+    this.pastPriceTest1 = 0
+    this.nowPriceTest1 = 0
+    var limit = 10000 * this.money
+    dataArrayAll.forEach((element, index) => {
+      if (IS_MOBILE && element[1] === "매도" && element[3] != "-" && element[2] != "-" && element[2] != "null" && element[3] != "null") {
+        var time = 1
+        var price = Number(element[2])
+        while (price < limit) {
+          time = time + 1
+          price = Number(element[2]) * time
+        }
+        this.nowPriceTest1 = this.nowPriceTest1 + price
+        this.pastPriceTest1 = this.pastPriceTest1 + Number(element[3]) * time;
+      }
+      if (!IS_MOBILE && element[1] === "매도" && element[3] != "-" && element[5] != "-" && element[5] !== "null" && element[3] !== "null") {
+        var time = 1
+        var price = Number(element[3])
+        while (price < limit) {
+          time = time + 1
+          price = Number(element[3]) * time
+        }
+        this.nowPriceTest1 = this.nowPriceTest1 + price
+        this.pastPriceTest1 = this.pastPriceTest1 + Number(element[5]) * time;
+      }
+    });
+    this.totalRateTest1 = Number(((this.nowPriceTest1 / this.pastPriceTest1 - 1) * 100).toFixed(2))
+
+    dataArrayAll.forEach((element, index) => {
+      if (index >= startIndex && index < lastIndex) {
+        dataArrayShow.push(element)
+      }
+    });
+
+    this.period_avg_test1 = (period / sell_num).toFixed(2)
+    this.inputDataTest1 = {
+      title: "테스트1",
+      column: columnlist,
+      data: dataArrayShow,
+      index: page,
+      length: Math.ceil(dataArrayAll.length / 10)
+    }
+  }
+
+  setDisplayDataTest2(page: number, typefilter: string[] = ['매수', '매도'], columnlist: string[] = []) {
+    let dataArrayAll: Array<string[]> = []
+    let dataArrayShow: Array<string[]> = []
+    let startIndex = page * 10
+    let lastIndex = startIndex + 10
+    let period = 0
+    let sell_num = 0
+
+    if (this.rawLatestSignalTest2 !== undefined) this.rawLatestSignalTest2.forEach((element, index) => {
+      if (!IS_MOBILE) {
+        if ((typefilter.length === 2) ||
+          (typefilter.length === 1 && typefilter[0] === '매수' && element.type === 'buy') ||
+          (typefilter.length === 1 && typefilter[0] === '매도' && element.type === 'sell')) {
+            if(element.type === 'sell' && element._period_first > 0){
+              period = period + element._period_first
+              sell_num++
+              }
+
+          dataArrayAll.push([
+            this.dataService.getCompanyNamebyCode(element.code, this.type),
+            element.type === "sell" ? "매도" : "매수",
+            element.date,
+            String(element.close),
+            element.type === "sell" ? element.first_buy_date : element.last_sell_date,
+            element.type === "sell" ? element.last_buy_close !== -1 ? String(element.last_buy_close) : "-" : element.last_sell_close !== -1 ? String(element.last_sell_close) : "-",
+            element.type === "buy" || element.last_buy_close === -1 ? "-" : String(((element.close - element.last_buy_close) / element.last_buy_close * 100).toFixed(2)),
+            element.code
+          ])
+        }
+      } else {
+        if ((typefilter.length === 2) ||
+          (typefilter.length === 1 && typefilter[0] === '매수' && element.type === 'buy') ||
+          (typefilter.length === 1 && typefilter[0] === '매도' && element.type === 'sell')) {
+
+          dataArrayAll.push([
+            this.dataService.getCompanyNamebyCode(element.code, this.type),
+            element.type === "sell" ? "매도" : "매수",
+            String(element.close),
+            element.type === "sell" ? element.last_buy_close !== -1 ? String(element.last_buy_close) : "-" : element.last_sell_close !== -1 ? String(element.last_sell_close) : "-",
+            element.type === "buy" || element.last_buy_close === -1 ? "-" : String(((element.close - element.last_buy_close) / element.last_buy_close * 100).toFixed(2)),
+            element.code
+          ])
+        }
+      }
+    });
+
+    this.pastPriceTest2 = 0
+    this.nowPriceTest2 = 0
+    var limit = 10000 * this.money
+    dataArrayAll.forEach((element, index) => {
+      if (IS_MOBILE && element[1] === "매도" && element[3] != "-" && element[2] != "-" && element[2] != "null" && element[3] != "null") {
+        var time = 1
+        var price = Number(element[2])
+        while (price < limit) {
+          time = time + 1
+          price = Number(element[2]) * time
+        }
+        this.nowPriceTest2 = this.nowPriceTest2 + price
+        this.pastPriceTest2 = this.pastPriceTest2 + Number(element[3]) * time;
+      }
+      if (!IS_MOBILE && element[1] === "매도" && element[3] != "-" && element[5] != "-" && element[5] !== "null" && element[3] !== "null") {
+        var time = 1
+        var price = Number(element[3])
+        while (price < limit) {
+          time = time + 1
+          price = Number(element[3]) * time
+        }
+        this.nowPriceTest2 = this.nowPriceTest2 + price
+        this.pastPriceTest2 = this.pastPriceTest2 + Number(element[5]) * time;
+      }
+    });
+    this.totalRateTest2 = Number(((this.nowPriceTest2 / this.pastPriceTest2 - 1) * 100).toFixed(2))
+
+    dataArrayAll.forEach((element, index) => {
+      if (index >= startIndex && index < lastIndex) {
+        dataArrayShow.push(element)
+      }
+    });
+
+    this.period_avg_test2 = (period / sell_num).toFixed(2)
+    this.inputDataTest2 = {
+      title: "테스트2",
+      column: columnlist,
+      data: dataArrayShow,
+      index: page,
+      length: Math.ceil(dataArrayAll.length / 10)
+    }
+  }
+
+  
+
   onTapCompany(code: string, company: string) {
     this.router.navigate(['stockdetail'], {
       queryParams: {
@@ -440,6 +656,8 @@ export class LatestsignalComponent implements OnInit {
     this.setDisplayDataTrend(0, this.typeSelected, this.columnlist)
     this.setDisplayDataReverse(0, this.typeSelected, this.columnlist)
     this.setDisplayDataTriple(0, this.typeSelected, this.columnlist)
+    this.setDisplayDataTest1(0, this.typeSelected, this.columnlist)
+    this.setDisplayDataTest2(0, this.typeSelected, this.columnlist)
   }
 
   onChangeDay(event: any) {
@@ -467,10 +685,20 @@ export class LatestsignalComponent implements OnInit {
     if (this.rawLatestSignalTripleScreen === undefined) {
       this.requestSignalData(this.type)
     }
+    this.rawLatestSignalTest1 = this.dataService.getLatestBollingerTest1SignalData(this.lastday)
+    if (this.rawLatestSignalTest1 === undefined) {
+      this.requestSignalData(this.type)
+    }
+    this.rawLatestSignalTest2 = this.dataService.getLatestBollingerTest2SignalData(this.lastday)
+    if (this.rawLatestSignalTest2 === undefined) {
+      this.requestSignalData(this.type)
+    }
 
     this.setDisplayDataTrend(0, this.typeSelected, this.columnlist)
     this.setDisplayDataReverse(0, this.typeSelected, this.columnlist)
     this.setDisplayDataTriple(0, this.typeSelected, this.columnlist)
+    this.setDisplayDataTest1(0, this.typeSelected, this.columnlist)
+    this.setDisplayDataTest2(0, this.typeSelected, this.columnlist)
   }
 
   onChangeMoney(event: any) {
@@ -488,6 +716,8 @@ export class LatestsignalComponent implements OnInit {
     this.setDisplayDataTrend(0, this.typeSelected, this.columnlist)
     this.setDisplayDataReverse(0, this.typeSelected, this.columnlist)
     this.setDisplayDataTriple(0, this.typeSelected, this.columnlist)
+    this.setDisplayDataTest1(0, this.typeSelected, this.columnlist)
+    this.setDisplayDataTest2(0, this.typeSelected, this.columnlist)
   }
 
   onSwipeRight(event: any) {
@@ -510,6 +740,8 @@ export class LatestsignalComponent implements OnInit {
     if(type == 1) this.setDisplayDataTrend(page, this.typeSelected, this.columnlist)
     else if (type == 2) this.setDisplayDataReverse(page, this.typeSelected, this.columnlist)
     else if (type == 3) this.setDisplayDataTriple(page, this.typeSelected, this.columnlist)
+    else if (type == 4) this.setDisplayDataTest1(page, this.typeSelected, this.columnlist)
+    else if (type == 5) this.setDisplayDataTest2(page, this.typeSelected, this.columnlist)
   }
   onTapPrev(page: number, total: number, type: number) {
     console.log(page)
@@ -518,6 +750,8 @@ export class LatestsignalComponent implements OnInit {
     if(type == 1) this.setDisplayDataTrend(page, this.typeSelected, this.columnlist)
     else if (type == 2) this.setDisplayDataReverse(page, this.typeSelected, this.columnlist)
     else if (type == 3) this.setDisplayDataTriple(page, this.typeSelected, this.columnlist)
+    else if (type == 4) this.setDisplayDataTest1(page, this.typeSelected, this.columnlist)
+    else if (type == 5) this.setDisplayDataTest2(page, this.typeSelected, this.columnlist)
   }
 
   startDateChange(event: any) {
