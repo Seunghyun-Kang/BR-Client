@@ -85,7 +85,7 @@
               <igx-icon fontSet="material" (click)="onTapNext(inputDataTrend.index +1, inputDataTrend.length,1)" [name]="'Next'" [family]="'user-icons'"></igx-icon>
             </div>
         </mat-tab>
-        
+
         <mat-tab label="알고리즘 923" *ngIf="getData">
           <div *ngIf="inputDataReverse !== undefined && inputDataReverse.data.length > 0 && !(typeSelected.length === 1 && typeSelected[0] === '매수')" class="profit_guide"
             style="margin-top: 30px;">
@@ -125,7 +125,85 @@
               <igx-icon fontSet="material" (click)="onTapNext(inputDataReverse.index +1, inputDataReverse.length,2)" [name]="'Next'" [family]="'user-icons'"></igx-icon>
             </div>
         </mat-tab>
+        <mat-tab label="테스트1" *ngIf="getData">
+          <div *ngIf="inputDataTest1 !== undefined && inputDataTest1.data.length > 0 && !(typeSelected.length === 1 && typeSelected[0] === '매수')" class="profit_guide"
+            style="margin-top: 30px;">
+            모든 종목 대략 {{money}}만원씩 신호때마다 샀다면?
+          </div>
+          <div *ngIf="inputDataTest1 !== undefined && inputDataTest1.data.length > 0 && !(typeSelected.length === 1 && typeSelected[0] === '매수')" class="profit_guide">
+            투자금 {{pastPriceTest1 | currency:'KRW':'symbol'}}  /   현재 {{nowPriceTest1| currency:'KRW':'symbol'}}
+          </div>
+          <div *ngIf="inputDataTest1 !== undefined && inputDataTest1.data.length > 0 && !(typeSelected.length === 1 && typeSelected[0] === '매수')" class="profit_guide">
+            <span [ngStyle]="{'color': nowPriceTest1 - pastPriceTest1>0 ? '#ee3b89' : '#65a3f5' }">{{ nowPriceTest1 - pastPriceTest1 | currency:'KRW':'symbol'}}</span> 수익
+          </div>
+          <div *ngIf="inputDataTest1 !== undefined && inputDataTest1.data.length > 0 && !(typeSelected.length === 1 && typeSelected[0] === '매수')" class="profit_guide">
+            - 총 수익률 : <span
+              [ngStyle]="{'color': totalRateTest1>0 ? '#ee3b89' : '#65a3f5' }">{{totalRateTest1}}</span> %
+          </div>
+          <div *ngIf="inputDataTest1 !== undefined && inputDataTest1.data.length > 0 && !isMobileDevice && !(typeSelected.length === 1 && typeSelected[0] === '매수')" class="profit_guide">
+            - 평균 수익 실현 기간 {{period_avg_test1}}
+          </div>
+          <table mat-table (swiperight)="onSwipeRight($event)" (swipeleft)="onSwipeLeft($event)"
+            *ngIf="inputDataTest1 !== undefined && inputDataTest1.data.length > 0"
+            [dataSource]="inputDataTest1.data" class="mat-elevation-z8">
+            <ng-container *ngFor="let item of inputDataTest1.column; index as i" [matColumnDef]=item>
+              <th mat-header-cell *matHeaderCellDef> {{item}} </th>
+              <td mat-cell *matCellDef="let element"
+                [ngStyle]="{'color': element[i] === '매수' ? '#ee3b89' : element[i] === '매도' ?'#65a3f5': 'white', 'color': i == inputDataTest1.column.length-1 && element[i] > 0 ? '#ee3b89' : i == inputDataTest1.column.length-1 && element[i] < 0 ?'#65a3f5': 'white' }"
+                (click)="onTapCompany(element[inputDataTest1.column.length], element[0])">
+                {{element[i]}}</td>
+            </ng-container>
+            <tr mat-header-row *matHeaderRowDef="inputDataTest1.column"></tr>
+            <tr mat-row *matRowDef="let row; columns: inputDataTest1.column;"></tr>
+          </table>
+          <div class="nolist" (swiperight)="onSwipeRight($event)" (swipeleft)="onSwipeLeft($event)"
+            *ngIf="inputDataTest1 !== undefined && inputDataTest1.data.length == 0"> 신호 없음 </div>
+            <div class="page-container" *ngIf="inputDataTest1 !== undefined && inputDataTest1.length > 0">
+              <igx-icon fontSet="material" (click)="onTapPrev(inputDataTest1.index-1, inputDataTest1.length,2)" [name]="'Prev'" [family]="'user-icons'"></igx-icon>
+              <div class="index"> {{inputDataTest1.index + 1 }} / {{ inputDataTest1.length }}</div>
+              <igx-icon fontSet="material" (click)="onTapNext(inputDataTest1.index +1, inputDataTest1.length,2)" [name]="'Next'" [family]="'user-icons'"></igx-icon>
+            </div>
+        </mat-tab>
 
+        <mat-tab label="테스트2" *ngIf="getData">
+          <div *ngIf="inputDataTest2 !== undefined && inputDataTest2.data.length > 0 && !(typeSelected.length === 1 && typeSelected[0] === '매수')" class="profit_guide"
+            style="margin-top: 30px;">
+            모든 종목 대략 {{money}}만원씩 신호때마다 샀다면?
+          </div>
+          <div *ngIf="inputDataTest2 !== undefined && inputDataTest2.data.length > 0 && !(typeSelected.length === 1 && typeSelected[0] === '매수')" class="profit_guide">
+            투자금 {{pastPriceTest2 | currency:'KRW':'symbol'}}  /   현재 {{nowPriceTest2| currency:'KRW':'symbol'}}
+          </div>
+          <div *ngIf="inputDataTest2 !== undefined && inputDataTest2.data.length > 0 && !(typeSelected.length === 1 && typeSelected[0] === '매수')" class="profit_guide">
+            <span [ngStyle]="{'color': nowPriceTest2 - pastPriceTest2>0 ? '#ee3b89' : '#65a3f5' }">{{ nowPriceTest2 - pastPriceTest2| currency:'KRW':'symbol'}}</span> 수익
+          </div>
+          <div *ngIf="inputDataTest2 !== undefined && inputDataTest2.data.length > 0 && !(typeSelected.length === 1 && typeSelected[0] === '매수')" class="profit_guide">
+            - 총 수익률 : <span
+              [ngStyle]="{'color': totalRateTest2>0 ? '#ee3b89' : '#65a3f5' }">{{totalRateTest2}}</span> %
+          </div>
+          <div *ngIf="inputDataTest2 !== undefined && inputDataTest2.data.length > 0 && !isMobileDevice && !(typeSelected.length === 1 && typeSelected[0] === '매수')" class="profit_guide">
+            - 평균 수익 실현 기간 {{period_avg_test2}}
+          </div>
+          <table mat-table (swiperight)="onSwipeRight($event)" (swipeleft)="onSwipeLeft($event)"
+            *ngIf="inputDataTest2 !== undefined && inputDataTest2.data.length > 0"
+            [dataSource]="inputDataTest2.data" class="mat-elevation-z8">
+            <ng-container *ngFor="let item of inputDataTest2.column; index as i" [matColumnDef]=item>
+              <th mat-header-cell *matHeaderCellDef> {{item}} </th>
+              <td mat-cell *matCellDef="let element"
+                [ngStyle]="{'color': element[i] === '매수' ? '#ee3b89' : element[i] === '매도' ?'#65a3f5': 'white', 'color': i == inputDataTest2.column.length-1 && element[i] > 0 ? '#ee3b89' : i == inputDataTest2.column.length-1 && element[i] < 0 ?'#65a3f5': 'white' }"
+                (click)="onTapCompany(element[inputDataTest2.column.length], element[0])">
+                {{element[i]}}</td>
+            </ng-container>
+            <tr mat-header-row *matHeaderRowDef="inputDataTest2.column"></tr>
+            <tr mat-row *matRowDef="let row; columns: inputDataTest2.column;"></tr>
+          </table>
+          <div class="nolist" (swiperight)="onSwipeRight($event)" (swipeleft)="onSwipeLeft($event)"
+            *ngIf="inputDataTest2 !== undefined && inputDataTest2.data.length == 0"> 신호 없음 </div>
+            <div class="page-container" *ngIf="inputDataTest2 !== undefined && inputDataTest2.length > 0">
+              <igx-icon fontSet="material" (click)="onTapPrev(inputDataTest2.index-1, inputDataTest2.length,2)" [name]="'Prev'" [family]="'user-icons'"></igx-icon>
+              <div class="index"> {{inputDataTest2.index + 1 }} / {{ inputDataTest2.length }}</div>
+              <igx-icon fontSet="material" (click)="onTapNext(inputDataTest2.index +1, inputDataTest2.length,2)" [name]="'Next'" [family]="'user-icons'"></igx-icon>
+            </div>
+        </mat-tab>
         <!-- <mat-tab label="삼중창 시스템">
           <div *ngIf="inputDataTriple !== undefined && inputDataTriple.data.length > 0" class="profit_guide"
             style="margin-top: 30px;">
