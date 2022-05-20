@@ -471,21 +471,22 @@ export class LatestsignalComponent implements OnInit {
     let sell_num = 0
 
     if (this.rawLatestSignalTest1 !== undefined) this.rawLatestSignalTest1.forEach((element, index) => {
+      var name = this.dataService.getCompanyNamebyCode(element.code, this.type)
       if (!IS_MOBILE) {
         if ((typefilter.length === 2) ||
           (typefilter.length === 1 && typefilter[0] === '매수' && element.type === 'buy') ||
           (typefilter.length === 1 && typefilter[0] === '매도' && element.type === 'sell')) {
             if(element.type === 'sell' && element._period_first > 0){
-              period = period + element._period_first
-              sell_num++
-              }
+            period = period + element._period_first
+            sell_num++
+            }
           dataArrayAll.push([
-            this.dataService.getCompanyNamebyCode(element.code, this.type),
+            name +'(' +String(element._returns.toFixed(2)) + ')' ,
             element.type === "sell" ? "매도" : "매수",
-            element.date,
+            element.date +'(' +String(element._period_first) + ')',
             String(element.close),
             element.type === "sell" ? element.first_buy_date : element.last_sell_date,
-            element.type === "sell" ? element.last_buy_close !== -1 ? String(element.last_buy_close) : "-" : element.last_sell_close !== -1 ? String(element.last_sell_close) : "-",
+            element.type === "sell" ? element.last_buy_close !== -1 ? String(element.last_buy_close): "-" : element.last_sell_close !== -1 ? String(element.last_sell_close) : "-",
             element.type === "buy" || element.last_buy_close === -1 ? "-" : String(((element.close - element.last_buy_close) / element.last_buy_close * 100).toFixed(2)),
             element.code
           ])
@@ -496,7 +497,7 @@ export class LatestsignalComponent implements OnInit {
           (typefilter.length === 1 && typefilter[0] === '매도' && element.type === 'sell')) {
 
           dataArrayAll.push([
-            this.dataService.getCompanyNamebyCode(element.code, this.type),
+            name,
             element.type === "sell" ? "매도" : "매수",
             String(element.close),
             element.type === "sell" ? element.last_buy_close !== -1 ? String(element.last_buy_close) : "-" : element.last_sell_close !== -1 ? String(element.last_sell_close) : "-",
@@ -559,22 +560,22 @@ export class LatestsignalComponent implements OnInit {
     let sell_num = 0
 
     if (this.rawLatestSignalTest2 !== undefined) this.rawLatestSignalTest2.forEach((element, index) => {
+      var name = this.dataService.getCompanyNamebyCode(element.code, this.type)
       if (!IS_MOBILE) {
         if ((typefilter.length === 2) ||
           (typefilter.length === 1 && typefilter[0] === '매수' && element.type === 'buy') ||
           (typefilter.length === 1 && typefilter[0] === '매도' && element.type === 'sell')) {
             if(element.type === 'sell' && element._period_first > 0){
-              period = period + element._period_first
-              sell_num++
-              }
-
+            period = period + element._period_first
+            sell_num++
+            }
           dataArrayAll.push([
-            this.dataService.getCompanyNamebyCode(element.code, this.type),
+            name +'(' +String(element._returns.toFixed(2)) + ')' ,
             element.type === "sell" ? "매도" : "매수",
-            element.date,
+            element.date +'(' +String(element._period_first) + ')',
             String(element.close),
             element.type === "sell" ? element.first_buy_date : element.last_sell_date,
-            element.type === "sell" ? element.last_buy_close !== -1 ? String(element.last_buy_close) : "-" : element.last_sell_close !== -1 ? String(element.last_sell_close) : "-",
+            element.type === "sell" ? element.last_buy_close !== -1 ? String(element.last_buy_close): "-" : element.last_sell_close !== -1 ? String(element.last_sell_close) : "-",
             element.type === "buy" || element.last_buy_close === -1 ? "-" : String(((element.close - element.last_buy_close) / element.last_buy_close * 100).toFixed(2)),
             element.code
           ])
@@ -585,7 +586,7 @@ export class LatestsignalComponent implements OnInit {
           (typefilter.length === 1 && typefilter[0] === '매도' && element.type === 'sell')) {
 
           dataArrayAll.push([
-            this.dataService.getCompanyNamebyCode(element.code, this.type),
+            name,
             element.type === "sell" ? "매도" : "매수",
             String(element.close),
             element.type === "sell" ? element.last_buy_close !== -1 ? String(element.last_buy_close) : "-" : element.last_sell_close !== -1 ? String(element.last_sell_close) : "-",

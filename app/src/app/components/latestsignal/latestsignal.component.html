@@ -159,9 +159,9 @@
           <div class="nolist" (swiperight)="onSwipeRight($event)" (swipeleft)="onSwipeLeft($event)"
             *ngIf="inputDataTest1 !== undefined && inputDataTest1.data.length == 0"> 신호 없음 </div>
             <div class="page-container" *ngIf="inputDataTest1 !== undefined && inputDataTest1.length > 0">
-              <igx-icon fontSet="material" (click)="onTapPrev(inputDataTest1.index-1, inputDataTest1.length,2)" [name]="'Prev'" [family]="'user-icons'"></igx-icon>
+              <igx-icon fontSet="material" (click)="onTapPrev(inputDataTest1.index-1, inputDataTest1.length,4)" [name]="'Prev'" [family]="'user-icons'"></igx-icon>
               <div class="index"> {{inputDataTest1.index + 1 }} / {{ inputDataTest1.length }}</div>
-              <igx-icon fontSet="material" (click)="onTapNext(inputDataTest1.index +1, inputDataTest1.length,2)" [name]="'Next'" [family]="'user-icons'"></igx-icon>
+              <igx-icon fontSet="material" (click)="onTapNext(inputDataTest1.index +1, inputDataTest1.length,4)" [name]="'Next'" [family]="'user-icons'"></igx-icon>
             </div>
         </mat-tab>
 
@@ -199,9 +199,9 @@
           <div class="nolist" (swiperight)="onSwipeRight($event)" (swipeleft)="onSwipeLeft($event)"
             *ngIf="inputDataTest2 !== undefined && inputDataTest2.data.length == 0"> 신호 없음 </div>
             <div class="page-container" *ngIf="inputDataTest2 !== undefined && inputDataTest2.length > 0">
-              <igx-icon fontSet="material" (click)="onTapPrev(inputDataTest2.index-1, inputDataTest2.length,2)" [name]="'Prev'" [family]="'user-icons'"></igx-icon>
+              <igx-icon fontSet="material" (click)="onTapPrev(inputDataTest2.index-1, inputDataTest2.length,5)" [name]="'Prev'" [family]="'user-icons'"></igx-icon>
               <div class="index"> {{inputDataTest2.index + 1 }} / {{ inputDataTest2.length }}</div>
-              <igx-icon fontSet="material" (click)="onTapNext(inputDataTest2.index +1, inputDataTest2.length,2)" [name]="'Next'" [family]="'user-icons'"></igx-icon>
+              <igx-icon fontSet="material" (click)="onTapNext(inputDataTest2.index +1, inputDataTest2.length,5)" [name]="'Next'" [family]="'user-icons'"></igx-icon>
             </div>
         </mat-tab>
         <!-- <mat-tab label="삼중창 시스템">
