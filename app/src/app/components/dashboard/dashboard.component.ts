@@ -56,7 +56,7 @@ export class DashboardComponent implements OnInit {
   private end: any
 
   public tooltipTrend = "알고리즘 815"
-  public tooltipReverse = "알고리즘 923"
+  public tooltipReverse = "알고리즘 220522"
   public tooltipTriple = "첫번째 창으로 추세를 판단, 두번재 창으로 추세에 반하는 움직임을 판단, 세번째에 진입 시점을 판단하여 매수/매도"
   public tooltipMomentum = "3~12개월 동안의 강세주들이 이후 동일한 기간 동안에도 강세주라는 전략. 기간이 길어질수록 더 확실하다."
 
