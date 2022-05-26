@@ -20,8 +20,8 @@ export class HeaderComponent implements OnInit {
 ]
   public country: string
   public updateGuide: string[] = 
-  ["한국 주식에 대한 정보와 예측은 매일 오전 4시에 업데이트 됩니다.",
-  //  "미국 주식에 대한 정보와 예측은 매일 점심 12시에 업데이트 됩니다.",
+  ["한국 주식에 대한 정보와 예측은 매일 오후 4시에 업데이트 됩니다.",
+   "미국 주식에 대한 정보와 예측은 매일 오후 1시에 업데이트 됩니다.",
   //  "코인에 대한 정보와 예측은 매일 오전, 오후 2시에 업데이트 됩니다.",
   ]
   public num: number = -1;
