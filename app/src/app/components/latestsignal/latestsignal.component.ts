@@ -95,6 +95,8 @@ export class LatestsignalComponent implements OnInit {
     this.start = new FormControl(date)
 
     let now = new Date();
+
+    if(this.type == "NASDAQ") now = this.getNowUTC()
     this.endday = this.datePipe.transform(now,"yyyy-MM-dd")
     this.startday = this.datePipe.transform(now.setDate(now.getDate() - 2),"yyyy-MM-dd")
 
@@ -112,6 +114,10 @@ export class LatestsignalComponent implements OnInit {
         this.requestSignalData(this.type)
       }
     });
+  }
+  private getNowUTC() {
+    const now = new Date();
+    return new Date(now.getTime() + (now.getTimezoneOffset() * 60000));
   }
 
   ngOnDestroy(): void {
