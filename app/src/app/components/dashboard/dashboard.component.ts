@@ -172,8 +172,16 @@ export class DashboardComponent implements OnInit {
       });
   }
 
+  private getNowUTC() {
+    const now = new Date();
+    return new Date(now.getTime() + (now.getTimezoneOffset() * 60000));
+  }
+
   requestSignalData(type: string) {
-    let now = new Date();
+    let now = new Date(); 
+    if (type=="NASDAQ") {
+      now = this.getNowUTC()
+    }
     this.end = this.datePipe.transform(now, "yyyy-MM-dd")
     switch (now.getDay()) {
       case 0: // sunday
@@ -196,7 +204,8 @@ export class DashboardComponent implements OnInit {
           this.start = this.datePipe.transform(now, "yyyy-MM-dd")
         }
     }
-    
+    console.log(this.start)
+    console.log(this.end)
     this.requestService.getLastBollingerTrendSignal(this.start, this.end, type)
       .subscribe({
         next: (v: any) => {
