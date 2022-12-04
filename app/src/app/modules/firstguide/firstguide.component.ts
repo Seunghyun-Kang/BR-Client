@@ -59,6 +59,11 @@ export class FirstguideComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     if(this.loginService.getNumberInCookie() !== undefined) this.router.navigate(['dashboard'],{})
+    else if(this.openAll) {
+      this.loginService.setNumberInCookie('pass')
+      this.router.navigate(['dashboard'],
+            {})
+    }
     else {
     this.timeout = setTimeout(() => {
       this.setAutoGuide(this.descIndex)
@@ -72,15 +77,6 @@ export class FirstguideComponent implements OnInit, OnDestroy {
       this.interval = setInterval(() => {
         this.setAutoGuide(this.descIndex)
       }, 4000)
-    }
-
-    if(this.openAll && index === 0) {
-      clearInterval(this.interval)
-      clearTimeout(this.timeout)
-
-      this.loginService.setNumberInCookie('pass')
-      this.router.navigate(['dashboard'],
-            {})
     }
 
     if (index < 2 && index !== 0) {
