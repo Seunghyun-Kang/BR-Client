@@ -22,8 +22,8 @@ export class FirstguideComponent implements OnInit, OnDestroy {
   public numform = this.formBuilder.group({
     number: new FormControl('', Validators.required),
   });
-  private try = 0;
   private registeredNumber: any;
+  public openAll = true;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -58,19 +58,29 @@ export class FirstguideComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
+    if(this.loginService.getNumberInCookie() !== undefined) this.router.navigate(['dashboard'],{})
+    else {
     this.timeout = setTimeout(() => {
       this.setAutoGuide(this.descIndex)
     }, 5000)
   }
+  }
 
   private setAutoGuide(index: number) {
-    this.try ++;
-    if(this.try >= 2) this.goDashboard()
     console.log("setAutoGuide called index :: " + index)
     if (this.interval === undefined) {
       this.interval = setInterval(() => {
         this.setAutoGuide(this.descIndex)
       }, 4000)
+    }
+
+    if(this.openAll && index === 0) {
+      clearInterval(this.interval)
+      clearTimeout(this.timeout)
+
+      this.loginService.setNumberInCookie('pass')
+      this.router.navigate(['dashboard'],
+            {})
     }
 
     if (index < 2 && index !== 0) {
@@ -90,12 +100,6 @@ export class FirstguideComponent implements OnInit, OnDestroy {
       clearInterval(this.interval)
       clearTimeout(this.timeout)
     }
-  }
-
-  goDashboard() {
-    this.presentDesc = this.exceptionDescArray[2];
-    this.router.navigate(['dashboard'],
-      {}) 
   }
 
   ngOnDestroy(): void {
@@ -118,8 +122,8 @@ export class FirstguideComponent implements OnInit, OnDestroy {
     for (let key in this.registeredNumber) {
       if (key === String(value)) {
         console.log("MATCH!! :: " + this.registeredNumber[key] + " index: " + this.descIndex)
-        // this.loginService.setNumberInCookie(String(value))
-        // this.descArray[this.descIndex + 1] = this.descArray[this.descIndex + 1].replace('#1#', this.registeredNumber[key])
+        this.loginService.setNumberInCookie(String(value))
+        this.descArray[this.descIndex + 1] = this.descArray[this.descIndex + 1].replace('#1#', this.registeredNumber[key])
         this.setAutoGuide(this.descIndex + 1)
         this.isAcceptAccount = true
       }

@@ -1,8 +1,8 @@
 <div class="guide_container">
     <p class="desc">{{presentDesc}}</p>
 
-    <div class="searchbar-container" *ngIf="descIndex === 0">
-        <!-- <app-search-bar (onChange)="onChange($event)" (onSelectedOption)="onSelectedOption($event)"
-            [placeholder]="'핸드폰 번호?'" [inputType]="'tel'"></app-search-bar> -->
+    <div class="searchbar-container" *ngIf="descIndex === 0 && !openAll">
+        <app-search-bar (onChange)="onChange($event)" (onSelectedOption)="onSelectedOption($event)"
+            [placeholder]="'핸드폰 번호?'" [inputType]="'tel'"></app-search-bar>
     </div>
 </div>
