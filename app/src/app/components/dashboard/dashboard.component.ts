@@ -66,6 +66,7 @@ export class DashboardComponent implements OnInit {
     private dataService: DataService,
     public dialog: MatDialog,
     private datePipe: DatePipe) {
+      console.log("DASHBOARD CONSTRUCTOR")
     this.statusService.setStatus("loading-forward")
   }
 
